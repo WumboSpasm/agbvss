@@ -138,7 +138,7 @@ void CheckContour(Object* pAO)
 	if(pAO->sp_yvel<0)					// If sprite moving upwards, check for ceiling tiles.
 	{
 		Tile5=pCollision_Map[MapX+((MapY-(pAO->sp_ysize>>3)+2)*map_x_size_tiles)]; // Read tile at top of sprite.
-		if(Tile5==COLLISION_TILE_8)		// Check for ceiling tile ?.
+		if(Tile5==COLLISION_TILE_9)		// Check for ceiling tile ?.
 		{
 			pAO->sp_ypos+=8;			// Force to bottom of tile.
 			pAO->sp_yvel=0;				// Stop sprite now !.
@@ -162,7 +162,7 @@ const u8 Contour04[8]={8,8,7,7,6,6,5,5,}; // 22deg left slope tile 1.
 const u8 Contour05[8]={4,4,3,3,2,2,1,1,}; // 22deg left slope tile 2.	
 const u8 Contour06[8]={1,2,3,4,5,6,7,8,}; // 45deg right slope tile.
 const u8 Contour07[8]={8,7,6,5,4,3,2,1,}; // 45deg left slope tile.			
-const u8 Contour08[8]={0,0,0,0,0,0,0,0,}; // Ceiling tile.	
-const u8 Contour09[8]={4,4,4,4,4,4,4,4,}; // Half 'moon' tile :)
+const u8 Contour08[8]={4,4,4,4,4,4,4,4,}; // Half 'moon' tile :)
+const u8 Contour09[8]={0,0,0,0,0,0,0,0,}; // Ceiling tile.	
 
 //***************************************************************************************************

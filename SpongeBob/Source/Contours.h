@@ -24,8 +24,8 @@ enum COLLISION_TILE
 	COLLISION_TILE_5=6,		 			// 22deg left slope tile 2.
 	COLLISION_TILE_6=7,		 			// 45deg right slope tile 1.
 	COLLISION_TILE_7=8,		 			// 45deg left slope tile 2.
-	COLLISION_TILE_8=1,	 				// Ceiling tile.
-	COLLISION_TILE_9=9,					// Half 'moon' tile :).
+	COLLISION_TILE_8=9,					// Half 'moon' tile :).
+	COLLISION_TILE_9=1,	 				// Ceiling tile.
 };
 
 /////////////////////////////////////////////////
