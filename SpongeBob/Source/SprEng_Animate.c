@@ -35,7 +35,7 @@ u8 const *SB_Karate_Anim[]={&Karate1_Char[0],&Karate2_Char[0],&Karate3_Char[0],&
 
 // Misc. animations sequences.
 
-u8 const *Patrick64[]={&Patrick64_Char[0],(char*)((int)HOLD),};
+u8 const *Patrick[]={&Patrick_Char[0],(char*)((int)HOLD),};
 u8 const *Platform1[]={&Platform1_Char[0],(char*)((int)HOLD),};
 
 //---------------------------------------------------------------------------------------------------
@@ -56,7 +56,7 @@ u8 const **Anim_List[]=
 	&SB_ButtBounce_Anim[0],			   	// 009.
 	&SB_Karate_Anim[0],	   			   	// 010.
 
-	&Patrick64[0],					   	// 011.
+	&Patrick[0],					   	// 011.
 	&Platform1[0],					   	// 012.
 };
 
@@ -79,7 +79,7 @@ u8 const **Anim_List[]=
 void ObjectAnimate(Object* pAO)
 {
 	// Update anim. frame here for current sprite.
-	DmaCopy(3,Anim_List[pAO->sp_aninum][pAO->sp_aniframe],OBJ_MODE0_VRAM+(64*64*(gOAMOffset>>4)),pAO->sp_xsize*pAO->sp_ysize,16); // Copy sprite character data.
+	DmaCopy(3,Anim_List[pAO->sp_aninum][pAO->sp_aniframe],OBJ_MODE0_VRAM+(gOAMOffset<<6),pAO->sp_xsize*pAO->sp_ysize,16); // Copy sprite character data (every 4th 64*64 sprite window in vram !!!).
 
 	pAO->sp_anitimer++;			 	// Check for next frame in sequence yet ?.
 	if(pAO->sp_anitimer==pAO->sp_anispeed)
