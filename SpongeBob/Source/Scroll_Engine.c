@@ -275,7 +275,7 @@ void InitScroll()
 	// Front layer.
 	SetBgTextControl((vu16*)REG_BG3CNT,BG_PRIORITY_0,BG_SCREEN_SIZE_0,BG_COLOR_256,BG_MOS_OFF,31,TILE_BASE_2);
 
-	DmaCopy(3,pTiles,TILE_BASE_ADDR_1,TILE_BANK_SIZE_1,16); // Load level data.
+	DmaCopy(3,pTiles,TILE_BASE_ADDR_1,TILE_BANK_SIZE_1,16); // Load level tile data.
 
 	DmaArrayCopy(3,libFontGame_Char,TILE_BASE_ADDR_2,16); // Load 'Speech Bubble' tile data.
 
@@ -404,6 +404,7 @@ void UpdateScroll()
 			Bg1_ScreenDat[y*32+x]=pAction_Map[((y_tilepos2+y)*map_x_size_tiles)+x_tilepos2+x]; // Update screen map buffer with tile name data.
 		}
 	}
+
 }
 
 //***************************************************************************************************

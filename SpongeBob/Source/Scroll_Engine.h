@@ -33,8 +33,8 @@ extern void UpdateScroll();
 /////////////////////////////////////////////////
 
 u16 Bg3_ScreenDat[32*32];				// Size of screen's in VRAM...
-u16 Bg2_ScreenDat[32*21];				// This buffer is dynamically updated later !.
-u16 Bg1_ScreenDat[32*21];				// This buffer is dynamically updated later !.
+u16 Bg2_ScreenDat[32*32];				// These buffer's are dynamically updated with 'scroll strips' later !.
+u16 Bg1_ScreenDat[32*32];
 
 extern u8 Level;						// Test level counter.
 

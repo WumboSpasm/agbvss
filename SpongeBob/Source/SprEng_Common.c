@@ -85,32 +85,32 @@ void InitSprites(void)
 // Level 1 & Sub-Levels.
 
 		case LEVEL020101:
-			pAO->sp_xpos=1*8; 				   	// Set SPONGEBOB sprite world map x-position.
-			pAO->sp_ypos=(1*8)-1;	 		   	// Set SPONGEBOB sprite world map y-position.
+			pAO->sp_xpos=72*8; 				   	// Set SPONGEBOB sprite world map x-position.
+			pAO->sp_ypos=(82*8)-1;	 		   	// Set SPONGEBOB sprite world map y-position.
 			break;
 		case LEVEL020102: 						// Etc.
-			pAO->sp_xpos=1*8;
-			pAO->sp_ypos=(1*8)-1;
+			pAO->sp_xpos=8*8;
+			pAO->sp_ypos=(38*8)-1;
 			break;
 		case LEVEL020103:
-			pAO->sp_xpos=1*8;
-			pAO->sp_ypos=(1*8)-1;
+			pAO->sp_xpos=8*8;
+			pAO->sp_ypos=(20*8)-1;
 			break;
 		case LEVEL020104:
-			pAO->sp_xpos=1*8;
-			pAO->sp_ypos=(1*8)-1;
+			pAO->sp_xpos=16*8;
+			pAO->sp_ypos=(12*8)-1;
 			break;
 		case LEVEL020105:
-			pAO->sp_xpos=1*8;
-			pAO->sp_ypos=(1*8)-1;
+			pAO->sp_xpos=16*8;
+			pAO->sp_ypos=(90*8)-1;
 			break;
 		case LEVEL020106:
-			pAO->sp_xpos=1*8;
-			pAO->sp_ypos=(1*8)-1;
+			pAO->sp_xpos=12*8;
+			pAO->sp_ypos=(64*8)-1;
 			break;
 		case LEVEL020107:
-			pAO->sp_xpos=1*8;
-			pAO->sp_ypos=(1*8)-1;
+			pAO->sp_xpos=8*8;
+			pAO->sp_ypos=(52*8)-1;
 			break;
 
 //--
