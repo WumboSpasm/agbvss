@@ -28,7 +28,10 @@ const u16 Speech_Bubble_Palette[2]={0xffff,0x0000,}; // 'Speech Bubble' palette 
 
 void InitGame(void)
 {
+	*(vu16*)REG_DISPCNT=DISP_MODE_0|DISP_OBJ_CHAR_1D_MAP; // Disable game screen display.
+
 	InitSprites();								// Init. sprite engine.
+	ObjectControl2();							// Update sprites (control 'method-2').
 	InitScroll();								// Init. scroll engine.
 	InitPalettes();								// Init. in-game colour palettes.
 
@@ -46,7 +49,6 @@ void InitGame(void)
 
 	// Enable game screen display.
 	*(vu16*)REG_DISPCNT=DISP_MODE_0|DISP_OBJ_ON|DISP_BG0_ON|DISP_BG1_ON|DISP_BG2_ON|DISP_BG3_ON|DISP_OBJ_CHAR_1D_MAP;	// Set which layers to display
-//	*(vu16*)REG_DISPCNT=DISP_MODE_0|DISP_OBJ_ON|DISP_BG0_ON|DISP_BG1_ON|DISP_BG2_ON|DISP_OBJ_CHAR_1D_MAP;	// Set which layers to display
 
 #ifdef MUSIC_ON                
         m4aSongNumStart(SBP_CHAP1LEV2);//BGM Start
@@ -62,22 +64,18 @@ void MainGame(void)
 {
 	WaitVBlank();								// Wait 4 VBL.
 	ReadJoypad();								// Read joypad.
-	ObjectDisplay();							// Update sprites (display) (Always do this first to sync. sprites to scroll display correctly & eliminate shearing !).
 	ObjectControl2();							// Update sprites (control 'method-2').
 	SB2MovingPlats();							// Check 'SpongeBob' to 'Moving Platforms'.
-	UpdateScroll();								// Update scroll.
+	UpdateScroll();								// Update the 8-way parallax scroll.
+	ObjectDisplay();							// Update sprites (display).
 
 //---------------------------------------------------------------------------------------------------
 
 // Main loop test area only.
 
-//--
-
-// @ge's tests.
-#ifndef NDEBUG
 //	sprintf(DEBUGBUFFER,"SPONGEBOB");			// Assert test only !!!.
-//	PutTextBox(1,1,11,3,DEBUGBUFFER);
-#endif
+//	PutTextBox(1,1,11,3,DEBUGBUFFER,0);
+
 	if(gKeyTap&SELECT_BUTTON)					// Next level test only !!!.
 	{
 		Level++;
