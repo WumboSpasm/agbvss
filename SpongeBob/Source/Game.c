@@ -61,7 +61,7 @@ void MainGame(void)
 
 void InitPalettes(void)
 {
-	DmaArrayCopy(3,Lev1bg1_Palette,BG_PLTT,16);	// Set 256 colour palette data for ALL background layers.
+	DmaArrayCopy(3,Level1_Palette,BG_PLTT,16);	// Set 256 colour palette data for ALL background layers.
 	DmaArrayCopy(3,Stand_Palette,OBJ_PLTT,16);	// Set 256 colour palette data for ALL sprites.
 }
 
