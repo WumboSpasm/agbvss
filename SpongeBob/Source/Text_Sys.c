@@ -26,11 +26,14 @@
 
 const u8 TextTileTable[256]=
 {
+	// ASCII to Tile Number converter data table...
+	// read the string and use this table to convert the character to a tile number..
+
 	0,0,0,0,0,0,0,0,			//   0 -   7
 	0,0,0,0,0,0,0,0,			//   8 -  15
 	0,0,0,0,0,0,0,0,			//  16 -  23
 	0,0,0,0,0,0,0,0,			//  24 -  31
-	0,0,0,0,0,0,0,0,			//  32 -  39  SPACE,
+	0,0,0,0,0,0,0,0,			//  32 -  39
 	0,0,0,0,0,0,0,0,			//  40 -  47
 	0,0,0,0,0,0,0,0,			//  48 -  55
 	0,0,0,0,0,0,0,0,			//  56 -  63
