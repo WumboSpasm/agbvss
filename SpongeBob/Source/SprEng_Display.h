@@ -5,6 +5,9 @@
 // (C) 2000/1:	Climax.
 //***************************************************************************************************
 
+#ifndef _SPRENG_DISPLAY_H
+#define _SPRENG_DISPLAY_H
+
 /////////////////////////////////////////////////
 // Global Variables.
 /////////////////////////////////////////////////
@@ -29,6 +32,8 @@ extern void ObjectTest(void);
 extern void ObjectCreateOAM(void);
 extern void ObjectInitParam(void);
 extern void ObjectInitOAM(void);
+
+#endif
 
 //***************************************************************************************************
 

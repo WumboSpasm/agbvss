@@ -5,6 +5,9 @@
 // (C) 2000/1:	Climax.
 //***************************************************************************************************
 
+#ifndef _SPRENG_CONTROL_H
+#define _SPRENG_CONTROL_H
+
 // Define how many slots we want. Capital letters is standard for a define like this.
 
 #define	NUMOBJECTS 100 // Called sp_numobjs in the original.
@@ -110,6 +113,8 @@ void Sprite4Control(void);
 // A pointer like this one HAS to have a * to state that it is a pointer.
 
 Object*	g_pObject;
+
+#endif
 
 //***************************************************************************************************
 
