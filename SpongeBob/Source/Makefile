@@ -11,9 +11,8 @@
 		SprEng_Display.c \
 		SprEng_Common.c \
 		SprEng_SpongeBob.c \
-		SprEng_Misc1.c \
-		SprEng_Misc2.c \
-		SprEng_Misc3.c \
+		SprEng_Platforms.c \
+		SprEng_Patrick.c \
 		Sinecos.c \
 		Contours.c \
 		Text_Sys.c
