@@ -175,23 +175,55 @@ SOURCE=.\SprEng_Display.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\SprEng_SpriteA.c
+SOURCE=.\SprEng_Misc1.c
+
+!IF  "$(CFG)" == "sbsp - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "sbsp - Win32 Debug"
+
 # PROP Exclude_From_Build 1
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=.\SprEng_SpriteB.c
+SOURCE=.\SprEng_Misc2.c
+
+!IF  "$(CFG)" == "sbsp - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "sbsp - Win32 Debug"
+
 # PROP Exclude_From_Build 1
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=.\SprEng_SpriteC.c
+SOURCE=.\SprEng_Misc3.c
+
+!IF  "$(CFG)" == "sbsp - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "sbsp - Win32 Debug"
+
 # PROP Exclude_From_Build 1
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=.\SprEng_SpriteD.c
+SOURCE=.\SprEng_SpongeBob.c
+
+!IF  "$(CFG)" == "sbsp - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "sbsp - Win32 Debug"
+
 # PROP Exclude_From_Build 1
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -312,6 +344,14 @@ SOURCE=.\TitlesData.h
 # Begin Group "Language Files"
 
 # PROP Default_Filter ".lan"
+# Begin Source File
+
+SOURCE=.\American.lan
+# End Source File
+# Begin Source File
+
+SOURCE=.\Enlish.lan
+# End Source File
 # End Group
 # Begin Source File
 
