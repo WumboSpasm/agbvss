@@ -15,6 +15,7 @@
 		SprEng_Misc2.c \
 		SprEng_Misc3.c \
 		Sinecos.c \
+		Contours.c \
 		Text_Sys.c
 
 .OFILES	=	$(.SFILES:.s=.o) $(.CFILES:.c=.o)
