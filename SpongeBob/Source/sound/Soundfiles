@@ -1,0 +1,17 @@
+SOUND_FILES = $(SOUND_DIR)m4aLib.o $(SOUND_DIR)SoundDat.o $(SOUND_DIR)i_mari.o $(SOUND_DIR)i_b_sx.o $(SOUND_DIR)i_vibe.o \
+	$(SOUND_DIR)i_bscl.o $(SOUND_DIR)i_strg.o $(SOUND_DIR)i_bell.o $(SOUND_DIR)i_timp.o $(SOUND_DIR)ov_sir2.o \
+	$(SOUND_DIR)y_upup.o $(SOUND_DIR)y_jmph1.o $(SOUND_DIR)y_jmpy1.o $(SOUND_DIR)y_jmpfm.o $(SOUND_DIR)y_dwnau.o \
+	$(SOUND_DIR)y_ywiha.o $(SOUND_DIR)ov_arra.o $(SOUND_DIR)y_stpn1.o $(SOUND_DIR)y_stph1.o $(SOUND_DIR)y_tont1.o \
+	$(SOUND_DIR)y_tont2.o $(SOUND_DIR)y_jmpst.o $(SOUND_DIR)y_pakon.o $(SOUND_DIR)y_runtn.o $(SOUND_DIR)y_stpqu.o \
+	$(SOUND_DIR)y_dmgn1.o $(SOUND_DIR)y_dmgn2.o $(SOUND_DIR)ht_atar.o $(SOUND_DIR)ov_konn.o $(SOUND_DIR)e_onpp1.o \
+	$(SOUND_DIR)e_derup.o $(SOUND_DIR)e_torup.o $(SOUND_DIR)i_drm1.o $(SOUND_DIR)i_drm2.o $(SOUND_DIR)ov_shaa.o \
+	$(SOUND_DIR)ki_sid2.o $(SOUND_DIR)t5_undr.o $(SOUND_DIR)t5_dsin.o $(SOUND_DIR)ov_basa.o $(SOUND_DIR)ov_hkob.o \
+	$(SOUND_DIR)ht_ware.o $(SOUND_DIR)tg_raka.o $(SOUND_DIR)km_ukuu.o $(SOUND_DIR)bm_atri.o $(SOUND_DIR)c_gaonn.o \
+	$(SOUND_DIR)i_elsn.o $(SOUND_DIR)y_hipkr.o $(SOUND_DIR)y_hipha.o $(SOUND_DIR)i_vb_t.o $(SOUND_DIR)mm_1game.o \
+	$(SOUND_DIR)mm_gover.o $(SOUND_DIR)my_hipkr.o $(SOUND_DIR)my_hipha.o $(SOUND_DIR)my_stpn1.o $(SOUND_DIR)my_jmph1.o \
+	$(SOUND_DIR)my_jmpy1.o $(SOUND_DIR)my_jmpfm.o $(SOUND_DIR)my_dwnau.o $(SOUND_DIR)mov_arra.o $(SOUND_DIR)mtp_stat.o \
+	$(SOUND_DIR)my_stph1.o $(SOUND_DIR)my_tont1.o $(SOUND_DIR)my_tont2.o $(SOUND_DIR)my_upup.o $(SOUND_DIR)my_jmpst.o \
+	$(SOUND_DIR)my_pakon.o $(SOUND_DIR)my_dmgn1.o $(SOUND_DIR)my_dmgn2.o $(SOUND_DIR)me_onpp2.o $(SOUND_DIR)me_onpp1.o \
+	$(SOUND_DIR)me_derup.o $(SOUND_DIR)me_torup.o $(SOUND_DIR)mm_title.o $(SOUND_DIR)mh_kaitn.o $(SOUND_DIR)mki_sid1.o \
+	$(SOUND_DIR)mki_sid2.o $(SOUND_DIR)m5t_dsin.o $(SOUND_DIR)me_onpp3.o $(SOUND_DIR)mtg_raka.o $(SOUND_DIR)mkm_ukuu.o \
+	$(SOUND_DIR)mc_gaonn.o $(SOUND_DIR)mht_apir.o $(SOUND_DIR)mht_ware.o $(SOUND_DIR)mht_atar.o 
