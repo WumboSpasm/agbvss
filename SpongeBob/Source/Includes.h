@@ -13,7 +13,9 @@
 #include "Main.h"
 #include "Game.h"
 
-//#define NDEBUG					// un-comment out for release build!! (for now...)
+//#define NDEBUG					// un-comment for release build!! (for now...)
+//#define BEANER					// un-comment for Beaner only code!!
+//#define AGE						// un-comment for @gea only code!!
 
 //#include "Scroll_Engine.h"
 
