@@ -10,6 +10,7 @@
 #include "Includes.h"
 #include "Titles.h"
 #include "Scroll_Engine.h"
+#include "StartUp.h"
 
 //***************************************************************************************************
 
@@ -90,7 +91,7 @@ void AgbMain(void)
 	gGameState=e_LEGAL_SCREEN;
 #else
 #ifdef BEANER
-	gGameState=e_TITLE_SCREEN;
+	gGameState=e_LEGAL_SCREEN;
 #else
 	gGameState=e_IN_GAME;
 #endif
@@ -98,6 +99,9 @@ void AgbMain(void)
 
 	switch(gGameState)
 	{
+		case e_LEGAL_SCREEN:
+			InitStartUpScreens();
+			break;
 		case e_IN_GAME:
     		InitGame();							// Init. main game.
     		break;
@@ -114,6 +118,9 @@ void AgbMain(void)
         
         switch(gGameState)
         {
+			case e_LEGAL_SCREEN:
+				MainStartUpScreens();
+				break;
        		case e_IN_GAME:
 	       		MainGame();						// Init. main game.
 	       		break;

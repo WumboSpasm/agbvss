@@ -11,15 +11,17 @@
 //enum up start up screen states
 enum
 {
-	eCopyWrite = 1,
+	eCopyRight=1,
 	eTHQLogo,
 	eNickLogo,
 	eClimaxLogo,
 };
 
 //functions
-void InitStartUpScreens(void);
-void MainStartUpScreens(void);
+extern void InitStartUpScreens(void);
+extern void MainStartUpScreens(void);
 
+//data
+extern u8 Start_Copy_RawBitmap_LZ[0x2830];
 
 #endif
