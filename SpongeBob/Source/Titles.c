@@ -29,7 +29,7 @@ static void UpdateGFX(void);
 //--------Local Variables-----------------
 title Title;						        // Title struct (lots of nice variables in here)
 u8 Password_Buffer[6];                                           // buffer to enter password into..
-const u8 PasswordIconOffsetTable[8]={100,102,104,106,116,118,120,122,};      // offset into tile libraries for each password icon
+const u8 PasswordIconOffsetTable[8]={100,102,104,106,108,110,112,114,};      // offset into tile libraries for each password icon
 
 u16 mapxoffset;
 u16 mapyoffset;  
@@ -78,7 +78,7 @@ void InitTitles(void)
 	{
 		for (x=0;x<32;x++)
 		{
-			Bg3_ScreenDat[y*32+x]=menuback2_Map[(y*32)+x];   // Back Ripely Layer
+			Bg3_ScreenDat[y*32+x]=menuback_Map[(y*32)+x];   // Back Ripely Layer
 		}
 	}                        
 
@@ -91,12 +91,11 @@ void InitTitles(void)
 		}
 	}                        
 
-        *(vu16*)REG_BLDCNT = BLD_BG0_2ND|BLD_A_BLEND_MODE|BLD_BG1_1ST;  // alpha
-       	*(vu16*)REG_BLDALPHA = (0x03<<8)|0X0F;            // Coefficient EVB EVA
+	*(vu16*)REG_BLDCNT=BLD_BG0_2ND|BLD_A_BLEND_MODE|BLD_BG1_1ST;  // Alpha.
+	*(vu16*)REG_BLDALPHA=(0x03<<8)|0X0F;					// Coefficient EVB EVA.
 
-
-	DmaArrayCopy(3,menuback2_Character,TILE_BASE_ADDR_1,16);         // Load level data.
-	DmaArrayCopy(3,PasswordIcons_Char,TILE_BASE_ADDR_1+100,16);         // Load level data.
+	DmaArrayCopy(3,menuback_Character,TILE_BASE_ADDR_1,16);         // Load level data.
+	DmaArrayCopy(3,icons_Char,TILE_BASE_ADDR_1+(100*64),16);         // Load level data.
 	DmaArrayCopy(3,menul2_Character,TILE_BASE_ADDR_3,16);         // Load level data.
 	DmaArrayCopy(3,libFontMenu_Char,TILE_BASE_ADDR_2,16);           // Load Text tile data.
 	DmaArrayCopy(3,menul2_Palette,BG_PLTT,16);
@@ -107,11 +106,11 @@ void InitTitles(void)
 	PutText(5,10,20,1,PRESSSTART,0);
 	DmaArrayCopy(3,ScreenDat,TEXT_SCREEN,16);
 
-        *(vu16 *)REG_IE    = V_BLANK_INTR_FLAG|H_BLANK_INTR_FLAG;	// set Vblank interrupt enable flag // Enable Hblank Ripple effect too
-        *(vu16 *)REG_STAT  = STAT_V_BLANK_IF_ENABLE|STAT_H_BLANK_IF_ENABLE;
+	*(vu16 *)REG_IE    = V_BLANK_INTR_FLAG|H_BLANK_INTR_FLAG;	// set Vblank interrupt enable flag // Enable Hblank Ripple effect too
+	*(vu16 *)REG_STAT  = STAT_V_BLANK_IF_ENABLE|STAT_H_BLANK_IF_ENABLE;
 
 #ifdef MUSIC_ON                
-        m4aSongNumStart(SBP_CHAP1BOSS);//BGM Start
+        m4aSongNumStart(SBP_TITLEMUSIC);//BGM Start
 #endif    
 }
 
@@ -163,11 +162,16 @@ void MainTitles(void)
 //-----------------------------------------------
 static void UpdateInput(void)
 {
+	int x;
+	
 	switch(Title.mCurrent_Screen)
 	{
 	case eTitle_Screen:
 		if((gKeyTap&A_BUTTON)||(gKeyTap&START_BUTTON)/*||(gTimer==600)*/)
 		{      
+#ifdef MUSIC_ON                
+		        m4aSongNumStart(SBP_OPTIONS);
+#endif
 		        gFade=1;
 			Title.mCurrent_Screen = eMain_Menu;
 			Title.mCurrent_Selection = 1;
@@ -181,9 +185,6 @@ static void UpdateInput(void)
 	case eMain_Menu:
 		if (((gKeyTap&A_BUTTON)||(gKeyTap&START_BUTTON)) && (Title.mCurrent_Selection == 1)) // Select Start New Game
 		{       
-#ifdef MUSIC_ON                
-		        m4aSongNumStart(SBP_CHAP1LEV2);
-#endif
 		        gFade=1;
                         ClearSelectLayer();
                 	DmaArrayCopy(3,Bg2_ScreenDat,MAP_BASE_ADDR+0x1000,16);          // copy the select layer data into vram
@@ -223,19 +224,25 @@ static void UpdateInput(void)
 	case ePassword_Menu:
 	        if (gKeyTap&A_BUTTON)
 	        {
-                        CheckPassword();
+	                Password_Buffer[Title.mCurrent_PasswordPlace]=Title.mCurrent_Selection;
+	                Title.mCurrent_PasswordPlace++;
+	                if(Title.mCurrent_PasswordPlace==6)
+	                {
+	                        CheckPassword();
+        	                Title.mCurrent_PasswordPlace--;
+	                }
 	        }
 	        if(gKeyTap&START_BUTTON)
 	        {
 	                CheckPassword();
 	        }
-	        if ((gKeyTap&L_KEY)&&(temp>0))
+	        if ((gKeyTap&L_KEY)&&(Title.mCurrent_PasswordPlace>0))
 	        {
-	                temp--;
+	                Title.mCurrent_PasswordPlace--;
 	        }
-	        if ((gKeyTap&R_KEY)&&(temp<23))
+	        if ((gKeyTap&R_KEY)&&(Title.mCurrent_PasswordPlace<5))
 	        {
-	                temp++;
+	                Title.mCurrent_PasswordPlace++;
 	        }
 		if ((gKeyTap&B_BUTTON))			// Cancel Back To Previous Option
 		{
@@ -245,6 +252,7 @@ static void UpdateInput(void)
 			Title.mCurrent_Screen = eMain_Menu;
 			Title.mCurrent_Selection = 2;
 			Title.mMax_Selections = 4;
+			SetBgTextControl((vu16*)REG_BG1CNT,BG_PRIORITY_2,BG_SCREEN_SIZE_0,BG_COLOR_256,BG_MOS_OFF,29,TILE_BASE_3);
 		}
 		break;
 
@@ -388,82 +396,61 @@ static void UpdateInput(void)
 
                 if(Title.mCurrent_Screen==ePassword_Menu)
                 {       
-			switch(temp)
-			{
-				case 0:
-					PutText(5,9,20,1,CHAP11,0);
-					break;
-				case 1:
-					PutText(5,9,20,1,CHAP12,0);
-					break;
-				case 2:
-					PutText(5,9,20,1,CHAP13,0);
-					break;
-				case 3:
-					PutText(5,9,20,1,CHAP14,0);
-					break;
-				case 4:
-					PutText(5,9,20,1,CHAP21,0);
-					break;
-				case 5:
-					PutText(5,9,20,1,CHAP22,0);
-					break;
-				case 6:
-					PutText(5,9,20,1,CHAP23,0);
-					break;
-				case 7:
-					PutText(5,9,20,1,CHAP24,0);
-					break;
-				case 8:
-					PutText(5,9,20,1,CHAP31,0);
-					break;
-				case 9:
-					PutText(5,9,20,1,CHAP32,0);
-					break;
-				case 10:
-					PutText(5,9,20,1,CHAP33,0);
-					break;
-				case 11:
-					PutText(5,9,20,1,CHAP34,0);
-					break;
-				case 12:
-					PutText(5,9,20,1,CHAP41,0);
-					break;
-				case 13:
-					PutText(5,9,20,1,CHAP42,0);
-					break;
-				case 14:
-					PutText(5,9,20,1,CHAP43,0);
-					break;
-				case 15:
-					PutText(5,9,20,1,CHAP44,0);
-					break;
-				case 16:
-					PutText(5,9,20,1,CHAP41,0);
-					break;
-				case 17:
-					PutText(5,9,20,1,CHAP52,0);
-					break;
-				case 18:
-					PutText(5,9,20,1,CHAP53,0);
-					break;
-				case 19:
-					PutText(5,9,20,1,CHAP54,0);
-					break;
-				case 20:
-					PutText(5,9,20,1,CHAP61,0);
-					break;
-				case 21:
-					PutText(5,9,20,1,CHAP62,0);
-					break;
-				case 22:
-					PutText(5,9,20,1,CHAP63,0);
-					break;
-				case 23:
-					PutText(5,9,20,1,CHAP64,0);
-					break;
-			}
-                        DmaArrayCopy(3,ScreenDat,TEXT_SCREEN,16);
+			SetBgTextControl((vu16*)REG_BG2CNT,BG_PRIORITY_1,BG_SCREEN_SIZE_0,BG_COLOR_256,BG_MOS_OFF,30,TILE_BASE_1);
+                        // display current password string
+                        for(x=0;x<6;x++)
+                        {
+                		Bg1_ScreenDat[(11*32)+(x*3)+2]=PasswordIconOffsetTable[Password_Buffer[x]-1];                      // Select Layer
+        	        	Bg1_ScreenDat[(11*32)+(x*3)+3]=PasswordIconOffsetTable[Password_Buffer[x]-1]+1;                     // Select Layer
+        		        Bg1_ScreenDat[(12*32)+(x*3)+2]=PasswordIconOffsetTable[Password_Buffer[x]-1]+8;                     // Select Layer
+                		Bg1_ScreenDat[(12*32)+(x*3)+3]=PasswordIconOffsetTable[Password_Buffer[x]-1]+9;                     // Select Layer
+                        }
+                                                          
+                        // show highlights on select layer
+        		ScreenDat[(12*32)+(Title.mCurrent_PasswordPlace*3)+2]=32;                      // Select Layer
+        		ScreenDat[(11*32)+(Title.mCurrent_PasswordPlace*3)+2]=32;                      // Select Layer
+        		ScreenDat[(12*32)+(Title.mCurrent_PasswordPlace*3)+3]=32;                      // Select Layer
+        		ScreenDat[(11*32)+(Title.mCurrent_PasswordPlace*3)+3]=32;                      // Select Layer
+        		ScreenDat[(10*32)+(7*3)+1]=32;                      // Select Layer
+        		ScreenDat[(10*32)+(7*3)+2]=32;                      // Select Layer
+        		ScreenDat[(10*32)+(7*3)+3]=32;                      // Select Layer
+        		ScreenDat[(10*32)+(7*3)+4]=32;                      // Select Layer
+        		ScreenDat[(11*32)+(7*3)+1]=32;                      // Select Layer
+        		ScreenDat[(11*32)+(7*3)+2]=32;                      // Select Layer
+        		ScreenDat[(11*32)+(7*3)+3]=32;                      // Select Layer
+        		ScreenDat[(11*32)+(7*3)+4]=32;                      // Select Layer
+        		ScreenDat[(12*32)+(7*3)+1]=32;                      // Select Layer
+        		ScreenDat[(12*32)+(7*3)+2]=32;                      // Select Layer
+        		ScreenDat[(12*32)+(7*3)+3]=32;                      // Select Layer
+        		ScreenDat[(12*32)+(7*3)+4]=32;                      // Select Layer
+        		ScreenDat[(13*32)+(7*3)+1]=32;                      // Select Layer
+        		ScreenDat[(13*32)+(7*3)+2]=32;                      // Select Layer
+        		ScreenDat[(13*32)+(7*3)+3]=32;                      // Select Layer
+        		ScreenDat[(13*32)+(7*3)+4]=32;                      // Select Layer
+        
+                        // display the Password Icons
+                        x=Title.mCurrent_Selection-2;
+                        
+                        if(x==-1){x=7;}                         // make sure we got correct icon at the top
+        
+                        // Previous Icon
+                        Bg1_ScreenDat[(7*32)+(7*3)+2]=PasswordIconOffsetTable[x];
+                        Bg1_ScreenDat[(7*32)+(7*3)+3]=PasswordIconOffsetTable[x]+1;
+                        Bg1_ScreenDat[(8*32)+(7*3)+2]=PasswordIconOffsetTable[x]+8;
+                        Bg1_ScreenDat[(8*32)+(7*3)+3]=PasswordIconOffsetTable[x]+9;
+                        // Actual Selected Icon
+                        Bg1_ScreenDat[(11*32)+(7*3)+2]=PasswordIconOffsetTable[Title.mCurrent_Selection-1];
+                        Bg1_ScreenDat[(11*32)+(7*3)+3]=PasswordIconOffsetTable[Title.mCurrent_Selection-1]+1;
+                        Bg1_ScreenDat[(12*32)+(7*3)+2]=PasswordIconOffsetTable[Title.mCurrent_Selection-1]+8;
+                        Bg1_ScreenDat[(12*32)+(7*3)+3]=PasswordIconOffsetTable[Title.mCurrent_Selection-1]+9;
+                        // Next Icon
+                        Bg1_ScreenDat[(15*32)+(7*3)+2]=PasswordIconOffsetTable[Title.mCurrent_Selection];
+                        Bg1_ScreenDat[(15*32)+(7*3)+3]=PasswordIconOffsetTable[Title.mCurrent_Selection]+1;
+                        Bg1_ScreenDat[(16*32)+(7*3)+2]=PasswordIconOffsetTable[Title.mCurrent_Selection]+8;
+                        Bg1_ScreenDat[(16*32)+(7*3)+3]=PasswordIconOffsetTable[Title.mCurrent_Selection]+9;
+        
+                	DmaArrayCopy(3,Bg1_ScreenDat,MAP_BASE_ADDR+0x1000,16);
+
                 }
         
                 if(Title.mCurrent_Screen==eSound_Menu)
@@ -586,71 +573,13 @@ static void PutSelectText(u8 startx,u8 starty)
 //----------------------------------------------------------------------------------------------------------    
 static void CheckPassword(void)
 {
-	switch(temp)
-	{
-		case 4:	
-			Level = LEVEL020101;
-			break;
-		case 5:	
-			Level = LEVEL020201;
-			break;
-		case 6:	
-			Level = LEVEL020301;
-			break;
-		case 7:	
-			Level = LEVEL020401;
-			break;
-		case 8:	
-			Level = LEVEL030101;
-			break;
-		case 9:	
-			Level = LEVEL030201;
-			break;
-		case 10:	
-			Level = LEVEL030301;
-			break;
-		case 11:	
-			Level = LEVEL030401;
-			break;
-		case 12:	
-			Level = LEVEL040101;
-			break;
-		case 13:	
-			Level = LEVEL040201;
-			break;
-		case 14:	
-			Level = LEVEL040301;
-			break;
-		case 15:	
-			Level = LEVEL040401;
-			break;
-		case 16:	
-			Level = LEVEL050101;
-			break;
-		case 17:	
-			Level = LEVEL050201;
-			break;
-		case 18:	
-			Level = LEVEL050301;
-			break;
-		case 19:	
-			Level = LEVEL050401;
-			break;
-		case 20:	
-			Level = LEVEL060101;
-			break;
-		case 22:	
-			Level = LEVEL060301;
-			break;
-	}
-#ifdef MUSIC_ON                
-		        m4aSongNumStart(SBP_CHAP1LEV2);
-#endif
-	        gFade=1;
-                ClearSelectLayer();
-              	DmaArrayCopy(3,Bg2_ScreenDat,MAP_BASE_ADDR+0x1000,16);          // copy the select layer data into vram
-		Title.mCurrent_Screen = eTitle_Screen;
-
+        if(Password_Buffer[0]==0x06&&Password_Buffer[1]==0x01&&Password_Buffer[2]==0x01&&Password_Buffer[3]==0x04&&Password_Buffer[4]==0x08&&Password_Buffer[5]==0x06)
+        {
+                Level = 1;
+        	InitGame();
+        	gGameState = e_IN_GAME;
+		SetBgTextControl((vu16*)REG_BG1CNT,BG_PRIORITY_2,BG_SCREEN_SIZE_0,BG_COLOR_256,BG_MOS_OFF,29,TILE_BASE_3);
+        }
 }
 
 //------------------------------------------------------------------                  
