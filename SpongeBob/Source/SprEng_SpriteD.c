@@ -15,7 +15,11 @@
 
 void Sprite4Control()
 {
-//	printf("Processing Sprite D\n");
+	Object *pAO;
+
+	pAO=g_pObject;				// Get copy of global pointer instead of using it directly coz it's cozy.
+
+	pAO->sp_xpos+=1;			 // Add vels into the positions.
 }
 
 //***************************************************************************************************
