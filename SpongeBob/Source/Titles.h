@@ -11,31 +11,12 @@
 ////////////////////////////////////////////////
 // defines    
 ////////////////////////////////////////////////
- 
+
+#define TILE_BASE_3	2					// 3 = Points to 'speech bubble' tile library (96 tiles).#define TILE_BASE_1	0					// 0 = Points to level tile library (800 tiles).
+#define TILE_BASE_ADDR_3 VRAM+0x8000 	// VRAM tile bank 2 base address (96 tiles).
+
 //-------structs
 
-
-//--Screen data structure-------------------------------------------------------------------------------------------
-//
-// contains zoom/roational values and provides a store for the hardware values to be stored in the harware registers
-// 
-//-------------------------------------------------------------------------------------------------------------------
-typedef struct 
-{		
-	vs32	mBg2_center_x;		// roratational center X
-	vs32	mBg2_center_y;		// roratational center Y
-	s32		mBg2x;				// BG reference starting point
-	s32		mBg2y;				// BG reference starting point
-	u16		mBg2pa;				// BG data reference direction
-	u16		mBg2pb;				// BG data reference direction
-	u16		mBg2pc;				// BG data reference direction
-	u16		mBg2pd;				// BG data reference direction
-	u16		mZoomX;				// stretch X value
-	u16		mZoomY;				// stretch Y value
-	u16		mRotate;			// rotational value //not working yet :o( - need to sort it out better later on
-	u16		mPad;				// padding to 32 bit multiple
-}
-bgstats;
 
 //-----------------Title data structure----------------------------------------------------------------------------
 //
@@ -44,9 +25,10 @@ bgstats;
 //-----------------------------------------------------------------------------------------------------------------
 typedef struct
 {
-	u32		mCurrent_Screen;		// which option screen are we on
-	u32		mCurrent_Selection;		// which option is currently selected
-	u32		mMax_Selections;		// total number of options
+	u8		mCurrent_Screen;		// which option screen are we on
+	u8		mCurrent_Selection;		// which option is currently selected
+	u8              mCurrent_PasswordPlace;         // which password position are we entering into
+	u8		mMax_Selections;		// total number of options
 }
 title;
 

@@ -98,7 +98,7 @@ const u8 TextTileTable[256]=
 //	 p  q  r  s  t  u  v  w
  	56,57,58,59,60,61,62,63,			// 112 - 119
 //	 x  y  z  {  |  }  ~
-	64,65,66, 0, 0, 0, 0,40,			// 120 - 127
+	64,65,66, 0,32, 0,127,40,			// 120 - 127       stolen | to be a complete filled in square under menus
 //
 	 0, 0, 0, 0, 0, 0, 0, 0,			// 128 - 135
 //
@@ -172,7 +172,7 @@ u8 PutTextBox(u8 startx,u8 starty,u8 width, u8 height,u8 *string)
 
 	// PutTextBox
 
-	// needs a out line (1 by 1)
+	// needs a outline (1 by 1)
 	// place down tiles for speech bubble
 
 	// put down corner peices
@@ -342,6 +342,7 @@ u8 PutText(u8 startx,u8 starty,u8 width, u8 height,u8 *string,u8 clear)
 #ifndef NDEBUG
 				sprintf(DEBUGBUFFER,"STRING TOO LONG %i %i",i,wordlength);
 				PutText(0,0,30,1,DEBUGBUFFER,0);
+                        	DmaArrayCopy(3,ScreenDat,TEXT_SCREEN,16);
 #endif
 				return 0;
 			}
@@ -393,9 +394,6 @@ u8 PutText(u8 startx,u8 starty,u8 width, u8 height,u8 *string,u8 clear)
 			currentx--;
 		}
 	}
-
-	//ok once all that is set up ok DMA the connents of Bg4_Screendat to VRAM
-	DmaArrayCopy(3,ScreenDat,TEXT_SCREEN,16);
 
 	//ok all worked fine so return 1 so we know all was fine
 	return 1;

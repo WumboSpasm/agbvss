@@ -20,6 +20,40 @@ extern u8 OK[];
 extern u8 YES[];
 extern u8 NO[];
 extern u8 MENU[];
+extern u8 NEWGAME[];
+extern u8 PASSWORD[];   
+extern u8 PASSWORD2[];   
+extern u8 OPTION[];
+extern u8 CREDITS[];    
+extern u8 CONTROLLER[];
+extern u8 CONTA[];      
+extern u8 CONTB[];      
+extern u8 SOUND[];      
+extern u8 MUSICVOL[];   
+extern u8 SFXVOL[]; 
+extern u8 SELECTBAR[];    
+extern u8 PCT0[];  
+extern u8 PCT5[];  
+extern u8 PCT10[]; 
+extern u8 PCT15[]; 
+extern u8 PCT20[]; 
+extern u8 PCT25[]; 
+extern u8 PCT30[]; 
+extern u8 PCT35[]; 
+extern u8 PCT40[]; 
+extern u8 PCT45[]; 
+extern u8 PCT50[]; 
+extern u8 PCT55[]; 
+extern u8 PCT60[]; 
+extern u8 PCT65[]; 
+extern u8 PCT70[]; 
+extern u8 PCT75[]; 
+extern u8 PCT80[]; 
+extern u8 PCT85[]; 
+extern u8 PCT90[]; 
+extern u8 PCT95[]; 
+extern u8 PCT100[];
+
 
 #ifndef NDEBUG
 extern u8 DEBUGBUFFER[256];     // only use this in debug!!!!!!!
