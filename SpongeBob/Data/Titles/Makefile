@@ -12,16 +12,16 @@ $(TARGET_ARC): $(.OFILES)
 	@ar rcs $(TARGET_ARC) $(.OFILES)
 
 Start_Copy.c:	Start_Copy.bmp
-	@bmp2agb -bm $<
+	@bmp2map -f -o $@ $<
 
 Start_THQ.c:	Start_THQ.bmp
-	@bmp2agb -bm $<
+	@bmp2map -f -o $@ $<
 
 Start_Nick.c:	Start_Nick.bmp
-	@bmp2agb -bm $<
+	@bmp2map -f -o $@ $<
 
 Start_Climax.c:	Start_Climax.bmp
-	@bmp2agb -bm $<
+	@bmp2map -f -o $@ $<
 
 libFontGame.c: libFontGame.bmp
 	@bmp2agb -c -np $<
