@@ -34,10 +34,11 @@ void InitStartUpScreens(void)
 	CurrentScreen = eCopyRight;													// set currnet screen
 	ScreenDelay = (5*60);														// how long to stay on this screen
 	CanSkip = FALSE;															// can we skip before the end
-
-	*(vu16*)REG_DISPCNT = DISP_MODE_3 | DISP_OBJ_BG_ALL_ON;						// switch to BG mode 3
+        *(vu16*)REG_DISPCNT=DISP_MODE_0|DISP_LCDC_OFF;
 
 	LZ77UnCompVram(Start_Copy_RawBitmap_LZ, (void*)BG_BITMAP0_VRAM);			// decompress initial screen into vram...
+
+	*(vu16*)REG_DISPCNT = DISP_MODE_3 | DISP_OBJ_BG_ALL_ON;						// switch to BG mode 3
 }
 
 void MainStartUpScreens(void)
@@ -47,7 +48,7 @@ void MainStartUpScreens(void)
 	UpdateGFX();
 	if((gTimer==ScreenDelay)||(((gKeyTap&A_BUTTON)||(gKeyTap&START_BUTTON))&&(CanSkip==TRUE)))	//yep this amount of brackets looks horrid but they are in the right place :o)
 	{
-		PutTextBox(2,2,8,8,GAMENAME);
+//		PutTextBox(2,2,8,8,GAMENAME);
 		ChangeScreen();
 	}
 }
@@ -66,7 +67,7 @@ static void ChangeScreen(void)
 	switch(CurrentScreen)
 	{
 	case eCopyRight:
-		CurrentScreen=eTHQLogo;
+/*		CurrentScreen=eTHQLogo;
 		gTimer = 0;
 		ScreenDelay = (5*60);
 		CanSkip = FALSE;
@@ -86,7 +87,7 @@ static void ChangeScreen(void)
 		CanSkip = FALSE;
 		LZ77UnCompVram(Start_Climax_RawBitmap_LZ, (void*)BG_BITMAP0_VRAM);
 		break;
-	case eClimaxLogo:
+	case eClimaxLogo:*/
 		gGameState = e_TITLE_SCREEN;
 		InitTitles();
 		break;

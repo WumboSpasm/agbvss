@@ -11,6 +11,7 @@
 #include "Titles.h"
 #include "Scroll_Engine.h"
 #include "StartUp.h"
+#include "Sinecos.h"
 
 //***************************************************************************************************
 
@@ -25,6 +26,9 @@ u32	IntrMainBuf[0x200];	// Buffer for interrupt main routine.
 vu16 IntrCheck;			// Interrupt check.
 GameState gGameState;	// Beaner's gamestate variable.
 GameParams gGameParams;	// Game parameters info. (generic global info).
+u8 rasttable[256];				// raster table
+u8 v_phase;
+u8 gRipple;                                     // do we ripple or not?
 
 /////////////////////////////////////////////////
 // Function Definitions.
@@ -32,6 +36,7 @@ GameParams gGameParams;	// Game parameters info. (generic global info).
 
 static void ClearAll(void);
 static void VBlankIntr(void);
+static void HBlankIntr(void);
 extern void KeyRead(void);
 
 /////////////////////////////////////////////////
@@ -41,7 +46,7 @@ extern void KeyRead(void);
 const IntrFuncp IntrTable[14]=
 {
     VBlankIntr,			// V Blank interrupt.
-    IntrDummy,			// H Blank interrupt.
+    HBlankIntr,			// H Blank interrupt.
     IntrDummy,			// V Blank interrupt.
     IntrDummy,			// Timer 0 interrupt.
     IntrDummy,			// Timer 1 interrupt.
@@ -62,6 +67,8 @@ const IntrFuncp IntrTable[14]=
 
 void InitSystem(void)
 {
+        u8 i;
+        
 	DmaCopy(3,intr_main,IntrMainBuf,sizeof(IntrMainBuf),16); // Set off interrupt main routine.
 	IntrAddrSet(IntrMainBuf);
 
@@ -72,16 +79,16 @@ void InitSystem(void)
 	*(vu16*)REG_IE &= 0x7fff;
 	*(vu16*)REG_IME=1;							// SetIME
 //	*(vu16*)REG_IE=IME_FLAG;					// Set IME
-	*(vu16*)REG_IE|=V_BLANK_INTR_FLAG;			// Set of V blank interrupt request flag
-	*(vu16*)REG_STAT=STAT_V_BLANK_IF_ENABLE;
+	*(vu16 *)REG_IE    = V_BLANK_INTR_FLAG | H_BLANK_INTR_FLAG;	// set Vblank interrupt enable flag
+	*(vu16 *)REG_STAT  = STAT_V_BLANK_IF_ENABLE | STAT_H_BLANK_IF_ENABLE;
 
 //---------------------------------------------------------------------------------------------------
 
 // Initialise game variables - 0.
 
 	gGameParams.mControllerMethod=0; 			// Default control method (A=Action, B=Jump).
-	gGameParams.mMusicVolume=100;				// Full volume.
-	gGameParams.mSFXVolume=100;					// Full volume.
+	gGameParams.mMusicVolume=70;				// Full volume.
+	gGameParams.mSFXVolume=70;					// Full volume.
 
 	Level=LEVEL020201;							// Set default start level.	
 	Spatualas=0; 								// Set default spatualas found.
@@ -90,6 +97,12 @@ void InitSystem(void)
 
 //---------------------------------------------------------------------------------------------------
 
+	for(i=0;i<255;i++)
+	{
+		rasttable[i] = SinCosTable[(i*2)&255] / (31 << 2);
+	}
+	
+	gRipple = 1;
 }
 
 //***************************************************************************************************
@@ -105,7 +118,7 @@ void AgbMain(void)
 	gGameState=e_LEGAL_SCREEN;
 #else  //NDEBUG
 #ifdef BEANER
-	gGameState=e_IN_GAME;
+	gGameState=e_TITLE_SCREEN;
 #else	//BEANER
 	gGameState=e_IN_GAME;
 #endif	//BEANER
@@ -175,7 +188,24 @@ static void VBlankIntr(void)
 {
 	IntrCheck=V_BLANK_INTR_FLAG;					// Set VBL interrupt check flag.
 	gTimer++;										// Increment game timer.
+        v_phase = (gTimer) & 0x7f;	// increase phase
 }
+
+//****************************************************************************************************
+
+// HBL interupt vector (only used on menus so far)
+
+static void HBlankIntr(void)
+{
+        u16 line;
+
+	if(gRipple)
+	{
+                line = *(vu16*)REG_VCOUNT & 0x7f;
+	        *(vu16 *)REG_BG0HOFS = rasttable[(v_phase + line)];
+        }
+}
+
 
 //***************************************************************************************************
 

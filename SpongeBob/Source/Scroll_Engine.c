@@ -15,6 +15,7 @@
 #include "Includes.h"
 #include "SprEng_Common.h"
 #include "Scroll_Engine.h"
+#include "Text_Sys.h"
 
 /////////////////////////////////////////////////
 // Function Definitions.
@@ -279,6 +280,9 @@ void InitScroll()
 	DmaArrayCopy(3,libFontGame_Char,TILE_BASE_ADDR_2,16); // Load 'Speech Bubble' tile data.
 
 	InitRear();
+	
+	ClearTextLayer();
+	DmaArrayCopy(3,ScreenDat,TEXT_SCREEN,16);
 
 	DmaArrayCopy(3,Bg3_ScreenDat,MAP_BASE_ADDR+0x0000,16);
 

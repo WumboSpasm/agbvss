@@ -65,10 +65,10 @@ void MainGame(void)
 //--
 
 // @ge's tests.
-
+#ifndef NDEBUG
 	sprintf(DEBUGBUFFER,"SPONGEBOB");			// Assert test only !!!.
 	PutTextBox(1,1,11,3,DEBUGBUFFER);
-
+#endif
 	if(gKeyTap&SELECT_BUTTON)					// Next level test only !!!.
 	{
 		Level++;

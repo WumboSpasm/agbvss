@@ -80,12 +80,12 @@ extern u16 gKeyInput;
 extern u16 gKeyTap;
 extern u32 gTimer;
 extern GameParams gGameParams;
+extern u8 gRipple;                              // to ripple or not to ripple
 
 u8 Level;				 						// Game level.
 u8 Spatualas;									// Spatualas found.
 u8 Lives;										// SpongeBob lives.
 u8 Continues;									// Player continues.
-
 
 /////////////////////////////////////////////////
 // External Functions.

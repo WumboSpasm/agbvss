@@ -237,6 +237,7 @@ extern u8  level0405_Tiles[];
 //---------------------------------------------------------------------------------------------------
 
 extern u8 libFontGame_Char[8*8*96];		// 'Speech Bubble' tile library in ROM.
+extern u8 libFontMenu_Char[8*8*96];		// 'Speech Bubble' tile library in ROM.
 
 void SetBgTextControl(vu16 *reg,u16 priority,u16 screen_size,u16 color_mode,u16 mosaic,u16 screenblock,u16 char_base);
 //void SetBgRotationControl(vu16 *reg,u16 priority,u16 screen_size,u16 color_mode,u16 mosaic,u16 screenblock,u16 char_base,u16 area_over);
