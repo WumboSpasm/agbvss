@@ -50,25 +50,26 @@ void InitSprites(void)
 	gSpriteMosaic=3; 							// Init. global sprite mosaic value (50%).
 	gPushScrollX=0;								// Init. push scroll box x-axis variable.
 	gPushScrollY=0;								// Init. push scroll box y-axis variable.
+	IdleSequencer=0;							// Init. idle to use sequence variable.
 
 	ObjectInit();								// Init. sprite 'object control' engine.
 
 	pAO=ObjectGet2();							// Get a free sprite slot.
 	pAO->sp_type=TYPE_SPONGEBOB;				// Set sprite type.
-	pAO->sp_mode=MODE_FREEFLIGHT;				// Set sprite mode.
-	pAO->sp_xpos=0;//(17*8)+4; 					// Set sprite world map x-position.
-	pAO->sp_ypos=0;//(8*8)-1;  					// Set sprite world map y-position.
+	pAO->sp_mode=MODE_STAND;				// Set sprite mode.
+	pAO->sp_xpos=(17*8)+4; 						// Set sprite world map x-position.
+	pAO->sp_ypos=(8*8)-1;  						// Set sprite world map y-position.
 	pAO->sp_xsize=32;							// Set sprite size in x (8/16/32/64).
 	pAO->sp_ysize=32;							// Set sprite size in y (8/16/32/64).
-	pAO->sp_aninum=0;							// Set sprite animation sequence number.
+	pAO->sp_aninum=47;							// Set sprite animation sequence number.
 	pAO->sp_anispeed=3;							// Set sprite default animation speed.
 	pAO->sp_flash=OFF;							// Set sprite flash mode.
-	pAO->sp_affine=OAM_AFFINE_TWICE; 			// Set sprite affine (OAM_AFFINE_NONE/NORMAL/TWICE/ERASE).
+	pAO->sp_affine=OAM_AFFINE_NONE; 			// Set sprite affine (OAM_AFFINE_NONE/NORMAL/TWICE/ERASE).
 	pAO->sp_rotate=0;							// Set sprite rotatation angle (0-256).
 	pAO->sp_flipX=OFF;							// Set sprite h-flip (ON/OFF) (must set 'sp_affine=OAM_AFFINE_NONE' above to work !!!).
 	pAO->sp_flipY=OFF;							// Set sprite v-flip (ON/OFF) (must set 'sp_affine=OAM_AFFINE_NONE' above to work !!!).
-	pAO->sp_scaleX=256+85;						// Set sprite scale-x size (100%).
-	pAO->sp_scaleY=256+85;						// Set sprite scale-y size (100%).
+	pAO->sp_scaleX=256;						// Set sprite scale-x size (100%).
+	pAO->sp_scaleY=256;						// Set sprite scale-y size (100%).
 	pAO->sp_mosaic=OFF;							// Set sprite global mosaic (ON/OFF).
 	pAO->sp_blend=OAM_OBJ_NORMAL;				// Set sprite alpha blend (OAM_OBJ_NORMAL/BLEND/WINDOW)
 	pAO->sp_priority=1;							// Set sprite priority (0/1/2/3) (relative to background).
@@ -188,14 +189,15 @@ void InitSprites(void)
 
 	};*/
 
-/*	pAO=ObjectGet2();							// Get a free sprite slot.
+	// This 'Spinning Patrick' sprite gets re-positioned to the current exit cooords later in the 'CheckExit' routine.
+	pAO=ObjectGet2();							// Get a free sprite slot.
 	pAO->sp_type=TYPE_PATRICK;					// Set sprite type.
-	pAO->sp_mode=MODE_LEFTRIGHTSPIN;			// Set sprite mode.
+	pAO->sp_mode=MODE_STATIC03;					// Set sprite mode.
 	pAO->sp_xpos=0;								// Set sprite world map x-position.
-	pAO->sp_ypos=(32*8)-1;	 					// Set sprite world map y-position.
+	pAO->sp_ypos=0;								// Set sprite world map y-position.
 	pAO->sp_xsize=32;							// Set sprite size in x (8/16/32/64).
 	pAO->sp_ysize=32;							// Set sprite size in y (8/16/32/64).
-	pAO->sp_aninum=11;							// Set sprite animation sequence number.
+	pAO->sp_aninum=52;							// Set sprite animation sequence number.
 	pAO->sp_anispeed=3;							// Set sprite default animation speed.
 	pAO->sp_flash=OFF;							// Set sprite flash mode.
 	pAO->sp_affine=OAM_AFFINE_TWICE; 			// Set sprite affine (OAM_AFFINE_NONE/NORMAL/TWICE/ERASE).
@@ -205,17 +207,17 @@ void InitSprites(void)
 	pAO->sp_scaleX=256*2;  						// Set sprite scale-x size (100%).
 	pAO->sp_scaleY=256*2;  						// Set sprite scale-y size (100%).
 	pAO->sp_mosaic=OFF;							// Set sprite global mosaic (ON/OFF).
-	pAO->sp_blend=OAM_OBJ_BLEND; 				// Set sprite alpha blend (OAM_OBJ_NORMAL/BLEND/WINDOW)
+	pAO->sp_blend=OAM_OBJ_NORMAL; 				// Set sprite alpha blend (OAM_OBJ_NORMAL/BLEND/WINDOW)
 	pAO->sp_priority=1;	
 
-	pAO=ObjectGet2();							// Get a free sprite slot.
+/*	pAO=ObjectGet2();							// Get a free sprite slot.
 	pAO->sp_type=TYPE_PLATFORMS;				// Set sprite type.
-	pAO->sp_mode=MODE_LEFTRIGHT;		   		// Set sprite mode.
+	pAO->sp_mode=MODE_LEFTRIGHT02;		   		// Set sprite mode.
 	pAO->sp_xpos=8*8;							// Set sprite world map x-position.
 	pAO->sp_ypos=32*8; 							// Set sprite world map y-position.
 	pAO->sp_xsize=32;							// Set sprite size in x (8/16/32/64).
 	pAO->sp_ysize=16;							// Set sprite size in y (8/16/32/64).
-	pAO->sp_aninum=12;							// Set sprite animation sequence number.
+	pAO->sp_aninum=53;							// Set sprite animation sequence number.
 	pAO->sp_anispeed=3;							// Set sprite default animation speed.
 	pAO->sp_flash=OFF;							// Set sprite flash mode.
 	pAO->sp_affine=OAM_AFFINE_NONE; 			// Set sprite affine (OAM_AFFINE_NONE/NORMAL/TWICE/ERASE).
@@ -228,16 +230,16 @@ void InitSprites(void)
 	pAO->sp_blend=OAM_OBJ_NORMAL;				// Set sprite alpha blend (OAM_OBJ_NORMAL/BLEND/WINDOW)
 	pAO->sp_priority=1;		
 
-	for(Plap=0;Plap<40;Plap++) 
+	for(Plap=0;Plap<40;Plap++)					// Sprite engine test crap. 
 	{
 		pAO=ObjectGet2();				   		// Get a free sprite slot.
 		pAO->sp_type=TYPE_PLATFORMS;	   		// Set sprite type.
-		pAO->sp_mode=MODE_UPDOWN;		   		// Set sprite mode.
-		pAO->sp_xpos=(36*8)+(Plap*32); 	   		// Set sprite world map x-position.
-		pAO->sp_ypos=(32*8)+(Plap*16);	   		// Set sprite world map y-position.
+		pAO->sp_mode=MODE_UPDOWN02;		   		// Set sprite mode.
+		pAO->sp_xpos=(36*8)+(Plap*32);	   		// Set sprite world map x-position.
+		pAO->sp_ypos=(32*8)+(Plap*32);	   		// Set sprite world map y-position.
 		pAO->sp_xsize=32;				   		// Set sprite size in x (8/16/32/64).
-		pAO->sp_ysize=16;				   		// Set sprite size in y (8/16/32/64).
-		pAO->sp_aninum=12;				   		// Set sprite animation sequence number.
+		pAO->sp_ysize=32;				   		// Set sprite size in y (8/16/32/64).
+		pAO->sp_aninum=52;				   		// Set sprite animation sequence number.
 		pAO->sp_anispeed=3;				   		// Set sprite default animation speed.
 		pAO->sp_flash=OFF;				   		// Set sprite flash mode.
 		pAO->sp_affine=OAM_AFFINE_TWICE;  		// Set sprite affine (OAM_AFFINE_NONE/NORMAL/TWICE/ERASE).
@@ -249,8 +251,7 @@ void InitSprites(void)
 		pAO->sp_mosaic=OFF;				   		// Set sprite global mosaic (ON/OFF).
 		pAO->sp_blend=OAM_OBJ_NORMAL;	   		// Set sprite alpha blend (OAM_OBJ_NORMAL/BLEND/WINDOW)
 		pAO->sp_priority=1;	
-	}
-*/
+	}*/
 }
 
 //***************************************************************************************************
