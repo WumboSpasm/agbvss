@@ -9,9 +9,15 @@
 #define _SINECOS_H
 
 /////////////////////////////////////////////////
-// Global Variables
+// Global Variables.
 /////////////////////////////////////////////////
 extern const s16 SinCosTable[256+64];
+#define	Sin(a) (SinCosTable[(a)])
+#define	Cos(a) (SinCosTable[(a)+64])
+
+extern s16 FixMul(s16 a,s16 b);
+extern s16 FixDiv(s16 a,s16 b);
+extern s16 FixInverse(s16 b);
 
 #endif
 
