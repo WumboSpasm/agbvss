@@ -30,7 +30,7 @@ void CheckContour(Object* pAO)
 	s8 Glue;
 
 	MapX=(pAO->sp_xpos+(pAO->sp_xsize>>1))>>3; // Locate tile position in map under sprites feet.		
-	MapY=(pAO->sp_ypos+(pAO->sp_ysize-8))>>3;	
+	MapY=(pAO->sp_ypos+pAO->sp_ysize)>>3;	
 
 //--
 
@@ -104,6 +104,12 @@ void CheckContour(Object* pAO)
 			case COLLISION_TILE_7:			// 45deg left slope tile.
 				pAO->sp_ypos=pAO->sp_ypos|7;// Force to bottom of tile ready for contour offset.
 		   		pAO->sp_ypos-=Contour07[XOffset]; // Combine y-offset contour.
+				pAO->sp_var4=ON;		// Flag hit ground.
+				break;
+
+			case COLLISION_TILE_8:			// Half 'moon' tile :) ?.
+				pAO->sp_ypos=pAO->sp_ypos|7;// Force to bottom of tile ready for contour offset.
+		   		pAO->sp_ypos-=Contour08[XOffset]; // Combine y-offset contour.
 				pAO->sp_var4=ON;		// Flag hit ground.
 				break;
 		};
