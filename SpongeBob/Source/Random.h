@@ -8,6 +8,8 @@
 #ifndef _RANDOM_H
 #define _RANDOM_H
 
-extern u16 GenRand(u16 max);
+extern void InitRand(u32 plap);			// initalise random number table
+extern u32 GenRand(u32 max);			// generate random number
+
 
 #endif
