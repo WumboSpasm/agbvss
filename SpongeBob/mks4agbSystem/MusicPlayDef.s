@@ -1,8 +1,8 @@
 @***
 @
-@ MusicPlayDef.s (MPlayDef.s) ver1.03
+@ MusicPlayDef.s (MPlayDef.s) ver1.05
 @
-@                    Copyright (C) 1999-2000 NINTENDO Co.,Ltd.
+@                    Copyright (C) 1999-2001 NINTENDO Co.,Ltd.
 @**************************************************************@
 
 @***

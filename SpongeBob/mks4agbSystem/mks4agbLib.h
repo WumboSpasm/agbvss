@@ -1,13 +1,13 @@
 //------------------------------------------------------------//
-//             mks4agbLib.h ( m4aLib.h ) ver1.03              //
+//             mks4agbLib.h ( m4aLib.h ) ver1.05              //
 //                                                            //
-//          Copyright (C) 1999-2000 NINTENDO Co.,Ltd.         //
+//          Copyright (C) 1999-2001 NINTENDO Co.,Ltd.         //
 //------------------------------------------------------------//
 
 #ifndef _M4A_LIB_H
 #define _M4A_LIB_H
 
-#define _M4A_LIB_VER 103
+#define _M4A_LIB_VER 105
 
 #include <AgbSound.h>
 
@@ -53,6 +53,7 @@ extern const u8 __total_mplay_n[];
 extern const u8 __total_song_n[];
 #define total_song_n ((u16)__total_song_n)
 
+extern SoundArea m4a_sound;
 extern const MPlayTable mplay_table[];
 extern const SongTable song_table[];
 extern u8 m4a_memacc_area[];
@@ -60,19 +61,19 @@ extern u8 m4a_memacc_area[];
 
 extern void m4aSoundInit(void);
 
-#define m4aSoundMode(P1) SoundMode(P1)
-extern void SoundMode(u32 mode);
+#define m4aSoundMode(P1) SoundMode_rev01(P1)
+extern void SoundMode_rev01(u32 mode);
 
 extern void m4aSoundMain(void);
 
-#define m4aSoundVSync() SoundVSync()
-extern void SoundVSync(void);
+#define m4aSoundVSync() SoundVSync_rev01()
+extern void SoundVSync_rev01(void);
 
-#define m4aSoundVSyncOff() SoundVSyncOff()
-extern void SoundVSyncOff(void);
+#define m4aSoundVSyncOff() SoundVSyncOff_rev01()
+extern void SoundVSyncOff_rev01(void);
 
-#define m4aSoundVSyncOn() SoundVSyncOn()
-extern void SoundVSyncOn(void);
+#define m4aSoundVSyncOn() SoundVSyncOn_rev01()
+extern void SoundVSyncOn_rev01(void);
 
 #define m4aMPlayStart(P1,P2) MPlayStart_rev01(P1,P2)
 extern void MPlayStart_rev01(MusicPlayerArea *ma, SongHeader *so);
@@ -83,6 +84,8 @@ extern void m4aSongNumStartOrChange(u16 n);
 
 extern void m4aSongNumStartOrContinue(u16 n);
 
+extern void m4aMPlayImmInit(MusicPlayerArea *ma);
+
 #define m4aMPlayStop(P1) MPlayStop_rev01(P1)
 extern void MPlayStop_rev01(MusicPlayerArea *ma);
 
@@ -90,15 +93,13 @@ extern void m4aSongNumStop(u16 n);
 
 extern void m4aMPlayAllStop(void);
 
-#define m4aMPlayContinue(P1) MPlayContinue(P1)
-extern void MPlayContinue(MusicPlayerArea *ma);
+extern void m4aMPlayContinue(MusicPlayerArea *ma);
 
 extern void m4aSongNumContinue(u16 n);
 
-extern void MPlayAllContinue(void);
+extern void m4aMPlayAllContinue(void);
 
-#define m4aMPlayFadeOut(P1,P2) MPlayFadeOut(P1,P2)
-extern void MPlayFadeOut(MusicPlayerArea *ma, u16 sp);
+extern void m4aMPlayFadeOut(MusicPlayerArea *ma, u16 sp);
 
 #define m4aMPlayTempoControl(P1,P2) MPlayTempoControl(P1,P2)
 extern void MPlayTempoControl(MusicPlayerArea *ma, u16 te);
