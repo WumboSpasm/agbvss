@@ -30,7 +30,7 @@ CFLAGS	=	-g -O2 -I$(AGBDIR)/include -mthumb-interwork \
 
 LDFLAGS	 +=	-Map $(MAPFILE) -nostartfiles \
 		-Ttext 0x08000000 -Tbss 0x03000000 \
-		-L$(AGBDIR)/lib/ -lisagbprn -lagbsyscall\
+		-L$(AGBDIR)/lib/ -lisagbprn -lagbsyscall \
                 -LGamedata/Titles/ -lTitlesGFX \
                 -LGamedata/Level1/ -lLev1bgbmp \
                 -LGamedata/Sprites/Misc/ -lMisc_Sprs \
