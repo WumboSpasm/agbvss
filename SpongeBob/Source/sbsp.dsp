@@ -98,6 +98,20 @@ PreLink_Cmds=make
 # Begin Group "Source Files"
 
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
+# Begin Group "Asm"
+
+# PROP Default_Filter ".s"
+# Begin Source File
+
+SOURCE=.\Crt0.s
+# PROP Exclude_From_Build 1
+# End Source File
+# Begin Source File
+
+SOURCE=.\Rom_Header.s
+# PROP Exclude_From_Build 1
+# End Source File
+# End Group
 # Begin Source File
 
 SOURCE=.\Game.c
@@ -295,19 +309,13 @@ SOURCE=.\TitlesData.h
 
 # PROP Default_Filter "ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
 # End Group
-# Begin Source File
+# Begin Group "Language Files"
 
-SOURCE=.\Crt0.s
-# PROP Exclude_From_Build 1
-# End Source File
+# PROP Default_Filter ".lan"
+# End Group
 # Begin Source File
 
 SOURCE=.\Makefile
-# PROP Exclude_From_Build 1
-# End Source File
-# Begin Source File
-
-SOURCE=.\Rom_Header.s
 # PROP Exclude_From_Build 1
 # End Source File
 # End Target
