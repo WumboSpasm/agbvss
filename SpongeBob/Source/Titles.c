@@ -15,13 +15,14 @@
 
 //------------prototype functions--------
 static void UpdateInput(void);					// read input and update gamestate accordingly
-static u16 ZoomBGIn(void);						// random fade/wipe/zoom routine
-static void ZoomBGOut(u16 prev);						// do approapriate return
+static u16 ZoomBGIn(void);						// random fade/wipe/zoom routine (i return what zoom i did so store me somewhere safe)
+static void ZoomBGOut(u16 prev);				// do approapriate return (I need to know what the last zoom was so pass it in with prev)
 static void UpdateGFX(void);					// update display based on current state
 
 //--------Local Variables-----------------
 static bgstats	BGstats;						// BG data stats
 static title	Title;							// Title struct (lots of nice variables in here)
+static const s16 speed = 0x0001;				// Zoom speed
 
 //////////////////////////////
 // Titles Functions
@@ -79,9 +80,10 @@ static void UpdateInput(void)
 	case 1:
 		if((gKeyTap&START_BUTTON)||(gKeyTap&A_BUTTON))
 		{
-			ZoomBGIn();
+			tmp = ZoomBGIn();
 			gGameState=e_IN_GAME;
 			InitGame();
+			ZoomBGOut(tmp);
 			break;
 		}
 		break;
@@ -95,7 +97,6 @@ static void UpdateInput(void)
 static u16 ZoomBGIn(void)
 {
 	u16 random = GenRand(6);					// Generate random number plz
-	s16 speed = 0x0001;
 
 	switch(random)								// ooh here's the nice bit...
 	{
@@ -174,8 +175,6 @@ static u16 ZoomBGIn(void)
 
 static void ZoomBGOut(u16 prev)
 {
-	s16 speed = 0x0001;
-
 	switch(prev)								// ooh here's the nice bit...
 	{
 	//----if zero did simple zoom in <- so i want to re-zoom in
