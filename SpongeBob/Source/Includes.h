@@ -19,6 +19,13 @@
 //#define AGE						// un-comment for @ge only code!.
 #endif
 
+// note only uncomment one of these or it will be fucked...
+#define ENGLISH
+//#define AMERICAN
+//#define GERMAN
+//#define FRENCH
+//#define SPANISH
+
 #endif
 
 //***************************************************************************************************
