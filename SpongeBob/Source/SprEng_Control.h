@@ -35,10 +35,11 @@ typedef struct object
 	s32 sp_screenX;	// Sprite screen position & affine scale-x offset adjustment.
 	s32 sp_screenY;	// Sprite screen position & affine scale-y offset adjustment.
 
-	u16 sp_size;	// Sprite size in both x & y (i.e. square).
+	u16 sp_xsize;	// Sprite size in x.
+	u16 sp_ysize;	// Sprite size in y.
+
 	u16 sp_xbox;	// Sprite collision box displacment in x.
 	u16 sp_ybox;	// Sprite collision box displacment in y.
-	u16 sp_spare;	// Spare padding attribute.
 
 	u16 sp_aninum;	// Current animation sequence number.
 	u16 sp_aniframe;// Object's sprite frame number.
@@ -64,14 +65,14 @@ typedef struct object
 	u16 sp_var1;	// Multi-purpose attribute variable no.1. (i.e. sprite direction).
 	u16 sp_var2;	// Multi-purpose attribute variable no.2. (i.e. sprite hit points).
 	u16 sp_var3;	// Multi-purpose attribute variable no.3. (i.e. sprite power-up).
-	u16 sp_var4;	// Multi-purpose attribute variable no.4. (i.e. sprite misc. function ?).
+	u16 sp_var4;	// Multi-purpose attribute variable no.4. (i.e. sprite misc. function i.e. hit ground ?).
 
 }Object;
 
-// Beware! Changing the types of the members in the above structure ( S32 to S16 etc. ) may result in misaligned data which
+// Beware!, changing the types of the members in the above structure (s32 to s16 etc.) may result in misaligned data which
 // could cause access errors. Always pad to 32 bits by making sure that 16 bit data is paired and if your using bytes group
-// them in 4s so that any following 32 bit data sits aligned in the structure. Once your sure the compiler does padding auto-
-// matically you can ignore this.......
+// them in 4s so that any following 32 bit data sits aligned in the structure. Once your sure the compiler does padding
+// automatically you can ignore this.
 
 //---------------------------------------------------------------------------------------------------
 

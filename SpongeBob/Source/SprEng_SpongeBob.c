@@ -8,9 +8,11 @@
 // Includes.
 
 #include "Includes.h"
+#include "Scroll_Engine.h"
 #include "SprEng_Common.h"
 #include "SprEng_Control.h"
 #include "Scroll_Engine.h"
+#include "Contours.h"
 
 //***************************************************************************************************
 
@@ -22,6 +24,9 @@ void SpriteControl01()
 		
 //--
 
+	pAO->sp_xpos+=(pAO->sp_xvel>>8); // Add velocity into sprite positions.
+	pAO->sp_ypos+=(pAO->sp_yvel>>8);
+
 	switch (pAO->sp_mode)			// Get sprite's current mode.
 	{
 
@@ -31,13 +36,11 @@ void SpriteControl01()
 
 	case MODE_STAND:				// SpongeBob stand left or right ?.
 
-		if(gPushScrollX<0) {gPushScrollX++;} // Auto-centralise screen to player.
-		if(gPushScrollX>0) {gPushScrollX--;}
-		if(gPushScrollY<0) {gPushScrollY++;}
-		if(gPushScrollY>0) {gPushScrollY--;}
+		if(gPushScrollY<0) {gPushScrollY+=LOOKSPEED;}
+		if(gPushScrollY>0) {gPushScrollY-=LOOKSPEED;}
 
- 		if(pAO->sp_xvel<0) {pAO->sp_xvel+=WALKVEL;} // Reduce the velocities.
-		if(pAO->sp_xvel>0) {pAO->sp_xvel-=WALKVEL;}
+ 		if(pAO->sp_xvel<0) {pAO->sp_xvel+=WALKVEL>>1;} // Reduce the velocities.
+		if(pAO->sp_xvel>0) {pAO->sp_xvel-=WALKVEL>>1;}
 
 		if(pAO->sp_xvel==0)			// Sprite stopped moving in x ?.
 		{
@@ -46,15 +49,19 @@ void SpriteControl01()
 			pAO->sp_var1=DIR_CLR;	// Clear direction variable.
 	   	}
 												
-		if(gKeyInput&U_KEY) 		// Look up while standing still in x ?.
+		if(gKeyInput&U_KEY)			// Look up ?.
 		{
-			if(map_ypos>0&&gPushScrollX==0&&gPushScrollY>-PUSHBOXY) {gPushScrollY-=2;}	
+//			Wait for 'PushScrollX=0' before looking up.
+//			if(map_ypos>0&&gPushScrollX==0&&gPushScrollY>-PUSHBOXY) {gPushScrollY-=LOOKSPEED<<1;}	
+			if(map_ypos>0&&gPushScrollY>-PUSHBOXY) {gPushScrollY-=LOOKSPEED<<1;}	
 		}
 
-		if(gKeyInput&D_KEY) 		// Look down while standing still in x ?.
+		else if(gKeyInput&D_KEY)	// Look down ?.
 		{
-			if((map_ypos<map_y_size_pixels-LCD_HEIGHT)&&gPushScrollX==0&&gPushScrollY<PUSHBOXY) {gPushScrollY+=2;}	
-		}
+//			Wait for 'PushScrollX=0' before looking up.
+//			if((map_ypos<map_y_size_pixels-LCD_HEIGHT)&&gPushScrollX==0&&gPushScrollY<PUSHBOXY) {gPushScrollY+=LOOKSPEED<<1;}	
+			if((map_ypos<map_y_size_pixels-LCD_HEIGHT)&&gPushScrollY<PUSHBOXY) {gPushScrollY+=LOOKSPEED<<1;}	
+	}
 
 		else if(gKeyInput&L_KEY||gKeyInput&R_KEY) // Enter run mode.
 		{
@@ -63,7 +70,7 @@ void SpriteControl01()
 
 		if(gKeyTap&A_BUTTON)	   	// Enter stand jump mode.
 		{
-		 	pAO->sp_aniframe=0;		// Reset animtaion frame counter.
+		 	pAO->sp_aniframe=0;		// Reset animation frame counter.
 		 	pAO->sp_aninum=1;		// Set aninmation sequence.
 			pAO->sp_anitimer=0;		// Reset anim. timer if changing speed below.
 			pAO->sp_anispeed=4;		// Set animation speed.
@@ -73,7 +80,7 @@ void SpriteControl01()
 
 		if(gKeyTap&B_BUTTON)	   	// Enter karate chop mode.
 		{
-		 	pAO->sp_aniframe=0;		// Reset animtaion frame counter.
+		 	pAO->sp_aniframe=0;		// Reset animation frame counter.
 		 	pAO->sp_aninum=10;		// Set aninmation sequence.
 			pAO->sp_anitimer=0;		// Reset anim. timer if changing speed below.
 			pAO->sp_anispeed=3;		// Set animation speed.
@@ -89,8 +96,8 @@ void SpriteControl01()
 
 	case MODE_WALK:	 				// SpongeBob walk left or right ?.
 
-		if(gPushScrollY<0) {gPushScrollY++;} // 'Un-look' up or down !.
-		if(gPushScrollY>0) {gPushScrollY--;}
+		if(gPushScrollY<0) {gPushScrollY+=LOOKSPEED;} // 'Un-look' up or down !.
+		if(gPushScrollY>0) {gPushScrollY-=LOOKSPEED;}
 
 		if(gKeyInput&L_KEY&&pAO->sp_xpos>0)
 		{
@@ -99,27 +106,27 @@ void SpriteControl01()
 			 	pAO->sp_aniframe=0;	// Reset animtaion frame counter.
 			 	pAO->sp_aninum=3;	// Set aninmation sequence.
 				pAO->sp_anitimer=0;	// Reset anim. timer if changing speed below.
-				pAO->sp_anispeed=3;	// Set animation speed.
+				pAO->sp_anispeed=4;	// Set animation speed.
 				pAO->sp_var1=DIR_LEFT;// Flag current direction.
 			}
 
-			gPushScrollX++;			// Add push scroll.
+			if(pAO->sp_xvel<-WALKVEL){gPushScrollX-=VIEWSPEED;} // Add push scroll.
 			pAO->sp_xvel-=WALKVEL;	// Add inertia.
 			pAO->sp_flipX=ON;		// Set sprite h-flip.
 		}
 
-		else if(gKeyInput&R_KEY&&pAO->sp_xpos<map_x_size_pixels-pAO->sp_size)
+		else if(gKeyInput&R_KEY&&pAO->sp_xpos<map_x_size_pixels-pAO->sp_xsize)
 		{
 			if(pAO->sp_var1!=DIR_RIGHT)	// Already doing animation for this direction ?.
 			{
 			 	pAO->sp_aniframe=0;	// Reset animtaion frame counter.
 			 	pAO->sp_aninum=3;	// Set aninmation sequence.
 				pAO->sp_anitimer=0;	// Reset anim. timer if changing speed below.
-				pAO->sp_anispeed=3;	// Set animation speed.
+				pAO->sp_anispeed=4;	// Set animation speed.
 				pAO->sp_var1=DIR_RIGHT;	// Flag current direction.
 			}
 
-			gPushScrollX--;			// Add push scroll.
+			if(pAO->sp_xvel>WALKVEL){gPushScrollX+=VIEWSPEED;} // Add push scroll.
 			pAO->sp_xvel+=WALKVEL;	// Add inertia.
 	 		pAO->sp_flipX=OFF;		// Set sprite h-flip.
 		}
@@ -128,7 +135,7 @@ void SpriteControl01()
 		{
 			pAO->sp_mode=MODE_STAND;// Enter stand mode.
 
-			if(pAO->sp_xpos<0||pAO->sp_xpos>map_x_size_pixels-pAO->sp_size) // @ map scroll limits in x ?.
+			if(pAO->sp_xpos<0||pAO->sp_xpos>map_x_size_pixels-pAO->sp_xsize) // @ map scroll limits in x ?.
 			{
 				pAO->sp_xvel=0;		// Stop sprite now !.
 			}
@@ -168,8 +175,8 @@ void SpriteControl01()
 
 	case MODE_RUN:	  				// SpongeBob run left or right ?.
 
-		if(gPushScrollY<0) {gPushScrollY++;} // 'Un-look' up or down !.
-		if(gPushScrollY>0) {gPushScrollY--;}
+		if(gPushScrollY<0) {gPushScrollY+=LOOKSPEED;} // 'Un-look' up or down !.
+		if(gPushScrollY>0) {gPushScrollY-=LOOKSPEED;}
 
 		if(gKeyInput&L_KEY&&pAO->sp_xpos>0)
 		{
@@ -193,11 +200,11 @@ void SpriteControl01()
 				pAO->sp_aniuser=OFF; // Reset HOLD anim. sequence variable.
 			}
 
-			gPushScrollX++; 		// Add push scroll.
+			if(pAO->sp_xvel<-RUNVEL){gPushScrollX-=VIEWSPEED;} // Add push scroll.
 		 	pAO->sp_xvel-=RUNVEL;	// Add inertia.
 		}
 
-		else if(gKeyInput&R_KEY&&pAO->sp_xpos<map_x_size_pixels-pAO->sp_size)
+		else if(gKeyInput&R_KEY&&pAO->sp_xpos<map_x_size_pixels-pAO->sp_xsize)
 		{
 			if(pAO->sp_var1!=DIR_RIGHT&&pAO->sp_aninum!=5) // Do turn animation ?.
 			{
@@ -219,7 +226,7 @@ void SpriteControl01()
 				pAO->sp_aniuser=OFF; // Reset HOLD anim. sequence variable.
 			}
 			
-			gPushScrollX--; 		// Add push scroll.
+			if(pAO->sp_xvel>RUNVEL){gPushScrollX+=VIEWSPEED;} // Add push scroll.
 		 	pAO->sp_xvel+=RUNVEL;	// Add inertia.
 		}
  
@@ -227,7 +234,7 @@ void SpriteControl01()
 		{
 			pAO->sp_mode=MODE_STAND;// Enter stand mode.
 
-			if(pAO->sp_xpos<0||pAO->sp_xpos>map_x_size_pixels-pAO->sp_size) // @ map scroll limits in x ?.
+			if(pAO->sp_xpos<0||pAO->sp_xpos>map_x_size_pixels-pAO->sp_xsize) // @ map scroll limits in x ?.
 			{
 				pAO->sp_xvel=0;		// Stop sprite now !.
 			}
@@ -258,7 +265,7 @@ void SpriteControl01()
 		
 		if(gPushScrollX<=-PUSHBOXX) {gPushScrollX=-PUSHBOXX;} // Limit push scroll.
 		if(gPushScrollX>=PUSHBOXX) {gPushScrollX=PUSHBOXX;}
-		
+
 	   	break;
 
 //--
@@ -267,16 +274,16 @@ void SpriteControl01()
 
 	case MODE_STANDJUMP:  			// SpongeBob stand jump left or right ?.
 
-		if(gPushScrollY<0) {gPushScrollY++;} // 'Un-look' up or down !.
-		if(gPushScrollY>0) {gPushScrollY--;}
+		if(gPushScrollY<0) {gPushScrollY+=LOOKSPEED;} // 'Un-look' up or down !.
+		if(gPushScrollY>0) {gPushScrollY-=LOOKSPEED;}
 
 	 	pAO->sp_xvel=0;				// Freeze velocities.
 		pAO->sp_yvel=0;
 
 		if(pAO->sp_aniuser==ON)		// HOLD anim sequence ?.
 		{
-			if(gKeyInput&L_KEY&&pAO->sp_xpos>0) {pAO->sp_xvel=-WALKMAXVEL>>1;} // Do full jump left.
-			if(gKeyInput&R_KEY&&pAO->sp_xpos<map_x_size_pixels-pAO->sp_size) {pAO->sp_xvel=WALKMAXVEL>>1;} // Do full jump right.
+			if(gKeyInput&L_KEY&&pAO->sp_xpos>0) {pAO->sp_xvel=-WALKMAXVEL;} // Do full jump left.
+			if(gKeyInput&R_KEY&&pAO->sp_xpos<map_x_size_pixels-pAO->sp_xsize) {pAO->sp_xvel=WALKMAXVEL;} // Do full jump right.
 			pAO->sp_yvel=JUMPVEL;	// Jump up.
 		 	pAO->sp_aniframe=0;		// Reset animtaion frame counter.
 		 	pAO->sp_aninum=8;		// Set aninmation sequence.
@@ -286,13 +293,15 @@ void SpriteControl01()
 			pAO->sp_mode=MODE_STANDJUMPFALL; // Enter stand jump fall mode.
 		}
 
-		if(pAO->sp_xpos<0||pAO->sp_xpos>map_x_size_pixels-pAO->sp_size) // @ map scroll limits in x ?.
+		if((pAO->sp_var1==DIR_LEFT&&pAO->sp_xpos<0)||(pAO->sp_var1==DIR_RIGHT&&pAO->sp_xpos>map_x_size_pixels-pAO->sp_xsize)) // @ map scroll limits in x ?.
 		{
 			pAO->sp_xvel=0;			// Stop sprite now !.
 		}
 
 		if(gPushScrollX<=-PUSHBOXX) {gPushScrollX=-PUSHBOXX;} // Limit push scroll.
 		if(gPushScrollX>=PUSHBOXX) {gPushScrollX=PUSHBOXX;}
+
+		pAO->sp_var4=OFF;			// Flag not hit ground.
 
 	   	break;
 
@@ -302,33 +311,34 @@ void SpriteControl01()
 
 	case MODE_STANDJUMPFALL:
 
-		if(gPushScrollY<0) {gPushScrollY++;} // 'Un-look' up or down !.
-		if(gPushScrollY>0) {gPushScrollY--;}
+		if(gPushScrollY<0) {gPushScrollY+=LOOKSPEED;} // 'Un-look' up or down !.
+		if(gPushScrollY>0) {gPushScrollY-=LOOKSPEED;}
 
- 		if(pAO->sp_xvel<0) {pAO->sp_xvel+=WALKVEL;} // Reduce the velocities.
+		if(pAO->sp_xvel<0) {pAO->sp_xvel+=WALKVEL;} // Reduce the velocities.
 		if(pAO->sp_xvel>0) {pAO->sp_xvel-=WALKVEL;}
-
+				 
 		if(gKeyInput&L_KEY&&pAO->sp_xpos>0)
 		{
-			gPushScrollX++;			// Add push scroll.
+			gPushScrollX-=VIEWSPEED; // Add push scroll.
 		 	pAO->sp_xvel-=WALKVEL;	// Add inertia.
 			pAO->sp_flipX=ON;		// Set sprite h-flip.
 		}
 
-		else if(gKeyInput&R_KEY&&pAO->sp_xpos<map_x_size_pixels-pAO->sp_size)
+		else if(gKeyInput&R_KEY&&pAO->sp_xpos<map_x_size_pixels-pAO->sp_xsize)
 		{
-			gPushScrollX--;			// Add push scroll.
+			gPushScrollX+=VIEWSPEED; // Add push scroll.
  		 	pAO->sp_xvel+=WALKVEL;	// Add inertia.
 	 		pAO->sp_flipX=OFF;		// Set sprite h-flip.
 		}
 
 		pAO->sp_yvel+=GRAVITY;		// Add gravity.
+		if(pAO->sp_yvel>=MAXGRAVITY) {pAO->sp_yvel=MAXGRAVITY;} // Limit gravity (else we could go right through a ground tile !).
 
-		if(pAO->sp_ypos>=GROUNDTEST) // GROUND TEST ONLY UNTIL I WRITE SPRITE 2 MAP COLLISION !!!.
+		if(pAO->sp_var4==ON)		// Hit ground contour tile ?.
 		{
-			pAO->sp_ypos=GROUNDTEST; // RESET FOR TEST ONLY !!!.
+			pAO->sp_var4=OFF;		// Reset hit ground flag for next time.
 
-  	 		pAO->sp_xvel=0;			// Freeze velocities.
+	 		pAO->sp_xvel=0;			// Freeze velocities.
 			pAO->sp_yvel=0;
 
 		 	pAO->sp_aniframe=0;		// Reset animtaion frame counter.
@@ -341,7 +351,7 @@ void SpriteControl01()
 
 		if(gPushScrollX<=-PUSHBOXX) {gPushScrollX=-PUSHBOXX;} // Limit push scroll.
 		if(gPushScrollX>=PUSHBOXX) {gPushScrollX=PUSHBOXX;}
-		 
+
    		break;
 //--
 
@@ -349,8 +359,8 @@ void SpriteControl01()
 
 	case MODE_STANDJUMPLAND:
 
-		if(gPushScrollY<0) {gPushScrollY++;} // 'Un-look' up or down !.
-		if(gPushScrollY>0) {gPushScrollY--;}
+		if(gPushScrollY<0) {gPushScrollY+=LOOKSPEED;}
+		if(gPushScrollY>0) {gPushScrollY-=LOOKSPEED;}
 
 		if(pAO->sp_aniuser==ON)		// HOLD anim sequence ?.
 		{
@@ -359,7 +369,7 @@ void SpriteControl01()
 
 		if(gPushScrollX<=-PUSHBOXX) {gPushScrollX=-PUSHBOXX;} // Limit push scroll.
 		if(gPushScrollX>=PUSHBOXX) {gPushScrollX=PUSHBOXX;}
-   
+
    		break;
 
 //--
@@ -368,18 +378,18 @@ void SpriteControl01()
 
 	case MODE_RUNJUMP:  			// SpongeBob run jump left or right ?.
 
-		if(gPushScrollY<0) {gPushScrollY++;} // 'Un-look' up or down !.
-		if(gPushScrollY>0) {gPushScrollY--;}
+		if(gPushScrollY<0) {gPushScrollY+=LOOKSPEED;} // 'Un-look' up or down !.
+		if(gPushScrollY>0) {gPushScrollY-=LOOKSPEED;}
 
- 		if(pAO->sp_xvel<0) {pAO->sp_xvel+=RUNVEL;}	// Reduce the velocities.
+		if(pAO->sp_xvel<0) {pAO->sp_xvel+=RUNVEL;}	// Reduce the velocities.
 		if(pAO->sp_xvel>0) {pAO->sp_xvel-=RUNVEL;}
 
 	 	pAO->sp_yvel=0;				// Freeze y velocity only.
 
 		if(pAO->sp_aniuser==ON)		// HOLD anim sequence ?.
 		{
-			if(gKeyInput&L_KEY&&pAO->sp_xpos>0) {pAO->sp_xvel=-RUNMAXVEL>>1;} // Do full jump left.
-			if(gKeyInput&R_KEY&&pAO->sp_xpos<map_x_size_pixels-pAO->sp_size) {pAO->sp_xvel=RUNMAXVEL>>1;} // Do full jump right.
+			if(gKeyInput&L_KEY&&pAO->sp_xpos>0) {pAO->sp_xvel=-RUNMAXVEL;} // Do full jump left.
+			if(gKeyInput&R_KEY&&pAO->sp_xpos<map_x_size_pixels-pAO->sp_xsize) {pAO->sp_xvel=RUNMAXVEL;} // Do full jump right.
 			pAO->sp_yvel=JUMPVEL;	// Jump up.
 		 	pAO->sp_aniframe=0;		// Reset animtaion frame counter.
 		 	pAO->sp_aninum=8;		// Set aninmation sequence.
@@ -389,13 +399,15 @@ void SpriteControl01()
 			pAO->sp_mode=MODE_RUNJUMPFALL; // Enter run jump fall mode.
 		}
 
-		if(pAO->sp_xpos<0||pAO->sp_xpos>map_x_size_pixels-pAO->sp_size) // @ map scroll limits in x ?.
+		if((pAO->sp_var1==DIR_LEFT&&pAO->sp_xpos<0)||(pAO->sp_var1==DIR_RIGHT&&pAO->sp_xpos>map_x_size_pixels-pAO->sp_xsize)) // @ map scroll limits in x ?.
 		{
 			pAO->sp_xvel=0;			// Stop sprite now !.
 		}
 
 		if(gPushScrollX<=-PUSHBOXX) {gPushScrollX=-PUSHBOXX;} // Limit push scroll.
 		if(gPushScrollX>=PUSHBOXX) {gPushScrollX=PUSHBOXX;}
+
+		pAO->sp_var4=OFF;			// Flag not hit ground.
 
 	   	break;
 
@@ -405,31 +417,32 @@ void SpriteControl01()
 
 	case MODE_RUNJUMPFALL:
 
-		if(gPushScrollY<0) {gPushScrollY++;} // 'Un-look' up or down !.
-		if(gPushScrollY>0) {gPushScrollY--;}
+		if(gPushScrollY<0) {gPushScrollY+=LOOKSPEED;} // 'Un-look' up or down !.
+		if(gPushScrollY>0) {gPushScrollY-=LOOKSPEED;}
 
- 		if(pAO->sp_xvel<0) {pAO->sp_xvel+=RUNVEL;}	// Reduce the velocities.
+		if(pAO->sp_xvel<0) {pAO->sp_xvel+=RUNVEL;} // Reduce the velocities.
 		if(pAO->sp_xvel>0) {pAO->sp_xvel-=RUNVEL;}
-
+				 
 		if(gKeyInput&L_KEY&&pAO->sp_xpos>0)
 		{
-			gPushScrollX++;			// Add push scroll.
+			gPushScrollX-=VIEWSPEED; // Add push scroll.
 		 	pAO->sp_xvel-=RUNVEL;	// Add inertia.
 			pAO->sp_flipX=ON;		// Set sprite h-flip.
 		}
 
-		else if(gKeyInput&R_KEY&&pAO->sp_xpos<map_x_size_pixels-pAO->sp_size)
+		else if(gKeyInput&R_KEY&&pAO->sp_xpos<map_x_size_pixels-pAO->sp_xsize)
 		{
-			gPushScrollX--;			// Add push scroll.
+			gPushScrollX+=VIEWSPEED; // Add push scroll.
  		 	pAO->sp_xvel+=RUNVEL;	// Add inertia.
 	 		pAO->sp_flipX=OFF;		// Set sprite h-flip.
 		}
 
 		pAO->sp_yvel+=GRAVITY;		// Add gravity.
+		if(pAO->sp_yvel>=MAXGRAVITY) {pAO->sp_yvel=MAXGRAVITY;} // Limit gravity (else we could go right through a ground tile !).
 
-		if(pAO->sp_ypos>=GROUNDTEST) // GROUND TEST ONLY UNTIL I WRITE SPRITE 2 MAP COLLISION !!!.
+		if(pAO->sp_var4==ON)		// Hit ground contour tile ?.
 		{
-			pAO->sp_ypos=GROUNDTEST; // RESET FOR TEST ONLY !!!.
+			pAO->sp_var4=OFF;		// Reset hit ground flag for next time.
 
   	 		pAO->sp_xvel=0;			// Freeze velocities.
 			pAO->sp_yvel=0;
@@ -444,7 +457,7 @@ void SpriteControl01()
 
 		if(gPushScrollX<=-PUSHBOXX) {gPushScrollX=-PUSHBOXX;} // Limit push scroll.
 		if(gPushScrollX>=PUSHBOXX) {gPushScrollX=PUSHBOXX;}
-		 
+
    		break;
 //--
 
@@ -452,8 +465,8 @@ void SpriteControl01()
 
 	case MODE_RUNJUMPLAND:
 
-		if(gPushScrollY<0) {gPushScrollY++;} // 'Un-look' up or down !.
-		if(gPushScrollY>0) {gPushScrollY--;}
+		if(gPushScrollY<0) {gPushScrollY+=LOOKSPEED;}
+		if(gPushScrollY>0) {gPushScrollY-=LOOKSPEED;}
 
 		if(pAO->sp_aniuser==ON)		// HOLD anim sequence ?.
 		{
@@ -462,7 +475,7 @@ void SpriteControl01()
 
 		if(gPushScrollX<=-PUSHBOXX) {gPushScrollX=-PUSHBOXX;} // Limit push scroll.
 		if(gPushScrollX>=PUSHBOXX) {gPushScrollX=PUSHBOXX;}
-   
+
    		break;
 
 //--
@@ -471,8 +484,8 @@ void SpriteControl01()
 
 	case MODE_KARATE:				// SpongeBob karate chop left or right ?.
 
-		if(gPushScrollY<0) {gPushScrollY++;} // 'Un-look' up or down !.
-		if(gPushScrollY>0) {gPushScrollY--;}
+		if(gPushScrollY<0) {gPushScrollY+=LOOKSPEED;} // 'Un-look' up or down !.
+		if(gPushScrollY>0) {gPushScrollY-=LOOKSPEED;}
 
 	 	pAO->sp_xvel=0;				// Freeze velocities.
 		pAO->sp_yvel=0;
@@ -489,25 +502,16 @@ void SpriteControl01()
 	}								// End of switch statement.
 
 //--
-	
-//	pAO->sp_rotate+=4;				// Rotate sprite.
-//	if(pAO->sp_rotate>=256) {pAO->sp_rotate=0;}
 
-//--
-
-	pAO->sp_xpos+=(pAO->sp_xvel>>8); // Add velocity into sprite positions.
-	pAO->sp_ypos+=(pAO->sp_yvel>>8);
-																			 
-	map_xpos=pAO->sp_xpos-((LCD_WIDTH>>1)-(pAO->sp_size>>1))+gPushScrollX; // Drive scroll from this sprite.
-	map_ypos=pAO->sp_ypos-((LCD_HEIGHT>>1)-(pAO->sp_size>>1))+gPushScrollY;
+	CheckContour(pAO);				// Check for platform contours and offset sprite accordingly.
+						 
+	map_xpos=pAO->sp_xpos-((LCD_WIDTH>>1)-(pAO->sp_xsize>>1))+gPushScrollX; // Drive scroll from this sprite.
+	map_ypos=pAO->sp_ypos-((LCD_HEIGHT>>1)-(pAO->sp_ysize>>1))+gPushScrollY;
 
 	if (map_xpos<0) {map_xpos=0;}	// Limit map position.
 	if (map_xpos>map_x_size_pixels-LCD_WIDTH) {map_xpos=map_x_size_pixels-LCD_WIDTH;}
 	if (map_ypos<0) {map_ypos=0;}
 	if (map_ypos>map_y_size_pixels-LCD_HEIGHT) {map_ypos=map_y_size_pixels-LCD_HEIGHT;}
-
-//--
-
 }
 
 //***************************************************************************************************

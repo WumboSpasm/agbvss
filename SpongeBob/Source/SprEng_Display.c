@@ -19,6 +19,21 @@
 
 // Update sprites (display) - (i.e. create actual sprite OAM buffer).
 
+// Sprite sizes supported (taken from offical Nintendo AGB includes 'AgbDefine.h'.
+
+//	OAM_SIZE_8x8	0x00000000					// OBJ 8 x 8 dot.
+//	OAM_SIZE_16x16	0x40000000					// OBJ 16 x 16 dot.
+//	OAM_SIZE_32x32	0x80000000					// OBJ 32 x 32 dot.
+//	OAM_SIZE_64x64	0xc0000000  				// OBJ 64 x 64 dot.
+//	OAM_SIZE_16x8	0x00004000					// OBJ 16 x 8 dot.
+//	OAM_SIZE_32x8	0x40004000					// OBJ 32 x 8 dot.
+//	OAM_SIZE_32x16	0x80004000					// OBJ 32 x 16 dot.
+//	OAM_SIZE_64x32	0xc0004000					// OBJ 64 x 32 dot.
+//	OAM_SIZE_8x16	0x00008000					// OBJ 8 x 16 dot.
+//	OAM_SIZE_8x32	0x40008000					// OBJ 8 x 32 dot.
+//	OAM_SIZE_16x32	0x80008000					// OBJ 16 x 32 dot.
+//	OAM_SIZE_32x64	0xc0008000					// OBJ 32 x 64 dot.
+
 void ObjectDisplay(void)
 {
     s16 pA,pB,pC,pD;									// Local rotation/scaling variables.
@@ -39,38 +54,118 @@ void ObjectDisplay(void)
 			pAO->sp_screenX=pAO->sp_xpos-map_xpos;		// Calculate sprite screen co-ords. from world co-ords.
 			pAO->sp_screenY=pAO->sp_ypos-map_ypos;
 
-  			if((pAO->sp_screenX<=(0-pAO->sp_size)-8)||  // Check if sprite is off screen.
+  			if((pAO->sp_screenX<=(0-pAO->sp_xsize)-8)||  // Check if sprite is off screen.
 			(pAO->sp_screenX>=LCD_WIDTH+8)||
-			(pAO->sp_screenY<=(0-pAO->sp_size)-8)||
+			(pAO->sp_screenY<=(0-pAO->sp_ysize)-8)||
 			(pAO->sp_screenY>=LCD_HEIGHT+8))
 			{
 			}
 			else
 			{
-  				ObjectOAMBuffer[gOAMOffset+0]=OAM_SQUARE|OAM_COLOR_256|pAO->sp_affine|pAO->sp_blend|pAO->sp_mosaic; // Vertical size 64, 256 color mode, mosaic on/off, scaling/rotation on.
-				ObjectOAMBuffer[gOAMOffset+1]=(gOAMOffset>>4)<<9;// Scaling/rotation parameter 0.
+	 			ObjectOAMBuffer[gOAMOffset+0]=OAM_COLOR_256|pAO->sp_affine|pAO->sp_blend|pAO->sp_mosaic; // 256 color mode, mosaic on/off, scaling/rotation on.
+				ObjectOAMBuffer[gOAMOffset+1]=(gOAMOffset>>4)<<9; // Scaling/rotation parameter 0.
 				ObjectOAMBuffer[gOAMOffset+2]=pAO->sp_priority<<10|64*((gOAMOffset>>4)*2); // Priority (relative to background), character name.
 
-				switch(pAO->sp_size)		   			// Set sprite size.
+				switch(pAO->sp_xsize)		   			// Set sprite shape & size.
 				{
-					case 8:
-						ObjectOAMBuffer[gOAMOffset+1]|=OAM_SIZE_8x8>>16; // Horizontal size of square sprite.    			
+					case 8:								// x=8 * y=8/16/32/64 ?.
+						switch(pAO->sp_ysize)
+						{
+							case 8:
+				  				ObjectOAMBuffer[gOAMOffset+0]|=OAM_SQUARE; // Sprite shape.
+								ObjectOAMBuffer[gOAMOffset+1]|=OAM_SIZE_8x8>>16; // Sprite size.    			
+								break;
+							case 16:
+				  				ObjectOAMBuffer[gOAMOffset+0]|=OAM_V_RECTANGLE; // Etc.
+								ObjectOAMBuffer[gOAMOffset+1]|=OAM_SIZE_8x16>>16;    			
+   	 			   				break;
+							case 32:
+				  				ObjectOAMBuffer[gOAMOffset+0]|=OAM_V_RECTANGLE;
+							  	ObjectOAMBuffer[gOAMOffset+1]|=OAM_SIZE_8x32>>16;    			
+   	 	   						break;
+//							This size not supported by AGB hardware.
+//							case 64:
+//				  				ObjectOAMBuffer[gOAMOffset+0]|=OAM_V_RECTANGLE;
+//								ObjectOAMBuffer[gOAMOffset+1]|=OAM_SIZE_8x64>>16;    			
+//    					   		break;
+	   					}
    	 	   				break;
-					case 16:
-						ObjectOAMBuffer[gOAMOffset+1]|=OAM_SIZE_16x16>>16; // Etc.    			
-   	 			   		break;
-					case 32:
-					  	ObjectOAMBuffer[gOAMOffset+1]|=OAM_SIZE_32x32>>16;    			
+
+					case 16:	   						// x=16 * y=8/16/32/64 ?.
+						switch(pAO->sp_ysize)
+						{
+							case 8:
+				  				ObjectOAMBuffer[gOAMOffset+0]|=OAM_H_RECTANGLE;
+								ObjectOAMBuffer[gOAMOffset+1]|=OAM_SIZE_16x8>>16;    			
+								break;
+							case 16:
+				  				ObjectOAMBuffer[gOAMOffset+0]|=OAM_SQUARE;
+								ObjectOAMBuffer[gOAMOffset+1]|=OAM_SIZE_16x16>>16;    			
+   	 			   				break;
+							case 32:
+				  				ObjectOAMBuffer[gOAMOffset+0]|=OAM_V_RECTANGLE;
+							  	ObjectOAMBuffer[gOAMOffset+1]|=OAM_SIZE_16x32>>16;    			
+   	 	   						break;
+//							This size not supported by AGB hardware.
+//							case 64:
+//				  				ObjectOAMBuffer[gOAMOffset+0]|=OAM_V_RECTANGLE;
+//								ObjectOAMBuffer[gOAMOffset+1]|=OAM_SIZE_16x64>>16;    			
+//    					   		break;
+	   					}
    	 	   				break;
-					case 64:
-						ObjectOAMBuffer[gOAMOffset+1]|=OAM_SIZE_64x64>>16;    			
-    			   		break;
+
+
+					case 32:	   						// x=32 * y=8/16/32/64 ?.
+						switch(pAO->sp_ysize)
+						{
+							case 8:
+				  				ObjectOAMBuffer[gOAMOffset+0]|=OAM_H_RECTANGLE;
+								ObjectOAMBuffer[gOAMOffset+1]|=OAM_SIZE_32x8>>16;    			
+								break;
+							case 16:
+				  				ObjectOAMBuffer[gOAMOffset+0]|=OAM_H_RECTANGLE;
+								ObjectOAMBuffer[gOAMOffset+1]|=OAM_SIZE_32x16>>16;    			
+   	 			   				break;
+							case 32:
+				  				ObjectOAMBuffer[gOAMOffset+0]|=OAM_SQUARE;
+							  	ObjectOAMBuffer[gOAMOffset+1]|=OAM_SIZE_32x32>>16;    			
+   	 	   						break;
+							case 64:
+				  				ObjectOAMBuffer[gOAMOffset+0]|=OAM_V_RECTANGLE;
+								ObjectOAMBuffer[gOAMOffset+1]|=OAM_SIZE_32x64>>16;    			
+    					   		break;
+	   					}
+   	 	   				break;
+
+					case 64:	   						// x=64 * y=8/16/32/64 ?.
+						switch(pAO->sp_ysize)
+						{
+//							This size not supported by AGB hardware.
+//							case 8:
+//				  				ObjectOAMBuffer[gOAMOffset+0]|=OAM_H_RECTANGLE;
+//								ObjectOAMBuffer[gOAMOffset+1]|=OAM_SIZE_64x8>>16;    			
+//								break;
+//							This size not supported by AGB hardware.
+//							case 16:
+//				  				ObjectOAMBuffer[gOAMOffset+0]|=OAM_H_RECTANGLE;
+//								ObjectOAMBuffer[gOAMOffset+1]|=OAM_SIZE_64x16>>16;    			
+//   	 			   				break;
+							case 32:
+				  				ObjectOAMBuffer[gOAMOffset+0]|=OAM_H_RECTANGLE;
+							  	ObjectOAMBuffer[gOAMOffset+1]|=OAM_SIZE_64x32>>16;    			
+   	 	   						break;
+							case 64:
+				  				ObjectOAMBuffer[gOAMOffset+0]|=OAM_SQUARE;
+								ObjectOAMBuffer[gOAMOffset+1]|=OAM_SIZE_64x64>>16;    			
+    					   		break;
+	   					}
+   	 	   				break;
 				};
 
-				if(pAO->sp_affine==OAM_AFFINE_TWICE)   	// Affine double size used ?.
+				if(pAO->sp_affine==OAM_AFFINE_TWICE)	// Affine double size used ?.
 				{
-					pAO->sp_screenX-=(pAO->sp_size>>1); // Adjustment because it takes ob_pos_x,ob_pos_y as (0,0).
-					pAO->sp_screenY-=(pAO->sp_size>>1); // Object position changes depending upon whether it uses doule size field
+					pAO->sp_screenX-=(pAO->sp_xsize>>1); // Adjustment because it takes ob_pos_x,ob_pos_y as (0,0).
+					pAO->sp_screenY-=(pAO->sp_ysize>>1); // Object position changes depending upon whether it uses doule size field
 				}
 
 				ObjectOAMBuffer[gOAMOffset+0]|=(u16)((s32)(pAO->sp_screenY)&0x00ff); // Set object screen position.
@@ -132,8 +227,8 @@ void ObjectDisplay(void)
 
 void ObjectOff(Object* pAO)
 {
-	ObjectOAMBuffer[gOAMOffset+0]=(u16)((s32)(-pAO->sp_size)&0x00ff); // Reset current sprites screen position 'off screen'.
-	ObjectOAMBuffer[gOAMOffset+1]=(u16)((s32)(-pAO->sp_size)&0x01ff);
+	ObjectOAMBuffer[gOAMOffset+0]=(u16)((s32)(-pAO->sp_xsize)&0x00ff); // Reset current sprites screen position 'off screen'.
+	ObjectOAMBuffer[gOAMOffset+1]=(u16)((s32)(-pAO->sp_ysize)&0x01ff);
 }
 
  //***************************************************************************************************

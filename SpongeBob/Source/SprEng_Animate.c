@@ -53,12 +53,12 @@ u8 const **Anim_List[]=
 	&SB_ButtBounce_Anim[0],			   	// 009.
 	&SB_Karate_Anim[0],	   			   	// 010.
 
-	&Misc_Anim[0],					   	// 013.
+	&Misc_Anim[0],					   	// 011.
 };
 
 //***************************************************************************************************
 
-// Update sprites (animate) - (called from Update sprites (display) routine).
+// Update sprites (animate) - (called from update sprites (display) routine).
 
 // Note: The address pointer to the current sprite being plotted on screen, is passed into this routine.
 //		 This way we only animate sprites that are actually on screen and being drawn - cool eh :) 
@@ -75,7 +75,7 @@ u8 const **Anim_List[]=
 void ObjectAnimate(Object* pAO)
 {
 	// Update anim. frame here for current sprite.
-	DmaCopy(3,Anim_List[pAO->sp_aninum][pAO->sp_aniframe],OBJ_MODE0_VRAM+(64*64*(gOAMOffset>>4)),pAO->sp_size*pAO->sp_size,16); // Copy sprite character data.
+	DmaCopy(3,Anim_List[pAO->sp_aninum][pAO->sp_aniframe],OBJ_MODE0_VRAM+(64*64*(gOAMOffset>>4)),pAO->sp_xsize*pAO->sp_ysize,16); // Copy sprite character data.
 
 	pAO->sp_anitimer++;			 	// Check for next frame in sequence yet ?.
 	if(pAO->sp_anitimer==pAO->sp_anispeed)

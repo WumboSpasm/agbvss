@@ -144,10 +144,11 @@ void ObjectClear(Object* pAO)
 	pAO->sp_screenX=0;
 	pAO->sp_screenY=0;
 
-	pAO->sp_size=8;
+	pAO->sp_xsize=8;
+	pAO->sp_ysize=8;
+
 	pAO->sp_xbox=0;
 	pAO->sp_ybox=0;
-	pAO->sp_spare=0;
 
 	pAO->sp_aninum=0;
 	pAO->sp_aniframe=0;
