@@ -46,8 +46,8 @@ void SpriteControl02()
 
 		case MODE_UPDOWN:		   	// Moving Platform up/down ?.
 
-		if(pAO->sp_ypos<=86*8){pAO->sp_yvel=PLATVEL;} // Add inertia.
-		if(pAO->sp_ypos>=96*8){pAO->sp_yvel=-PLATVEL;} // Add inertia.
+		if(pAO->sp_ypos<=22*8){pAO->sp_yvel=PLATVEL;} // Add inertia.
+		if(pAO->sp_ypos>=32*8){pAO->sp_yvel=-PLATVEL;} // Add inertia.
 
 		break;
 

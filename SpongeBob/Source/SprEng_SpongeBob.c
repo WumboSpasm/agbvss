@@ -59,7 +59,7 @@ void SpriteControl01()
 		{
 //			Wait for 'PushScrollX=0' before looking up.
 //			if((map_ypos<map_y_size_pixels-LCD_HEIGHT)&&gPushScrollX==0&&gPushScrollY<PUSHBOXY) {gPushScrollY+=LOOKSPEED<<1;}	
-			if((map_ypos<map_y_size_pixels-LCD_HEIGHT)&&gPushScrollY<PUSHBOXY) {gPushScrollY+=LOOKSPEED<<1;}	
+			if((map_ypos<map_y_size_pixels_bg1-LCD_HEIGHT)&&gPushScrollY<PUSHBOXY) {gPushScrollY+=LOOKSPEED<<1;}	
 	}
 
 		else if(gKeyInput&L_KEY||gKeyInput&R_KEY) // Enter run mode.
@@ -114,7 +114,7 @@ void SpriteControl01()
 			pAO->sp_flipX=ON;		// Set sprite h-flip.
 		}
 
-		else if(gKeyInput&R_KEY&&pAO->sp_xpos<map_x_size_pixels-pAO->sp_xsize)
+		else if(gKeyInput&R_KEY&&pAO->sp_xpos<map_x_size_pixels_bg1-pAO->sp_xsize)
 		{
 			if(pAO->sp_var1!=DIR_RIGHT)	// Already doing animation for this direction ?.
 			{
@@ -134,7 +134,7 @@ void SpriteControl01()
 		{
 			pAO->sp_mode=MODE_STAND;// Enter stand mode.
 
-			if(pAO->sp_xpos<0||pAO->sp_xpos>map_x_size_pixels-pAO->sp_xsize) // @ map scroll limits in x ?.
+			if(pAO->sp_xpos<0||pAO->sp_xpos>map_x_size_pixels_bg1-pAO->sp_xsize) // @ map scroll limits in x ?.
 			{
 				pAO->sp_xvel=0;		// Stop sprite now !.
 			}
@@ -203,7 +203,7 @@ void SpriteControl01()
 		 	pAO->sp_xvel-=RUNVEL;	// Add inertia.
 		}
 
-		else if(gKeyInput&R_KEY&&pAO->sp_xpos<map_x_size_pixels-pAO->sp_xsize)
+		else if(gKeyInput&R_KEY&&pAO->sp_xpos<map_x_size_pixels_bg1-pAO->sp_xsize)
 		{
 			if(pAO->sp_var1!=DIR_RIGHT&&pAO->sp_aninum!=5) // Do turn animation ?.
 			{
@@ -233,7 +233,7 @@ void SpriteControl01()
 		{
 			pAO->sp_mode=MODE_STAND;// Enter stand mode.
 
-			if(pAO->sp_xpos<0||pAO->sp_xpos>map_x_size_pixels-pAO->sp_xsize) // @ map scroll limits in x ?.
+			if(pAO->sp_xpos<0||pAO->sp_xpos>map_x_size_pixels_bg1-pAO->sp_xsize) // @ map scroll limits in x ?.
 			{
 				pAO->sp_xvel=0;		// Stop sprite now !.
 			}
@@ -282,7 +282,7 @@ void SpriteControl01()
 		if(pAO->sp_aniuser==ON)		// HOLD anim sequence ?.
 		{
 			if(gKeyInput&L_KEY&&pAO->sp_xpos>0) {pAO->sp_xvel=-WALKMAXVEL;} // Do full jump left.
-			if(gKeyInput&R_KEY&&pAO->sp_xpos<map_x_size_pixels-pAO->sp_xsize) {pAO->sp_xvel=WALKMAXVEL;} // Do full jump right.
+			if(gKeyInput&R_KEY&&pAO->sp_xpos<map_x_size_pixels_bg1-pAO->sp_xsize) {pAO->sp_xvel=WALKMAXVEL;} // Do full jump right.
 			pAO->sp_yvel=JUMPVEL;	// Jump up.
 		 	pAO->sp_aniframe=0;		// Reset animtaion frame counter.
 		 	pAO->sp_aninum=8;		// Set aninmation sequence.
@@ -292,7 +292,7 @@ void SpriteControl01()
 			pAO->sp_mode=MODE_STANDJUMPFALL; // Enter stand jump fall mode.
 		}
 
-		if((pAO->sp_var1==DIR_LEFT&&pAO->sp_xpos<0)||(pAO->sp_var1==DIR_RIGHT&&pAO->sp_xpos>map_x_size_pixels-pAO->sp_xsize)) // @ map scroll limits in x ?.
+		if((pAO->sp_var1==DIR_LEFT&&pAO->sp_xpos<0)||(pAO->sp_var1==DIR_RIGHT&&pAO->sp_xpos>map_x_size_pixels_bg1-pAO->sp_xsize)) // @ map scroll limits in x ?.
 		{
 			pAO->sp_xvel=0;			// Stop sprite now !.
 		}
@@ -323,7 +323,7 @@ void SpriteControl01()
 			pAO->sp_flipX=ON;		// Set sprite h-flip.
 		}
 
-		else if(gKeyInput&R_KEY&&pAO->sp_xpos<map_x_size_pixels-pAO->sp_xsize)
+		else if(gKeyInput&R_KEY&&pAO->sp_xpos<map_x_size_pixels_bg1-pAO->sp_xsize)
 		{
 			gPushScrollX+=VIEWSPEED; // Add push scroll.
  		 	pAO->sp_xvel+=WALKVEL;	// Add inertia.
@@ -388,7 +388,7 @@ void SpriteControl01()
 		if(pAO->sp_aniuser==ON)		// HOLD anim sequence ?.
 		{
 			if(gKeyInput&L_KEY&&pAO->sp_xpos>0) {pAO->sp_xvel=-RUNMAXVEL;} // Do full jump left.
-			if(gKeyInput&R_KEY&&pAO->sp_xpos<map_x_size_pixels-pAO->sp_xsize) {pAO->sp_xvel=RUNMAXVEL;} // Do full jump right.
+			if(gKeyInput&R_KEY&&pAO->sp_xpos<map_x_size_pixels_bg1-pAO->sp_xsize) {pAO->sp_xvel=RUNMAXVEL;} // Do full jump right.
 			pAO->sp_yvel=JUMPVEL;	// Jump up.
 		 	pAO->sp_aniframe=0;		// Reset animtaion frame counter.
 		 	pAO->sp_aninum=8;		// Set aninmation sequence.
@@ -398,7 +398,7 @@ void SpriteControl01()
 			pAO->sp_mode=MODE_RUNJUMPFALL; // Enter run jump fall mode.
 		}
 
-		if((pAO->sp_var1==DIR_LEFT&&pAO->sp_xpos<0)||(pAO->sp_var1==DIR_RIGHT&&pAO->sp_xpos>map_x_size_pixels-pAO->sp_xsize)) // @ map scroll limits in x ?.
+		if((pAO->sp_var1==DIR_LEFT&&pAO->sp_xpos<0)||(pAO->sp_var1==DIR_RIGHT&&pAO->sp_xpos>map_x_size_pixels_bg1-pAO->sp_xsize)) // @ map scroll limits in x ?.
 		{
 			pAO->sp_xvel=0;			// Stop sprite now !.
 		}
@@ -429,7 +429,7 @@ void SpriteControl01()
 			pAO->sp_flipX=ON;		// Set sprite h-flip.
 		}
 
-		else if(gKeyInput&R_KEY&&pAO->sp_xpos<map_x_size_pixels-pAO->sp_xsize)
+		else if(gKeyInput&R_KEY&&pAO->sp_xpos<map_x_size_pixels_bg1-pAO->sp_xsize)
 		{
 			gPushScrollX+=VIEWSPEED; // Add push scroll.
  		 	pAO->sp_xvel+=RUNVEL;	// Add inertia.
@@ -503,9 +503,9 @@ void SpriteControl01()
 	case MODE_FREEFLIGHT: 			// SpongeBob free flight test mode ?.
 
 		if(gKeyInput&U_KEY&&pAO->sp_ypos>0){pAO->sp_ypos-=2;}
-		if(gKeyInput&D_KEY&&pAO->sp_ypos<map_y_size_pixels-pAO->sp_ysize){pAO->sp_ypos+=2;}
+		if(gKeyInput&D_KEY&&pAO->sp_ypos<map_y_size_pixels_bg1-pAO->sp_ysize){pAO->sp_ypos+=2;}
 		if(gKeyInput&L_KEY&&pAO->sp_xpos>0){pAO->sp_xpos-=2;}
-		if(gKeyInput&R_KEY&&pAO->sp_xpos<map_x_size_pixels-pAO->sp_xsize){pAO->sp_xpos+=2;}
+		if(gKeyInput&R_KEY&&pAO->sp_xpos<map_x_size_pixels_bg1-pAO->sp_xsize){pAO->sp_xpos+=2;}
 
 		break;
 
@@ -519,14 +519,19 @@ void SpriteControl01()
 	{
 		CheckContour(pAO);			// Check for platform contours and offset sprite accordingly.
 	}
+
+	old_map_xpos_bg2=map_xpos>>1;		// Update map co-ords store (bg2) (half scroll speed !).
+	old_map_ypos_bg2=map_ypos>>1;
+	old_map_xpos_bg1=map_xpos;			// Update map co-ords store (bg1).
+	old_map_ypos_bg1=map_ypos;
 							 
 	map_xpos=pAO->sp_xpos-((LCD_WIDTH>>1)-(pAO->sp_xsize>>1))+gPushScrollX; // Drive scroll from this sprite.
 	map_ypos=pAO->sp_ypos-((LCD_HEIGHT>>1)-(pAO->sp_ysize>>1))+gPushScrollY;
 
 	if (map_xpos<0) {map_xpos=0;}	// Limit map position.
-	if (map_xpos>map_x_size_pixels-LCD_WIDTH) {map_xpos=map_x_size_pixels-LCD_WIDTH;}
+	if (map_xpos>map_x_size_pixels_bg1-LCD_WIDTH) {map_xpos=map_x_size_pixels_bg1-LCD_WIDTH;}
 	if (map_ypos<0) {map_ypos=0;}
-	if (map_ypos>map_y_size_pixels-LCD_HEIGHT) {map_ypos=map_y_size_pixels-LCD_HEIGHT;}
+	if (map_ypos>map_y_size_pixels_bg1-LCD_HEIGHT) {map_ypos=map_y_size_pixels_bg1-LCD_HEIGHT;}
 }
 
 //***************************************************************************************************

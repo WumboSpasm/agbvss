@@ -1,24 +1,23 @@
 SOUND_DIR = Sound/
 include $(SOUND_DIR)Soundfiles
 
-
-VERSION	?=	release
+VERSION ?=      release
 
 ifeq ($(VERSION),release)
-	TARGET			:=SBSPants_Release
+        TARGET:=SBSPants_Release
 else
-	TARGET			:=SBSPants
+        TARGET:=SBSPants_Debug
 endif
 
-DEPENDFILE	=Makedepend
-MAPFILE         :=$(basename $(TARGET)).map
-TARGET_ELF      :=$(basename $(TARGET)).elf
-TARGET_BIN      :=$(basename $(TARGET)).bin
-TEMP_DIR		:=$(VERSION)
+DEPENDFILE=     Makedepend
+MAPFILE:=       $(basename $(TARGET)).map
+TARGET_ELF:=    $(basename $(TARGET)).elf
+TARGET_BIN:=    $(basename $(TARGET)).bin
+TEMP_DIR:=      $(VERSION)
 
 include build/opts.mak
 
-.SFILES	=	Crt0.s
+.SFILES=        Crt0.s
 
 .CFILES	=	Game.c \
 			Main.c \
@@ -40,12 +39,12 @@ include build/opts.mak
 			Hub.c  \
 			Fade.c
 
-.OFILES		:=	$(foreach f,$(.SFILES) $(.CFILES), $(TEMP_DIR)/$(subst .s,.o,$(subst .c,.o,$(f)))) $(SOUND_FILES)
+.OFILES:=       $(foreach f,$(.SFILES) $(.CFILES), $(TEMP_DIR)/$(subst .s,.o,$(subst .c,.o,$(f)))) $(SOUND_FILES)
 
-.AFILES		:=	../data/Titles/libTitlesGFX.a \
-       			../data/Maps/libMaps.a \
-				../data/Sprites/SpongeBob/libSpongeBob_Sprs.a \
-				../data/Sprites/Misc/libMisc_Sprs.a
+.AFILES:=       ../data/Titles/libTitlesGFX.a \
+                ../data/Maps/libMaps.a \
+                ../data/Sprites/SpongeBob/libSpongeBob_Sprs.a \
+                ../data/Sprites/Misc/libMisc_Sprs.a
 
 ALL_DIRS:=	$(foreach d, $(.OFILES), $(dir $(d))wibbleblob)
 ALL_DIRS:=	$(foreach d, $(ALL_DIRS), $(subst /wibbleblob,,$(d)))
