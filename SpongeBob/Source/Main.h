@@ -67,6 +67,7 @@ enum
 	e_NULL=-1,
 	e_LEGAL_SCREEN,
 	e_TITLE_SCREEN,
+	e_HUB_SCREEN,
 	e_IN_GAME,
 };
 typedef u16 GameState;
@@ -85,6 +86,8 @@ u8 Level;				 						// Game level.
 u8 Spatualas;									// Spatualas found.
 u8 Lives;										// SpongeBob lives.
 u8 Continues;									// Player continues.
+u8 gFade;
+u8 gFadeLevel;
 
 /////////////////////////////////////////////////
 // External Functions.

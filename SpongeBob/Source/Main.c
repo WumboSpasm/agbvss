@@ -12,6 +12,9 @@
 #include "Scroll_Engine.h"
 #include "StartUp.h"
 #include "Sinecos.h"  
+#include "Hub.h"
+
+
           
 //***************************************************************************************************
 
@@ -27,7 +30,9 @@ vu16 IntrCheck;			// Interrupt check.
 GameState gGameState;	// Beaner's gamestate variable.
 GameParams gGameParams;	// Game parameters info. (generic global info).
 u8 rasttable[256];				// raster table
-u8 v_phase;                                     // v phase (used on hblank ripple effect)
+u8 v_phase;                                     // v phase (used on hblank ripple effect) 
+u8 gFade;
+u8 gFadeLevel;
 
 /////////////////////////////////////////////////
 // Function Definitions.
@@ -70,7 +75,10 @@ void InitSystem(void)
         
 	DmaCopy(3,intr_main,IntrMainBuf,sizeof(IntrMainBuf),16); // Set off interrupt main routine.
 	IntrAddrSet(IntrMainBuf);
-
+#ifdef MUSIC_ON                
+        m4aSoundInit( );                        // Initialise sound system
+        m4aSoundMode(4<<SOUND_MODE_MAXCHN_SHIFT|10<<SOUND_MODE_MASVOL_SHIFT);                 // set music drive conditions
+#endif
 	// Set BG Control
 	*(vu16*)REG_BG0CNT=BG_COLOR_256|BG_SCREEN_SIZE_0|BG_PRIORITY_0|0<<BG_SCREEN_BASE_SHIFT|1<<BG_CHAR_BASE_SHIFT ;
 	*(vu16*)REG_BG1CNT=BG_COLOR_256|BG_SCREEN_SIZE_0|BG_PRIORITY_1|1<<BG_SCREEN_BASE_SHIFT|1<<BG_CHAR_BASE_SHIFT ;
@@ -93,6 +101,8 @@ void InitSystem(void)
 	Spatualas=0; 								// Set default spatualas found.
 	Lives=3;					 				// Set default lives.
 	Continues=1;								// Set default continues.
+        gFade = 0;
+        gFadeLevel = 0;
 
 //---------------------------------------------------------------------------------------------------
 
@@ -111,12 +121,9 @@ void AgbMain(void)
 {
 	ClearAll();	  								// The first initialization of the system.
 	InitSystem();
-//     	m4aSoundInit(); // Sound Initialization
-//	m4aSongNumStart(YOS_BGM_TITLE);//BGM Start
-//	m4aSongNumStart(YOS_SE_START);
 
 #if defined(release)
-	gGameState=e_IN_GAME;						// Was 'LEGAL_SCREEN' for inclusion of front end !.
+	gGameState=e_LEGAL_SCREEN;						// Was 'LEGAL_SCREEN' for inclusion of front end !.
 #else
         gGameState=e_LEGAL_SCREEN;
 #endif  // release version
@@ -130,6 +137,9 @@ void AgbMain(void)
 		case e_IN_GAME:
     		        InitGame();					// Init. main game.
 	      		break;
+		case e_HUB_SCREEN:
+    		        InitHub();					// Init. main game.
+	      		break;
 		case e_TITLE_SCREEN:
 			InitTitles();
 			break;
@@ -141,8 +151,9 @@ void AgbMain(void)
 	{
         IntrCheck=0;
 
-//	m4aSoundMain(); // Sound Main
-
+#ifdef MUSIC_ON                
+	m4aSoundMain(); // Sound Main
+#endif
 
                 switch(gGameState)
                 {
@@ -155,7 +166,12 @@ void AgbMain(void)
         		case e_TITLE_SCREEN:
 	        		MainTitles();
 		        	break;
+        		case e_HUB_SCREEN:
+	        		MainHub();
+		        	break;
 		};
+
+
 	}
 }
 
@@ -187,7 +203,9 @@ void WaitVBlank(void)
 
 static void VBlankIntr(void)
 {
-//	m4aSoundVSync();                                // Sound DMA Re-set
+#ifdef MUSIC_ON                
+	m4aSoundVSync();                                // Sound DMA Re-set
+#endif
 	IntrCheck=V_BLANK_INTR_FLAG;			// Set VBL interrupt check flag.
 	gTimer++;					// Increment game timer.
         v_phase = (gTimer) & 0x7f;	                // increase phase
