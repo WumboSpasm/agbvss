@@ -40,7 +40,7 @@ void FadeOut(u8 type)
 
         *(vu16*)REG_BLDY = gFadeLevel;
 
-        if(gFadeLevel==0x01)
+        if(gFadeLevel==0x10)
         {
         	gFade=3;
         }
@@ -107,11 +107,11 @@ void NextMenuSetUp(void)
 			{
 				for (x=0;x<32;x++)
 				{
-					Bg3_ScreenDat[y*32+x]=menuback_Map[(y*32)+x];   // Back Ripely Layer
+					Bg3_ScreenDat[y*32+x]=menuback2_Map[(y*32)+x];   // Back Ripely Layer
 				}
 			}                        
 
-                	DmaArrayCopy(3,menuback_Character,TILE_BASE_ADDR_1,16);         // Load level data.
+                	DmaArrayCopy(3,menuback2_Character,TILE_BASE_ADDR_1,16);         // Load level data.
 			DmaArrayCopy(3,Bg3_ScreenDat,MAP_BASE_ADDR+0x0000,16);
                        	ClearTextLayer();
                         PutText(5,7,20,1,NEWGAME,0);
@@ -125,6 +125,16 @@ void NextMenuSetUp(void)
 	       		gGameState = e_IN_GAME;
                         break;
                 case ePassword_Menu:
+			for (y=0;y<32;y++)
+			{
+				for (x=0;x<32;x++)
+				{
+					Bg3_ScreenDat[y*32+x]=menuback4_Map[(y*32)+x];   // Back Ripely Layer
+				}
+			}                        
+
+                	DmaArrayCopy(3,menuback4_Character,TILE_BASE_ADDR_1,16);         // Load level data.
+			DmaArrayCopy(3,Bg3_ScreenDat,MAP_BASE_ADDR+0x0000,16);
                 	ClearTextLayer();
                         PutText(5,7,20,1,PASSWORD,0);
                 	DmaArrayCopy(3,ScreenDat,TEXT_SCREEN,16);
@@ -134,11 +144,11 @@ void NextMenuSetUp(void)
 			{
 				for (x=0;x<32;x++)
 				{
-					Bg3_ScreenDat[y*32+x]=menuback2_Map[(y*32)+x];   // Back Ripely Layer
+					Bg3_ScreenDat[y*32+x]=menuback3_Map[(y*32)+x];   // Back Ripely Layer
 				}
 			}                        
 
-                	DmaArrayCopy(3,menuback2_Character,TILE_BASE_ADDR_1,16);         // Load level data.
+                	DmaArrayCopy(3,menuback3_Character,TILE_BASE_ADDR_1,16);         // Load level data.
 			DmaArrayCopy(3,Bg3_ScreenDat,MAP_BASE_ADDR+0x0000,16);
                         ClearTextLayer();
                         PutText(5,7,20,1,CONTROLLER,0);
@@ -150,11 +160,11 @@ void NextMenuSetUp(void)
 			{
 				for (x=0;x<32;x++)
 				{
-					Bg3_ScreenDat[y*32+x]=menuback_Map[(y*32)+x];   // Back Ripely Layer
+					Bg3_ScreenDat[y*32+x]=menuback5_Map[(y*32)+x];   // Back Ripely Layer
 				}
 			}                        
 
-                	DmaArrayCopy(3,menuback_Character,TILE_BASE_ADDR_1,16);         // Load level data.
+                	DmaArrayCopy(3,menuback5_Character,TILE_BASE_ADDR_1,16);         // Load level data.
 			DmaArrayCopy(3,Bg3_ScreenDat,MAP_BASE_ADDR+0x0000,16);
                 	ClearTextLayer();
                         PutText(5,7,20,1,CONTA,0);
@@ -166,11 +176,11 @@ void NextMenuSetUp(void)
 			{
 				for (x=0;x<32;x++)
 				{
-					Bg3_ScreenDat[y*32+x]=menuback_Map[(y*32)+x];   // Back Ripely Layer
+					Bg3_ScreenDat[y*32+x]=menuback6_Map[(y*32)+x];   // Back Ripely Layer
 				}
 			}                        
 
-                	DmaArrayCopy(3,menuback_Character,TILE_BASE_ADDR_1,16);         // Load level data.
+                	DmaArrayCopy(3,menuback6_Character,TILE_BASE_ADDR_1,16);         // Load level data.
 			DmaArrayCopy(3,Bg3_ScreenDat,MAP_BASE_ADDR+0x0000,16);
                        	ClearTextLayer();
                         PutText(5,7,20,1,MUSICVOL,0);
