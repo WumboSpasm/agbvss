@@ -11,7 +11,7 @@
 // define of where screen output is..
 #define TEXT_SCREEN	VRAM+0xf800
 // screen buffer for 4th layer
-extern u16 ScreenDat[32*32];				// Front Layer for Text/Speech Bubbles
+extern u16 ScreenDat[32*20];				// Front Layer for Text/Speech Bubbles
 
 //string's (initialised in .lan files
 extern u8 GAMENAME[];

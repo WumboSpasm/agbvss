@@ -47,7 +47,7 @@
 
 
 u8 DEBUGBUFFER[];
-u16 ScreenDat[32*32];	// this is global so it can be modified from any file!!!
+u16 ScreenDat[32*20];	// this is global so it can be modified from any file!!!
 
 // tilenumbers go from 32 - 127 (bubbles too & character heads)
 // 0 is BLANK
@@ -408,13 +408,11 @@ void ClearTextLayer(void)
 	// go through ScreenDat Array and set all entries to 0 (empty)
 	for(x=0;x<32;x++)
 	{
-		for(y=0;y<32;y++)
+		for(y=0;y<20;y++)
 		{
 			ScreenDat[(y*32)+x]=0;
 		}
 	}
-        // copy the blank array to VRam!
-	DmaArrayCopy(3,ScreenDat,TEXT_SCREEN,16);
 }
 
 //
