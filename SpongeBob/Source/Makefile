@@ -34,7 +34,7 @@ include build/opts.mak
 			Contours.c \
 			Text_Sys.c
 
-.OFILES		:=	$(foreach f,$(.CFILES) $(.SFILES), $(TEMP_DIR)/$(subst .s,.o,$(subst .c,.o,$(f))))
+.OFILES		:=	$(foreach f,$(.SFILES) $(.CFILES), $(TEMP_DIR)/$(subst .s,.o,$(subst .c,.o,$(f))))
 
 .AFILES		:=	../data/Titles/libTitlesGFX.a \
        			../data/Maps/libMaps.a \
