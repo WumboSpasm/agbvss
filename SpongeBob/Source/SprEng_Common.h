@@ -20,7 +20,7 @@
 #define VIEWSPEED	1							// Speed of 'look ahead' view left or right.
 #define LOOKSPEED	1							// Speed to look up or down.
 #define PUSHBOXX LCD_WIDTH/5					// Push scroll x-axis limit.
-#define PUSHBOXY (LCD_HEIGHT-64)/2				// Push scroll y-axis limit.
+#define PUSHBOXY (LCD_HEIGHT-48)/2				// Push scroll y-axis limit.
 
 #define WALKVEL		128							// Velocity for WALK mode.	
 #define WALKMAXVEL	256							// Maximum velocity limit for WALK mode.

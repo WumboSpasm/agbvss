@@ -16,7 +16,7 @@
 
 // We don't need to convert the variable sp_tabwidth because that was only used for accessing the objects.
 // Because we are about to define each object as a structure we can perform access by using just the object number
-// because 'C' knows how big an OBJECT is.........
+// because 'C' knows how big an OBJECT is.
 
 // In order to make it easier to control an object slot attribute set as an entity we define it as a structure type.
 
@@ -34,6 +34,8 @@ typedef struct object
 
 	s32 sp_screenX;	// Sprite screen position & affine scale-x offset adjustment.
 	s32 sp_screenY;	// Sprite screen position & affine scale-y offset adjustment.
+
+	u16 sp_display; // Sprite on/off screen flag.
 
 	u16 sp_xsize;	// Sprite size in x.
 	u16 sp_ysize;	// Sprite size in y.
@@ -67,6 +69,8 @@ typedef struct object
 	u16 sp_var3;	// Multi-purpose attribute variable no.3. (i.e. sprite power-up).
 	u16 sp_var4;	// Multi-purpose attribute variable no.4. (i.e. sprite misc. function i.e. hit ground ?).
 
+	u16 sp_spare;	// Spare attribute.
+
 }Object;
 
 // Beware!, changing the types of the members in the above structure (s32 to s16 etc.) may result in misaligned data which
@@ -80,12 +84,11 @@ enum				// Enumerate all sprite control types.
 {
 	TYPE_OFF,
 	TYPE_SPONGEBOB,
-	TYPE_MISC1,
-	TYPE_MISC2,
-	TYPE_MISC3,
+	TYPE_PLATFORMS,
+	TYPE_PATRICK,
 };
 
-enum				// Enumerate all SpongeBob sprite control modes.
+enum				// Enumerate all 'SpongeBob' sprite control modes.
 {
 	MODE_STAND,
 	MODE_WALK,
@@ -97,6 +100,18 @@ enum				// Enumerate all SpongeBob sprite control modes.
 	MODE_RUNJUMPFALL,
 	MODE_RUNJUMPLAND,
 	MODE_KARATE,
+	MODE_FREEFLIGHT,
+};
+
+enum				// Enumerate all 'Moving Platform' sprite control modes.
+{
+	MODE_LEFTRIGHT,
+	MODE_UPDOWN,
+};
+
+enum				// Enumerate all 'Patrick' sprite control modes.
+{
+	MODE_LEFTRIGHTSPIN,
 };
 
 //---------------------------------------------------------------------------------------------------
@@ -110,13 +125,12 @@ void ObjectPut1(Object*);
 Object* ObjectGet2(void);
 void ObjectPut2(Object*);
 
-// Defines for Individual control routines. These are not included in the file objects.c but each has it's own file to make
-// the project less cluttered.
+// Defines for individual control routines.
 
+void SpriteControl00(void);
 void SpriteControl01(void);
 void SpriteControl02(void);
 void SpriteControl03(void);
-void SpriteControl04(void);
 
 // Some data needs to be accessed globally so we'll let everyone know what the score is with these variables.
 // Notice I put a little g_ at the beginning of the variable so that I can see it's a global.

@@ -18,7 +18,7 @@
 /////////////////////////////////////////////////
 // Global Variables.
 /////////////////////////////////////////////////
-u8 gOAMOffset;									// Offset into OAM buffer when writing sprite attributes.
+u16 gOAMOffset;									// Offset into OAM buffer when writing sprite attributes.
 
 /////////////////////////////////////////////////
 // Global Functions.

@@ -8,7 +8,6 @@
 // Includes.
 
 #include "Includes.h"
-#include "Scroll_Engine.h"
 #include "SprEng_Common.h"
 #include "SprEng_Control.h"
 #include "Scroll_Engine.h"
@@ -20,7 +19,7 @@ void SpriteControl01()
 {
 	Object *pAO;
 
-	pAO=g_pObject;					// Get copy of global pointer instead of using it directly coz it's cozy.
+	pAO=g_pObject;					// Get copy of global object pointer.
 		
 //--
 
@@ -499,12 +498,28 @@ void SpriteControl01()
 
 //--
 
+// Free flight test mode.
+
+	case MODE_FREEFLIGHT: 			// SpongeBob free flight test mode ?.
+
+		if(gKeyInput&U_KEY&&pAO->sp_ypos>0){pAO->sp_ypos-=4;}
+		if(gKeyInput&D_KEY&&pAO->sp_ypos<map_y_size_pixels-pAO->sp_ysize){pAO->sp_ypos+=4;}
+		if(gKeyInput&L_KEY&&pAO->sp_xpos>0){pAO->sp_xpos-=4;}
+		if(gKeyInput&R_KEY&&pAO->sp_xpos<map_x_size_pixels-pAO->sp_xsize){pAO->sp_xpos+=4;}
+
+		break;
+
+//--
+
 	}								// End of switch statement.
 
 //--
 
-	CheckContour(pAO);				// Check for platform contours and offset sprite accordingly.
-						 
+	if(pAO->sp_mode!=MODE_FREEFLIGHT) // SpongeBob free flight test mode ?.
+	{
+		CheckContour(pAO);			// Check for platform contours and offset sprite accordingly.
+	}
+							 
 	map_xpos=pAO->sp_xpos-((LCD_WIDTH>>1)-(pAO->sp_xsize>>1))+gPushScrollX; // Drive scroll from this sprite.
 	map_ypos=pAO->sp_ypos-((LCD_HEIGHT>>1)-(pAO->sp_ysize>>1))+gPushScrollY;
 

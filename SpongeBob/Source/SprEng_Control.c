@@ -25,22 +25,21 @@ void ObjectControl1()
 
 	for(loop=0;loop!=NUMOBJECTS;loop++)
 	{
-		switch(g_pObject->sp_type)		// Switch and case should optimise to a table so don't worry about the gayness.
+		switch(g_pObject->sp_type)		// Select control type.
 		{
-/*			case TYPE_SPRITEA:
+/*			case TYPE_OFF:
+				SpriteControl00();
+				break;
+			case TYPE_MISC1:
 				SpriteControl01();
 				break;
-			case TYPE_SPRITEB:
+			case TYPE_MISC2:
 				SpriteControl02();
 				break;
-			case TYPE_SPRITEC:
+			case TYPE_MISC3:
 				SpriteControl03();
 				break;
-			case TYPE_SPRITED:
-				SpriteControl04();
-				break;
-*/
-		}
+*/		}
 		g_pObject++;					// Advance the global pointer for the next iteration.
 	}
 
@@ -64,19 +63,19 @@ void ObjectControl2()
 		g_pObject=object_table;			// Point to start of object table with the global object pointer.
 		g_pObject+=*pOU;				// Add on the tag index from the active object list.
 
-		switch(g_pObject->sp_type)		// Switch and case should optimise to a table so don't worry about the gayness.
+		switch(g_pObject->sp_type)		// Select control type.
 		{
+			case TYPE_OFF:
+				SpriteControl00();
+				break;
 			case TYPE_SPONGEBOB:
 				SpriteControl01();
 				break;
-			case TYPE_MISC1:
+			case TYPE_PLATFORMS:
 				SpriteControl02();
 				break;
-			case TYPE_MISC2:
+			case TYPE_PATRICK:
 				SpriteControl03();
-				break;
-			case TYPE_MISC3:
-				SpriteControl04();
 				break;
 		}
 		if(g_pObject->sp_type!=0)
@@ -144,6 +143,8 @@ void ObjectClear(Object* pAO)
 	pAO->sp_screenX=0;
 	pAO->sp_screenY=0;
 
+	pAO->sp_display=OFF;
+
 	pAO->sp_xsize=8;
 	pAO->sp_ysize=8;
 
@@ -174,6 +175,8 @@ void ObjectClear(Object* pAO)
 	pAO->sp_var2=0;
 	pAO->sp_var3=0;
 	pAO->sp_var4=0;
+
+	pAO->sp_spare=0;
 }
 
 //***************************************************************************************************
@@ -266,7 +269,7 @@ void ObjectPut2(Object* pAO)
 	// Used Object List update.
 	utag=pAO->sp_utag;			  		// Find where the tag for this object was stashed in the active list.
 	numUsedObjects--;			  		// Decrement the active object count.
-	if (utag!=numUsedObjects)	  		// If our tag is not on the end of the list we can..........
+	if (utag!=numUsedObjects)	  		// If our tag is not on the end of the list we can...
 	{
 		tag2=ObjectUsedList[numUsedObjects]; // Get the tag that's on the end of the list.
 		ObjectUsedList[utag]=tag2;	 	// Move the last tag in the list over the dead one.
@@ -274,6 +277,14 @@ void ObjectPut2(Object* pAO)
 		pAO2+=tag2;					 	// Get pointer to formerly last object in the active list via the tag index.
 		pAO2->sp_utag=utag;			 	// Let it know it's position has moved in the active object list.
 	}
+}
+
+//***************************************************************************************************
+
+// Null sprite control.
+
+void SpriteControl00()					// Do nothing.
+{
 }
 
 //***************************************************************************************************

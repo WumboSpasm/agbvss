@@ -40,6 +40,8 @@ void ObjectDisplay(void)
 	u8 OAMLoop;											// Local OAM update variables.
 	Object *pAO;										// Object table pointer.
 
+	ClearOAMBuffer();							 		// Initialize OAM buffer with default parameters.
+
 	pAO=g_pObject;										// Get base address of object table.
 	gOAMOffset=0;										// Init. offset into OAM buffer.
 
@@ -47,24 +49,30 @@ void ObjectDisplay(void)
 
 	for(OAMLoop=0;OAMLoop!=numUsedObjects;OAMLoop++) 	// Refresh and update the OAM buffer with all the sprite objects currently in use.
 	{
-//		ObjectOff(pAO);									// Turn OFF sprite (reset sprite).
-
 		if(pAO->sp_type!=TYPE_OFF)						// Is sprite on ?.
 		{
 			pAO->sp_screenX=pAO->sp_xpos-map_xpos;		// Calculate sprite screen co-ords. from world co-ords.
 			pAO->sp_screenY=pAO->sp_ypos-map_ypos;
 
-  			if((pAO->sp_screenX<=(0-pAO->sp_xsize)-8)||  // Check if sprite is off screen.
+  			if((pAO->sp_screenX<=(0-pAO->sp_xsize)-8)||  // Check if sprite is 'off' screen ?.
 			(pAO->sp_screenX>=LCD_WIDTH+8)||
 			(pAO->sp_screenY<=(0-pAO->sp_ysize)-8)||
 			(pAO->sp_screenY>=LCD_HEIGHT+8))
 			{
+				pAO->sp_display=OFF;					// Flag sprite is 'off' screen.
 			}
 			else
 			{
+				pAO->sp_display=ON;						// Flag sprite is 'on' screen.
+
 	 			ObjectOAMBuffer[gOAMOffset+0]=OAM_COLOR_256|pAO->sp_affine|pAO->sp_blend|pAO->sp_mosaic; // 256 color mode, mosaic on/off, scaling/rotation on.
-				ObjectOAMBuffer[gOAMOffset+1]=(gOAMOffset>>4)<<9; // Scaling/rotation parameter 0.
-				ObjectOAMBuffer[gOAMOffset+2]=pAO->sp_priority<<10|64*((gOAMOffset>>4)*2); // Priority (relative to background), character name.
+
+				if(pAO->sp_affine!=OAM_AFFINE_NONE) // Sprite rotation param. set required for this sprite ?.
+				{
+					ObjectOAMBuffer[gOAMOffset+1]=gOAMOffset<<5; // Scaling/rotation parameter 0.
+				}
+
+				ObjectOAMBuffer[gOAMOffset+2]=pAO->sp_priority<<10|gOAMOffset<<1; // Priority (relative to background), character name (every 4th 64*64 sprite window in vram !!!).
 
 				switch(pAO->sp_xsize)		   			// Set sprite shape & size.
 				{
@@ -179,14 +187,14 @@ void ObjectDisplay(void)
 				{
 					ObjectOAMBuffer[gOAMOffset+1]|=OAM_V_FLIP>>16;
 				}
-
+ 
 				if(pAO->sp_mosaic==ON)				   	// Use global sprite mosaic for this sprite ?.
 				{
 					ObjectOAMBuffer[gOAMOffset+0]|=OAM_MOS_ON;
 				}
 				else
 				{
-					ObjectOAMBuffer[gOAMOffset+1]|=OAM_MOS_OFF;
+					ObjectOAMBuffer[gOAMOffset+0]|=OAM_MOS_OFF;
 				}
 
 				if(pAO->sp_flash==ON)		  		   	// Flash sprite ?.
@@ -198,25 +206,21 @@ void ObjectDisplay(void)
 					if(pAO->sp_delay>FlashTimer) {pAO->sp_delay=0;pAO->sp_flshspd=0;pAO->sp_flash=0;} // Stop flashing sprite yet & reset flash flag & timers ?.
 				}
 
-				// Set scaling/rotation parameters.
-				pA=FixMul(Cos(pAO->sp_rotate),FixInverse(pAO->sp_scaleX));
+				pA=FixMul(Cos(pAO->sp_rotate),FixInverse(pAO->sp_scaleX)); // Set scaling/rotation parameters.
 				pB=FixMul(Sin(pAO->sp_rotate),FixInverse(pAO->sp_scaleX));
 		 		pC=FixMul(-Sin(pAO->sp_rotate),FixInverse(pAO->sp_scaleY)); // You get an odd rotate effect if you leave off the '-' @ge :)
 				pD=FixMul(Cos(pAO->sp_rotate),FixInverse(pAO->sp_scaleY));
 
-				ObjectOAMBuffer[gOAMOffset+3 ]=*(u16*)(&pA); // Interleave for 64x64 rotatable/scaleable sprites.
+				ObjectOAMBuffer[gOAMOffset+3 ]=*(u16*)(&pA); // Interleave for rotatable/scaleable sprites.
 				ObjectOAMBuffer[gOAMOffset+7 ]=*(u16*)(&pB);
 				ObjectOAMBuffer[gOAMOffset+11]=*(u16*)(&pC);
 				ObjectOAMBuffer[gOAMOffset+15]=*(u16*)(&pD);
 
 				ObjectAnimate(pAO);						// Update sprites (animation).
 
-				gOAMOffset+=16;							// Offset to next sprite in OAM RAM (bytes).
+				gOAMOffset+=16;							// Offset to next sprite in OAM RAM (words).
 
-				ObjectOAMBuffer[gOAMOffset+0]=(u16)((s32)(-pAO->sp_xsize)&0x00ff); // Reset next sprites screen position 'off screen'.
-				ObjectOAMBuffer[gOAMOffset+1]=(u16)((s32)(-pAO->sp_ysize)&0x01ff);
-
-				if((gOAMOffset>>4)>=32) {gOAMOffset-=16;} // Prevent '>=32' sprite usage of OAM overspill by re-writing over last sprite again !.
+				if((gOAMOffset>>4)>31){gOAMOffset-=16;}	// Prevent more than 32 sprite usage of OAM overspill ?.
 	   		}
 		}
 		pAO++;											// Get next object in object table.
@@ -230,8 +234,8 @@ void ObjectDisplay(void)
 
 void ObjectOff(Object* pAO)
 {
-	ObjectOAMBuffer[gOAMOffset+0]=(u16)((s32)(-pAO->sp_xsize)&0x00ff); // Reset current sprites screen position 'off screen'.
-	ObjectOAMBuffer[gOAMOffset+1]=(u16)((s32)(-pAO->sp_ysize)&0x01ff);
+	ObjectOAMBuffer[gOAMOffset+0]=(u16)((s32)(-(pAO->sp_xsize<<1))&0x00ff); // Reset current sprites screen position 'off screen' by twice size !.
+	ObjectOAMBuffer[gOAMOffset+1]=(u16)((s32)(-(pAO->sp_ysize<<1))&0x01ff);
 }
 
 //***************************************************************************************************

@@ -19,7 +19,7 @@
 // Global Variables.
 /////////////////////////////////////////////////
 
-extern u8 gOAMOffset;
+extern u16 gOAMOffset;
 
 /////////////////////////////////////////////////
 // Global Functions.
@@ -95,7 +95,7 @@ extern const u8 Karate4_Char[64*64];
 
 // Misc. sprites.
 
-extern const u8 Patrick64_Char[64*64];
+extern const u8 Patrick_Char[64*64];
 extern const u8 Platform1_Char[64*64];
 
 //---------------------------------------------------------------------------------------------------
