@@ -12,6 +12,10 @@
 extern u8 menuback_Palette[256];
 extern u8 menuback_Character[8*8*600];
 extern u16 menuback_Map[30*20];
-extern u8 PasswordIcons_Char[64*64/8*48/8];
+extern u8 PasswordIcons_Char[64*64/8*48/8]; 
+
+extern u16 HubMap_Palette[256];
+extern u8 HubMap_Character[8*8*896];
+extern u16 HubMap_Map[32*64];
 
 #endif
