@@ -15,6 +15,12 @@
 #include "SprEng_Display.h"
 #include "Text_Sys.h"
 
+/////////////////////////////////////////////////
+// Global Functions.
+/////////////////////////////////////////////////
+
+const u16 Speech_Bubble_Palette[2]={0xffff,0x0000,}; // 'Speech Bubble' palette (black text on white).
+
 //***************************************************************************************************
 
 // Initialise Main Routine
@@ -42,18 +48,47 @@ void InitGame(void)
 //***************************************************************************************************
 //***************************************************************************************************
 
-//Main Game Loop.
+// Main Game Loop.
 
 void MainGame(void)
 {
 	WaitVBlank();								// Wait 4 VBL.
 	ReadJoypad();								// Read joypad.
+	ObjectDisplay();							// Update sprites (display) (Always do this first to sync. sprites to scroll display correctly & eliminate shearing !).
 	ObjectControl2();							// Update sprites (control 'method-2').
-	ObjectDisplay();							// Update sprites (display).
 	UpdateScroll();								// Update scroll.
+ 
+//---------------------------------------------------------------------------------------------------
 
-//	sprintf(DEBUGBUFFER,"SPONGEBOB");			 // Assert test only !.
-//	PutTextBox(1,1,11,3,DEBUGBUFFER);
+// Main loop test area only.
+
+//--
+
+// @ge's tests.
+
+	sprintf(DEBUGBUFFER,"SPONGEBOB");			// Assert test only !!!.
+	PutTextBox(1,1,11,3,DEBUGBUFFER);
+
+	if(gKeyTap&SELECT_BUTTON)					// Next level test only !!!.
+	{
+		Level++;
+		if(Level>LEVEL020405){Level=LEVEL020201;}
+ 		InitGame();								// Init. main game.
+	}
+
+//--
+
+// Beaner's tests.
+
+#ifdef BEANER
+	// IM NOT SUPPOSED TO BE HERE
+	PutTextBox(2,2,16,4,GAMENAME);
+	PutText(0,19,30,1,GAMENAME,0);
+	//--
+#endif
+
+//---------------------------------------------------------------------------------------------------
+
 }
 
 //***************************************************************************************************
@@ -65,7 +100,102 @@ void MainGame(void)
 
 void InitPalettes(void)
 {
-	DmaArrayCopy(3,Level1_Palette,BG_PLTT,16);	// Set 256 colour palette data for ALL background layers.
+	switch(Level)			 					// Get Level.
+	{
+
+//---------------------------------------------------------------------------------------------------
+
+// Chapter 2.
+
+//--
+
+// Level 1 & Sub-Levels.
+
+		case LEVEL020101:
+			DmaArrayCopy(3,level0101_Palette,BG_PLTT,16); // Set 256 colour palette data for ALL background layers.
+			break;
+		case LEVEL020102: 					   	// Etc.		
+			DmaArrayCopy(3,level0102_Palette,BG_PLTT,16);
+			break;
+		case LEVEL020103:		
+			DmaArrayCopy(3,level0103_Palette,BG_PLTT,16);
+			break;
+		case LEVEL020104:		
+			DmaArrayCopy(3,level0104_Palette,BG_PLTT,16);
+			break;
+		case LEVEL020105:		
+			DmaArrayCopy(3,level0105_Palette,BG_PLTT,16);
+			break;
+		case LEVEL020106:		
+			DmaArrayCopy(3,level0106_Palette,BG_PLTT,16);
+			break;
+		case LEVEL020107:		
+			DmaArrayCopy(3,level0107_Palette,BG_PLTT,16);
+			break;
+
+//--
+
+// Level 2 & Sub-Levels.
+
+		case LEVEL020201:		
+			DmaArrayCopy(3,level0201_Palette,BG_PLTT,16);
+			break;
+		case LEVEL020202:		
+			DmaArrayCopy(3,level0202_Palette,BG_PLTT,16);
+			break;
+		case LEVEL020203:		
+			DmaArrayCopy(3,level0203_Palette,BG_PLTT,16);
+			break;
+		case LEVEL020204:		
+			DmaArrayCopy(3,level0204_Palette,BG_PLTT,16);
+			break;
+		case LEVEL020205:		
+			DmaArrayCopy(3,level0205_Palette,BG_PLTT,16);
+			break;
+
+//--
+
+// Level 3 & Sub-Levels.
+
+		case LEVEL020301:		
+			DmaArrayCopy(3,level0301_Palette,BG_PLTT,16);
+			break;
+		case LEVEL020302:		
+			DmaArrayCopy(3,level0302_Palette,BG_PLTT,16);
+			break;
+		case LEVEL020303:		
+			DmaArrayCopy(3,level0303_Palette,BG_PLTT,16);
+			break;
+		case LEVEL020304:		
+			DmaArrayCopy(3,level0304_Palette,BG_PLTT,16);
+			break;
+
+//--
+
+// Level 4 & Sub-Levels.
+
+		case LEVEL020401:
+			DmaArrayCopy(3,level0401_Palette,BG_PLTT,16);
+			break;
+		case LEVEL020402:
+			DmaArrayCopy(3,level0402_Palette,BG_PLTT,16);
+			break;
+		case LEVEL020403:
+			DmaArrayCopy(3,level0403_Palette,BG_PLTT,16);
+			break;
+		case LEVEL020404:
+			DmaArrayCopy(3,level0404_Palette,BG_PLTT,16);
+			break;
+		case LEVEL020405:
+			DmaArrayCopy(3,level0405_Palette,BG_PLTT,16);
+			break;
+
+//---------------------------------------------------------------------------------------------------
+
+	};
+
+	DmaArrayCopy(3,Speech_Bubble_Palette,BG_PLTT+(254<<1),16); // Set 'Speech Bubble' colours (all '2' of them :).
+
 	DmaArrayCopy(3,Stand_Palette,OBJ_PLTT,16);	// Set 256 colour palette data for ALL sprites.
 }
 
