@@ -1,0 +1,33 @@
+SOUND_FILES = $(SOUND_DIR)m4aLib.o $(SOUND_DIR)SoundDat.o $(SOUND_DIR)inst01.o $(SOUND_DIR)inst02.o $(SOUND_DIR)inst03.o \
+	$(SOUND_DIR)inst04.o $(SOUND_DIR)inst05.o $(SOUND_DIR)inst06.o $(SOUND_DIR)inst07.o $(SOUND_DIR)inst08.o \
+	$(SOUND_DIR)inst09.o $(SOUND_DIR)inst0a.o $(SOUND_DIR)inst0b.o $(SOUND_DIR)inst0c.o $(SOUND_DIR)inst0d.o \
+	$(SOUND_DIR)inst0e.o $(SOUND_DIR)inst0f.o $(SOUND_DIR)inst10.o $(SOUND_DIR)inst11.o $(SOUND_DIR)inst12.o \
+	$(SOUND_DIR)inst13.o $(SOUND_DIR)inst14.o $(SOUND_DIR)inst15.o $(SOUND_DIR)inst16.o $(SOUND_DIR)inst17.o \
+	$(SOUND_DIR)inst18.o $(SOUND_DIR)inst19.o $(SOUND_DIR)inst1a.o $(SOUND_DIR)inst1b.o $(SOUND_DIR)inst1c.o \
+	$(SOUND_DIR)inst1d.o $(SOUND_DIR)inst1e.o $(SOUND_DIR)inst1f.o $(SOUND_DIR)inst20.o $(SOUND_DIR)inst21.o \
+	$(SOUND_DIR)inst22.o $(SOUND_DIR)inst23.o $(SOUND_DIR)inst24.o $(SOUND_DIR)inst25.o $(SOUND_DIR)inst26.o \
+	$(SOUND_DIR)inst27.o $(SOUND_DIR)inst28.o $(SOUND_DIR)inst29.o $(SOUND_DIR)inst2a.o $(SOUND_DIR)inst2b.o \
+	$(SOUND_DIR)inst2c.o $(SOUND_DIR)inst2d.o $(SOUND_DIR)inst2e.o $(SOUND_DIR)inst2f.o $(SOUND_DIR)inst30.o \
+	$(SOUND_DIR)inst31.o $(SOUND_DIR)inst32.o $(SOUND_DIR)inst33.o $(SOUND_DIR)inst34.o $(SOUND_DIR)inst35.o \
+	$(SOUND_DIR)inst36.o $(SOUND_DIR)inst37.o $(SOUND_DIR)inst38.o $(SOUND_DIR)inst39.o $(SOUND_DIR)inst3a.o \
+	$(SOUND_DIR)inst3b.o $(SOUND_DIR)inst3c.o $(SOUND_DIR)inst3d.o $(SOUND_DIR)inst3e.o $(SOUND_DIR)inst3f.o \
+	$(SOUND_DIR)inst40.o $(SOUND_DIR)inst41.o $(SOUND_DIR)inst42.o $(SOUND_DIR)inst43.o $(SOUND_DIR)inst44.o \
+	$(SOUND_DIR)inst45.o $(SOUND_DIR)inst46.o $(SOUND_DIR)inst47.o $(SOUND_DIR)inst48.o $(SOUND_DIR)inst49.o \
+	$(SOUND_DIR)inst4a.o $(SOUND_DIR)inst4b.o $(SOUND_DIR)inst4c.o $(SOUND_DIR)inst4d.o $(SOUND_DIR)inst4e.o \
+	$(SOUND_DIR)inst4f.o $(SOUND_DIR)inst50.o $(SOUND_DIR)inst51.o $(SOUND_DIR)inst52.o $(SOUND_DIR)inst53.o \
+	$(SOUND_DIR)inst54.o $(SOUND_DIR)inst55.o $(SOUND_DIR)inst56.o $(SOUND_DIR)inst57.o $(SOUND_DIR)inst58.o \
+	$(SOUND_DIR)inst59.o $(SOUND_DIR)inst5a.o $(SOUND_DIR)inst5b.o $(SOUND_DIR)inst5c.o $(SOUND_DIR)inst5d.o \
+	$(SOUND_DIR)inst5e.o $(SOUND_DIR)inst5f.o $(SOUND_DIR)inst60.o $(SOUND_DIR)inst61.o $(SOUND_DIR)inst62.o \
+	$(SOUND_DIR)inst63.o $(SOUND_DIR)inst64.o $(SOUND_DIR)inst65.o $(SOUND_DIR)inst66.o $(SOUND_DIR)inst67.o \
+	$(SOUND_DIR)sfx1squ.o $(SOUND_DIR)sfx2jmp.o $(SOUND_DIR)sfx3but.o $(SOUND_DIR)sfx4bbl.o $(SOUND_DIR)sfx5def.o \
+	$(SOUND_DIR)sfx6lau.o $(SOUND_DIR)sfx7kar.o $(SOUND_DIR)sfx8ipc.o $(SOUND_DIR)sfx9net.o $(SOUND_DIR)sfxaspl.o \
+	$(SOUND_DIR)sfxbanm.o $(SOUND_DIR)sfxcclm.o $(SOUND_DIR)sfxdgho.o $(SOUND_DIR)sfxejfs.o $(SOUND_DIR)sfxfpic.o \
+	$(SOUND_DIR)sfxgcrs.o $(SOUND_DIR)ch112.o $(SOUND_DIR)ch13.o $(SOUND_DIR)ch14.o $(SOUND_DIR)ch1b.o \
+	$(SOUND_DIR)ch213.o $(SOUND_DIR)ch22.o $(SOUND_DIR)ch24.o $(SOUND_DIR)ch2b.o $(SOUND_DIR)ch31.o \
+	$(SOUND_DIR)ch323.o $(SOUND_DIR)ch34.o $(SOUND_DIR)ch3b1.o $(SOUND_DIR)ch3b2.o $(SOUND_DIR)ch41.o \
+	$(SOUND_DIR)ch424.o $(SOUND_DIR)ch43.o $(SOUND_DIR)ch4b.o $(SOUND_DIR)ch513.o $(SOUND_DIR)ch52.o \
+	$(SOUND_DIR)ch54.o $(SOUND_DIR)ch5b.o $(SOUND_DIR)ch6bt.o $(SOUND_DIR)ch6g.o $(SOUND_DIR)ch6rs.o \
+	$(SOUND_DIR)ch6top.o $(SOUND_DIR)gameover.o $(SOUND_DIR)options.o $(SOUND_DIR)titlemusic.o $(SOUND_DIR)sfx1.o \
+	$(SOUND_DIR)sfx2.o $(SOUND_DIR)sfx3.o $(SOUND_DIR)sfx4.o $(SOUND_DIR)sfx5.o $(SOUND_DIR)sfx6.o \
+	$(SOUND_DIR)sfx7.o $(SOUND_DIR)sfx8.o $(SOUND_DIR)sfx9.o $(SOUND_DIR)sfxa.o $(SOUND_DIR)sfxb.o \
+	$(SOUND_DIR)sfxc.o $(SOUND_DIR)sfxd.o $(SOUND_DIR)sfxe.o $(SOUND_DIR)sfxf.o $(SOUND_DIR)sfxg.o 
