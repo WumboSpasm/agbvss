@@ -10,7 +10,7 @@
 
 // hi-color single frame data
 extern u8 Title_Main_RawBitmap_LZ[0x51d4];
-extern u8 Title_Main_2_RawBitmap_LZ[0x73c4];
+extern u8 Start_Menu_RawBitmap_LZ[0x73c4];
 extern u8 Main_Menu_RawBitmap_LZ[0x2b50];
 
 #endif
