@@ -13,6 +13,8 @@
 #include "Main.h"
 #include "Game.h"
 
+//#define NDEBUG					// un-comment out for release build!! (for now...)
+
 //#include "Scroll_Engine.h"
 
 //#include "SprEng_Control.h"
