@@ -22,6 +22,7 @@ u32	gTimer;
 u32	IntrMainBuf[0x200];	// Buffer for interrupt main routine.
 vu16 IntrCheck;			// Interrupt check.
 GameState gGameState;	// Beaner's gamestate variable.
+GameData gGameData;		// Game Data Info (generic global info)
 
 /////////////////////////////////////////////////
 // Function Definitions.

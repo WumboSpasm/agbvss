@@ -11,6 +11,17 @@
 /////////////////////////////////////////////////
 //structs
 /////////////////////////////////////////////////
+typedef struct
+{
+	u8	mSFX_Volume;			// Global SFX Volume
+	u8	mMusic_Volume;			// Global Music Volume
+	u8  mController_Method;		// Controll Method 1 or 2
+	u8  mPad;
+}
+GameData;
+
+
+
 typedef void (*IntrFuncp)(void);
 
 enum
@@ -29,6 +40,7 @@ extern GameState gGameState;
 extern u16 gKeyInput;
 extern u16 gKeyTap;
 extern u32 gTimer;
+extern GamedDta gGameData;
 
 /////////////////////////////////////////////////
 // external functions
