@@ -37,7 +37,8 @@ include build/opts.mak
 			Contours.c \
 			Text_Sys.c \
 			Collision.c \
-			Hub.c
+			Hub.c  \
+			Fade.c
 
 .OFILES		:=	$(foreach f,$(.SFILES) $(.CFILES), $(TEMP_DIR)/$(subst .s,.o,$(subst .c,.o,$(f)))) $(SOUND_FILES)
 

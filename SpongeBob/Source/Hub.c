@@ -15,6 +15,7 @@
 #include "SprEng_Display.h"
 #include "Titles.h"
 #include "TitlesData.h"
+#include "Fade.h"
 
 static void UpdateInput(void);					        // read input and update gamestate accordingly
 static void UpdateGFX(void);					        // update Graphics
@@ -51,7 +52,7 @@ void InitHub(void)
 	*(vu16 *)REG_BG0VOFS = mapyoffset;
 
 #ifdef MUSIC_ON                
-        m4aSongNumStart(YOS_BGM_TITLE);//BGM Start
+        m4aSongNumStart(SBP_CHAP1LEV2);//BGM Start
 #endif    
 	
 }
