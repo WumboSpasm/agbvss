@@ -9,7 +9,7 @@
 
 // order of machine start up
 //
-// Machine switched on -> Copywrite Screen -> THQ Logo -> Nick Logo -> Climax Logo
+// Machine switched on -> Copyright Screen -> THQ Logo -> Nick Logo -> Climax Logo
 //
 // Then Title FMA
 //
