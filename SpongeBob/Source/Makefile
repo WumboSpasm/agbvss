@@ -39,10 +39,10 @@ LDFLAGS	 +=	-Map $(MAPFILE) -nostartfiles \
                 -LGamedata/Sprites/Misc/ -lMisc_Sprs \
 		-Tlnkscript
 
-DEPENDFILE	=	Makedepend
-MAPFILE         =       SBSPants.map
-TARGET_ELF      =       SBSPants.elf
-TARGET_BIN      =       SBSPants.bin
+DEPENDFILE	=Makedepend
+MAPFILE         =SBSPants.map
+TARGET_ELF      =SBSPants.elf
+TARGET_BIN      =SBSPants.bin
 
 $(TARGET_BIN): $(TARGET_ELF)
 	@objcopy -v -O binary $< $@
