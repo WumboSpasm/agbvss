@@ -18,6 +18,12 @@
 #include "Includes.h"
 #include "Scroll_Engine.h"
 
+/////////////////////////////////////////////////
+// Function Definitions.
+/////////////////////////////////////////////////
+//static void InitFront();
+static void InitRear();
+
 //***************************************************************************************************
 
 // Initialise the scroll engine.
@@ -30,8 +36,8 @@ void InitScroll()
 	map_x_size_pixels=map_x_size_tiles<<3;	// Convert map size to pixel dimensions.
 	map_y_size_pixels=map_y_size_tiles<<3;
 
-	map_xpos=0;								// Start position in map (32 bit x, y coords).
-	map_ypos=map_y_size_pixels-LCD_HEIGHT;	// @ bottom of map !.
+	map_xpos=0;								// Init. start position in map (32 bit x, y coords).
+	map_ypos=0;
 
 	// Rear layer.
 	SetBgTextControl((vu16*)REG_BG0CNT,BG_PRIORITY_3,BG_SCREEN_SIZE_0,BG_COLOR_256,BG_MOS_OFF,28,CHAR_BASE_0);
@@ -88,9 +94,9 @@ void SetDispControl(vu16* reg,u16 bgMode,u16 obj_window,u16 window0,u16 window1,
 
 // Initialise the 'bg0' front layer map.
 
-void InitFront()
+/*static void InitFront()
 {
-/*	u8 x,y;
+	u8 x,y;
 	for (y=0;y<32;y++)
 	{
 		for (x=0;x<32;x++)
@@ -98,14 +104,13 @@ void InitFront()
 			Bg0_ScreenDat[y*32+x]=Lev1bg0_Map[(y*256>>3)+x]; // Update screen map buffer with tile name data.
 		}
 	}
-*/
-}
+}*/
 
 //***************************************************************************************************
 
 // Initialise the 'bg3' rear layer map.
 
-void InitRear()
+static void InitRear()
 {
 	u8 x,y;
 	for (y=0;y<32;y++)
@@ -125,7 +130,7 @@ void UpdateScroll()
 {
 	u8 x,y;				   		// Local temp. variables.
 
-	u8 scroll_speed=2;			// Temp. scroll speed test variable.
+//	u8 scroll_speed=2;			// Temp. scroll speed test variable.
 
 //--
 
@@ -170,18 +175,6 @@ void UpdateScroll()
 			Bg1_ScreenDat[y*32+x]=Lev1bg1_Map[((y_tilepos2+y)*map_x_size_tiles)+x_tilepos2+x]; // Update screen map buffer with tile name data.
 		}
 	}
-
-//--
-
-//	Scroll around map with limits test.
-
-	if (gKeyInput&U_KEY&&map_ypos>0) {map_ypos-=scroll_speed;}
-	if (gKeyInput&D_KEY&&map_ypos<map_y_size_pixels-LCD_HEIGHT) {map_ypos+=scroll_speed;}
-	if (gKeyInput&L_KEY&&map_xpos>0) {map_xpos-=scroll_speed;}
-	if (gKeyInput&R_KEY&&map_xpos<map_x_size_pixels-LCD_WIDTH) {map_xpos+=scroll_speed;}
-
-//--
-
 }
 
 //***************************************************************************************************

@@ -48,9 +48,6 @@ void SetBgTextControl(vu16 *reg,u16 priority,u16 screen_size,u16 color_mode,u16 
 //void SetBgRotationControl(vu16 *reg,u16 priority,u16 screen_size,u16 color_mode,u16 mosaic,u16 screenblock,u16 char_base,u16 area_over);
 void SetDispControl(vu16* reg,u16 bgMode,u16 obj_window,u16 window0,u16 window1,u16 obj,u16 bg0,u16 bg1,u16 bg2,u16 bg3,u16 blank,u16 format,u16 hblank,u16 frame);
 
-void InitRear();
-void InitFront();
-
 //---------------------------------------------------------------------------------------------------
 
 // Variables.
