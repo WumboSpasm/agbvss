@@ -77,7 +77,11 @@ void AgbMain(void)
 	ClearAll();	  								// The first initialization of the system.
 	InitSystem();
 
+#ifdef NDEBUG
+	gGameState=LEGAL_SCREEN;
+#else
 	gGameState=IN_GAME;
+#endif
 
 	InitGame();									// Init. main game.
 

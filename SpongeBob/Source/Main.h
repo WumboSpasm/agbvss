@@ -16,6 +16,7 @@ typedef void (*IntrFuncp)(void);
 enum
 {
 	NULL=-1,
+	LEGAL_SCREEN,
 	TITLE_SCREEN,
 	IN_GAME,
 };
@@ -38,6 +39,6 @@ extern void WaitVBlank(void);
 extern void IntrDummy(void);
 extern void ReadJoypad(void);
 
-//***************************************************************************************************
-
 #endif
+
+//***************************************************************************************************
