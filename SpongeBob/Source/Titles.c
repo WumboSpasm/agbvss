@@ -15,7 +15,7 @@
 
 //------------prototype functions--------
 static void UpdateInput(void);					// read input and update gamestate accordingly
-static u16 ZoomBGIn(void);						// random fade/wipe/zoom routine (i return what zoom i did so store me somewhere safe)
+static u16 ZoomBGIn(u16 random);						// random fade/wipe/zoom routine (i return what zoom i did so store me somewhere safe)
 static void ZoomBGOut(u16 prev);				// do approapriate return (I need to know what the last zoom was so pass it in with prev)
 static void UpdateGFX(void);					// update display based on current state
 
@@ -35,7 +35,7 @@ void InitTitles(void)
 	BGstats.mZoomY = 0x0100;							// no zoom to start with
 	BGstats.mBg2_center_x = 120;				// set center to middle of bitmap
 	BGstats.mBg2_center_y = 80;					// "ditto"
-	BGstats.mRotate = 0;						// Rorational Value		(ask Janusz why its spelt like this :o) )
+	BGstats.mRotate = 3;						// Rorational Value		(ask Janusz why its spelt like this :o) )
 
 	Title.mCurrent_Screen = 0;					// on screen 0 i.e. title screen
 	Title.mCurrent_Selection = 0;				// currently no selection
@@ -70,7 +70,7 @@ static void UpdateInput(void)
 	case 0:								// main screen (emun up maybe...)
 		if((gKeyTap&A_BUTTON)||(gKeyTap&START_BUTTON))
 		{
-			tmp = ZoomBGIn();
+			tmp = ZoomBGIn(3);
 			LZ77UnCompVram(Title_Main_2_RawBitmap_LZ, (void*)(int)BG_BITMAP0_VRAM);
 			ZoomBGOut(tmp);
 			Title.mCurrent_Screen = 1;
@@ -80,10 +80,9 @@ static void UpdateInput(void)
 	case 1:
 		if((gKeyTap&START_BUTTON)||(gKeyTap&A_BUTTON))
 		{
-			tmp = ZoomBGIn();
+			tmp = ZoomBGIn(1);
 			gGameState=e_IN_GAME;
 			InitGame();
-			ZoomBGOut(tmp);
 			break;
 		}
 		break;
@@ -94,9 +93,9 @@ static void UpdateInput(void)
 
 
 //--------------Zoom BG Layers------------------
-static u16 ZoomBGIn(void)
+static u16 ZoomBGIn(u16 random)
 {
-	u16 random = GenRand(6);					// Generate random number plz
+	if(random == 255){random = GenRand(6);}
 
 	switch(random)								// ooh here's the nice bit...
 	{
@@ -141,7 +140,7 @@ static u16 ZoomBGIn(void)
 
 	//--if three zoom out
 	case 3:
-		while(BGstats.mZoomX > 0x0000)
+		while(BGstats.mZoomX > 0x0010)
 		{
 			WaitVBlank();				// Wait 4 VBlank
 			UpdateGFX();				// update zoom factor
@@ -253,8 +252,8 @@ static void UpdateGFX(void)
     BGstats.mBg2pd = FixMul( Cos(BGstats.mRotate), FixInverse(BGstats.mZoomY));
 
     // BG data reference starting point set
-    BGstats.mBg2x = (BGstats.mBg2_center_x) - ((BGstats.mBg2pa * 120)) - ((BGstats.mBg2pb * 80));
-    BGstats.mBg2y = (BGstats.mBg2_center_x) - ((BGstats.mBg2pc * 120)) - ((BGstats.mBg2pd * 80));
+    BGstats.mBg2x = (BGstats.mBg2_center_x * 0x100) - ((BGstats.mBg2pa * BGstats.mBg2_center_x)) - ((BGstats.mBg2pb * BGstats.mBg2_center_y));
+    BGstats.mBg2y = (BGstats.mBg2_center_y * 0x100) - ((BGstats.mBg2pc * BGstats.mBg2_center_x)) - ((BGstats.mBg2pd * BGstats.mBg2_center_y));
 
 	//------------update registers---should be done during vblank..hopefully it is happening...
     *(vu16*)REG_BG2PA = (u16)BGstats.mBg2pa;
