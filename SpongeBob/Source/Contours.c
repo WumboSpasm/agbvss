@@ -115,22 +115,18 @@ void CheckContour(Object* pAO)
 
 	if(pAO->sp_type==TYPE_SPONGEBOB)   	// SpongeBob sprite ?. 
 	{
-		if(pAO->sp_var1==DIR_RIGHT)		// Facing right ?.
+		Tile3=pCollision_Map[(MapX+1)+((MapY)*map_x_size_tiles)]; // Read tile at next y map location down.
+		Tile4=pCollision_Map[(MapX+1)+((MapY-1)*map_x_size_tiles)]; // Read tile at next y map location down.
+		if(Tile3==COLLISION_TILE_1&&Tile4==COLLISION_TILE_1) // Check for wall tile combination (whole 'moon' tiles) ?.
 		{
-			Tile3=pCollision_Map[(MapX+1)+((MapY)*map_x_size_tiles)]; // Read tile at next y map location down.
-			Tile4=pCollision_Map[(MapX+1)+((MapY-1)*map_x_size_tiles)]; // Read tile at next y map location down.
-			if(Tile3==COLLISION_TILE_1&&Tile4==COLLISION_TILE_1) // Check for wall tile combination (whole 'moon' tiles) ?.
-			{
-				pAO->sp_xpos=pAO->sp_xpos&0xfff8;// Force to left of tile.
-			}
+			pAO->sp_xpos=pAO->sp_xpos&0xfff8; // Force to left of tile.
 		}
 
-		// Do check for left always to stop getting stuck in right hand wall and zoomed up screen !!!.
 		Tile3=pCollision_Map[(MapX-1)+((MapY)*map_x_size_tiles)]; // Read tile at next y map location down.
 		Tile4=pCollision_Map[(MapX-1)+((MapY-1)*map_x_size_tiles)]; // Read tile at next y map location down.
 		if(Tile3==COLLISION_TILE_1&&Tile4==COLLISION_TILE_1) // Check for wall tile combination (whole 'moon' tiles) ?.
 		{
-			pAO->sp_xpos=pAO->sp_xpos&0xfff8;// Force to right of tile.
+			pAO->sp_xpos=pAO->sp_xpos&0xfff8; // Force to right of tile.
 			pAO->sp_xpos+=8;
 		}
 	}
