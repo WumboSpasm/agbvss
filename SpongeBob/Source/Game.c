@@ -11,6 +11,7 @@
 #include "Scroll_Engine.h"
 #include "SprEng_Common.h"
 #include "SprEng_Control.h"
+#include "SprEng_Animate.h"
 #include "SprEng_Display.h"
 
 //***************************************************************************************************
@@ -28,7 +29,7 @@ void InitGame(void)
 	// Set alpha channel blend mode ready for sprites.
 	*(vu16*)REG_BLDCNT=BLD_2ND_ALL|BLD_NORMAL_MODE|BLD_ALL; //No SFX.
 	*(vu16*)REG_BLDALPHA=0x0808;				// EVB EVA coefficient value.
-	*(vu16*)REG_BLDY= 8;						// EVY coefficient value.
+	*(vu16*)REG_BLDY=8;							// EVY coefficient value.
 
 //--
 	
@@ -56,10 +57,12 @@ void MainGame(void)
 
 // Init. in-game colour palettes.
 
+// Note: The very first sprite (i.e. SpongeBob 'Stand', contains the common sprite palette).
+
 void InitPalettes(void)
 {
 	DmaArrayCopy(3,Lev1bg1_Palette,BG_PLTT,16);	// Set 256 colour palette data for ALL background layers.
-	DmaArrayCopy(3,Spongey_Palette,OBJ_PLTT,16); // Set 256 colour palette data for ALL sprites.
+	DmaArrayCopy(3,Stand_Palette,OBJ_PLTT,16);	// Set 256 colour palette data for ALL sprites.
 }
 
 //***************************************************************************************************

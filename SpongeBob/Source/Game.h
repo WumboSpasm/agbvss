@@ -11,8 +11,8 @@
 /////////////////////////////////////////////////
 // Global Variables.
 /////////////////////////////////////////////////
-extern const u16 Lev1bg1_Palette[256]; // Background palette data (shared 256 colours for all backgrounds).
-extern const u16 Spongey_Palette[256]; // Sprite palette data (shared 256 colours for all sprites).
+extern const u16 Lev1bg1_Palette[256];			// Background palette data (shared 256 colours for all backgrounds).
+extern const u16 Stand_Palette[256];			// Sprite palette data (shared 256 colours for all sprites).
 
 /////////////////////////////////////////////////
 // Global Functions

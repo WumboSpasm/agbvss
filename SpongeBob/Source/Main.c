@@ -124,8 +124,8 @@ void AgbMain(void)
 
 static void ClearAll(void)
 {
-	DmaClear(3,0,EX_WRAM, EX_WRAM_SIZE,       32);	// CPU external Work RAM clear.
 	DmaClear(3,0,CPU_WRAM,CPU_WRAM_SIZE-0x200,32);	// CPU internal Work RAM clear.
+	DmaClear(3,0,EX_WRAM, EX_WRAM_SIZE,       32);	// CPU external Work RAM clear.
 	DmaClear(3,0,VRAM,    VRAM_SIZE,          32);	// VRAM Clear.
 	DmaClear(3,0,OAM,     OAM_SIZE,           32);	// OAM Clear.
 	DmaClear(3,0,PLTT,    PLTT_SIZE,          32);	// Palette Clear.
