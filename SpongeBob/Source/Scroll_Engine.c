@@ -39,216 +39,667 @@ void InitScroll()
 	{
 
 //---------------------------------------------------------------------------------------------------
-
+/*
 // Chapter 2.
 
 //--
 
-// Level 1 & Sub-Level.
+// Level 1 & Sub-Levels.
 
 		case LEVEL020101:
-			pBack_Map		 =level0101_Back_Map;		  	// Load pointer to base of back map to use.
-			pMid_Map		 =level0101_Mid_Map;	   	  	// Load pointer to base of level mid map to use.
-			pAction_MapWidth =level0101_Action_MapWidth; 	// Action map 'width' to use.
-			pAction_MapHeight=level0101_Action_MapHeight;	// Action map 'height' to use.
-			pAction_Map		 =level0101_Action_Map;	 	 	// Load pointer to base of action map to use.
-			pCollision_Map	 =level0101_Collision_Map;	  	// Load pointer to base of collision map to use.
-			pTiles			 =level0101_Tiles;		   	  	// Load pointer to base of tiles to use.
+			pBack_Map		 =CHAPTER02_LEVEL0101_BACK;	  	// Load pointer to base of back map to use.
+			pMid_Map		 =CHAPTER02_LEVEL0101_MID; 	  	// Load pointer to base of level mid map to use.
+			pAction_MapWidth =CHAPTER02_LEVEL0101_ACTION_WIDTH;	// Action map 'width' to use.
+			pAction_MapHeight=CHAPTER02_LEVEL0101_ACTION_HEIGHT;// Action map 'height' to use.
+			pAction_Map		 =CHAPTER02_LEVEL0101_ACTION; 	// Load pointer to base of action map to use.
+			pCollision_Map	 =CHAPTER02_LEVEL0101_COLLISION;// Load pointer to base of collision map to use.
+			pTiles			 =CHAPTER02_LEVEL01_TILEBANK;  	// Load pointer to base of tiles to use.
 			break;
 		case LEVEL020102:									// Etc.
-			pBack_Map		 =level0102_Back_Map;
-			pMid_Map		 =level0102_Mid_Map;
-			pAction_MapWidth =level0102_Action_MapWidth;
-			pAction_MapHeight=level0102_Action_MapHeight;
-			pAction_Map		 =level0102_Action_Map;
-			pCollision_Map	 =level0102_Collision_Map;
-			pTiles			 =level0102_Tiles;
+			pBack_Map		 =CHAPTER02_LEVEL0102_BACK;
+			pMid_Map		 =CHAPTER02_LEVEL0102_MID;
+			pAction_MapWidth =CHAPTER02_LEVEL0102_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER02_LEVEL0102_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER02_LEVEL0102_ACTION;
+			pCollision_Map	 =CHAPTER02_LEVEL0102_COLLISION;
+			pTiles			 =CHAPTER02_LEVEL01_TILEBANK;
 			break;
 		case LEVEL020103:
-			pBack_Map		 =level0103_Back_Map;
-			pMid_Map		 =level0103_Mid_Map;
-			pAction_MapWidth =level0103_Action_MapWidth;
-			pAction_MapHeight=level0103_Action_MapHeight;
-			pAction_Map		 =level0103_Action_Map;
-			pCollision_Map	 =level0103_Collision_Map;
-			pTiles			 =level0103_Tiles;
+			pBack_Map		 =CHAPTER02_LEVEL0103_BACK;
+			pMid_Map		 =CHAPTER02_LEVEL0103_MID;
+			pAction_MapWidth =CHAPTER02_LEVEL0103_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER02_LEVEL0103_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER02_LEVEL0103_ACTION;
+			pCollision_Map	 =CHAPTER02_LEVEL0103_COLLISION;
+			pTiles			 =CHAPTER02_LEVEL01_TILEBANK;
 			break;
 		case LEVEL020104:
-			pBack_Map		 =level0104_Back_Map;
-			pMid_Map		 =level0104_Mid_Map;
-			pAction_MapWidth =level0104_Action_MapWidth;
-			pAction_MapHeight=level0104_Action_MapHeight;
-			pAction_Map		 =level0104_Action_Map;
-			pCollision_Map	 =level0104_Collision_Map;
-			pTiles			 =level0104_Tiles;
+			pBack_Map		 =CHAPTER02_LEVEL0104_BACK;
+			pMid_Map		 =CHAPTER02_LEVEL0104_MID;
+			pAction_MapWidth =CHAPTER02_LEVEL0104_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER02_LEVEL0104_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER02_LEVEL0104_ACTION;
+			pCollision_Map	 =CHAPTER02_LEVEL0104_COLLISION;
+			pTiles			 =CHAPTER02_LEVEL01_TILEBANK;
 			break;
 		case LEVEL020105:
-			pBack_Map		 =level0105_Back_Map;
-			pMid_Map		 =level0105_Mid_Map;
-			pAction_MapWidth =level0105_Action_MapWidth;
-			pAction_MapHeight=level0105_Action_MapHeight;
-			pAction_Map		 =level0105_Action_Map;
-			pCollision_Map	 =level0105_Collision_Map;
-			pTiles			 =level0105_Tiles;
+ 			pBack_Map		 =CHAPTER02_LEVEL0105_BACK;
+			pMid_Map		 =CHAPTER02_LEVEL0105_MID;
+			pAction_MapWidth =CHAPTER02_LEVEL0105_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER02_LEVEL0105_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER02_LEVEL0105_ACTION;
+			pCollision_Map	 =CHAPTER02_LEVEL0105_COLLISION;
+			pTiles			 =CHAPTER02_LEVEL01_TILEBANK;
 			break;
-		case LEVEL020106:
-			pBack_Map		 =level0106_Back_Map;
-			pMid_Map		 =level0106_Mid_Map;
-			pAction_MapWidth =level0106_Action_MapWidth;
-			pAction_MapHeight=level0106_Action_MapHeight;
-			pAction_Map		 =level0106_Action_Map;
-			pCollision_Map	 =level0106_Collision_Map;
-			pTiles			 =level0106_Tiles;
+	   	case LEVEL020106:
+ 			pBack_Map		 =CHAPTER02_LEVEL0106_BACK;
+			pMid_Map		 =CHAPTER02_LEVEL0106_MID;
+			pAction_MapWidth =CHAPTER02_LEVEL0106_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER02_LEVEL0106_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER02_LEVEL0106_ACTION;
+			pCollision_Map	 =CHAPTER02_LEVEL0106_COLLISION;
+			pTiles			 =CHAPTER02_LEVEL01_TILEBANK;
 			break;
 		case LEVEL020107:
-			pBack_Map		 =level0107_Back_Map;
-			pMid_Map		 =level0107_Mid_Map;
-			pAction_MapWidth =level0107_Action_MapWidth;
-			pAction_MapHeight=level0107_Action_MapHeight;
-			pAction_Map		 =level0107_Action_Map;
-			pCollision_Map	 =level0107_Collision_Map;
-			pTiles			 =level0107_Tiles;
+ 			pBack_Map		 =CHAPTER02_LEVEL0107_BACK;
+			pMid_Map		 =CHAPTER02_LEVEL0107_MID;
+			pAction_MapWidth =CHAPTER02_LEVEL0107_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER02_LEVEL0107_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER02_LEVEL0107_ACTION;
+			pCollision_Map	 =CHAPTER02_LEVEL0107_COLLISION;
+			pTiles			 =CHAPTER02_LEVEL01_TILEBANK;
+			break;
+		case LEVEL020108:
+ 			pBack_Map		 =CHAPTER02_LEVEL0108_BACK;
+			pMid_Map		 =CHAPTER02_LEVEL0108_MID;
+			pAction_MapWidth =CHAPTER02_LEVEL0108_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER02_LEVEL0108_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER02_LEVEL0108_ACTION;
+			pCollision_Map	 =CHAPTER02_LEVEL0108_COLLISION;
+			pTiles			 =CHAPTER02_LEVEL01_TILEBANK;
+			break;
+		case LEVEL020109:
+ 			pBack_Map		 =CHAPTER02_LEVEL0109_BACK;
+			pMid_Map		 =CHAPTER02_LEVEL0109_MID;
+			pAction_MapWidth =CHAPTER02_LEVEL0109_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER02_LEVEL0109_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER02_LEVEL0109_ACTION;
+			pCollision_Map	 =CHAPTER02_LEVEL0109_COLLISION;
+			pTiles			 =CHAPTER02_LEVEL01_TILEBANK;
+			break;
+		case LEVEL020110:
+ 			pBack_Map		 =CHAPTER02_LEVEL0110_BACK;
+			pMid_Map		 =CHAPTER02_LEVEL0110_MID;
+			pAction_MapWidth =CHAPTER02_LEVEL0110_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER02_LEVEL0110_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER02_LEVEL0110_ACTION;
+			pCollision_Map	 =CHAPTER02_LEVEL0110_COLLISION;
+			pTiles			 =CHAPTER02_LEVEL01_TILEBANK;
+			break;
+		case LEVEL020111:
+ 			pBack_Map		 =CHAPTER02_LEVEL0111_BACK;
+			pMid_Map		 =CHAPTER02_LEVEL0111_MID;
+			pAction_MapWidth =CHAPTER02_LEVEL0111_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER02_LEVEL0111_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER02_LEVEL0111_ACTION;
+			pCollision_Map	 =CHAPTER02_LEVEL0111_COLLISION;
+			pTiles			 =CHAPTER02_LEVEL01_TILEBANK;
+			break;
+		case LEVEL020112:
+ 			pBack_Map		 =CHAPTER02_LEVEL0112_BACK;
+			pMid_Map		 =CHAPTER02_LEVEL0112_MID;
+			pAction_MapWidth =CHAPTER02_LEVEL0112_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER02_LEVEL0112_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER02_LEVEL0112_ACTION;
+			pCollision_Map	 =CHAPTER02_LEVEL0112_COLLISION;
+			pTiles			 =CHAPTER02_LEVEL01_TILEBANK;
 			break;
 
 //--
 
-// Level 2 & Sub-Level.
+// Level 2 & Sub-Levels.
 
 		case LEVEL020201:
-			pBack_Map		 =level0201_Back_Map;
-			pMid_Map		 =level0201_Mid_Map;
-			pAction_MapWidth =level0201_Action_MapWidth;
-			pAction_MapHeight=level0201_Action_MapHeight;
-			pAction_Map		 =level0201_Action_Map;
-			pCollision_Map	 =level0201_Collision_Map;
-			pTiles			 =level0201_Tiles;
+ 			pBack_Map		 =CHAPTER02_LEVEL0201_BACK;
+			pMid_Map		 =CHAPTER02_LEVEL0201_MID;
+			pAction_MapWidth =CHAPTER02_LEVEL0201_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER02_LEVEL0201_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER02_LEVEL0201_ACTION;
+			pCollision_Map	 =CHAPTER02_LEVEL0201_COLLISION;
+			pTiles			 =CHAPTER02_LEVEL02_TILEBANK;
 			break;
 		case LEVEL020202:
-			pBack_Map		 =level0202_Back_Map;
-			pMid_Map		 =level0202_Mid_Map;
-			pAction_MapWidth =level0202_Action_MapWidth;
-			pAction_MapHeight=level0202_Action_MapHeight;
-			pAction_Map		 =level0202_Action_Map;
-			pCollision_Map	 =level0202_Collision_Map;
-			pTiles			 =level0202_Tiles;
+ 			pBack_Map		 =CHAPTER02_LEVEL0202_BACK;
+			pMid_Map		 =CHAPTER02_LEVEL0202_MID;
+			pAction_MapWidth =CHAPTER02_LEVEL0202_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER02_LEVEL0202_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER02_LEVEL0202_ACTION;
+			pCollision_Map	 =CHAPTER02_LEVEL0202_COLLISION;
+			pTiles			 =CHAPTER02_LEVEL02_TILEBANK;
 			break;
 		case LEVEL020203:
-			pBack_Map		 =level0203_Back_Map;
-			pMid_Map		 =level0203_Mid_Map;
-			pAction_MapWidth =level0203_Action_MapWidth;
-			pAction_MapHeight=level0203_Action_MapHeight;
-			pAction_Map		 =level0203_Action_Map;
-			pCollision_Map	 =level0203_Collision_Map;
-			pTiles			 =level0203_Tiles;
+ 			pBack_Map		 =CHAPTER02_LEVEL0203_BACK;
+			pMid_Map		 =CHAPTER02_LEVEL0203_MID;
+			pAction_MapWidth =CHAPTER02_LEVEL0203_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER02_LEVEL0203_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER02_LEVEL0203_ACTION;
+			pCollision_Map	 =CHAPTER02_LEVEL0203_COLLISION;
+			pTiles			 =CHAPTER02_LEVEL02_TILEBANK;
 			break;
 		case LEVEL020204:
-			pBack_Map		 =level0204_Back_Map;
-			pMid_Map		 =level0204_Mid_Map;
-			pAction_MapWidth =level0204_Action_MapWidth;
-			pAction_MapHeight=level0204_Action_MapHeight;
-			pAction_Map		 =level0204_Action_Map;
-			pCollision_Map	 =level0204_Collision_Map;
-			pTiles			 =level0204_Tiles;
+ 			pBack_Map		 =CHAPTER02_LEVEL0204_BACK;
+			pMid_Map		 =CHAPTER02_LEVEL0204_MID;
+			pAction_MapWidth =CHAPTER02_LEVEL0204_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER02_LEVEL0204_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER02_LEVEL0204_ACTION;
+			pCollision_Map	 =CHAPTER02_LEVEL0204_COLLISION;
+			pTiles			 =CHAPTER02_LEVEL02_TILEBANK;
 			break;
 		case LEVEL020205:
-			pBack_Map		 =level0205_Back_Map;
-			pMid_Map		 =level0205_Mid_Map;
-			pAction_MapWidth =level0205_Action_MapWidth;
-			pAction_MapHeight=level0205_Action_MapHeight;
-			pAction_Map		 =level0205_Action_Map;
-			pCollision_Map	 =level0205_Collision_Map;
-			pTiles			 =level0205_Tiles;
+ 			pBack_Map		 =CHAPTER02_LEVEL0205_BACK;
+			pMid_Map		 =CHAPTER02_LEVEL0205_MID;
+			pAction_MapWidth =CHAPTER02_LEVEL0205_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER02_LEVEL0205_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER02_LEVEL0205_ACTION;
+			pCollision_Map	 =CHAPTER02_LEVEL0205_COLLISION;
+			pTiles			 =CHAPTER02_LEVEL02_TILEBANK;
+			break;
+		case LEVEL020206:
+ 			pBack_Map		 =CHAPTER02_LEVEL0206_BACK;
+			pMid_Map		 =CHAPTER02_LEVEL0206_MID;
+			pAction_MapWidth =CHAPTER02_LEVEL0206_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER02_LEVEL0206_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER02_LEVEL0206_ACTION;
+			pCollision_Map	 =CHAPTER02_LEVEL0206_COLLISION;
+			pTiles			 =CHAPTER02_LEVEL02_TILEBANK;
+			break;
+		case LEVEL020207:
+ 			pBack_Map		 =CHAPTER02_LEVEL0207_BACK;
+			pMid_Map		 =CHAPTER02_LEVEL0207_MID;
+			pAction_MapWidth =CHAPTER02_LEVEL0207_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER02_LEVEL0207_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER02_LEVEL0207_ACTION;
+			pCollision_Map	 =CHAPTER02_LEVEL0207_COLLISION;
+			pTiles			 =CHAPTER02_LEVEL02_TILEBANK;
 			break;
 
 //--
 
-// Level 3 & Sub-Level.
+// Level 3 & Sub-Levels.
 
 		case LEVEL020301:
-			pBack_Map		 =level0301_Back_Map;
-			pMid_Map		 =level0301_Mid_Map;
-			pAction_MapWidth =level0301_Action_MapWidth;
-			pAction_MapHeight=level0301_Action_MapHeight;
-			pAction_Map		 =level0301_Action_Map;
-			pCollision_Map	 =level0301_Collision_Map;
-			pTiles			 =level0301_Tiles;
+ 			pBack_Map		 =CHAPTER02_LEVEL0301_BACK;
+			pMid_Map		 =CHAPTER02_LEVEL0301_MID;
+			pAction_MapWidth =CHAPTER02_LEVEL0301_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER02_LEVEL0301_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER02_LEVEL0301_ACTION;
+			pCollision_Map	 =CHAPTER02_LEVEL0301_COLLISION;
+			pTiles			 =CHAPTER02_LEVEL03_TILEBANK;
 			break;
 		case LEVEL020302:
-			pBack_Map		 =level0302_Back_Map;
-			pMid_Map		 =level0302_Mid_Map;
-			pAction_MapWidth =level0302_Action_MapWidth;
-			pAction_MapHeight=level0302_Action_MapHeight;
-			pAction_Map		 =level0302_Action_Map;
-			pCollision_Map	 =level0302_Collision_Map;
-			pTiles			 =level0302_Tiles;
+ 			pBack_Map		 =CHAPTER02_LEVEL0302_BACK;
+			pMid_Map		 =CHAPTER02_LEVEL0302_MID;
+			pAction_MapWidth =CHAPTER02_LEVEL0302_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER02_LEVEL0302_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER02_LEVEL0302_ACTION;
+			pCollision_Map	 =CHAPTER02_LEVEL0302_COLLISION;
+			pTiles			 =CHAPTER02_LEVEL03_TILEBANK;
 			break;
 		case LEVEL020303:
-			pBack_Map		 =level0303_Back_Map;
-			pMid_Map		 =level0303_Mid_Map;
-			pAction_MapWidth =level0303_Action_MapWidth;
-			pAction_MapHeight=level0303_Action_MapHeight;
-			pAction_Map		 =level0303_Action_Map;
-			pCollision_Map	 =level0303_Collision_Map;
-			pTiles			 =level0303_Tiles;
+ 			pBack_Map		 =CHAPTER02_LEVEL0303_BACK;
+			pMid_Map		 =CHAPTER02_LEVEL0303_MID;
+			pAction_MapWidth =CHAPTER02_LEVEL0303_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER02_LEVEL0303_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER02_LEVEL0303_ACTION;
+			pCollision_Map	 =CHAPTER02_LEVEL0303_COLLISION;
+			pTiles			 =CHAPTER02_LEVEL03_TILEBANK;
 			break;
 		case LEVEL020304:
-			pBack_Map		 =level0304_Back_Map;
-			pMid_Map		 =level0304_Mid_Map;
-			pAction_MapWidth =level0304_Action_MapWidth;
-			pAction_MapHeight=level0304_Action_MapHeight;
-			pAction_Map		 =level0304_Action_Map;
-			pCollision_Map	 =level0304_Collision_Map;
-			pTiles			 =level0304_Tiles;
+ 			pBack_Map		 =CHAPTER02_LEVEL0304_BACK;
+			pMid_Map		 =CHAPTER02_LEVEL0304_MID;
+			pAction_MapWidth =CHAPTER02_LEVEL0304_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER02_LEVEL0304_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER02_LEVEL0304_ACTION;
+			pCollision_Map	 =CHAPTER02_LEVEL0304_COLLISION;
+			pTiles			 =CHAPTER02_LEVEL03_TILEBANK;
+			break;
+		case LEVEL020305:
+ 			pBack_Map		 =CHAPTER02_LEVEL0305_BACK;
+			pMid_Map		 =CHAPTER02_LEVEL0305_MID;
+			pAction_MapWidth =CHAPTER02_LEVEL0305_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER02_LEVEL0305_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER02_LEVEL0305_ACTION;
+			pCollision_Map	 =CHAPTER02_LEVEL0305_COLLISION;
+			pTiles			 =CHAPTER02_LEVEL03_TILEBANK;
+			break;
+		case LEVEL020306:
+ 			pBack_Map		 =CHAPTER02_LEVEL0306_BACK;
+			pMid_Map		 =CHAPTER02_LEVEL0306_MID;
+			pAction_MapWidth =CHAPTER02_LEVEL0306_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER02_LEVEL0306_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER02_LEVEL0306_ACTION;
+			pCollision_Map	 =CHAPTER02_LEVEL0306_COLLISION;
+			pTiles			 =CHAPTER02_LEVEL03_TILEBANK;
 			break;
 
 //--
 
-// Level 4 & Sub-Level.
+// Level 4 & Sub-Levels.
 
 		case LEVEL020401:
-			pBack_Map		 =level0401_Back_Map;
-			pMid_Map		 =level0401_Mid_Map;
-			pAction_MapWidth =level0401_Action_MapWidth;
-			pAction_MapHeight=level0401_Action_MapHeight;
-			pAction_Map		 =level0401_Action_Map;
-			pCollision_Map	 =level0401_Collision_Map;
-			pTiles			 =level0401_Tiles;
+ 			pBack_Map		 =CHAPTER02_LEVEL0401_BACK;
+			pMid_Map		 =CHAPTER02_LEVEL0401_MID;
+			pAction_MapWidth =CHAPTER02_LEVEL0401_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER02_LEVEL0401_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER02_LEVEL0401_ACTION;
+			pCollision_Map	 =CHAPTER02_LEVEL0401_COLLISION;
+			pTiles			 =CHAPTER02_LEVEL04_TILEBANK;
 			break;
-		case LEVEL020402:
-			pBack_Map		 =level0402_Back_Map;
-			pMid_Map		 =level0402_Mid_Map;
-			pAction_MapWidth =level0402_Action_MapWidth;
-			pAction_MapHeight=level0402_Action_MapHeight;
-			pAction_Map		 =level0402_Action_Map;
-			pCollision_Map	 =level0402_Collision_Map;
-			pTiles			 =level0402_Tiles;
+	   	case LEVEL020402:
+ 			pBack_Map		 =CHAPTER02_LEVEL0402_BACK;
+			pMid_Map		 =CHAPTER02_LEVEL0402_MID;
+			pAction_MapWidth =CHAPTER02_LEVEL0402_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER02_LEVEL0402_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER02_LEVEL0402_ACTION;
+			pCollision_Map	 =CHAPTER02_LEVEL0402_COLLISION;
+			pTiles			 =CHAPTER02_LEVEL04_TILEBANK;
 			break;
 		case LEVEL020403:
-			pBack_Map		 =level0403_Back_Map;
-			pMid_Map		 =level0403_Mid_Map;
-			pAction_MapWidth =level0403_Action_MapWidth;
-			pAction_MapHeight=level0403_Action_MapHeight;
-			pAction_Map		 =level0403_Action_Map;
-			pCollision_Map	 =level0403_Collision_Map;
-			pTiles			 =level0403_Tiles;
+ 			pBack_Map		 =CHAPTER02_LEVEL0403_BACK;
+			pMid_Map		 =CHAPTER02_LEVEL0403_MID;
+			pAction_MapWidth =CHAPTER02_LEVEL0403_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER02_LEVEL0403_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER02_LEVEL0403_ACTION;
+			pCollision_Map	 =CHAPTER02_LEVEL0403_COLLISION;
+			pTiles			 =CHAPTER02_LEVEL04_TILEBANK;
 			break;
 		case LEVEL020404:
-			pBack_Map		 =level0404_Back_Map;
-			pMid_Map		 =level0404_Mid_Map;
-			pAction_MapWidth =level0404_Action_MapWidth;
-			pAction_MapHeight=level0404_Action_MapHeight;
-			pAction_Map		 =level0404_Action_Map;
-			pCollision_Map	 =level0404_Collision_Map;
-			pTiles			 =level0404_Tiles;
+ 			pBack_Map		 =CHAPTER02_LEVEL0404_BACK;
+			pMid_Map		 =CHAPTER02_LEVEL0404_MID;
+			pAction_MapWidth =CHAPTER02_LEVEL0404_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER02_LEVEL0404_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER02_LEVEL0404_ACTION;
+			pCollision_Map	 =CHAPTER02_LEVEL0404_COLLISION;
+			pTiles			 =CHAPTER02_LEVEL04_TILEBANK;
 			break;
 		case LEVEL020405:
-			pBack_Map		 =level0405_Back_Map;
-			pMid_Map		 =level0405_Mid_Map;
-			pAction_MapWidth =level0405_Action_MapWidth;
-			pAction_MapHeight=level0405_Action_MapHeight;
-			pAction_Map		 =level0405_Action_Map;
-			pCollision_Map	 =level0405_Collision_Map;
-			pTiles			 =level0405_Tiles;
+ 			pBack_Map		 =CHAPTER02_LEVEL0405_BACK;
+			pMid_Map		 =CHAPTER02_LEVEL0405_MID;
+			pAction_MapWidth =CHAPTER02_LEVEL0405_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER02_LEVEL0405_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER02_LEVEL0405_ACTION;
+			pCollision_Map	 =CHAPTER02_LEVEL0405_COLLISION;
+			pTiles			 =CHAPTER02_LEVEL04_TILEBANK;
+			break;
+		case LEVEL020406:
+ 			pBack_Map		 =CHAPTER02_LEVEL0406_BACK;
+			pMid_Map		 =CHAPTER02_LEVEL0406_MID;
+			pAction_MapWidth =CHAPTER02_LEVEL0406_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER02_LEVEL0406_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER02_LEVEL0406_ACTION;
+			pCollision_Map	 =CHAPTER02_LEVEL0406_COLLISION;
+			pTiles			 =CHAPTER02_LEVEL04_TILEBANK;
+			break;
+		case LEVEL020407:
+ 			pBack_Map		 =CHAPTER02_LEVEL0407_BACK;
+			pMid_Map		 =CHAPTER02_LEVEL0407_MID;
+			pAction_MapWidth =CHAPTER02_LEVEL0407_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER02_LEVEL0407_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER02_LEVEL0407_ACTION;
+			pCollision_Map	 =CHAPTER02_LEVEL0407_COLLISION;
+			pTiles			 =CHAPTER02_LEVEL04_TILEBANK;
+			break;
+*/
+//---------------------------------------------------------------------------------------------------
+
+// Chapter 3.
+
+//--
+
+// Level 1 & Sub-Levels.
+
+//--
+
+// Level 2 & Sub-Levels.
+
+//--
+
+// Level 3 & Sub-Levels.
+
+		case LEVEL030301:
+			pBack_Map		 =CHAPTER03_LEVEL0301_BACK;
+			pMid_Map		 =CHAPTER03_LEVEL0301_MID;
+			pAction_MapWidth =CHAPTER03_LEVEL0301_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER03_LEVEL0301_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER03_LEVEL0301_ACTION;
+			pCollision_Map	 =CHAPTER03_LEVEL0301_COLLISION;
+			pTiles			 =CHAPTER03_LEVEL03_TILEBANK;
+			break;
+		case LEVEL030302:
+			pBack_Map		 =CHAPTER03_LEVEL0302_BACK;
+			pMid_Map		 =CHAPTER03_LEVEL0302_MID;
+			pAction_MapWidth =CHAPTER03_LEVEL0302_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER03_LEVEL0302_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER03_LEVEL0302_ACTION;
+			pCollision_Map	 =CHAPTER03_LEVEL0302_COLLISION;
+			pTiles			 =CHAPTER03_LEVEL03_TILEBANK;
+			break;
+		case LEVEL030303:
+			pBack_Map		 =CHAPTER03_LEVEL0303_BACK;
+			pMid_Map		 =CHAPTER03_LEVEL0303_MID;
+			pAction_MapWidth =CHAPTER03_LEVEL0303_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER03_LEVEL0303_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER03_LEVEL0303_ACTION;
+			pCollision_Map	 =CHAPTER03_LEVEL0303_COLLISION;
+			pTiles			 =CHAPTER03_LEVEL03_TILEBANK;
+			break;
+		case LEVEL030304:
+			pBack_Map		 =CHAPTER03_LEVEL0304_BACK;
+			pMid_Map		 =CHAPTER03_LEVEL0304_MID;
+			pAction_MapWidth =CHAPTER03_LEVEL0304_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER03_LEVEL0304_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER03_LEVEL0304_ACTION;
+			pCollision_Map	 =CHAPTER03_LEVEL0304_COLLISION;
+			pTiles			 =CHAPTER03_LEVEL03_TILEBANK;
+			break;
+		case LEVEL030305:
+			pBack_Map		 =CHAPTER03_LEVEL0305_BACK;
+			pMid_Map		 =CHAPTER03_LEVEL0305_MID;
+			pAction_MapWidth =CHAPTER03_LEVEL0305_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER03_LEVEL0305_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER03_LEVEL0305_ACTION;
+			pCollision_Map	 =CHAPTER03_LEVEL0305_COLLISION;
+			pTiles			 =CHAPTER03_LEVEL03_TILEBANK;
+			break;
+		case LEVEL030306:
+			pBack_Map		 =CHAPTER03_LEVEL0306_BACK;
+			pMid_Map		 =CHAPTER03_LEVEL0306_MID;
+			pAction_MapWidth =CHAPTER03_LEVEL0306_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER03_LEVEL0306_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER03_LEVEL0306_ACTION;
+			pCollision_Map	 =CHAPTER03_LEVEL0306_COLLISION;
+			pTiles			 =CHAPTER03_LEVEL03_TILEBANK;
+			break;
+
+//--
+
+// Level 4 & Sub-Levels.
+
+		case LEVEL030401:
+			pBack_Map		 =CHAPTER03_LEVEL0401_BACK;
+			pMid_Map		 =CHAPTER03_LEVEL0401_MID;
+			pAction_MapWidth =CHAPTER03_LEVEL0401_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER03_LEVEL0401_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER03_LEVEL0401_ACTION;
+			pCollision_Map	 =CHAPTER03_LEVEL0401_COLLISION;
+			pTiles			 =CHAPTER03_LEVEL04_TILEBANK;
+			break;
+		case LEVEL030402:
+			pBack_Map		 =CHAPTER03_LEVEL0402_BACK;
+			pMid_Map		 =CHAPTER03_LEVEL0402_MID;
+			pAction_MapWidth =CHAPTER03_LEVEL0402_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER03_LEVEL0402_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER03_LEVEL0402_ACTION;
+			pCollision_Map	 =CHAPTER03_LEVEL0402_COLLISION;
+			pTiles			 =CHAPTER03_LEVEL04_TILEBANK;
+			break;
+		case LEVEL030403:
+			pBack_Map		 =CHAPTER03_LEVEL0403_BACK;
+			pMid_Map		 =CHAPTER03_LEVEL0403_MID;
+			pAction_MapWidth =CHAPTER03_LEVEL0403_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER03_LEVEL0403_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER03_LEVEL0403_ACTION;
+			pCollision_Map	 =CHAPTER03_LEVEL0403_COLLISION;
+			pTiles			 =CHAPTER03_LEVEL04_TILEBANK;
+			break;
+		case LEVEL030404:
+			pBack_Map		 =CHAPTER03_LEVEL0404_BACK;
+			pMid_Map		 =CHAPTER03_LEVEL0404_MID;
+			pAction_MapWidth =CHAPTER03_LEVEL0404_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER03_LEVEL0404_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER03_LEVEL0404_ACTION;
+			pCollision_Map	 =CHAPTER03_LEVEL0404_COLLISION;
+			pTiles			 =CHAPTER03_LEVEL04_TILEBANK;
+			break;
+		case LEVEL030405:
+			pBack_Map		 =CHAPTER03_LEVEL0405_BACK;
+			pMid_Map		 =CHAPTER03_LEVEL0405_MID;
+			pAction_MapWidth =CHAPTER03_LEVEL0405_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER03_LEVEL0405_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER03_LEVEL0405_ACTION;
+			pCollision_Map	 =CHAPTER03_LEVEL0405_COLLISION;
+			pTiles			 =CHAPTER03_LEVEL04_TILEBANK;
+			break;
+		case LEVEL030406:
+			pBack_Map		 =CHAPTER03_LEVEL0406_BACK;
+			pMid_Map		 =CHAPTER03_LEVEL0406_MID;
+			pAction_MapWidth =CHAPTER03_LEVEL0406_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER03_LEVEL0406_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER03_LEVEL0406_ACTION;
+			pCollision_Map	 =CHAPTER03_LEVEL0406_COLLISION;
+			pTiles			 =CHAPTER03_LEVEL04_TILEBANK;
+			break;
+
+//---------------------------------------------------------------------------------------------------
+
+// Chapter 4.
+
+//--
+
+// Level 1 & Sub-Levels.
+
+		case LEVEL040101:
+			pBack_Map		 =CHAPTER04_LEVEL0101_BACK;
+			pMid_Map		 =CHAPTER04_LEVEL0101_MID;
+			pAction_MapWidth =CHAPTER04_LEVEL0101_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER04_LEVEL0101_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER04_LEVEL0101_ACTION;
+			pCollision_Map	 =CHAPTER04_LEVEL0101_COLLISION;
+			pTiles			 =CHAPTER04_LEVEL01_TILEBANK;
+			break;
+		case LEVEL040102:
+			pBack_Map		 =CHAPTER04_LEVEL0102_BACK;
+			pMid_Map		 =CHAPTER04_LEVEL0102_MID;
+			pAction_MapWidth =CHAPTER04_LEVEL0102_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER04_LEVEL0102_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER04_LEVEL0102_ACTION;
+			pCollision_Map	 =CHAPTER04_LEVEL0102_COLLISION;
+			pTiles			 =CHAPTER04_LEVEL01_TILEBANK;
+			break;
+		case LEVEL040103:
+			pBack_Map		 =CHAPTER04_LEVEL0103_BACK;
+			pMid_Map		 =CHAPTER04_LEVEL0103_MID;
+			pAction_MapWidth =CHAPTER04_LEVEL0103_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER04_LEVEL0103_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER04_LEVEL0103_ACTION;
+			pCollision_Map	 =CHAPTER04_LEVEL0103_COLLISION;
+			pTiles			 =CHAPTER04_LEVEL01_TILEBANK;
+			break;
+		case LEVEL040104:
+			pBack_Map		 =CHAPTER04_LEVEL0104_BACK;
+			pMid_Map		 =CHAPTER04_LEVEL0104_MID;
+			pAction_MapWidth =CHAPTER04_LEVEL0104_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER04_LEVEL0104_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER04_LEVEL0104_ACTION;
+			pCollision_Map	 =CHAPTER04_LEVEL0104_COLLISION;
+			pTiles			 =CHAPTER04_LEVEL01_TILEBANK;
+			break;
+
+//--
+
+// Level 2 & Sub-Levels.
+
+		case LEVEL040201:
+			pBack_Map		 =CHAPTER04_LEVEL0201_BACK;
+			pMid_Map		 =CHAPTER04_LEVEL0201_MID;
+			pAction_MapWidth =CHAPTER04_LEVEL0201_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER04_LEVEL0201_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER04_LEVEL0201_ACTION;
+			pCollision_Map	 =CHAPTER04_LEVEL0201_COLLISION;
+			pTiles			 =CHAPTER04_LEVEL02_TILEBANK;
+			break;
+		case LEVEL040202:
+			pBack_Map		 =CHAPTER04_LEVEL0202_BACK;
+			pMid_Map		 =CHAPTER04_LEVEL0202_MID;
+			pAction_MapWidth =CHAPTER04_LEVEL0202_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER04_LEVEL0202_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER04_LEVEL0202_ACTION;
+			pCollision_Map	 =CHAPTER04_LEVEL0202_COLLISION;
+			pTiles			 =CHAPTER04_LEVEL02_TILEBANK;
+			break;
+		case LEVEL040203:
+			pBack_Map		 =CHAPTER04_LEVEL0203_BACK;
+			pMid_Map		 =CHAPTER04_LEVEL0203_MID;
+			pAction_MapWidth =CHAPTER04_LEVEL0203_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER04_LEVEL0203_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER04_LEVEL0203_ACTION;
+			pCollision_Map	 =CHAPTER04_LEVEL0203_COLLISION;
+			pTiles			 =CHAPTER04_LEVEL02_TILEBANK;
+			break;
+		case LEVEL040204:
+			pBack_Map		 =CHAPTER04_LEVEL0204_BACK;
+			pMid_Map		 =CHAPTER04_LEVEL0204_MID;
+			pAction_MapWidth =CHAPTER04_LEVEL0204_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER04_LEVEL0204_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER04_LEVEL0204_ACTION;
+			pCollision_Map	 =CHAPTER04_LEVEL0204_COLLISION;
+			pTiles			 =CHAPTER04_LEVEL02_TILEBANK;
+			break;
+		case LEVEL040205:
+			pBack_Map		 =CHAPTER04_LEVEL0205_BACK;
+			pMid_Map		 =CHAPTER04_LEVEL0205_MID;
+			pAction_MapWidth =CHAPTER04_LEVEL0205_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER04_LEVEL0205_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER04_LEVEL0205_ACTION;
+			pCollision_Map	 =CHAPTER04_LEVEL0205_COLLISION;
+			pTiles			 =CHAPTER04_LEVEL02_TILEBANK;
+			break;
+
+//--
+
+// Level 3 & Sub-Levels.
+
+		case LEVEL040301:
+			pBack_Map		 =CHAPTER04_LEVEL0301_BACK;
+			pMid_Map		 =CHAPTER04_LEVEL0301_MID;
+			pAction_MapWidth =CHAPTER04_LEVEL0301_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER04_LEVEL0301_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER04_LEVEL0301_ACTION;
+			pCollision_Map	 =CHAPTER04_LEVEL0301_COLLISION;
+			pTiles			 =CHAPTER04_LEVEL03_TILEBANK;
+			break;
+		case LEVEL040302:
+			pBack_Map		 =CHAPTER04_LEVEL0302_BACK;
+			pMid_Map		 =CHAPTER04_LEVEL0302_MID;
+			pAction_MapWidth =CHAPTER04_LEVEL0302_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER04_LEVEL0302_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER04_LEVEL0302_ACTION;
+			pCollision_Map	 =CHAPTER04_LEVEL0302_COLLISION;
+			pTiles			 =CHAPTER04_LEVEL03_TILEBANK;
+			break;
+		case LEVEL040303:
+			pBack_Map		 =CHAPTER04_LEVEL0303_BACK;
+			pMid_Map		 =CHAPTER04_LEVEL0303_MID;
+			pAction_MapWidth =CHAPTER04_LEVEL0303_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER04_LEVEL0303_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER04_LEVEL0303_ACTION;
+			pCollision_Map	 =CHAPTER04_LEVEL0303_COLLISION;
+			pTiles			 =CHAPTER04_LEVEL03_TILEBANK;
+			break;
+		case LEVEL040304:
+			pBack_Map		 =CHAPTER04_LEVEL0304_BACK;
+			pMid_Map		 =CHAPTER04_LEVEL0304_MID;
+			pAction_MapWidth =CHAPTER04_LEVEL0304_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER04_LEVEL0304_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER04_LEVEL0304_ACTION;
+			pCollision_Map	 =CHAPTER04_LEVEL0304_COLLISION;
+			pTiles			 =CHAPTER04_LEVEL03_TILEBANK;
+			break;
+		case LEVEL040305:
+			pBack_Map		 =CHAPTER04_LEVEL0305_BACK;
+			pMid_Map		 =CHAPTER04_LEVEL0305_MID;
+			pAction_MapWidth =CHAPTER04_LEVEL0305_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER04_LEVEL0305_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER04_LEVEL0305_ACTION;
+			pCollision_Map	 =CHAPTER04_LEVEL0305_COLLISION;
+			pTiles			 =CHAPTER04_LEVEL03_TILEBANK;
+			break;
+		case LEVEL040306:
+			pBack_Map		 =CHAPTER04_LEVEL0306_BACK;
+			pMid_Map		 =CHAPTER04_LEVEL0306_MID;
+			pAction_MapWidth =CHAPTER04_LEVEL0306_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER04_LEVEL0306_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER04_LEVEL0306_ACTION;
+			pCollision_Map	 =CHAPTER04_LEVEL0306_COLLISION;
+			pTiles			 =CHAPTER04_LEVEL03_TILEBANK;
+			break;
+
+//--
+
+// Level 4 & Sub-Levels.
+
+		case LEVEL040401:
+			pBack_Map		 =CHAPTER04_LEVEL0401_BACK;
+			pMid_Map		 =CHAPTER04_LEVEL0401_MID;
+			pAction_MapWidth =CHAPTER04_LEVEL0401_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER04_LEVEL0401_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER04_LEVEL0401_ACTION;
+			pCollision_Map	 =CHAPTER04_LEVEL0401_COLLISION;
+			pTiles			 =CHAPTER04_LEVEL04_TILEBANK;
+			break;
+		case LEVEL040402:
+			pBack_Map		 =CHAPTER04_LEVEL0402_BACK;
+			pMid_Map		 =CHAPTER04_LEVEL0402_MID;
+			pAction_MapWidth =CHAPTER04_LEVEL0402_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER04_LEVEL0402_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER04_LEVEL0402_ACTION;
+			pCollision_Map	 =CHAPTER04_LEVEL0402_COLLISION;
+			pTiles			 =CHAPTER04_LEVEL04_TILEBANK;
+			break;
+		case LEVEL040403:
+			pBack_Map		 =CHAPTER04_LEVEL0403_BACK;
+			pMid_Map		 =CHAPTER04_LEVEL0403_MID;
+			pAction_MapWidth =CHAPTER04_LEVEL0403_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER04_LEVEL0403_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER04_LEVEL0403_ACTION;
+			pCollision_Map	 =CHAPTER04_LEVEL0403_COLLISION;
+			pTiles			 =CHAPTER04_LEVEL04_TILEBANK;
+			break;
+		case LEVEL040404:
+			pBack_Map		 =CHAPTER04_LEVEL0404_BACK;
+			pMid_Map		 =CHAPTER04_LEVEL0404_MID;
+			pAction_MapWidth =CHAPTER04_LEVEL0404_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER04_LEVEL0404_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER04_LEVEL0404_ACTION;
+			pCollision_Map	 =CHAPTER04_LEVEL0404_COLLISION;
+			pTiles			 =CHAPTER04_LEVEL04_TILEBANK;
+			break;
+		case LEVEL040405:
+			pBack_Map		 =CHAPTER04_LEVEL0405_BACK;
+			pMid_Map		 =CHAPTER04_LEVEL0405_MID;
+			pAction_MapWidth =CHAPTER04_LEVEL0405_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER04_LEVEL0405_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER04_LEVEL0405_ACTION;
+			pCollision_Map	 =CHAPTER04_LEVEL0405_COLLISION;
+			pTiles			 =CHAPTER04_LEVEL04_TILEBANK;
+			break;
+		case LEVEL040406:
+			pBack_Map		 =CHAPTER04_LEVEL0406_BACK;
+			pMid_Map		 =CHAPTER04_LEVEL0406_MID;
+			pAction_MapWidth =CHAPTER04_LEVEL0406_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER04_LEVEL0406_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER04_LEVEL0406_ACTION;
+			pCollision_Map	 =CHAPTER04_LEVEL0406_COLLISION;
+			pTiles			 =CHAPTER04_LEVEL04_TILEBANK;
+			break;
+		case LEVEL040407:
+			pBack_Map		 =CHAPTER04_LEVEL0407_BACK;
+			pMid_Map		 =CHAPTER04_LEVEL0407_MID;
+			pAction_MapWidth =CHAPTER04_LEVEL0407_ACTION_WIDTH;
+			pAction_MapHeight=CHAPTER04_LEVEL0407_ACTION_HEIGHT;
+			pAction_Map		 =CHAPTER04_LEVEL0407_ACTION;
+			pCollision_Map	 =CHAPTER04_LEVEL0407_COLLISION;
+			pTiles			 =CHAPTER04_LEVEL04_TILEBANK;
 			break;
 
 //---------------------------------------------------------------------------------------------------
