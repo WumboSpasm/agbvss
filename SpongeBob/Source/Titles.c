@@ -35,7 +35,7 @@ static u32 delay = 1;				// Delay speed (dependend on type of zoom)
 //////////////////////////////
 void InitTitles(void)
 {
-	
+
 	//---set up varaibles
 	BGstats.mZoomX = 0x0100;							// no zoom to start with
 	BGstats.mZoomY = 0x0100;							// no zoom to start with
@@ -52,7 +52,8 @@ void InitTitles(void)
 	gTimer = 0;									// reset timer used to decide the random number bit
 
 	//---set up display
-    *(vu16*)REG_DISPCNT = DISP_MODE_3 | DISP_OBJ_BG_ALL_ON;			// set machine into bg mode 3 (15-bit 1 frame 240x160)
+    	*(vu16*)REG_DISPCNT = DISP_MODE_0 | DISP_OBJ_BG_ALL_ON;			// set machine into bg mode 0!!
+	*(vu16*)REG_DISPCNT=DISP_MODE_0|DISP_OBJ_ON|DISP_BG0_ON|DISP_BG1_ON|DISP_BG2_ON|DISP_BG3_ON|DISP_OBJ_CHAR_1D_MAP;	// Set which layers to display
 
 	//--decompress 1st title screen straight into vram...(this is nice and fast so no problems here)
 	LZ77UnCompVram(Title_Main_RawBitmap_LZ, (void*)BG_BITMAP0_VRAM);
@@ -63,10 +64,10 @@ void InitTitles(void)
 
 void MainTitles(void)
 {
-		WaitVBlank();								// Wait 4 VBL.
-		UpdateGFX();								// Update GFX data
-		ReadJoypad();								// Read joypad.
-		UpdateInput();								// Take Key Input and work out what needs to be done from here
+	WaitVBlank();								// Wait 4 VBL.
+	UpdateGFX();								// Update GFX data
+	ReadJoypad();								// Read joypad.
+	UpdateInput();								// Take Key Input and work out what needs to be done from here
 }
 
 
@@ -76,7 +77,7 @@ void MainTitles(void)
 // 0 = Title Screen      (wait 10 seconds and move to rolling demo)
 // 1 = Menu Options Menu (Options - (2)Start Game + (4)Options + (7?)Credits)
 // 2 = Start Game Menu   (Options - New Game + (3)Password)
-// 3 = Password Screen   (Enter 5 symbols from choice of 4 differnt ones?)
+// 3 = Password Screen   (Enter 5 symbols from choice of 6 differnt ones)
 // 4 = Options Menu      (Options - (5)Controller + (6)Sound)
 // 5 = Controller Menu   (Controller - (A)a=Action b=Jump or (B)a=Jump b=Action)
 // 6 = Sound Menu        (Sliders For Music Volume + SFX Volume)
@@ -145,7 +146,7 @@ static void UpdateInput(void)
 			LZ77UnCompVram(Title_Main_RawBitmap_LZ, (void*)BG_BITMAP0_VRAM);
 			ZoomBGOut(tmp);
 			gTimer = 0;
-			Title.mCurrent_Screen = eTitle_Screen;				
+			Title.mCurrent_Screen = eTitle_Screen;
 			Title.mCurrent_Selection = 0;
 			Title.mMax_Selections = 0;
 		}
@@ -435,23 +436,23 @@ static void ZoomBGOut(u16 prev)
 static void UpdateGFX(void)
 {
 	//-----update related variables----
-    BGstats.mBg2pa = FixMul( Cos(BGstats.mRotate), FixInverse(BGstats.mZoomX));
-    BGstats.mBg2pb = FixMul( Sin(BGstats.mRotate), FixInverse(BGstats.mZoomX));
-    BGstats.mBg2pc = FixMul(-Sin(BGstats.mRotate), FixInverse(BGstats.mZoomY));
-    BGstats.mBg2pd = FixMul( Cos(BGstats.mRotate), FixInverse(BGstats.mZoomY));
+	BGstats.mBg2pa = FixMul( Cos(BGstats.mRotate), FixInverse(BGstats.mZoomX));
+	BGstats.mBg2pb = FixMul( Sin(BGstats.mRotate), FixInverse(BGstats.mZoomX));
+	BGstats.mBg2pc = FixMul(-Sin(BGstats.mRotate), FixInverse(BGstats.mZoomY));
+	BGstats.mBg2pd = FixMul( Cos(BGstats.mRotate), FixInverse(BGstats.mZoomY));
 
-    // BG data reference starting point set
-    BGstats.mBg2x = (BGstats.mBg2_center_x * 0x100) - ((BGstats.mBg2pa * BGstats.mBg2_center_x)) - ((BGstats.mBg2pb * BGstats.mBg2_center_y));
-    BGstats.mBg2y = (BGstats.mBg2_center_y * 0x100) - ((BGstats.mBg2pc * BGstats.mBg2_center_x)) - ((BGstats.mBg2pd * BGstats.mBg2_center_y));
+	// BG data reference starting point set
+	BGstats.mBg2x = (BGstats.mBg2_center_x * 0x100) - ((BGstats.mBg2pa * BGstats.mBg2_center_x)) - ((BGstats.mBg2pb * BGstats.mBg2_center_y));
+	BGstats.mBg2y = (BGstats.mBg2_center_y * 0x100) - ((BGstats.mBg2pc * BGstats.mBg2_center_x)) - ((BGstats.mBg2pd * BGstats.mBg2_center_y));
 
 	//------------update registers---
-    *(vu16*)REG_BG2PA = (u16)BGstats.mBg2pa;
+	*(vu16*)REG_BG2PA = (u16)BGstats.mBg2pa;
 	*(vu16*)REG_BG2PB = (u16)BGstats.mBg2pb;
-    *(vu16*)REG_BG2PC = (u16)BGstats.mBg2pc;
-    *(vu16*)REG_BG2PD = (u16)BGstats.mBg2pd;
+	*(vu16*)REG_BG2PC = (u16)BGstats.mBg2pc;
+	*(vu16*)REG_BG2PD = (u16)BGstats.mBg2pd;
 
-    *(vu16*)REG_BG2X_L = (u16)(BGstats.mBg2x & 0xffff);
-    *(vu16*)REG_BG2X_H = (u16)(u32)((BGstats.mBg2x & 0x0fff0000)>>16);
-    *(vu16*)REG_BG2Y_L = (u16)(BGstats.mBg2y & 0xffff);
-    *(vu16*)REG_BG2Y_H = (u16)(u32)((BGstats.mBg2y & 0x0fff0000)>>16);
+	*(vu16*)REG_BG2X_L = (u16)(BGstats.mBg2x & 0xffff);
+	*(vu16*)REG_BG2X_H = (u16)(u32)((BGstats.mBg2x & 0x0fff0000)>>16);
+	*(vu16*)REG_BG2Y_L = (u16)(BGstats.mBg2y & 0xffff);
+	*(vu16*)REG_BG2Y_H = (u16)(u32)((BGstats.mBg2y & 0x0fff0000)>>16);
 }
