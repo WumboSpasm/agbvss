@@ -8,6 +8,9 @@
 // Includes.
 
 #include "Includes.h"
+#include "SprEng_Common.h"
+#include "SprEng_Control.h"
+#include "SprEng_Display.h"
 
 //***************************************************************************************************
 
@@ -71,7 +74,7 @@ void ClearOamRam(void)
 
 // Fixed decimal point calculation routines in 1.7.8 format.
 
-// Calculate a*b. 
+// Calculate a*b.
 
 s16 FixMul( s16 a , s16 b )
 {
@@ -84,7 +87,7 @@ s16 FixMul( s16 a , s16 b )
 
 //---------------------------------------------------------------------------------------------------
 
-// Calculate a/b. 
+// Calculate a/b.
 
 s16 FixDiv( s16 a , s16 b )
 {
@@ -97,7 +100,7 @@ s16 FixDiv( s16 a , s16 b )
 
 //---------------------------------------------------------------------------------------------------
 
-// Calculate 1/b. 
+// Calculate 1/b.
 
 s16 FixInverse( s16 b )
 {
