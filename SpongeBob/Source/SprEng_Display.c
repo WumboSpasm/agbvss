@@ -11,6 +11,7 @@
 #include "SprEng_Common.h"
 #include "SprEng_Control.h"
 #include "SprEng_Display.h"
+#include "SineCos.h"
 
 //***************************************************************************************************
 
@@ -18,41 +19,7 @@
 
 void ObjectDisplay(void)
 {
-   	*(vu16 *)REG_MOSAIC=((u16)ObjectMosaic<<12)|((u16)ObjectMosaic<<8);	// Set mosaic.
-   	DmaCopy(3,ObjectOAMBuffer,OAM,32,32);			// DMA transfer of OAM.
-
-	ObjectTest();									// Object test routine.
-	ObjectCreateOAM();								// Create OAM buffer.
-}
-
-//***************************************************************************************************
-
-// Initialize variables.
-
-void ObjectInitParam(void)
-{
-    ObjectAffine=0;
-    ObjectMosaic=0;
-    ObjectScaleX=0x100;
-    ObjectScaleY=0x100;
-    ObjectRotate=0;
-    ObjectPosX=0;
-    ObjectPosY=0;
-}
-
-//***************************************************************************************************
-
-// Initialize OAM buffer.
-
-void ObjectInitOAM(void)
-{
-    int i;
-
-    for(i=1;i<16;++i)
-    {
-		ObjectOAMBuffer[i]=0;
-    }
-    ObjectCreateOAM();
+	ObjectCreateOAM();					 		// Create OAM buffer.
 }
 
 //***************************************************************************************************
@@ -61,128 +28,73 @@ void ObjectInitOAM(void)
 
 void ObjectCreateOAM(void)
 {
-    s16 pA,pB,pC,pD;
-    s16 StartX,StartY;
+    s16 pA,pB,pC,pD;							// Local rotation/scaling variables.
+	u16 OAMOffset,OAMLoop;						// Local OAM update variables.
+	Object *pAO;								// Object table pointer.
 
-    ObjectOAMBuffer[0]=OAM_SQUARE|OAM_COLOR_256|OAM_AFFINE_NORMAL|OAM_MOS_ON; // Vertical size 64, color mode, mosaic, scaling/rotation on.
-    ObjectOAMBuffer[1]=OAM_SIZE_64x64>>16;	// Horizontal size 32, scaling/rotation parameter 0.
-    ObjectOAMBuffer[2]=0x0000;				// Palette 0, priority 0, character name 0.
+	ClearOAMRam();								// Initialize OAM RAM memory.
 
-    StartX=ObjectPosX+32;					// Adjustment because it takes ob_pos_x,ob_pos_y as (0,0).
-    StartY=ObjectPosY+32;					// Object position changes depending upon whether it uses doule size field
+	pAO=g_pObject;								// Get base address of object table.
+	OAMOffset=0;								// Init. offset into OAM buffer.
 
-    if(ObjectAffine)						// Affine double size used ?.
-    {
-		ObjectOAMBuffer[0]|=0x0200;
-		StartX-=64;
-		StartY-=64;
-    }
-    else
-    {
-		StartX-=64/2;
-		StartY-=64/2;
-    }
+	*(vu16*)REG_MOSAIC=((u16)SpriteMosaic<<12)|((u16)SpriteMosaic<<8); // Set global sprite mosaic value.
 
-    ObjectOAMBuffer[0]|=(u16)((s32)(StartY)&0x00ff); //  Set object position.
-    ObjectOAMBuffer[1]|=(u16)((s32)(StartX)&0x01ff);
+	for(OAMLoop=0;OAMLoop!=numUsedObjects;OAMLoop++) // Refresh and update the OAM buffer with all the sprite objects currently in use.
+	{
+		ObjectOAMBuffer[OAMOffset+0]=OAM_SQUARE|OAM_COLOR_256|pAO->sp_affine|pAO->sp_blend|pAO->sp_mosaic; // Vertical size 64, 256 color mode, mosaic on/off, scaling/rotation on.
+		ObjectOAMBuffer[OAMOffset+1]=OAM_SIZE_64x64>>16|OAMLoop<<9; // Horizontal size 64, scaling/rotation parameter 0.
+		ObjectOAMBuffer[OAMOffset+2]=pAO->sp_priority<<10|64*(OAMLoop*2); // Priority (relative to background), character name.
 
-	// Set scaling/rotation parameters.
-    pA=FixMul(Cos(ObjectRotate),FixInverse(ObjectScaleX));
-    pB=FixMul(Sin(ObjectRotate),FixInverse(ObjectScaleX));
-    pC=FixMul(-Sin(ObjectRotate),FixInverse(ObjectScaleY)); // You get an odd rotate effect if you leave off the '-' @ge :)
-    pD=FixMul(Cos(ObjectRotate),FixInverse(ObjectScaleY));
-
-    ObjectOAMBuffer[ 3]=*(u16*)(&pA);
-    ObjectOAMBuffer[ 7]=*(u16*)(&pB);
-    ObjectOAMBuffer[11]=*(u16*)(&pC);
-    ObjectOAMBuffer[15]=*(u16*)(&pD);
-}
-
-//***************************************************************************************************
-
-// Object test routine.
-
-void ObjectTest(void)
-{
-	// Initialize with START.
-    if (gKeyInput&START_BUTTON )
-    {
-		ObjectInitParam();
-    }
-
-	// Double size with A.
-    if(gKeyInput&A_BUTTON)
-    {
-		ObjectAffine^=1;
-    }
-
-	// Scale if B & Joypad.
-	if(gKeyInput&B_BUTTON )
-    {
-		if (gKeyInput&U_KEY)
+		pAO->sp_startX=pAO->sp_xpos+32;  	   	// Adjustment because it takes ob_pos_x,ob_pos_y as (0,0).
+		pAO->sp_startY=pAO->sp_ypos+32;  	   	// Object position changes depending upon whether it uses doule size field
+		if(pAO->sp_affine==OAM_AFFINE_TWICE)   	// Affine double size used ?.
 		{
-		    ObjectScaleY+=0x10;
-		    if(ObjectScaleY>0x400) ObjectScaleY=0x400;
+			pAO->sp_startX-=64;
+			pAO->sp_startY-=64;
 		}
-		if (gKeyInput&D_KEY)
+		else
 		{
-		    ObjectScaleY-=0x08;
-		    if(ObjectScaleY<0x40) ObjectScaleY=0x40;
+			pAO->sp_startX-=64/2;
+			pAO->sp_startY-=64/2;
 		}
-		if (gKeyInput&L_KEY)
+
+		ObjectOAMBuffer[OAMOffset+0]|=(u16)((s32)(pAO->sp_startY)&0x00ff); //  Set object position.
+		ObjectOAMBuffer[OAMOffset+1]|=(u16)((s32)(pAO->sp_startX)&0x01ff);
+
+		if(pAO->sp_flipX)					   	// Flip sprite in x-axis ?.
 		{
-		    ObjectScaleX-=0x08;
-		    if(ObjectScaleX<0x40) ObjectScaleX=0x40;
+			ObjectOAMBuffer[OAMOffset+1]|=OAM_H_FLIP>>16;
 		}
-		if (gKeyInput&R_KEY)
+		if(pAO->sp_flipY)					   	// Flip sprite in y-axis ?.
 		{
-		    ObjectScaleX+=0x10;
-		    if(ObjectScaleX>0x400) ObjectScaleX=0x400;
+			ObjectOAMBuffer[OAMOffset+1]|=OAM_V_FLIP>>16;
 		}
+
+		if(pAO->sp_mosaic)					   	// Use global sprite mosaic for this sprite ?.
+		{
+			ObjectOAMBuffer[OAMOffset+0]|=OAM_MOS_ON;
+		}
+		else
+		{
+			ObjectOAMBuffer[OAMOffset+1]|=OAM_MOS_OFF;
+		}
+
+		// Set scaling/rotation parameters.
+		pA=FixMul(Cos(pAO->sp_rotate),FixInverse(pAO->sp_scaleX));
+		pB=FixMul(Sin(pAO->sp_rotate),FixInverse(pAO->sp_scaleX));
+	 	pC=FixMul(-Sin(pAO->sp_rotate),FixInverse(pAO->sp_scaleY)); // You get an odd rotate effect if you leave off the '-' @ge :)
+		pD=FixMul(Cos(pAO->sp_rotate),FixInverse(pAO->sp_scaleY));
+
+		ObjectOAMBuffer[OAMOffset+3 ]=*(u16*)(&pA); // Interleave for 64x64 rotatable/scaleable sprites.
+		ObjectOAMBuffer[OAMOffset+7 ]=*(u16*)(&pB);
+		ObjectOAMBuffer[OAMOffset+11]=*(u16*)(&pC);
+		ObjectOAMBuffer[OAMOffset+15]=*(u16*)(&pD);
+
+		pAO++;									// Get next object in object table.
+		OAMOffset+=16;							// Offset to next sprite in OAM RAM (bytes).
 	}
 
-	// Rotate with L & R.
-	if (gKeyInput&R_BUTTON)
-	{
-	    ObjectRotate=(ObjectRotate+=4)&0xff;
-	}
-	if (gKeyInput&L_BUTTON)
-	{
-	    ObjectRotate=(ObjectRotate-=4)&0xff;
-	}
-
-	// Move sprite with limits test.
-	if (gKeyInput&U_KEY)
-	{
-	    ObjectPosY-=1;
-	    if(ObjectPosY<0) ObjectPosY=0;
-	}
-	if (gKeyInput&D_KEY)
-	{
-	    ObjectPosY+=1;
-	    if(ObjectPosY>LCD_HEIGHT-64)ObjectPosY=LCD_HEIGHT-64;
-	}
-	if (gKeyInput&L_KEY)
-	{
-	    ObjectPosX-=1;
-	    if(ObjectPosX<0)ObjectPosX=0;
-	}
-	if (gKeyInput&R_KEY)
-	{
-	    ObjectPosX+=1;
-	    if(ObjectPosX>LCD_WIDTH-64) ObjectPosX=LCD_WIDTH-64;
-	}
-
-/*	// Mosaic with L & R.
-	if (gKeyInput&R_BUTTON)
-	{
-   	    if(ObjectMosaic<15) ++ObjectMosaic;
-	}
-	if (gKeyInput&L_BUTTON)
-	{
-	    if(ObjectMosaic>0) --ObjectMosaic;
-	}
-*/
+	UpdateOAMRam();								// Update OAM RAM memory.
 }
 
 //***************************************************************************************************
