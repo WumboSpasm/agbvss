@@ -60,37 +60,34 @@ ALL_DIRS:=	$(foreach d, $(ALL_DIRS), $(subst wibbleblob,,$(d)))
 ALL_DIRS:=	$(sort $(ALL_DIRS))
 
 LIBRARY_DIRS:=		\
-	$(AGBDIR)/lib	\
-	$(CYGNUSDIR)/thumbelf-000512/h-i686-cygwin32/lib/gcc-lib/thumb-elf/2.9-arm-000512\
-	$(CYGNUSDIR)/thumbelf-000512/h-i686-cygwin32/lib\
-	$(CYGNUSDIR)/thumbelf-000512/H-i686-cygwin32/thumb-elf/lib\
-	$(AGBDIR)/src/bin/prev/agb/mlib
+	-L"$(AGBDIR)/lib"	\
+	-L"$(CYGNUSDIR)/thumbelf-000512/h-i686-cygwin32/lib/gcc-lib/thumb-elf/2.9-arm-000512"\
+	-L"$(CYGNUSDIR)/thumbelf-000512/h-i686-cygwin32/lib"\
+	-L"$(CYGNUSDIR)/thumbelf-000512/H-i686-cygwin32/thumb-elf/lib"\
+	-L"$(AGBDIR)/src/bin/prev/agb/mlib"
 
 LIBRARIES	:=\
-	gcc\
-	agbsyscall\
-	c\
-	g\
-	iberty\
-	m\
-	stdc++\
-	termcap\
-	agbbackup\
-	agbir\
-	agbsyscall\
-	isagbprn\
-	mpr\
-	utl\
-
-LIBRARY_DIRS	:=	$(foreach l, $(LIBRARY_DIRS), -L$(l))
-LIBRARIES		:=	$(foreach l, $(LIBRARIES), -l$(l))
+	-l"agbsyscall"\
+	-l"c"\
+	-l"g"\
+	-l"iberty"\
+	-l"m"\
+	-l"stdc++"\
+	-l"termcap"\
+	-l"agbbackup"\
+	-l"agbir"\
+	-l"agbsyscall"\
+	-l"isagbprn"\
+	-l"mpr"\
+	-l"utl"\
 
 LD_OPTS	:=\
 	$(LIBRARY_DIRS)		\
 	$(LIBRARIES)		\
 	-Map "$(basename $(TARGET)).map"	\
 	-Ttext 0x08000000	\
-	-Tbss 0x03000000
+	-Tbss 0x03000000\
+	$(CYGNUSDIR)/thumbelf-000512/h-i686-cygwin32/lib/gcc-lib/thumb-elf/2.9-arm-000512/libgcc.a
 
 LD_OPTS_FILE	:=	out/lopts.txt
 
