@@ -133,17 +133,17 @@ SECTIONS
    *(.dynbss)
    *(.bss)
 /*   *(COMMON)*/
-   release/Main.o (COMMON)
+   Main.o (COMMON)
   }
   OVERLAY :
   {
   .bss1 {
         }
   .bss2 {
-          release/Scroll_Engine.o (COMMON)
-          release/Game.o (COMMON)
-          release/Titles.o (COMMON)
-          release/StartUp.o (COMMON)
+          Scroll_Engine.o (COMMON)
+          Game.o (COMMON)
+          Titles.o (COMMON)
+          StartUp.o (COMMON)
         }
   }
 
