@@ -8,78 +8,99 @@
 #include "Includes.h"
 #include "Titles.h"
 #include "TitlesData.h"
-#include "Scroll_Engine.h"
+#include "SprEng_Common.h"
+#include "SineCos.h"
 
-//////////////////////////////////////
-// read input and update accordingly
-//////////////////////////////////////
-void UpdateInput(void)
-{
-	switch(gGameState)
-	{
-	case e_TITLE_SCREEN:
-		if(gKeyTap&A_BUTTON)
-		{
-			InitGame();
-			gGameState=e_IN_GAME;
-		};
-		break;
-	default:
-		break;
-	};
-}
+//------------prototype functions--------
+static void UpdateInput(void);					// read input and update gamestate accordingly
+static void ZoomBG(s32 speed,s32 distance);		// fade routine
+static void UpdateGFX(void);					// update display based on current state
 
+//--------Locals-----------------------
+static bgstats	BGstats;						// BG data stats
+static title	Title;							// Title struct (lots of nice variables in here)
+
+//////////////////////////////
+// Titles Functions
+//////////////////////////////
 void InitTitles(void)
 {
-	InitTitlesBack();							// Iitialise back screen
+	BGstats.mZoom = 0x000;					// no zoom to start with
+	BGstats.mBg2_center_x = 120;				// set center to middle of bitmap
+	BGstats.mBg2_center_y = 80;				// "ditto
+
+	Title.mCurrent_Screen = 0;				// on screen 0 i.e. title screen
+	Title.mCurrent_Selection = 0;				// currently no selection
+
+    *(vu16*)REG_DISPCNT = DISP_MODE_3 | DISP_OBJ_BG_ALL_ON;		// set machine into bg mode 3 (15-bit 1 frame 240x160)
+    DmaArrayCopy(3, Title_Main_RawBitmap, BG_BITMAP0_VRAM, 16);		// transfere initial background screen into vram
+
+	UpdateGFX();
 }
 
 void MainTitles(void)
 {
-	WaitVBlank();								// Wait 4 VBL.
-	ReadJoypad();								// Read joypad.
-	UpdateInput();
+		WaitVBlank();								// Wait 4 VBL.
+		ReadJoypad();								// Read joypad.
+		UpdateInput();								// Take Key Input and work out what needs to be done from here
+		UpdateGFX();							// Update GFX data
 }
 
-void InitTitlesBack(void)
+
+//---------read input and update accordingly----
+static void UpdateInput(void)
 {
-	// Very Back
-	SetBgTextControl((vu16*)REG_BG0CNT,BG_PRIORITY_3,BG_SCREEN_SIZE_0,BG_COLOR_256,BG_MOS_OFF,28,CHAR_BASE_0);
-	// Middle layer.
-	SetBgTextControl((vu16*)REG_BG1CNT,BG_PRIORITY_2,BG_SCREEN_SIZE_0,BG_COLOR_256,BG_MOS_OFF,29,CHAR_BASE_3);
-
-	//set up Pallette
-       	DmaArrayCopy(3,TitlesLayer0_Palette,BG_PLTT,16);				// Set tile data for bg2 action layer.
-
-	// DMA Title Screen Graphics into VRAM
-	DmaArrayCopy(3,TitlesLayer0_Character,CHAR_BASE0_ADDR,16);	// Set tile data for bg0 rear layer.
-	DmaArrayCopy(3,TitlesLayer1_Character,CHAR_BASE3_ADDR,16);	// Set tile data for bg1 rear middle layer.
-
-	InitLayers();							// update all layers
-
-	// update all layers
-	DmaArrayCopy(3,TBg0_ScreenDat,CHAR_BASE3_ADDR+0x2000,16);
-	DmaArrayCopy(3,TBg1_ScreenDat,CHAR_BASE3_ADDR+0x2800,16);
-
-	*(vu16*)REG_BG0HOFS=0;			// all at zero for now (could scroll later)
-	*(vu16*)REG_BG0VOFS=0;
-	*(vu16*)REG_BG1HOFS=0;
-	*(vu16*)REG_BG1VOFS=0;
-
-	*(vu16*)REG_DISPCNT=DISP_MODE_0|DISP_BG0_ON|DISP_BG1_ON;	// set which layers to display
-
-
-}
-
-void InitLayers(void)
-{
-	u8 x,y;
-	for (y=0;y<32;y++)
+	switch(Title.mCurrent_Screen)
 	{
-		for (x=0;x<32;x++)
+	case 0:								// main screen (emun up maybe...)
+		if(gKeyTap&A_BUTTON)
 		{
-			TBg0_ScreenDat[y*32+x]=TitlesLayer0_Map[(y*256>>3)+x]; // Update screen map buffer with tile name data.
-			TBg1_ScreenDat[y*32+x]=TitlesLayer1_Map[(y*256>>3)+x]; // Update screen map buffer with tile name data.
-		}
+			ZoomBG(2,64);
+			InitGame();
+			gGameState=e_IN_GAME;
+		};
+		break;
+	default:							// not on a valid screen????
+		break;
+	};
+}
+
+
+//--------------Zoom BG Layers------------------
+static void ZoomBG(s32 speed,s32 distance)	//speed to zoom in and distance to zoom into
+{
+	while(BGstats.mZoom <= distance)
+	{
+		WaitVBlank();				// Wait 4 VBlank
+		BGstats.mZoom += speed;		// zoom in (slowly hopefully)
+		UpdateGFX();				// update zoom factor
 	}
+}
+//--------------Update GFX & related-------------
+static void UpdateGFX(void)
+{
+    BGstats.mBg2pa = FixMul( Cos(0), BGstats.mZoom);
+    BGstats.mBg2pb = FixMul( Sin(0), BGstats.mZoom);
+    BGstats.mBg2pc = FixMul(-Sin(0), BGstats.mZoom);
+    BGstats.mBg2pd = FixMul( Cos(0), BGstats.mZoom);
+
+    // BG data reference starting point set
+    BGstats.mStart_x = ( 120 * 0x100 - BGstats.mBg2_center_x ) - ( (BGstats.mBg2pa * 120 )  ) - ( (BGstats.mBg2pb * 80 )  );
+    BGstats.mStart_y = ( 80 * 0x100 - BGstats.mBg2_center_y ) - ( (BGstats.mBg2pc * 120 ) ) - ( (BGstats.mBg2pd * 80 ) );
+}
+
+
+//-----------------VBlank Interupt-----------------
+// yeee gods i'm sure this dont need to be a global function but.....
+void Titles_VBlankIntr(void)
+{
+    *(vu16*)REG_BG2PA = (u16)BGstats.mBg2pa;
+	*(vu16*)REG_BG2PB = (u16)BGstats.mBg2pb;
+    *(vu16*)REG_BG2PC = (u16)BGstats.mBg2pc;
+    *(vu16*)REG_BG2PD = (u16)BGstats.mBg2pd;
+
+    *(vu16*)REG_BG2X_L = (BGstats.mStart_x & 0xffff);
+    *(vu16*)REG_BG2X_H = (u16)(u32)((BGstats.mStart_x & 0x0fff0000)>>16);
+    *(vu16*)REG_BG2Y_L = (BGstats.mStart_y & 0xffff);
+    *(vu16*)REG_BG2Y_H = (u16)(u32)((BGstats.mStart_y & 0x0fff0000)>>16);
 }
