@@ -8,7 +8,6 @@
 #define _RANDOM_C
 
 #include "Includes.h"
-#include <stdlib.h>
 #include "Random.h"
 
 
@@ -16,10 +15,6 @@
 u16 GenRand(u16 max)
 {
 	//---------this is evil, I don't want to do this but if it works cool
-#ifdef RAND_MAX
-#undef RAND_MAX
-#define RAND_MAX max
-#endif
-	u32 tmp=rand();			// use stand c library function
+	u16 tmp = gTimer%max;
 	return (u16)tmp;		// return the result...
 }
