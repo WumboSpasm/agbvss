@@ -8,28 +8,38 @@
 #ifndef _TITLES_H
 #define _TITLES_H
 
-//Beaner's File - fuck wif dis and U forkin' die
+//Beaner's File - fork wif dis and U forkin' die
 
 ////////////////////////////////////////////////
 // defines
 ////////////////////////////////////////////////
 
-/////////////////////////////////////////////////
-// Global Variables.
-/////////////////////////////////////////////////
-//u16 TBg3_ScreenDat[32*32];				// Size of screen in VRAM.
-//u16 TBg2_ScreenDat[32*32];
-u16 TBg1_ScreenDat[32*32];				// front layer for options
-u16 TBg0_ScreenDat[32*32];				// back screen to show TONS of tiles
 
+//-------structs
+typedef struct bgstats_tag{		// contains all the math values to support zooming in and out of the screen
+	s32		mStart_x;			// BG reference starting point
+	s32		mStart_y;			// BG reference starting point
+	vs32	mBg2_center_x;		// co-ordinates of center of bitmap
+	vs32	mBg2_center_y;		// co-ordinates of center of bitmap
+	u16		mBg2pa;				// BG data reference direction
+	u16		mBg2pb;				// BG data reference direction
+	u16		mBg2pc;				// BG data reference direction
+	u16		mBg2pd;				// BG data reference direction
+	u32		mZoom;				// zoom value
+}bgstats;
+
+typedef struct title_tag{
+	u32		mCurrent_Screen;		// which option screen are we on
+	u32		mCurrent_Selection;		// which option is currently selected
+	u32		mMax_Selections;		// total number of options
+}title;
 
 /////////////////////////////////////////////////
 // Global Functions
 /////////////////////////////////////////////////
 extern void InitTitles(void);
-extern void InitTitlesBack(void);
 extern void MainTitles(void);
-extern void InitLayers(void);
+extern void Titles_VBlankIntr(void);
 
 #endif
 
