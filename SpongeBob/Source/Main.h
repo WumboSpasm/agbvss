@@ -221,6 +221,7 @@ u8 Level;				 						// Game level.
 u8 Spatualas;									// Spatualas found.
 u8 Lives;										// SpongeBob lives.
 u8 Continues;									// Player continues.
+
 u8 gFade;
 u8 gFadeLevel;
 
