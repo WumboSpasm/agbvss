@@ -19,6 +19,7 @@
 #include "StartUp.h"
 #include "Titles.h"
 #include "TitlesData.h"
+#include "Text_Sys.h"
 
 static u8 CurrentScreen;
 static u16 ScreenDelay;
@@ -43,9 +44,10 @@ void MainStartUpScreens(void)
 {
 	WaitVBlank();
 	ReadJoypad();
-	//UpdateGFX();
+	UpdateGFX();
 	if((gTimer==ScreenDelay)||(((gKeyTap&A_BUTTON)||(gKeyTap&START_BUTTON))&&(CanSkip==TRUE)))	//yep this amount of brackets looks horrid but they are in the right place :o)
 	{
+		PutTextBox(2,2,8,8,GAMENAME);
 		ChangeScreen();
 	}
 }

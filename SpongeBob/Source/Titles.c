@@ -12,6 +12,8 @@
 #include "TitlesData.h"							// external graphic data needed
 #include "SineCos.h"							// sin/cos tables + general math instructions
 #include "Random.h"								// Random Number Generator
+#include "Text_Sys.h"
+
 
 //------------prototype functions--------
 static void UpdateInput(void);					// read input and update gamestate accordingly
