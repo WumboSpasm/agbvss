@@ -181,6 +181,19 @@ SOURCE=.\SprEng_SpriteD.c
 # End Source File
 # Begin Source File
 
+SOURCE=.\StartUp.c
+
+!IF  "$(CFG)" == "sbsp - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "sbsp - Win32 Debug"
+
+# PROP Exclude_From_Build 1
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
 SOURCE=.\Titles.c
 # PROP Exclude_From_Build 1
 # End Source File
@@ -253,6 +266,19 @@ SOURCE=.\SprEng_Control.h
 
 SOURCE=.\SprEng_Display.h
 # PROP Exclude_From_Build 1
+# End Source File
+# Begin Source File
+
+SOURCE=.\StartUp.h
+
+!IF  "$(CFG)" == "sbsp - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "sbsp - Win32 Debug"
+
+# PROP Exclude_From_Build 1
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
