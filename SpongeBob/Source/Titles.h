@@ -16,7 +16,7 @@
 
 
 //-------structs
-typedef struct bgstats_tag{		// contains all the math values to support zooming in and out of the screen
+typedef struct bgstats_tag{		
 	s32		mStart_x;			// BG reference starting point
 	s32		mStart_y;			// BG reference starting point
 	vs32	mBg2_center_x;		// co-ordinates of center of bitmap
@@ -25,7 +25,8 @@ typedef struct bgstats_tag{		// contains all the math values to support zooming 
 	u16		mBg2pb;				// BG data reference direction
 	u16		mBg2pc;				// BG data reference direction
 	u16		mBg2pd;				// BG data reference direction
-	u32		mZoom;				// zoom value
+	u16		mZoomX;				// stretch X value
+	u16		mZoomY;				// stretch Y value
 }bgstats;
 
 typedef struct title_tag{
@@ -39,7 +40,6 @@ typedef struct title_tag{
 /////////////////////////////////////////////////
 extern void InitTitles(void);
 extern void MainTitles(void);
-extern void Titles_VBlankIntr(void);
 
 #endif
 
