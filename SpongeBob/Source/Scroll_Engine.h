@@ -76,6 +76,144 @@ s32 old_map_ypos_bg2;					// (Previous) map y-axis co-ordinate (bg2).
 
 //---------------------------------------------------------------------------------------------------
 
+// Chapter 1.
+
+//--
+
+// Level 1 & Sub-Levels (sub-levels share same tile library).
+
+extern u16 CHAPTER01_LEVEL0101_BACK[]; 		// Back layer map in ROM.
+extern u16 CHAPTER01_LEVEL0101_MID_WIDTH;	// Size of map from level 'mid. layer' map data header.
+extern u16 CHAPTER01_LEVEL0101_MID_HEIGHT;
+extern u16 CHAPTER01_LEVEL0101_MID[];  		// Middle layer map in ROM.
+extern u16 CHAPTER01_LEVEL0101_ACTION_WIDTH;// Size of map from level 'action layer' map data header.
+extern u16 CHAPTER01_LEVEL0101_ACTION_HEIGHT;
+extern u16 CHAPTER01_LEVEL0101_ACTION[];	// Action layer map in ROM.
+extern u8  CHAPTER01_LEVEL0101_COLLISION[];	// Collsion layer map in ROM.
+
+extern u8  CHAPTER01_LEVEL01_TILEBANK[];   	// Level tile library in ROM.
+
+extern u16 CHAPTER01_LEVEL0102_BACK[]; 		// Back layer map in ROM.
+extern u16 CHAPTER01_LEVEL0102_MID_WIDTH;	// Size of map from level 'mid. layer' map data header.
+extern u16 CHAPTER01_LEVEL0102_MID_HEIGHT;
+extern u16 CHAPTER01_LEVEL0102_MID[];  		// Middle layer map in ROM.
+extern u16 CHAPTER01_LEVEL0102_ACTION_WIDTH;// Size of map from level 'action layer' map data header.
+extern u16 CHAPTER01_LEVEL0102_ACTION_HEIGHT;
+extern u16 CHAPTER01_LEVEL0102_ACTION[];	// Action layer map in ROM.
+extern u8  CHAPTER01_LEVEL0102_COLLISION[];	// Collsion layer map in ROM.
+
+extern u16 CHAPTER01_LEVEL0103_BACK[]; 		// Back layer map in ROM.
+extern u16 CHAPTER01_LEVEL0103_MID_WIDTH;	// Size of map from level 'mid. layer' map data header.
+extern u16 CHAPTER01_LEVEL0103_MID_HEIGHT;
+extern u16 CHAPTER01_LEVEL0103_MID[];  		// Middle layer map in ROM.
+extern u16 CHAPTER01_LEVEL0103_ACTION_WIDTH;// Size of map from level 'action layer' map data header.
+extern u16 CHAPTER01_LEVEL0103_ACTION_HEIGHT;
+extern u16 CHAPTER01_LEVEL0103_ACTION[];	// Action layer map in ROM.
+extern u8  CHAPTER01_LEVEL0103_COLLISION[];	// Collsion layer map in ROM.
+
+extern u16 CHAPTER01_LEVEL0104_BACK[]; 		// Back layer map in ROM.
+extern u16 CHAPTER01_LEVEL0104_MID_WIDTH;	// Size of map from level 'mid. layer' map data header.
+extern u16 CHAPTER01_LEVEL0104_MID_HEIGHT;
+extern u16 CHAPTER01_LEVEL0104_MID[];  		// Middle layer map in ROM.
+extern u16 CHAPTER01_LEVEL0104_ACTION_WIDTH;// Size of map from level 'action layer' map data header.
+extern u16 CHAPTER01_LEVEL0104_ACTION_HEIGHT;
+extern u16 CHAPTER01_LEVEL0104_ACTION[];	// Action layer map in ROM.
+extern u8  CHAPTER01_LEVEL0104_COLLISION[];	// Collsion layer map in ROM.
+
+extern u16 CHAPTER01_LEVEL0105_BACK[]; 		// Back layer map in ROM.
+extern u16 CHAPTER01_LEVEL0105_MID_WIDTH;	// Size of map from level 'mid. layer' map data header.
+extern u16 CHAPTER01_LEVEL0105_MID_HEIGHT;
+extern u16 CHAPTER01_LEVEL0105_MID[];  		// Middle layer map in ROM.
+extern u16 CHAPTER01_LEVEL0105_ACTION_WIDTH;// Size of map from level 'action layer' map data header.
+extern u16 CHAPTER01_LEVEL0105_ACTION_HEIGHT;
+extern u16 CHAPTER01_LEVEL0105_ACTION[];	// Action layer map in ROM.
+extern u8  CHAPTER01_LEVEL0105_COLLISION[];	// Collsion layer map in ROM.
+
+//--
+
+// Level 2 & Sub-Levels (sub-levels share same tile library).
+
+extern u16 CHAPTER01_LEVEL0201_BACK[]; 		// Back layer map in ROM.
+extern u16 CHAPTER01_LEVEL0201_MID_WIDTH;	// Size of map from level 'mid. layer' map data header.
+extern u16 CHAPTER01_LEVEL0201_MID_HEIGHT;
+extern u16 CHAPTER01_LEVEL0201_MID[];  		// Middle layer map in ROM.
+extern u16 CHAPTER01_LEVEL0201_ACTION_WIDTH;// Size of map from level 'action layer' map data header.
+extern u16 CHAPTER01_LEVEL0201_ACTION_HEIGHT;
+extern u16 CHAPTER01_LEVEL0201_ACTION[];	// Action layer map in ROM.
+extern u8  CHAPTER01_LEVEL0201_COLLISION[];	// Collsion layer map in ROM.
+
+extern u8  CHAPTER01_LEVEL02_TILEBANK[];   	// Level tile library in ROM.
+
+//extern u16 CHAPTER01_LEVEL0202_BACK[]; 		// Back layer map in ROM.
+//extern u16 CHAPTER01_LEVEL0202_MID_WIDTH;	// Size of map from level 'mid. layer' map data header.
+//extern u16 CHAPTER01_LEVEL0202_MID_HEIGHT;
+//extern u16 CHAPTER01_LEVEL0202_MID[];  		// Middle layer map in ROM.
+//extern u16 CHAPTER01_LEVEL0202_ACTION_WIDTH;// Size of map from level 'action layer' map data header.
+//extern u16 CHAPTER01_LEVEL0202_ACTION_HEIGHT;
+//extern u16 CHAPTER01_LEVEL0202_ACTION[];	// Action layer map in ROM.
+//extern u8  CHAPTER01_LEVEL0202_COLLISION[];	// Collsion layer map in ROM.
+//
+//extern u16 CHAPTER01_LEVEL0203_BACK[]; 		// Back layer map in ROM.
+//extern u16 CHAPTER01_LEVEL0203_MID_WIDTH;	// Size of map from level 'mid. layer' map data header.
+//extern u16 CHAPTER01_LEVEL0203_MID_HEIGHT;
+//extern u16 CHAPTER01_LEVEL0203_MID[];  		// Middle layer map in ROM.
+//extern u16 CHAPTER01_LEVEL0203_ACTION_WIDTH;// Size of map from level 'action layer' map data header.
+//extern u16 CHAPTER01_LEVEL0203_ACTION_HEIGHT;
+//extern u16 CHAPTER01_LEVEL0203_ACTION[];	// Action layer map in ROM.
+//extern u8  CHAPTER01_LEVEL0203_COLLISION[];	// Collsion layer map in ROM.
+//
+extern u16 CHAPTER01_LEVEL0204_BACK[]; 		// Back layer map in ROM.
+extern u16 CHAPTER01_LEVEL0204_MID_WIDTH;	// Size of map from level 'mid. layer' map data header.
+extern u16 CHAPTER01_LEVEL0204_MID_HEIGHT;
+extern u16 CHAPTER01_LEVEL0204_MID[];  		// Middle layer map in ROM.
+extern u16 CHAPTER01_LEVEL0204_ACTION_WIDTH;// Size of map from level 'action layer' map data header.
+extern u16 CHAPTER01_LEVEL0204_ACTION_HEIGHT;
+extern u16 CHAPTER01_LEVEL0204_ACTION[];	// Action layer map in ROM.
+extern u8  CHAPTER01_LEVEL0204_COLLISION[];	// Collsion layer map in ROM.
+
+//--
+
+// Level 3 & Sub-Levels (sub-levels share same tile library).
+
+extern u16 CHAPTER01_LEVEL0301_BACK[]; 		// Back layer map in ROM.
+extern u16 CHAPTER01_LEVEL0301_MID_WIDTH;	// Size of map from level 'mid. layer' map data header.
+extern u16 CHAPTER01_LEVEL0301_MID_HEIGHT;
+extern u16 CHAPTER01_LEVEL0301_MID[];  		// Middle layer map in ROM.
+extern u16 CHAPTER01_LEVEL0301_ACTION_WIDTH;// Size of map from level 'action layer' map data header.
+extern u16 CHAPTER01_LEVEL0301_ACTION_HEIGHT;
+extern u16 CHAPTER01_LEVEL0301_ACTION[];	// Action layer map in ROM.
+extern u8  CHAPTER01_LEVEL0301_COLLISION[];	// Collsion layer map in ROM.
+
+extern u8  CHAPTER01_LEVEL03_TILEBANK[];   	// Level tile library in ROM.
+
+extern u16 CHAPTER01_LEVEL0302_BACK[]; 		// Back layer map in ROM.
+extern u16 CHAPTER01_LEVEL0302_MID_WIDTH;	// Size of map from level 'mid. layer' map data header.
+extern u16 CHAPTER01_LEVEL0302_MID_HEIGHT;
+extern u16 CHAPTER01_LEVEL0302_MID[];  		// Middle layer map in ROM.
+extern u16 CHAPTER01_LEVEL0302_ACTION_WIDTH;// Size of map from level 'action layer' map data header.
+extern u16 CHAPTER01_LEVEL0302_ACTION_HEIGHT;
+extern u16 CHAPTER01_LEVEL0302_ACTION[];	// Action layer map in ROM.
+extern u8  CHAPTER01_LEVEL0302_COLLISION[];	// Collsion layer map in ROM.
+
+extern u16 CHAPTER01_LEVEL0303_BACK[]; 		// Back layer map in ROM.
+extern u16 CHAPTER01_LEVEL0303_MID_WIDTH;	// Size of map from level 'mid. layer' map data header.
+extern u16 CHAPTER01_LEVEL0303_MID_HEIGHT;
+extern u16 CHAPTER01_LEVEL0303_MID[];  		// Middle layer map in ROM.
+extern u16 CHAPTER01_LEVEL0303_ACTION_WIDTH;// Size of map from level 'action layer' map data header.
+extern u16 CHAPTER01_LEVEL0303_ACTION_HEIGHT;
+extern u16 CHAPTER01_LEVEL0303_ACTION[];	// Action layer map in ROM.
+extern u8  CHAPTER01_LEVEL0303_COLLISION[];	// Collsion layer map in ROM.
+
+extern u16 CHAPTER01_LEVEL0304_BACK[]; 		// Back layer map in ROM.
+extern u16 CHAPTER01_LEVEL0304_MID_WIDTH;	// Size of map from level 'mid. layer' map data header.
+extern u16 CHAPTER01_LEVEL0304_MID_HEIGHT;
+extern u16 CHAPTER01_LEVEL0304_MID[];  		// Middle layer map in ROM.
+extern u16 CHAPTER01_LEVEL0304_ACTION_WIDTH;// Size of map from level 'action layer' map data header.
+extern u16 CHAPTER01_LEVEL0304_ACTION_HEIGHT;
+extern u16 CHAPTER01_LEVEL0304_ACTION[];	// Action layer map in ROM.
+extern u8  CHAPTER01_LEVEL0304_COLLISION[];	// Collsion layer map in ROM.
+
+
 // Chapter 2.
 
 //--
@@ -1108,6 +1246,55 @@ extern u8  CHAPTER06_LEVEL0302_COLLISION[];	// Collsion layer map in ROM.
 //extern u16 CHAPTER06_LEVEL0404_ACTION_HEIGHT;
 //extern u16 CHAPTER06_LEVEL0404_ACTION[];	// Action layer map in ROM.
 //extern u8  CHAPTER06_LEVEL0404_COLLISION[];	// Collsion layer map in ROM.
+
+// Level 4 & Sub-Levels (sub-levels share same tile library).
+
+extern u16 CHAPTER06_LEVEL0501_BACK[]; 		// Back layer map in ROM.
+extern u16 CHAPTER06_LEVEL0501_MID_WIDTH;	// Size of map from level 'mid. layer' map data header.
+extern u16 CHAPTER06_LEVEL0501_MID_HEIGHT;
+extern u16 CHAPTER06_LEVEL0501_MID[];  		// Middle layer map in ROM.
+extern u16 CHAPTER06_LEVEL0501_ACTION_WIDTH;// Size of map from level 'action layer' map data header.
+extern u16 CHAPTER06_LEVEL0501_ACTION_HEIGHT;
+extern u16 CHAPTER06_LEVEL0501_ACTION[];	// Action layer map in ROM.
+extern u8  CHAPTER06_LEVEL0501_COLLISION[];	// Collsion layer map in ROM.
+
+extern u8  CHAPTER06_LEVEL05_TILEBANK[];   	// Level tile library in ROM.
+
+extern u16 CHAPTER06_LEVEL0502_BACK[]; 		// Back layer map in ROM.
+extern u16 CHAPTER06_LEVEL0502_MID_WIDTH;	// Size of map from level 'mid. layer' map data header.
+extern u16 CHAPTER06_LEVEL0502_MID_HEIGHT;
+extern u16 CHAPTER06_LEVEL0502_MID[];  		// Middle layer map in ROM.
+extern u16 CHAPTER06_LEVEL0502_ACTION_WIDTH;// Size of map from level 'action layer' map data header.
+extern u16 CHAPTER06_LEVEL0502_ACTION_HEIGHT;
+extern u16 CHAPTER06_LEVEL0502_ACTION[];	// Action layer map in ROM.
+extern u8  CHAPTER06_LEVEL0502_COLLISION[];	// Collsion layer map in ROM.
+
+extern u16 CHAPTER06_LEVEL0503_BACK[]; 		// Back layer map in ROM.
+extern u16 CHAPTER06_LEVEL0503_MID_WIDTH;	// Size of map from level 'mid. layer' map data header.
+extern u16 CHAPTER06_LEVEL0503_MID_HEIGHT;
+extern u16 CHAPTER06_LEVEL0503_MID[];  		// Middle layer map in ROM.
+extern u16 CHAPTER06_LEVEL0503_ACTION_WIDTH;// Size of map from level 'action layer' map data header.
+extern u16 CHAPTER06_LEVEL0503_ACTION_HEIGHT;
+extern u16 CHAPTER06_LEVEL0503_ACTION[];	// Action layer map in ROM.
+extern u8  CHAPTER06_LEVEL0503_COLLISION[];	// Collsion layer map in ROM.
+
+extern u16 CHAPTER06_LEVEL0504_BACK[]; 		// Back layer map in ROM.
+extern u16 CHAPTER06_LEVEL0504_MID_WIDTH;	// Size of map from level 'mid. layer' map data header.
+extern u16 CHAPTER06_LEVEL0504_MID_HEIGHT;
+extern u16 CHAPTER06_LEVEL0504_MID[];  		// Middle layer map in ROM.
+extern u16 CHAPTER06_LEVEL0504_ACTION_WIDTH;// Size of map from level 'action layer' map data header.
+extern u16 CHAPTER06_LEVEL0504_ACTION_HEIGHT;
+extern u16 CHAPTER06_LEVEL0504_ACTION[];	// Action layer map in ROM.
+extern u8  CHAPTER06_LEVEL0504_COLLISION[];	// Collsion layer map in ROM.
+
+extern u16 CHAPTER06_LEVEL0505_BACK[]; 		// Back layer map in ROM.
+extern u16 CHAPTER06_LEVEL0505_MID_WIDTH;	// Size of map from level 'mid. layer' map data header.
+extern u16 CHAPTER06_LEVEL0505_MID_HEIGHT;
+extern u16 CHAPTER06_LEVEL0505_MID[];  		// Middle layer map in ROM.
+extern u16 CHAPTER06_LEVEL0505_ACTION_WIDTH;// Size of map from level 'action layer' map data header.
+extern u16 CHAPTER06_LEVEL0505_ACTION_HEIGHT;
+extern u16 CHAPTER06_LEVEL0505_ACTION[];	// Action layer map in ROM.
+extern u8  CHAPTER06_LEVEL0505_COLLISION[];	// Collsion layer map in ROM.
 
 
 //---------------------------------------------------------------------------------------------------
