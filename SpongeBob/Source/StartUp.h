@@ -22,6 +22,9 @@ extern void InitStartUpScreens(void);
 extern void MainStartUpScreens(void);
 
 //data
-extern u8 Start_Copy_RawBitmap_LZ[0x2830];
+extern u8 Start_Copy_RawBitmap_LZ[];
+extern u8 Start_THQ_RawBitmap_LZ[];
+extern u8 Start_Nick_RawBitmap_LZ[];
+extern u8 Start_Climax_RawBitmap_LZ[];
 
 #endif

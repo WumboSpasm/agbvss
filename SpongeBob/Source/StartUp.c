@@ -44,8 +44,7 @@ void MainStartUpScreens(void)
 	WaitVBlank();
 	ReadJoypad();
 	UpdateGFX();
-	gTimer++;
-	if((gTimer==ScreenDelay)||(((gKeyTap&A_BUTTON)||(gKeyTap&START_BUTTON))&&(CanSkip==TRUE)))
+	if((gTimer==ScreenDelay)||(((gKeyTap&A_BUTTON)||(gKeyTap&START_BUTTON))&&(CanSkip==TRUE)))	//yep this amount of brackets looks horrid but they are in the right place :o)
 	{
 		ChangeScreen();
 	}
@@ -53,6 +52,7 @@ void MainStartUpScreens(void)
 
 static void UpdateGFX(void)
 {
+	//might need to do somat in here later...maybe fade screen ?
 }
 
 static void ChangeScreen(void)
@@ -64,21 +64,21 @@ static void ChangeScreen(void)
 		gTimer = 0;
 		ScreenDelay = (5*60);
 		CanSkip = FALSE;
-		LZ77UnCompVram(Start_Menu_RawBitmap_LZ, (void*)BG_BITMAP0_VRAM);
+		LZ77UnCompVram(Start_THQ_RawBitmap_LZ, (void*)BG_BITMAP0_VRAM);
 		break;
 	case eTHQLogo:
 		CurrentScreen=eNickLogo;
 		gTimer = 0;
 		ScreenDelay = (5*60);
 		CanSkip = FALSE;
-		LZ77UnCompVram(Main_Menu_RawBitmap_LZ, (void*)BG_BITMAP0_VRAM);
+		LZ77UnCompVram(Start_Nick_RawBitmap_LZ, (void*)BG_BITMAP0_VRAM);
 		break;
 	case eNickLogo:
 		CurrentScreen=eClimaxLogo;
 		gTimer = 0;
 		ScreenDelay = (5*60);
 		CanSkip = FALSE;
-		LZ77UnCompVram(Start_Menu_RawBitmap_LZ, (void*)BG_BITMAP0_VRAM);
+		LZ77UnCompVram(Start_Climax_RawBitmap_LZ, (void*)BG_BITMAP0_VRAM);
 		break;
 	case eClimaxLogo:
 		gGameState = e_TITLE_SCREEN;

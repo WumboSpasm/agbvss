@@ -13,6 +13,7 @@
 #include "SineCos.h"							// sin/cos tables + general math instructions
 #include "Random.h"								// Random Number Generator
 
+
 //------------prototype functions--------
 static void UpdateInput(void);					// read input and update gamestate accordingly
 static void UpdateGFX(void);					// update display based on current state
@@ -23,7 +24,10 @@ static void ZoomBGOut(u16 prev);
 //--------Local Variables-----------------
 static bgstats	BGstats;						// BG data stats
 static title	Title;							// Title struct (lots of nice variables in here)
-static const s16 speed = 0x0001;				// Zoom speed
+
+//--Local defines
+static u16 speed = 1;				// Zoom speed (set to 1 for now could be programable....)
+static u32 delay = 1;				// Delay speed (dependend on type of zoom)
 
 //////////////////////////////
 // Titles Functions
@@ -62,7 +66,6 @@ void MainTitles(void)
 		UpdateGFX();								// Update GFX data
 		ReadJoypad();								// Read joypad.
 		UpdateInput();								// Take Key Input and work out what needs to be done from here
-		gTimer++;									// Increment Timer (used to initialise the random number seed)
 }
 
 
@@ -239,7 +242,9 @@ static void UpdateInput(void)
 //--------------Zoom BG Layers------------------
 static u16 ZoomBGIn(u16 random)
 {
-	if(random == 255){random = GenRand(6);}
+	if(random == 255){random = GenRand(4);}
+	random = 1;
+	gTimer = 0;
 
 	switch(random)								// ooh here's the nice bit...
 	{
@@ -247,24 +252,33 @@ static u16 ZoomBGIn(u16 random)
 	case 0:
 		while(BGstats.mZoomX <= 0x1000)
 		{
+			delay = 1;
 			WaitVBlank();				// Wait 4 VBlank
 			UpdateGFX();				// update zoom factor
 			ReadJoypad();
-			BGstats.mZoomX += speed;	// zoom in x
-			BGstats.mZoomY += speed;	// zoom in y too...
+			if(gTimer==delay)
+			{
+				BGstats.mZoomX += speed;	// zoom in x
+				BGstats.mZoomY += speed;	// zoom in y too...
+			}
 		}
 		return random;
 		break;
 
 	//--if one stretch width ways
 	case 1:
+		gTimer = 0;
 		while(BGstats.mZoomX <= 0x1000)
 		{
+			delay = 3;
 			WaitVBlank();				// Wait 4 VBlank
 			UpdateGFX();				// update zoom factor
-			ReadJoypad();
-			BGstats.mZoomX += speed;
-			BGstats.mZoomY -= speed;
+			if(gTimer==delay)
+			{
+				BGstats.mZoomX += speed;
+				BGstats.mZoomY -= speed;
+				gTimer=0;
+			}
 		}
 		return random;
 		break;
@@ -273,11 +287,16 @@ static u16 ZoomBGIn(u16 random)
 	case 2:
 		while(BGstats.mZoomY <= 0x1000)
 		{
+			delay = 3;
 			WaitVBlank();				// Wait 4 VBlank
 			UpdateGFX();				// update zoom factor
 			ReadJoypad();
-			BGstats.mZoomX -= speed;
-			BGstats.mZoomY += speed;
+			if(gTimer==delay)
+			{
+				BGstats.mZoomX -= speed;
+				BGstats.mZoomY += speed;
+				gTimer=0;
+			}
 		}
 		return random;
 		break;
@@ -286,11 +305,16 @@ static u16 ZoomBGIn(u16 random)
 	case 3:
 		while(BGstats.mZoomX > 0x0010)
 		{
+			delay = 6;
 			WaitVBlank();				// Wait 4 VBlank
 			UpdateGFX();				// update zoom factor
 			ReadJoypad();
-			BGstats.mZoomX -= speed;	// zoom in x
-			BGstats.mZoomY -= speed;	// zoom in y too...
+			if(gTimer==delay)
+			{
+				BGstats.mZoomX -= speed;	// zoom in x
+				BGstats.mZoomY -= speed;	// zoom in y too...
+				gTimer=0;
+			}
 		}
 		return random;
 		break;
@@ -324,11 +348,16 @@ static void ZoomBGOut(u16 prev)
 	case 0:
 		while(BGstats.mZoomX >= 0x0100)
 		{
+			delay = 1;
 			WaitVBlank();				// Wait 4 VBlank
 			UpdateGFX();				// update zoom factor
 			ReadJoypad();
-			BGstats.mZoomX -= speed;	// zoom in x
-			BGstats.mZoomY -= speed;	// zoom in y too...
+			if(gTimer==delay)
+			{
+				BGstats.mZoomX -= speed;	// zoom in x
+				BGstats.mZoomY -= speed;	// zoom in y too...
+				gTimer=0;
+			}
 		}
 		break;
 
@@ -336,11 +365,16 @@ static void ZoomBGOut(u16 prev)
 	case 1:
 		while(BGstats.mZoomX >= 0x0100)
 		{
+			delay = 3;
 			WaitVBlank();				// Wait 4 VBlank
 			UpdateGFX();				// update zoom factor
 			ReadJoypad();
-			BGstats.mZoomX -= speed;
-			BGstats.mZoomY += speed;
+			if(gTimer==delay)
+			{
+				BGstats.mZoomX -= speed;
+				BGstats.mZoomY += speed;
+				gTimer=0;
+			}
 		}
 		break;
 
@@ -348,11 +382,16 @@ static void ZoomBGOut(u16 prev)
 	case 2:
 		while(BGstats.mZoomY >= 0x0100)
 		{
+			delay = 3;
 			WaitVBlank();				// Wait 4 VBlank
 			UpdateGFX();				// update zoom factor
 			ReadJoypad();
-			BGstats.mZoomX += speed;
-			BGstats.mZoomY -= speed;
+			if(gTimer==delay)
+			{
+				BGstats.mZoomX += speed;
+				BGstats.mZoomY -= speed;
+				gTimer=0;
+			}
 		}
 		break;
 
@@ -360,11 +399,16 @@ static void ZoomBGOut(u16 prev)
 	case 3:
 		while(BGstats.mZoomX <= 0x0100)
 		{
+			delay = 6;
 			WaitVBlank();				// Wait 4 VBlank
 			UpdateGFX();				// update zoom factor
 			ReadJoypad();
-			BGstats.mZoomX += speed;	// zoom in x
-			BGstats.mZoomY += speed;	// zoom in y too...
+			if(gTimer==delay)
+			{
+				BGstats.mZoomX += speed;	// zoom in x
+				BGstats.mZoomY += speed;	// zoom in y too...
+				gTimer=0;
+			}
 		}
 		break;
 

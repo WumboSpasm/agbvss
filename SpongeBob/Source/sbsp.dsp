@@ -240,6 +240,19 @@ SOURCE=.\StartUp.c
 # End Source File
 # Begin Source File
 
+SOURCE=.\Text_Sys.c
+
+!IF  "$(CFG)" == "sbsp - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "sbsp - Win32 Debug"
+
+# PROP Exclude_From_Build 1
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
 SOURCE=.\Titles.c
 # PROP Exclude_From_Build 1
 # End Source File
@@ -328,6 +341,19 @@ SOURCE=.\StartUp.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\Text_Sys.h
+
+!IF  "$(CFG)" == "sbsp - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "sbsp - Win32 Debug"
+
+# PROP Exclude_From_Build 1
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
 SOURCE=.\Titles.h
 # PROP Exclude_From_Build 1
 # End Source File
@@ -347,10 +373,67 @@ SOURCE=.\TitlesData.h
 # Begin Source File
 
 SOURCE=.\American.lan
+
+!IF  "$(CFG)" == "sbsp - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "sbsp - Win32 Debug"
+
+# PROP Exclude_From_Build 1
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
-SOURCE=.\Enlish.lan
+SOURCE=.\English.lan
+
+!IF  "$(CFG)" == "sbsp - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "sbsp - Win32 Debug"
+
+# PROP Exclude_From_Build 1
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\French.lan
+
+!IF  "$(CFG)" == "sbsp - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "sbsp - Win32 Debug"
+
+# PROP Exclude_From_Build 1
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\German.lan
+
+!IF  "$(CFG)" == "sbsp - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "sbsp - Win32 Debug"
+
+# PROP Exclude_From_Build 1
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\Spanish.lan
+
+!IF  "$(CFG)" == "sbsp - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "sbsp - Win32 Debug"
+
+# PROP Exclude_From_Build 1
+
+!ENDIF 
+
 # End Source File
 # End Group
 # Begin Source File
