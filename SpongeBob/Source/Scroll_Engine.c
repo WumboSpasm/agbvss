@@ -136,7 +136,7 @@ void UpdateScroll()
 {
 	u8 x,y;				   	// Local temp. variables.
 
-	u8 scroll_speed=1;		// Temp. scroll speed test variable.
+	u8 scroll_speed=2;		// Temp. scroll speed test variable.
 
 //--
 
