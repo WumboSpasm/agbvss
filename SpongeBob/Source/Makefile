@@ -4,6 +4,7 @@
 		Game.c \
 		Titles.c \
 		Random.c \
+		StartUp.c \
 		Scroll_Engine.c \
 		SprEng_Control.c \
 		SprEng_Animate.c \
