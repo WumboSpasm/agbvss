@@ -51,6 +51,10 @@ void MainGame(void)
 	ObjectControl2();							// Update sprites (control 'method-2').
 	ObjectDisplay();							// Update sprites (display).
 	UpdateScroll();								// Update scroll.
+
+	sprintf(DEBUGBUFFER,"SPONGEBOB");			 // Assert test only !.
+	PutTextBox(1,1,11,3,DEBUGBUFFER);
+
 #ifdef BEANER
 	// IM NOT SUPPOSED TO BE HERE
 	PutTextBox(2,2,16,4,GAMENAME);
