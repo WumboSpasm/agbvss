@@ -78,15 +78,6 @@ void MainGame(void)
 
 //--
 
-// Beaner's tests.
-
-#ifdef BEANER
-	// IM NOT SUPPOSED TO BE HERE
-	PutTextBox(2,2,16,4,GAMENAME);
-	PutText(0,19,30,1,GAMENAME,0);
-	//--
-#endif
-
 //---------------------------------------------------------------------------------------------------
 
 }
