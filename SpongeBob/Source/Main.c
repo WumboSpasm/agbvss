@@ -9,6 +9,7 @@
 
 #include "Includes.h"
 #include "Titles.h"
+#include "Scroll_Engine.h"
 
 //***************************************************************************************************
 
@@ -88,28 +89,30 @@ void AgbMain(void)
 #endif
 #endif
 
-        switch(gGameState)
-        {
-       	case e_IN_GAME:
-       		InitGame();									// Init. main game.
-       		break;
-	case e_TITLE_SCREEN:
-		InitTitles();
-		break;
+	switch(gGameState)
+	{
+		case e_IN_GAME:
+    		InitGame();							// Init. main game.
+    		break;
+		case e_TITLE_SCREEN:
+			InitTitles();
+			break;
 	};
 
 //---------------------------------------------------------------------------------------------------
 
 	while(1)									// Top level main loop.
 	{
-	        switch(gGameState)
-	        {
-	       	case e_IN_GAME:
-	       		MainGame();									// Init. main game.
+        IntrCheck=0;
+        
+        switch(gGameState)
+        {
+       		case e_IN_GAME:
+	       		MainGame();						// Init. main game.
 	       		break;
-		case e_TITLE_SCREEN:
-			MainTitles();
-			break;
+			case e_TITLE_SCREEN:
+				MainTitles();
+				break;
 		};
 	}
 }
@@ -135,7 +138,7 @@ void ClearAll(void)
 
 void WaitVBlank(void)
 {
-	while((*(vu16*)REG_VCOUNT&0xff)>=160);
+	while(!IntrCheck==V_BLANK_INTR_FLAG);			// Wait for VBL interupt.
 
 	gTimer++;										// Increment game timer.
 }
