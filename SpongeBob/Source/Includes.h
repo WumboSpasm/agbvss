@@ -14,8 +14,10 @@
 #include "Game.h"
 
 //#define NDEBUG					// un-comment for release build!! (for now...)
+#ifndef NDEBUG
 //#define BEANER					// un-comment for Beaner only code!!
-//#define AGE						// un-comment for @gea only code!!
+#define AGE							// un-comment for @ge only code!!
+#endif
 
 //#include "Scroll_Engine.h"
 
