@@ -11,8 +11,8 @@
 #include "Titles.h"
 #include "Scroll_Engine.h"
 #include "StartUp.h"
-#include "Sinecos.h"
-
+#include "Sinecos.h"  
+          
 //***************************************************************************************************
 
 /////////////////////////////////////////////////
@@ -27,8 +27,7 @@ vu16 IntrCheck;			// Interrupt check.
 GameState gGameState;	// Beaner's gamestate variable.
 GameParams gGameParams;	// Game parameters info. (generic global info).
 u8 rasttable[256];				// raster table
-u8 v_phase;
-u8 gRipple;                                     // do we ripple or not?
+u8 v_phase;                                     // v phase (used on hblank ripple effect)
 
 /////////////////////////////////////////////////
 // Function Definitions.
@@ -79,8 +78,8 @@ void InitSystem(void)
 	*(vu16*)REG_IE &= 0x7fff;
 	*(vu16*)REG_IME=1;							// SetIME
 //	*(vu16*)REG_IE=IME_FLAG;					// Set IME
-	*(vu16 *)REG_IE    = V_BLANK_INTR_FLAG | H_BLANK_INTR_FLAG;	// set Vblank interrupt enable flag
-	*(vu16 *)REG_STAT  = STAT_V_BLANK_IF_ENABLE | STAT_H_BLANK_IF_ENABLE;
+	*(vu16 *)REG_IE    = V_BLANK_INTR_FLAG;	// set Vblank interrupt enable flag
+	*(vu16 *)REG_STAT  = STAT_V_BLANK_IF_ENABLE;
 
 //---------------------------------------------------------------------------------------------------
 
@@ -102,7 +101,6 @@ void InitSystem(void)
 		rasttable[i] = SinCosTable[(i*2)&255] / (31 << 2);
 	}
 	
-	gRipple = 1;
 }
 
 //***************************************************************************************************
@@ -113,16 +111,16 @@ void AgbMain(void)
 {
 	ClearAll();	  								// The first initialization of the system.
 	InitSystem();
+//     	m4aSoundInit(); // Sound Initialization
+//	m4aSongNumStart(YOS_BGM_TITLE);//BGM Start
+//	m4aSongNumStart(YOS_SE_START);
 
-#ifdef NDEBUG
+#if defined(release)
 	gGameState=e_LEGAL_SCREEN;
-#else  //NDEBUG
-#ifdef BEANER
-	gGameState=e_LEGAL_SCREEN;
-#else	//BEANER
-	gGameState=e_IN_GAME;
-#endif	//BEANER
-#endif	//NDEBUG
+#else
+        gGameState=e_LEGAL_SCREEN;
+#endif  // release version
+
 
 	switch(gGameState)
 	{
@@ -130,8 +128,8 @@ void AgbMain(void)
 			InitStartUpScreens();
 			break;
 		case e_IN_GAME:
-    		InitGame();							// Init. main game.
-    		break;
+    		        InitGame();							// Init. main game.
+	      		break;
 		case e_TITLE_SCREEN:
 			InitTitles();
 			break;
@@ -143,17 +141,20 @@ void AgbMain(void)
 	{
         IntrCheck=0;
 
-        switch(gGameState)
-        {
-			case e_LEGAL_SCREEN:
-				MainStartUpScreens();
-				break;
-       		case e_IN_GAME:
-	       		MainGame();						// Init. main game.
-	       		break;
-			case e_TITLE_SCREEN:
-				MainTitles();
-				break;
+//	m4aSoundMain(); // Sound Main
+
+
+                switch(gGameState)
+                {
+	        	case e_LEGAL_SCREEN:
+		        	MainStartUpScreens();
+			        break;
+               		case e_IN_GAME:
+	               		MainGame();						// Init. main game.
+	       	        	break;
+        		case e_TITLE_SCREEN:
+	        		MainTitles();
+		        	break;
 		};
 	}
 }
@@ -186,9 +187,10 @@ void WaitVBlank(void)
 
 static void VBlankIntr(void)
 {
-	IntrCheck=V_BLANK_INTR_FLAG;					// Set VBL interrupt check flag.
-	gTimer++;										// Increment game timer.
-        v_phase = (gTimer) & 0x7f;	// increase phase
+//	m4aSoundVSync();                                // Sound DMA Re-set
+	IntrCheck=V_BLANK_INTR_FLAG;			// Set VBL interrupt check flag.
+	gTimer++;					// Increment game timer.
+        v_phase = (gTimer) & 0x7f;	                // increase phase
 }
 
 //****************************************************************************************************
@@ -198,12 +200,8 @@ static void VBlankIntr(void)
 static void HBlankIntr(void)
 {
         u16 line;
-
-	if(gRipple)
-	{
-                line = *(vu16*)REG_VCOUNT & 0x7f;
-	        *(vu16 *)REG_BG0HOFS = rasttable[(v_phase + line)];
-        }
+        line = *(vu16*)REG_VCOUNT & 0x7f;
+        *(vu16 *)REG_BG0HOFS = rasttable[(v_phase + line)];
 }
 
 

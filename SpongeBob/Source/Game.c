@@ -40,6 +40,10 @@ void InitGame(void)
 
 //--
 
+	*(vu16 *)REG_IE    = V_BLANK_INTR_FLAG;	// set Vblank interrupt enable flag
+	*(vu16 *)REG_STAT  = STAT_V_BLANK_IF_ENABLE;
+
+
 	// Enable game screen display.
 	*(vu16*)REG_DISPCNT=DISP_MODE_0|DISP_OBJ_ON|DISP_BG0_ON|DISP_BG1_ON|DISP_BG2_ON|DISP_BG3_ON|DISP_OBJ_CHAR_1D_MAP;	// Set which layers to display
 //	*(vu16*)REG_DISPCNT=DISP_MODE_0|DISP_OBJ_ON|DISP_BG0_ON|DISP_BG1_ON|DISP_BG2_ON|DISP_OBJ_CHAR_1D_MAP;	// Set which layers to display
@@ -64,12 +68,6 @@ void MainGame(void)
 // Main loop test area only.
 
 //--
-
-// @ge's tests.
-#ifndef NDEBUG
-	sprintf(DEBUGBUFFER,"SPONGEBOB");			// Assert test only !!!.
-	PutTextBox(1,1,11,3,DEBUGBUFFER);
-#endif
 	if(gKeyTap&SELECT_BUTTON)					// Next level test only !!!.
 	{
 		Level++;
