@@ -17,10 +17,10 @@
 /////////////////////////////////////////////////
 // Global Variables.
 /////////////////////////////////////////////////
-u16 TBg3_ScreenDat[32*32];				// Size of screen in VRAM.
-u16 TBg2_ScreenDat[32*32];
-u16 TBg1_ScreenDat[32*32];				// This buffer is dynamically updated later !.
-u16 TBg0_ScreenDat[32*32];
+//u16 TBg3_ScreenDat[32*32];				// Size of screen in VRAM.
+//u16 TBg2_ScreenDat[32*32];
+u16 TBg1_ScreenDat[32*32];				// front layer for options
+u16 TBg0_ScreenDat[32*32];				// back screen to show TONS of tiles
 
 
 /////////////////////////////////////////////////
