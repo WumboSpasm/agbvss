@@ -91,7 +91,7 @@ void AgbMain(void)
 	gGameState=e_LEGAL_SCREEN;
 #else
 #ifdef BEANER
-	gGameState=e_LEGAL_SCREEN;
+	gGameState=e_TITLE_SCREEN;
 #else
 	gGameState=e_IN_GAME;
 #endif
@@ -115,7 +115,7 @@ void AgbMain(void)
 	while(1)									// Top level main loop.
 	{
         IntrCheck=0;
-        
+
         switch(gGameState)
         {
 			case e_LEGAL_SCREEN:
@@ -151,8 +151,6 @@ static void ClearAll(void)
 void WaitVBlank(void)
 {
 	while(!IntrCheck==V_BLANK_INTR_FLAG);			// Wait for VBL interupt.
-
-	gTimer++;										// Increment game timer.
 }
 
 //***************************************************************************************************
@@ -162,6 +160,7 @@ void WaitVBlank(void)
 static void VBlankIntr(void)
 {
 	IntrCheck=V_BLANK_INTR_FLAG;					// Set VBL interrupt check flag.
+	gTimer++;										// Increment game timer.
 }
 
 //***************************************************************************************************
