@@ -22,9 +22,18 @@ extern void InitStartUpScreens(void);
 extern void MainStartUpScreens(void);
 
 //data
-extern u16 Start_Copy_RawBitmap[240*160];
-extern u16 Start_THQ_RawBitmap[240*160];
-extern u16 Start_Nick_RawBitmap[240*160];
-extern u16 Start_Climax_RawBitmap[240*160];
+extern const u16 Start_Copy_Palette[256];
+extern const u8  Start_Copy_Character[8*8*107];
+extern const u16 Start_Copy_Map[30*20];
+extern const u8  Start_Climax_Character[8*8*43];
+extern const u16 Start_Climax_Map[30*20];
+extern const u8  Start_Nick_Character[8*8*79];
+extern const u16 Start_Nick_Map[30*20];
+extern const u8  Start_THQ_Character[8*8*76];
+extern const u16 Start_THQ_Map[30*20];
+
+extern u8 CurrentScreen;
+extern u16 ScreenDelay;
+extern u8 CanSkip;
 
 #endif

@@ -49,8 +49,9 @@ enum
 /////////////////////////////////////////////////
 extern void InitTitles(void);
 extern void MainTitles(void);
-extern void FadeOut(void);
+extern void FadeOut(u8 type);
 extern void FadeIn(void);
+extern void NextMenuSetUp(void);
 
 #endif
 

@@ -1,3 +1,7 @@
+SOUND_DIR = Sound/
+include $(SOUND_DIR)Soundfiles
+
+
 VERSION	?=	release
 
 ifeq ($(VERSION),release)
@@ -6,6 +10,7 @@ else
 	TARGET			:=SBSPants
 endif
 
+DEPENDFILE	=Makedepend
 MAPFILE         :=$(basename $(TARGET)).map
 TARGET_ELF      :=$(basename $(TARGET)).elf
 TARGET_BIN      :=$(basename $(TARGET)).bin
@@ -31,9 +36,10 @@ include build/opts.mak
 			Sinecos.c \
 			Contours.c \
 			Text_Sys.c \
-			Collision.c
+			Collision.c \
+			Hub.c
 
-.OFILES		:=	$(foreach f,$(.SFILES) $(.CFILES), $(TEMP_DIR)/$(subst .s,.o,$(subst .c,.o,$(f))))
+.OFILES		:=	$(foreach f,$(.SFILES) $(.CFILES), $(TEMP_DIR)/$(subst .s,.o,$(subst .c,.o,$(f)))) $(SOUND_FILES)
 
 .AFILES		:=	../data/Titles/libTitlesGFX.a \
        			../data/Maps/libMaps.a \
@@ -73,7 +79,6 @@ $(TEMP_DIR)/%.o: ./%.s
 
 .PHONY: clean depend data
 
-DEPENDFILE	=Makedepend
 
 clean:
 	-rm $(.OFILES) $(DEPENDFILE)
