@@ -16,16 +16,16 @@
 
 enum COLLISION_TILE
 {
-	COLLISION_TILE_0=0,					// Empty tile.
-	COLLISION_TILE_1=2,					// Whole 'moon' tile :).
-	COLLISION_TILE_2=3,			 		// 22deg right slope tile 1.
-	COLLISION_TILE_3=4,		 			// 22deg right slope tile 2.
-	COLLISION_TILE_4=5,		 			// 22deg left slope tile 1.
-	COLLISION_TILE_5=6,		 			// 22deg left slope tile 2.
-	COLLISION_TILE_6=7,		 			// 45deg right slope tile 1.
-	COLLISION_TILE_7=8,		 			// 45deg left slope tile 2.
-	COLLISION_TILE_8=9,					// Half 'moon' tile :).
-	COLLISION_TILE_9=1,	 				// Ceiling tile.
+	COLLISION_TILE_0=0,							// Empty tile.
+	COLLISION_TILE_1=1,							// Whole 'moon' tile :).
+	COLLISION_TILE_2=5,	 						// 22deg right slope tile 1.
+	COLLISION_TILE_3=9, 						// 22deg right slope tile 2.
+	COLLISION_TILE_4=10, 						// 22deg left slope tile 1.
+	COLLISION_TILE_5=6, 						// 22deg left slope tile 2.
+	COLLISION_TILE_6=13, 						// 45deg right slope tile 1.
+	COLLISION_TILE_7=14, 						// 45deg left slope tile 2.
+	COLLISION_TILE_8=255,						// Half 'moon' tile :).
+	COLLISION_TILE_9=3,							// Ceiling tile.
 };
 
 /////////////////////////////////////////////////

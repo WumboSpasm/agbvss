@@ -19,10 +19,6 @@
 
 // Note: The address pointer to the current sprite being plotted on screen, is passed into this routine.
 
-// This code module will become more compact and simpler once Dave O has completed the collsion map -
-// data export feature in the project map editor. i.e. I have had to bodge up a test collsion map for
-// now, which uses 'u16' data whereas eventually we will only use 'u8' data for the collsion maps.
-
 void CheckContour(Object* pAO)
 {		
 	u16 MapX,MapY,Tile1,Tile2,Tile3,Tile4,Tile5; // Local variables.
