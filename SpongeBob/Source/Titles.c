@@ -100,7 +100,7 @@ void InitTitles(void)
 	DmaArrayCopy(3,PasswordIcons_Char,TILE_BASE_ADDR_1+100,16);         // Load level data.
 	DmaArrayCopy(3,menul2_Character,TILE_BASE_ADDR_3,16);         // Load level data.
 	DmaArrayCopy(3,libFontMenu_Char,TILE_BASE_ADDR_2,16);           // Load Text tile data.
-	DmaArrayCopy(3,menuback_Palette,BG_PLTT,16);
+	DmaArrayCopy(3,menul2_Palette,BG_PLTT,16);
 	DmaArrayCopy(3,Text_Palette,BG_PLTT+(253<<1),16);               // Set Text colours (all '3' of them :).
 	DmaArrayCopy(3,Bg1_ScreenDat,MAP_BASE_ADDR+0x1000,16);
 	DmaArrayCopy(3,Bg2_ScreenDat,MAP_BASE_ADDR+0x0800,16);

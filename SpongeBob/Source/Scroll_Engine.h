@@ -27,9 +27,9 @@
 /////////////////////////////////////////////////
 // Functions.
 /////////////////////////////////////////////////
-extern void InitScroll();
-extern void BuildScreen();
-extern void UpdateScroll();
+extern void InitScroll(void);
+extern void BuildScreen(void);
+extern void UpdateScroll(void);
 extern void Scroll2Position(int Layer,s32 old_map_xpos,s32 old_map_ypos,s32 new_map_xpos,s32 new_map_ypos);
 
 extern u8 libFontGame_Char[8*8*96];		// 'Speech Bubble' tile library in ROM.

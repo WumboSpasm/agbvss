@@ -9,7 +9,7 @@
 #define _TITLESDATA_H
 
 // hi-color single frame data
-extern u8 menuback_Palette[256];
+extern u8 menul2_Palette[256];
 extern u8 menuback_Character[8*8*100];
 extern u16 menuback_Map[32*32];
 extern u8 menuback2_Character[8*8*100];
