@@ -11,10 +11,12 @@
 #include "Titles.h"								// main titles header
 #include "TitlesData.h"							// external graphic data needed
 #include "SineCos.h"							// sin/cos tables + general math instructions
+#include "Random.h"								// Random Number Generator (standard ansi c with a bit more)
 
 //------------prototype functions--------
 static void UpdateInput(void);					// read input and update gamestate accordingly
-static void ZoomBG(s16 speed,u16 distance);		// fade routine
+static u16 ZoomBGIn(void);						// random fade/wipe/zoom routine
+static void ZoomBGOut(u16 prev);						// do approapriate return
 static void UpdateGFX(void);					// update display based on current state
 
 //--------Local Variables-----------------
@@ -32,6 +34,7 @@ void InitTitles(void)
 	BGstats.mZoomY = 0x0100;							// no zoom to start with
 	BGstats.mBg2_center_x = 120;				// set center to middle of bitmap
 	BGstats.mBg2_center_y = 80;					// "ditto"
+	BGstats.mRotate = 0;						// Rorational Value		(ask Janusz why its spelt like this :o) )
 
 	Title.mCurrent_Screen = 0;					// on screen 0 i.e. title screen
 	Title.mCurrent_Selection = 0;				// currently no selection
@@ -60,12 +63,15 @@ void MainTitles(void)
 //---------read input and update accordingly----
 static void UpdateInput(void)
 {
+	u16 tmp;
 	switch(Title.mCurrent_Screen)
 	{
 	case 0:								// main screen (emun up maybe...)
 		if((gKeyTap&A_BUTTON)||(gKeyTap&START_BUTTON))
 		{
+			tmp = ZoomBGIn();
 			LZ77UnCompVram(Title_Main_2_RawBitmap_LZ, (void*)(int)BG_BITMAP0_VRAM);
+			ZoomBGOut(tmp);
 			Title.mCurrent_Screen = 1;
 			break;
 		}
@@ -73,7 +79,7 @@ static void UpdateInput(void)
 	case 1:
 		if((gKeyTap&START_BUTTON)||(gKeyTap&A_BUTTON))
 		{
-			ZoomBG(0x0001,0x1000);
+			ZoomBGIn();
 			gGameState=e_IN_GAME;
 			InitGame();
 			break;
@@ -86,38 +92,179 @@ static void UpdateInput(void)
 
 
 //--------------Zoom BG Layers------------------
-static void ZoomBG(s16 speed,u16 distance)	//speed to zoom in and distance to zoom into
+static u16 ZoomBGIn(void)
 {
-	while(BGstats.mZoomX <= distance)
+	u16 random = GenRand(6);					// Generate random number plz
+	s16 speed = 0x0001;
+
+	switch(random)								// ooh here's the nice bit...
 	{
-		WaitVBlank();				// Wait 4 VBlank
-		UpdateGFX();				// update zoom factor
-		ReadJoypad();
-		BGstats.mZoomX += speed;	// zoom in x
-		BGstats.mZoomY += speed;	// zoom in y too...
-	}
+	//----if zero do simple zoom in
+	case 0:
+		while(BGstats.mZoomX <= 0x1000)
+		{
+			WaitVBlank();				// Wait 4 VBlank
+			UpdateGFX();				// update zoom factor
+			ReadJoypad();
+			BGstats.mZoomX += speed;	// zoom in x
+			BGstats.mZoomY += speed;	// zoom in y too...
+		}
+		return random;
+		break;
+
+	//--if one stretch width ways
+	case 1:
+		while(BGstats.mZoomX <= 0x1000)
+		{
+			WaitVBlank();				// Wait 4 VBlank
+			UpdateGFX();				// update zoom factor
+			ReadJoypad();
+			BGstats.mZoomX += speed;
+			BGstats.mZoomY -= speed;
+		}
+		return random;
+		break;
+
+	//--if two stretch height ways
+	case 2:
+		while(BGstats.mZoomY <= 0x1000)
+		{
+			WaitVBlank();				// Wait 4 VBlank
+			UpdateGFX();				// update zoom factor
+			ReadJoypad();
+			BGstats.mZoomX -= speed;
+			BGstats.mZoomY += speed;
+		}
+		return random;
+		break;
+
+	//--if three zoom out
+	case 3:
+		while(BGstats.mZoomX > 0x0000)
+		{
+			WaitVBlank();				// Wait 4 VBlank
+			UpdateGFX();				// update zoom factor
+			ReadJoypad();
+			BGstats.mZoomX -= speed;	// zoom in x
+			BGstats.mZoomY -= speed;	// zoom in y too...
+		}
+		return random;
+		break;
+
+	//--if four fade out
+	case 4:
+		//to do fade the screen
+		return random;
+		break;
+
+	//--if five then????? - do some real odd here
+	case 5:
+		//i cant think of it yet but it will happen here..
+		return random;
+		break;
+
+	//--anything else and its fucked
+	default:
+		// insert assert here plz...
+		return random;
+		break;
+	};
+
 }
+
+static void ZoomBGOut(u16 prev)
+{
+	s16 speed = 0x0001;
+
+	switch(prev)								// ooh here's the nice bit...
+	{
+	//----if zero did simple zoom in <- so i want to re-zoom in
+	case 0:
+		while(BGstats.mZoomX >= 0x0100)
+		{
+			WaitVBlank();				// Wait 4 VBlank
+			UpdateGFX();				// update zoom factor
+			ReadJoypad();
+			BGstats.mZoomX -= speed;	// zoom in x
+			BGstats.mZoomY -= speed;	// zoom in y too...
+		}
+		break;
+
+	//--if one stretch width ways <- need to stretch it back
+	case 1:
+		while(BGstats.mZoomX >= 0x0100)
+		{
+			WaitVBlank();				// Wait 4 VBlank
+			UpdateGFX();				// update zoom factor
+			ReadJoypad();
+			BGstats.mZoomX -= speed;
+			BGstats.mZoomY += speed;
+		}
+		break;
+
+	//--if two stretch height ways
+	case 2:
+		while(BGstats.mZoomY >= 0x0100)
+		{
+			WaitVBlank();				// Wait 4 VBlank
+			UpdateGFX();				// update zoom factor
+			ReadJoypad();
+			BGstats.mZoomX += speed;
+			BGstats.mZoomY -= speed;
+		}
+		break;
+
+	//--if three zoom out
+	case 3:
+		while(BGstats.mZoomX <= 0x0100)
+		{
+			WaitVBlank();				// Wait 4 VBlank
+			UpdateGFX();				// update zoom factor
+			ReadJoypad();
+			BGstats.mZoomX += speed;	// zoom in x
+			BGstats.mZoomY += speed;	// zoom in y too...
+		}
+		break;
+
+	//--if four fade back in
+	case 4:
+		//to do fade the screen
+		break;
+
+	//--if five then????? - do some real odd here
+	case 5:
+		//i cant think of it yet but it will happen here..
+		break;
+
+	//--anything else and its fucked
+	default:
+		// insert assert here plz...
+		break;
+	};
+
+}
+
 //--------------Update GFX & related-------------
 static void UpdateGFX(void)
 {
 	//-----update related variables----
-    BGstats.mBg2pa = FixMul( Cos(0), FixInverse(BGstats.mZoomX));
-    BGstats.mBg2pb = FixMul( Sin(0), FixInverse(BGstats.mZoomX));
-    BGstats.mBg2pc = FixMul(-Sin(0), FixInverse(BGstats.mZoomY));
-    BGstats.mBg2pd = FixMul( Cos(0), FixInverse(BGstats.mZoomY));
+    BGstats.mBg2pa = FixMul( Cos(BGstats.mRotate), FixInverse(BGstats.mZoomX));
+    BGstats.mBg2pb = FixMul( Sin(BGstats.mRotate), FixInverse(BGstats.mZoomX));
+    BGstats.mBg2pc = FixMul(-Sin(BGstats.mRotate), FixInverse(BGstats.mZoomY));
+    BGstats.mBg2pd = FixMul( Cos(BGstats.mRotate), FixInverse(BGstats.mZoomY));
 
     // BG data reference starting point set
-    BGstats.mStart_x = (120 * 0x100 - BGstats.mBg2_center_x) - ((BGstats.mBg2pa * 120)) - ((BGstats.mBg2pb * 80));
-    BGstats.mStart_y = ( 80 * 0x100 - BGstats.mBg2_center_y) - ((BGstats.mBg2pc * 120)) - ((BGstats.mBg2pd * 80));
+    BGstats.mBg2x = (BGstats.mBg2_center_x) - ((BGstats.mBg2pa * 120)) - ((BGstats.mBg2pb * 80));
+    BGstats.mBg2y = (BGstats.mBg2_center_x) - ((BGstats.mBg2pc * 120)) - ((BGstats.mBg2pd * 80));
 
-	//------------update registers---
+	//------------update registers---should be done during vblank..hopefully it is happening...
     *(vu16*)REG_BG2PA = (u16)BGstats.mBg2pa;
 	*(vu16*)REG_BG2PB = (u16)BGstats.mBg2pb;
     *(vu16*)REG_BG2PC = (u16)BGstats.mBg2pc;
     *(vu16*)REG_BG2PD = (u16)BGstats.mBg2pd;
 
-    *(vu16*)REG_BG2X_L = (BGstats.mStart_x & 0xffff);
-    *(vu16*)REG_BG2X_H = (u16)(u32)((BGstats.mStart_x & 0x0fff0000)>>16);
-    *(vu16*)REG_BG2Y_L = (BGstats.mStart_y & 0xffff);
-    *(vu16*)REG_BG2Y_H = (u16)(u32)((BGstats.mStart_y & 0x0fff0000)>>16);
+    *(vu16*)REG_BG2X_L = (BGstats.mBg2x & 0xffff);
+    *(vu16*)REG_BG2X_H = (u16)(u32)((BGstats.mBg2x & 0x0fff0000)>>16);
+    *(vu16*)REG_BG2Y_L = (BGstats.mBg2y & 0xffff);
+    *(vu16*)REG_BG2Y_H = (u16)(u32)((BGstats.mBg2y & 0x0fff0000)>>16);
 }
