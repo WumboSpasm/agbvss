@@ -26,7 +26,7 @@ typedef struct bgstats_tag{
 	u16		mBg2pd;				// BG data reference direction
 	u16		mZoomX;				// stretch X value
 	u16		mZoomY;				// stretch Y value
-	u16		mRotate;			// rotational value
+	u16		mRotate;			// rotational value //not working yet :o( - need to sort it out better later on
 	u16		mPad;				// padding to 32 bit multiple
 }bgstats;
 
