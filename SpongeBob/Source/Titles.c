@@ -11,13 +11,14 @@
 #include "Titles.h"								// main titles header
 #include "TitlesData.h"							// external graphic data needed
 #include "SineCos.h"							// sin/cos tables + general math instructions
-#include "Random.h"								// Random Number Generator (standard ansi c with a bit more)
+#include "Random.h"								// Random Number Generator
 
 //------------prototype functions--------
 static void UpdateInput(void);					// read input and update gamestate accordingly
-static u16 ZoomBGIn(u16 random);				// random fade/wipe/zoom routine (i return what zoom i did so store me somewhere safe)
-static void ZoomBGOut(u16 prev);				// do approapriate return (I need to know what the last zoom was so pass it in with prev)
 static void UpdateGFX(void);					// update display based on current state
+//--Zoom/Fade Routines
+static u16 ZoomBGIn(u16 random);
+static void ZoomBGOut(u16 prev);
 
 //--------Local Variables-----------------
 static bgstats	BGstats;						// BG data stats
@@ -35,21 +36,23 @@ void InitTitles(void)
 	BGstats.mZoomY = 0x0100;							// no zoom to start with
 	BGstats.mBg2_center_x = 120;				// set center to middle of bitmap
 	BGstats.mBg2_center_y = 80;					// "ditto"
+	BGstats.mRotate = 0;						// set rotate to zero (warning do not change yet...does not seem to work)
 
+	//---set up title stats
 	Title.mCurrent_Screen = 0;					// on screen 0 i.e. title screen
 	Title.mCurrent_Selection = 0;				// currently no selection
 	Title.mMax_Selections = 0;					// there are no selections on this screen so set this to zero
 
+	//---reset game timer
 	gTimer = 0;									// reset timer used to decide the random number bit
 
 	//---set up display
     *(vu16*)REG_DISPCNT = DISP_MODE_3 | DISP_OBJ_BG_ALL_ON;			// set machine into bg mode 3 (15-bit 1 frame 240x160)
-//    DmaArrayCopy(3, Title_Main_RawBitmap, BG_BITMAP0_VRAM, 16);		// transfere initial background screen into vram
 
-
+	//--decompress 1st title screen straight into vram...(this is nice and fast so no problems here)
 	LZ77UnCompVram(Title_Main_RawBitmap_LZ, (void*)BG_BITMAP0_VRAM);
 
-	//--initialise the GFX so it dont look odd
+	//--initialise the GFX so it dont look odd on 1st frame
 	UpdateGFX();
 }
 
@@ -59,7 +62,7 @@ void MainTitles(void)
 		UpdateGFX();								// Update GFX data
 		ReadJoypad();								// Read joypad.
 		UpdateInput();								// Take Key Input and work out what needs to be done from here
-		gTimer++;									// Increment Timer
+		gTimer++;									// Increment Timer (used to initialise the random number seed)
 }
 
 
@@ -83,7 +86,7 @@ static void UpdateInput(void)
 	case 1:
 		if((gKeyTap&START_BUTTON)||(gKeyTap&A_BUTTON))
 		{
-			tmp = ZoomBGIn(1);
+			ZoomBGIn(1);
 			gGameState=e_IN_GAME;
 			InitGame();
 			break;
@@ -162,7 +165,7 @@ static u16 ZoomBGIn(u16 random)
 
 	//--if five then????? - do some real odd here
 	case 5:
-		//i cant think of it yet but it will happen here..
+		//i cant think of it yet but it will happen here..//rotate if i can ever get that to work..
 		return random;
 		break;
 
@@ -177,7 +180,7 @@ static u16 ZoomBGIn(u16 random)
 
 static void ZoomBGOut(u16 prev)
 {
-	switch(prev)								// ooh here's the nice bit...
+	switch(prev)								// ooh here's the nice bit again...
 	{
 	//----if zero did simple zoom in <- so i want to re-zoom in
 	case 0:
@@ -258,7 +261,7 @@ static void UpdateGFX(void)
     BGstats.mBg2x = (BGstats.mBg2_center_x * 0x100) - ((BGstats.mBg2pa * BGstats.mBg2_center_x)) - ((BGstats.mBg2pb * BGstats.mBg2_center_y));
     BGstats.mBg2y = (BGstats.mBg2_center_y * 0x100) - ((BGstats.mBg2pc * BGstats.mBg2_center_x)) - ((BGstats.mBg2pd * BGstats.mBg2_center_y));
 
-	//------------update registers---should be done during vblank..hopefully it is happening...
+	//------------update registers---
     *(vu16*)REG_BG2PA = (u16)BGstats.mBg2pa;
 	*(vu16*)REG_BG2PB = (u16)BGstats.mBg2pb;
     *(vu16*)REG_BG2PC = (u16)BGstats.mBg2pc;
