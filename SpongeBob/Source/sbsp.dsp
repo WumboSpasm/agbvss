@@ -132,6 +132,19 @@ SOURCE=.\Sinecos.c
 # End Source File
 # Begin Source File
 
+SOURCE=.\SprEng_Animate.c
+
+!IF  "$(CFG)" == "sbsp - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "sbsp - Win32 Debug"
+
+# PROP Exclude_From_Build 1
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
 SOURCE=.\SprEng_Common.c
 # PROP Exclude_From_Build 1
 # End Source File
@@ -211,6 +224,19 @@ SOURCE=.\Scroll_Engine.h
 
 SOURCE=.\Sinecos.h
 # PROP Exclude_From_Build 1
+# End Source File
+# Begin Source File
+
+SOURCE=.\SprEng_Animate.h
+
+!IF  "$(CFG)" == "sbsp - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "sbsp - Win32 Debug"
+
+# PROP Exclude_From_Build 1
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
