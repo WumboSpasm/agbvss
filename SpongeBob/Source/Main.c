@@ -78,7 +78,6 @@ void InitSystem(void)
 
 #ifdef MUSIC_ON                
         m4aSoundInit( );                        // Initialise sound system
-        m4aSoundMode(4<<SOUND_MODE_MAXCHN_SHIFT|10<<SOUND_MODE_MASVOL_SHIFT);                 // set music drive conditions
 #endif
 
 	// Set BG Control
@@ -124,11 +123,11 @@ void AgbMain(void)
 	ClearAll();	  								// The first initialization of the system.
 	InitSystem();
 
-#ifdef BEANER
-	gGameState=e_TITLE_SCREEN;		  				// Was 'LEGAL_SCREEN' for inclusion of front end !.
+#ifdef BEANER									// Include front end or not ?.
+	gGameState=e_TITLE_SCREEN;
 #else
-        gGameState=e_IN_GAME;
-#endif  // release version
+    gGameState=e_IN_GAME;
+#endif
 
 	switch(gGameState)
 	{
@@ -136,11 +135,11 @@ void AgbMain(void)
 			InitStartUpScreens();
 			break;
 		case e_IN_GAME:
-    		        InitGame();					// Init. main game.
-	      		break;
+   		    InitGame();							// Init. main game.
+	      	break;				
 		case e_HUB_SCREEN:
-    		        InitHub();					// Init. main game.
-	      		break;
+   		    InitHub();
+	      	break;
 		case e_TITLE_SCREEN:
 			InitTitles();
 			break;
@@ -153,26 +152,23 @@ void AgbMain(void)
         IntrCheck=0;
 
 #ifdef MUSIC_ON                
-	m4aSoundMain(); // Sound Main
+		m4aSoundMain();	 						// Sound Main.
 #endif
-
-                switch(gGameState)
-                {
-	        	case e_LEGAL_SCREEN:
-		        	MainStartUpScreens();
-			        break;
-               		case e_IN_GAME:
-	               		MainGame();						// Init. main game.
-	       	        	break;
-        		case e_TITLE_SCREEN:
-	        		MainTitles();
-		        	break;
-        		case e_HUB_SCREEN:
-	        		MainHub();
-		        	break;
+		switch(gGameState)
+		{
+			case e_LEGAL_SCREEN:
+	        	MainStartUpScreens();
+		        break;
+			case e_IN_GAME:
+           		MainGame();						//  Call main game loop.
+  	        	break;
+       		case e_TITLE_SCREEN:
+        		MainTitles();
+	        	break;
+       		case e_HUB_SCREEN:
+        		MainHub();
+	        	break;
 		};
-
-
 	}
 }
 
@@ -204,12 +200,14 @@ void WaitVBlank(void)
 
 static void VBlankIntr(void)
 {
+
 #ifdef MUSIC_ON                
-	m4aSoundVSync();                                // Sound DMA Re-set
+	m4aSoundVSync();                                // Sound DMA Re-set.
 #endif
-	IntrCheck=V_BLANK_INTR_FLAG;			// Set VBL interrupt check flag.
-	gTimer++;					// Increment game timer.
-        v_phase = (gTimer) & 0x7f;	                // increase phase
+
+	IntrCheck=V_BLANK_INTR_FLAG;					// Set VBL interrupt check flag.
+	gTimer++;										// Increment game timer.
+	v_phase=(gTimer)&0x7f;	           	     		// Increase phase.
 }
 
 //****************************************************************************************************
@@ -218,9 +216,10 @@ static void VBlankIntr(void)
 
 static void HBlankIntr(void)
 {
-        u16 line;
-        line = *(vu16*)REG_VCOUNT & 0x7f;
-        *(vu16 *)REG_BG3HOFS = rasttable[(v_phase + line)];
+	u16 line;
+
+	line=*(vu16*)REG_VCOUNT&0x7f;
+	*(vu16*)REG_BG3HOFS=rasttable[(v_phase+line)];
 }
 
 

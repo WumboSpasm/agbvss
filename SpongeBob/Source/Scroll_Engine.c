@@ -41,6 +41,142 @@ void InitScroll()
 
 //---------------------------------------------------------------------------------------------------
 
+// Chapter 1.
+
+//--
+
+// Level 1 & Sub-Levels.
+
+		case LEVEL010101:
+			pBack_Map		=CHAPTER01_LEVEL0101_BACK;	  	// Load pointer to base of back map to use.
+			pMid_MapWidth		=CHAPTER01_LEVEL0101_MID_WIDTH;// Mid. map 'width' to use.
+			pMid_MapHeight	 	=CHAPTER01_LEVEL0101_MID_HEIGHT;// Mid. map 'height' to use.
+			pMid_Map		=CHAPTER01_LEVEL0101_MID; 	  	// Load pointer to base of level mid map to use.
+			pAction_MapWidth 	=CHAPTER01_LEVEL0101_ACTION_WIDTH;	// Action map 'width' to use.
+			pAction_MapHeight	=CHAPTER01_LEVEL0101_ACTION_HEIGHT;// Action map 'height' to use.
+			pAction_Map		=CHAPTER01_LEVEL0101_ACTION; 	// Load pointer to base of action map to use.
+			pCollision_Map		=CHAPTER01_LEVEL0101_COLLISION;// Load pointer to base of collision map to use.
+			pTiles			=CHAPTER01_LEVEL01_TILEBANK;  	// Load pointer to base of tiles to use.
+			break;
+		case LEVEL010102:									// Etc.
+			pBack_Map		=CHAPTER01_LEVEL0102_BACK;
+			pMid_MapWidth	 	=CHAPTER01_LEVEL0102_MID_WIDTH;
+			pMid_MapHeight	 	=CHAPTER01_LEVEL0102_MID_HEIGHT;
+			pMid_Map		=CHAPTER01_LEVEL0102_MID;
+			pAction_MapWidth 	=CHAPTER01_LEVEL0102_ACTION_WIDTH;
+			pAction_MapHeight	=CHAPTER01_LEVEL0102_ACTION_HEIGHT;
+			pAction_Map		=CHAPTER01_LEVEL0102_ACTION;
+			pCollision_Map	 	=CHAPTER01_LEVEL0102_COLLISION;
+			pTiles			=CHAPTER01_LEVEL01_TILEBANK;
+			break;
+		case LEVEL010103:
+			pBack_Map		=CHAPTER01_LEVEL0103_BACK;
+			pMid_MapWidth	 	=CHAPTER01_LEVEL0103_MID_WIDTH;
+			pMid_MapHeight	 	=CHAPTER01_LEVEL0103_MID_HEIGHT;
+			pMid_Map		=CHAPTER01_LEVEL0103_MID;
+			pAction_MapWidth 	=CHAPTER01_LEVEL0103_ACTION_WIDTH;
+			pAction_MapHeight	=CHAPTER01_LEVEL0103_ACTION_HEIGHT;
+			pAction_Map		=CHAPTER01_LEVEL0103_ACTION;
+			pCollision_Map	 	=CHAPTER01_LEVEL0103_COLLISION;
+			pTiles			=CHAPTER01_LEVEL01_TILEBANK;
+			break;
+		case LEVEL010104:
+			pBack_Map		=CHAPTER01_LEVEL0104_BACK;
+			pMid_MapWidth	 	=CHAPTER01_LEVEL0104_MID_WIDTH;
+			pMid_MapHeight	 	=CHAPTER01_LEVEL0104_MID_HEIGHT;
+			pMid_Map		=CHAPTER01_LEVEL0104_MID;
+			pAction_MapWidth 	=CHAPTER01_LEVEL0104_ACTION_WIDTH;
+			pAction_MapHeight	=CHAPTER01_LEVEL0104_ACTION_HEIGHT;
+			pAction_Map		=CHAPTER01_LEVEL0104_ACTION;
+			pCollision_Map	 	=CHAPTER01_LEVEL0104_COLLISION;
+			pTiles			=CHAPTER01_LEVEL01_TILEBANK;
+			break;
+		case LEVEL010105:
+ 			pBack_Map		=CHAPTER01_LEVEL0105_BACK;
+			pMid_MapWidth	 	=CHAPTER01_LEVEL0105_MID_WIDTH;
+			pMid_MapHeight	 	=CHAPTER01_LEVEL0105_MID_HEIGHT;
+			pMid_Map		=CHAPTER01_LEVEL0105_MID;
+			pAction_MapWidth 	=CHAPTER01_LEVEL0105_ACTION_WIDTH;
+			pAction_MapHeight	=CHAPTER01_LEVEL0105_ACTION_HEIGHT;
+			pAction_Map		=CHAPTER01_LEVEL0105_ACTION;
+			pCollision_Map	 	=CHAPTER01_LEVEL0105_COLLISION;
+			pTiles			=CHAPTER01_LEVEL01_TILEBANK;
+			break;
+
+// Level 1 & Sub-Levels.
+
+		case LEVEL010201:
+			pBack_Map		=CHAPTER01_LEVEL0201_BACK;	  	// Load pointer to base of back map to use.
+			pMid_MapWidth		=CHAPTER01_LEVEL0201_MID_WIDTH;// Mid. map 'width' to use.
+			pMid_MapHeight	 	=CHAPTER01_LEVEL0201_MID_HEIGHT;// Mid. map 'height' to use.
+			pMid_Map		=CHAPTER01_LEVEL0201_MID; 	  	// Load pointer to base of level mid map to use.
+			pAction_MapWidth 	=CHAPTER01_LEVEL0201_ACTION_WIDTH;	// Action map 'width' to use.
+			pAction_MapHeight	=CHAPTER01_LEVEL0201_ACTION_HEIGHT;// Action map 'height' to use.
+			pAction_Map		=CHAPTER01_LEVEL0201_ACTION; 	// Load pointer to base of action map to use.
+			pCollision_Map		=CHAPTER01_LEVEL0201_COLLISION;// Load pointer to base of collision map to use.
+			pTiles			=CHAPTER01_LEVEL02_TILEBANK;  	// Load pointer to base of tiles to use.
+			break;
+		case LEVEL010204:									// Etc.
+			pBack_Map		=CHAPTER01_LEVEL0204_BACK;
+			pMid_MapWidth	 	=CHAPTER01_LEVEL0204_MID_WIDTH;
+			pMid_MapHeight	 	=CHAPTER01_LEVEL0204_MID_HEIGHT;
+			pMid_Map		=CHAPTER01_LEVEL0204_MID;
+			pAction_MapWidth 	=CHAPTER01_LEVEL0204_ACTION_WIDTH;
+			pAction_MapHeight	=CHAPTER01_LEVEL0204_ACTION_HEIGHT;
+			pAction_Map		=CHAPTER01_LEVEL0204_ACTION;
+			pCollision_Map	 	=CHAPTER01_LEVEL0204_COLLISION;
+			pTiles			=CHAPTER01_LEVEL02_TILEBANK;
+			break;
+
+// Level 3 & Sub-Levels.
+
+		case LEVEL010301:
+			pBack_Map		=CHAPTER01_LEVEL0301_BACK;	  	// Load pointer to base of back map to use.
+			pMid_MapWidth		=CHAPTER01_LEVEL0301_MID_WIDTH;// Mid. map 'width' to use.
+			pMid_MapHeight	 	=CHAPTER01_LEVEL0301_MID_HEIGHT;// Mid. map 'height' to use.
+			pMid_Map		=CHAPTER01_LEVEL0301_MID; 	  	// Load pointer to base of level mid map to use.
+			pAction_MapWidth 	=CHAPTER01_LEVEL0301_ACTION_WIDTH;	// Action map 'width' to use.
+			pAction_MapHeight	=CHAPTER01_LEVEL0301_ACTION_HEIGHT;// Action map 'height' to use.
+			pAction_Map		=CHAPTER01_LEVEL0301_ACTION; 	// Load pointer to base of action map to use.
+			pCollision_Map		=CHAPTER01_LEVEL0301_COLLISION;// Load pointer to base of collision map to use.
+			pTiles			=CHAPTER01_LEVEL03_TILEBANK;  	// Load pointer to base of tiles to use.
+			break;
+		case LEVEL010302:									// Etc.
+			pBack_Map		=CHAPTER01_LEVEL0302_BACK;
+			pMid_MapWidth	 	=CHAPTER01_LEVEL0302_MID_WIDTH;
+			pMid_MapHeight	 	=CHAPTER01_LEVEL0302_MID_HEIGHT;
+			pMid_Map		=CHAPTER01_LEVEL0302_MID;
+			pAction_MapWidth 	=CHAPTER01_LEVEL0302_ACTION_WIDTH;
+			pAction_MapHeight	=CHAPTER01_LEVEL0302_ACTION_HEIGHT;
+			pAction_Map		=CHAPTER01_LEVEL0302_ACTION;
+			pCollision_Map	 	=CHAPTER01_LEVEL0302_COLLISION;
+			pTiles			=CHAPTER01_LEVEL03_TILEBANK;
+			break;
+		case LEVEL010303:
+			pBack_Map		=CHAPTER01_LEVEL0303_BACK;
+			pMid_MapWidth	 	=CHAPTER01_LEVEL0303_MID_WIDTH;
+			pMid_MapHeight	 	=CHAPTER01_LEVEL0303_MID_HEIGHT;
+			pMid_Map		=CHAPTER01_LEVEL0303_MID;
+			pAction_MapWidth 	=CHAPTER01_LEVEL0303_ACTION_WIDTH;
+			pAction_MapHeight	=CHAPTER01_LEVEL0303_ACTION_HEIGHT;
+			pAction_Map		=CHAPTER01_LEVEL0303_ACTION;
+			pCollision_Map	 	=CHAPTER01_LEVEL0303_COLLISION;
+			pTiles			=CHAPTER01_LEVEL03_TILEBANK;
+			break;
+		case LEVEL010304:
+			pBack_Map		=CHAPTER01_LEVEL0304_BACK;
+			pMid_MapWidth	 	=CHAPTER01_LEVEL0304_MID_WIDTH;
+			pMid_MapHeight	 	=CHAPTER01_LEVEL0304_MID_HEIGHT;
+			pMid_Map		=CHAPTER01_LEVEL0304_MID;
+			pAction_MapWidth 	=CHAPTER01_LEVEL0304_ACTION_WIDTH;
+			pAction_MapHeight	=CHAPTER01_LEVEL0304_ACTION_HEIGHT;
+			pAction_Map		=CHAPTER01_LEVEL0304_ACTION;
+			pCollision_Map	 	=CHAPTER01_LEVEL0304_COLLISION;
+			pTiles			=CHAPTER01_LEVEL03_TILEBANK;
+			break;
+
+
+
 // Chapter 2.
 
 //--
@@ -1205,7 +1341,7 @@ void InitScroll()
 			pTiles			=CHAPTER06_LEVEL03_TILEBANK;
 			break;
 
-//// Level 3 & Sub-Levels.
+//// Level 4 & Sub-Levels.
 //
 //		case LEVEL060401:
 //			pBack_Map		=CHAPTER06_LEVEL0401_BACK;
@@ -1251,6 +1387,65 @@ void InitScroll()
 //			pCollision_Map		=CHAPTER06_LEVEL0404_COLLISION;
 //			pTiles			=CHAPTER06_LEVEL04_TILEBANK;
 //			break;
+
+// Level 5 & Sub-Levels.
+
+		case LEVEL060501:
+			pBack_Map		=CHAPTER06_LEVEL0501_BACK;
+			pMid_MapWidth		=CHAPTER06_LEVEL0501_MID_WIDTH;
+			pMid_MapHeight	 	=CHAPTER06_LEVEL0501_MID_HEIGHT;
+			pMid_Map		=CHAPTER06_LEVEL0501_MID;
+			pAction_MapWidth 	=CHAPTER06_LEVEL0501_ACTION_WIDTH;
+			pAction_MapHeight	=CHAPTER06_LEVEL0501_ACTION_HEIGHT;
+			pAction_Map		=CHAPTER06_LEVEL0501_ACTION;
+			pCollision_Map		=CHAPTER06_LEVEL0501_COLLISION;
+			pTiles			=CHAPTER06_LEVEL05_TILEBANK;
+			break;
+		case LEVEL060502:
+			pBack_Map		=CHAPTER06_LEVEL0502_BACK;
+			pMid_MapWidth		=CHAPTER06_LEVEL0502_MID_WIDTH;
+			pMid_MapHeight	 	=CHAPTER06_LEVEL0502_MID_HEIGHT;
+			pMid_Map		=CHAPTER06_LEVEL0502_MID;
+			pAction_MapWidth 	=CHAPTER06_LEVEL0502_ACTION_WIDTH;
+			pAction_MapHeight	=CHAPTER06_LEVEL0502_ACTION_HEIGHT;
+			pAction_Map		=CHAPTER06_LEVEL0502_ACTION;
+			pCollision_Map		=CHAPTER06_LEVEL0502_COLLISION;
+			pTiles			=CHAPTER06_LEVEL05_TILEBANK;
+			break;
+		case LEVEL060503:
+			pBack_Map		=CHAPTER06_LEVEL0503_BACK;
+			pMid_MapWidth		=CHAPTER06_LEVEL0503_MID_WIDTH;
+			pMid_MapHeight	 	=CHAPTER06_LEVEL0503_MID_HEIGHT;
+			pMid_Map		=CHAPTER06_LEVEL0503_MID;
+			pAction_MapWidth 	=CHAPTER06_LEVEL0503_ACTION_WIDTH;
+			pAction_MapHeight	=CHAPTER06_LEVEL0503_ACTION_HEIGHT;
+			pAction_Map		=CHAPTER06_LEVEL0503_ACTION;
+			pCollision_Map		=CHAPTER06_LEVEL0503_COLLISION;
+			pTiles			=CHAPTER06_LEVEL05_TILEBANK;
+			break;
+		case LEVEL060504:
+			pBack_Map		=CHAPTER06_LEVEL0504_BACK;
+			pMid_MapWidth		=CHAPTER06_LEVEL0504_MID_WIDTH;
+			pMid_MapHeight	 	=CHAPTER06_LEVEL0504_MID_HEIGHT;
+			pMid_Map		=CHAPTER06_LEVEL0504_MID;
+			pAction_MapWidth 	=CHAPTER06_LEVEL0504_ACTION_WIDTH;
+			pAction_MapHeight	=CHAPTER06_LEVEL0504_ACTION_HEIGHT;
+			pAction_Map		=CHAPTER06_LEVEL0504_ACTION;
+			pCollision_Map		=CHAPTER06_LEVEL0504_COLLISION;
+			pTiles			=CHAPTER06_LEVEL05_TILEBANK;
+			break;
+		case LEVEL060505:
+			pBack_Map		=CHAPTER06_LEVEL0505_BACK;
+			pMid_MapWidth		=CHAPTER06_LEVEL0505_MID_WIDTH;
+			pMid_MapHeight	 	=CHAPTER06_LEVEL0505_MID_HEIGHT;
+			pMid_Map		=CHAPTER06_LEVEL0505_MID;
+			pAction_MapWidth 	=CHAPTER06_LEVEL0505_ACTION_WIDTH;
+			pAction_MapHeight	=CHAPTER06_LEVEL0505_ACTION_HEIGHT;
+			pAction_Map		=CHAPTER06_LEVEL0505_ACTION;
+			pCollision_Map		=CHAPTER06_LEVEL0505_COLLISION;
+			pTiles			=CHAPTER06_LEVEL05_TILEBANK;
+			break;
+
 
 //---------------------------------------------------------------------------------------------------
 
@@ -1459,7 +1654,7 @@ void Scroll2Position(int Layer,s32 old_map_xpos,s32 old_map_ypos,s32 new_map_xpo
 		*(vu16*)REG_BG1HOFS=(u8)ShiftX;		// Update fine scroll offset regs.
 		*(vu16*)REG_BG1VOFS=(u8)ShiftY;
 
-		DmaArrayCopy(3,Bg2_ScreenDat,MAP_BASE_ADDR+0x0800,16); // DMA copy 'bg2' buffer to vram.
+		DmaArrayCopy(3,Bg2_ScreenDat,MAP_BASE_ADDR+0x0800,32); // DMA copy 'bg2' buffer to vram.
 	}
 	else
 	{
@@ -1472,7 +1667,7 @@ void Scroll2Position(int Layer,s32 old_map_xpos,s32 old_map_ypos,s32 new_map_xpo
 //		*(vu16*)REG_BG3HOFS=0;				// 'Speech Bubble' layer use only.
 //		*(vu16*)REG_BG3VOFS=0;
 
-		DmaArrayCopy(3,Bg1_ScreenDat,MAP_BASE_ADDR+0x1000,16); // DMA copy 'bg1' buffer to vram.
+		DmaArrayCopy(3,Bg1_ScreenDat,MAP_BASE_ADDR+0x1000,32); // DMA copy 'bg1' buffer to vram.
 	}
 }
 
