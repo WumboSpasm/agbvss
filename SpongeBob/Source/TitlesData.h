@@ -10,5 +10,6 @@
 
 // hi-color single frame data
 extern u16 Title_Main_RawBitmap[240*160];
+extern u16 Title_Main_2_RawBitmap[240*160];
 
 #endif
