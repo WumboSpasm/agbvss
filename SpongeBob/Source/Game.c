@@ -50,12 +50,16 @@ void MainGame(void)
 	ReadJoypad();								// Read joypad.
 	ObjectControl2();							// Update sprites (control 'method-2').
 	ObjectDisplay();							// Update sprites (display).
+	UpdateScroll();								// Update scroll.
 #ifdef BEANER
 	// IM NOT SUPPOSED TO BE HERE
-	PutTextBox(2,2,17,6,GAMENAME);
+	if(ScreenDat[0]!=0)
+	{
+		PutTextBox(2,2,16,4,GAMENAME);
+		PutText(0,19,30,1,GAMENAME,0);
+	}
 	//--
 #endif
-	UpdateScroll();								// Update scroll.
 }
 
 //***************************************************************************************************
