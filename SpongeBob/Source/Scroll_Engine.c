@@ -62,6 +62,8 @@ void InitScroll()
 
 	DmaCopy(3,pTiles,TILE_BASE_ADDR_1,TILE_BANK_SIZE_1,16); // Load tile data for the current level.
 
+	DmaArrayCopy(3,libFontGame_Char,TILE_BASE1_ADDR,16)
+
 	InitRear();
 
 	DmaArrayCopy(3,Bg3_ScreenDat,MAP_BASE_ADDR+0x0000,16);
