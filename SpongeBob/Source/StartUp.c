@@ -55,9 +55,9 @@ void InitStartUpScreens(void)
 	}                        
 
 	DmaArrayCopy(3,Bg3_ScreenDat,MAP_BASE_ADDR+0x0000,32);
-	DmaArrayCopy(3,Bg3_ScreenDat,MAP_BASE_ADDR+0x0000,32);
-	DmaArrayCopy(3,Bg3_ScreenDat,MAP_BASE_ADDR+0x0000,32);
-	DmaArrayCopy(3,Bg3_ScreenDat,MAP_BASE_ADDR+0x0000,32);
+	DmaArrayCopy(3,Bg3_ScreenDat,MAP_BASE_ADDR+0x0800,32);
+	DmaArrayCopy(3,Bg3_ScreenDat,MAP_BASE_ADDR+0x1000,32);
+	DmaArrayCopy(3,Bg3_ScreenDat,MAP_BASE_ADDR+0x1800,32);
 	
 	*(vu16*)REG_DISPCNT=DISP_MODE_0|DISP_BG0_ON|DISP_BG1_ON|DISP_BG2_ON|DISP_BG3_ON|DISP_OBJ_CHAR_1D_MAP;
 }

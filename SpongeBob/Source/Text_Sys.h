@@ -15,6 +15,7 @@ extern u16 ScreenDat[32*20];				// Front Layer for Text/Speech Bubbles
 
 //string's (initialised in .lan files
 extern u8 GAMENAME[];
+extern u8 PRESSSTART[];
 extern u8 COPYRIGHT[];
 extern u8 OK[];
 extern u8 YES[];
