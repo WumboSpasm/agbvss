@@ -48,6 +48,9 @@ void InitScroll()
 	// Front layer.
 	SetBgTextControl((vu16*)REG_BG3CNT,BG_PRIORITY_0,BG_SCREEN_SIZE_0,BG_COLOR_256,BG_MOS_OFF,31,TILE_BASE_1);
 
+	// upload text font tile data
+	DmaArrayCopy(3,libFontGame_Char,TILE_BASE1_ADDR,16);
+
 	DmaArrayCopy(3,Level1_Tiles,TILE_BASE0_ADDR,16); // Set tile data for bg0 rear layer.
 	InitRear();
 	DmaArrayCopy(3,Bg3_ScreenDat,MAP_BASE_ADDR+0x0000,16);
