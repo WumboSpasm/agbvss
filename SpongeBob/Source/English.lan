@@ -7,7 +7,11 @@
 
 //note to translators - use UPPER case only - foriegn characters are ok but need to be UPPER case only
 
-u8 GAMENAME[]  = "SPONGE BOB SQUARE PANTS";
-u8 COPYRIGHT[] = "(C) 2001 NICKELODEON, THQ, CLIMAX";
+u8 GAMENAME[]	= "SPONGE BOB SQUARE PANTS";
+u8 COPYRIGHT[]	= "(C) 2001 NICKELODEON";
+u8 OK[] 	= "OK";
+u8 YES[] 	= "YES";
+u8 NO[] 	= "NO";
+u8 MENU[] 	= "MENU";
 
 #endif
