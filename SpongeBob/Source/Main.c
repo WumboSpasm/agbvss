@@ -8,6 +8,7 @@
 // Includes.
 
 #include "Includes.h"
+#include "Titles.h"
 
 //***************************************************************************************************
 
@@ -78,18 +79,38 @@ void AgbMain(void)
 	InitSystem();
 
 #ifdef NDEBUG
-	gGameState=LEGAL_SCREEN;
+	gGameState=e_LEGAL_SCREEN;
 #else
-	gGameState=IN_GAME;
+#ifdef BEANER
+	gGameState=e_TITLE_SCREEN;
+#else
+	gGameState=e_IN_GAME;
+#endif
 #endif
 
-	InitGame();									// Init. main game.
+        switch(gGameState)
+        {
+       	case e_IN_GAME:
+       		InitGame();									// Init. main game.
+       		break;
+	case e_TITLE_SCREEN:
+		InitTitles();
+		break;
+	};
 
 //---------------------------------------------------------------------------------------------------
 
 	while(1)									// Top level main loop.
 	{
-		MainGame();								// Main game.
+	        switch(gGameState)
+	        {
+	       	case e_IN_GAME:
+	       		InitGame();									// Init. main game.
+	       		break;
+		case e_TITLE_SCREEN:
+			InitTitles();
+			break;
+		};
 	}
 }
 
