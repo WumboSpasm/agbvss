@@ -21,7 +21,7 @@
 
 void CheckContour(Object* pAO)
 {		
-	u16 MapX,MapY,Tile1,Tile2,Tile3,Tile4,Tile5; // Local variables.
+	u16 MapX,MapY,Tile1,Tile2,Tile3,Tile4,Tile5,Tile6,Tile7; // Local variables.
 	u8 XOffset;
 	s8 Glue;
 
@@ -42,22 +42,25 @@ void CheckContour(Object* pAO)
 		switch(Tile1)					// Check tile...
 		{
 			case COLLISION_TILE_0: 		// Empty tile ?.
-				if(pAO->sp_type==TYPE_SPONGEBOB&&Tile2==COLLISION_TILE_0) // If SpongeBob sprite - is next tile down in y empty too ?.
+				if(pAO->sp_type==TYPE_SPONGEBOB&&pAO->sp_mode!=MODE_BUTTBOUNCESTART&&Tile2==COLLISION_TILE_0) // If SpongeBob sprite - is next tile down in y empty too ?.
 				{
-					pAO->sp_var4=OFF;	// Reset hit ground flag.
-   				 	pAO->sp_aniframe=0;	// Reset animtaion frame counter.
-				 	pAO->sp_aninum=8;	// Set aninmation sequence.
-					pAO->sp_anitimer=0;	// Reset anim. timer if changing speed below.
-					pAO->sp_anispeed=3;	// Set animation speed.
-					pAO->sp_aniuser=OFF; // Reset HOLD anim. sequence variable.
-					pAO->sp_mode=MODE_STANDJUMPFALL; // Enter stand jump fall mode.
+				  	if(PlatFlag==OFF)	// Only start falling if SpongeBob is not on a moving platform ?.
+					{
+						pAO->sp_var4=OFF;	// Reset hit ground flag.
+ 					 	pAO->sp_aniframe=0;	// Reset animtaion frame counter.
+					 	pAO->sp_aninum=49;	// Set aninmation sequence.
+						pAO->sp_anitimer=0;	// Reset anim. timer if changing speed below.
+						pAO->sp_anispeed=3;	// Set animation speed.
+						pAO->sp_aniuser=OFF; // Reset HOLD anim. sequence variable.
+						pAO->sp_mode=MODE_JUMPFALL; // Enter jump fall mode.
+					}
 			    }
 			   	else
 				{
 					Glue=pAO->sp_xvel>>8; // Calculate amount of glue to stick sprite to contour tile with, based on sprite's x velocity.
 					if(Glue<0){Glue=Glue-(Glue<<1);} // Negate value if it was a negative value.
 					if(pAO->sp_yvel>=0&&Tile2!=COLLISION_TILE_1&&Tile2!=COLLISION_TILE_1){pAO->sp_ypos+=Glue;} // If not jumping & also not on a 'flat platfrom' tile area - add gravity.
-					pAO->sp_var4=OFF;	// Flag not hit ground.
+					pAO->sp_var4=OFF;  	// Flag not hit ground.
 				}
 				break;
 
@@ -137,13 +140,42 @@ void CheckContour(Object* pAO)
 
 // Check for ceiling tiles.
 
-	if(pAO->sp_yvel<0)					// If sprite moving upwards, check for ceiling tiles.
+	if(pAO->sp_type==TYPE_SPONGEBOB&&pAO->sp_yvel<0) // If SpongeBob sprite moving upwards, check for ceiling tiles.
 	{
 		Tile5=pCollision_Map[MapX+((MapY-(pAO->sp_ysize>>3)+2)*map_x_size_tiles_bg1)]; // Read tile at top of sprite.
 		if(Tile5==COLLISION_TILE_9)		// Check for ceiling tile ?.
 		{
 			pAO->sp_ypos+=8;			// Force to bottom of tile.
 			pAO->sp_yvel=0;				// Stop sprite now !.
+		}
+	}
+
+//--
+
+// Check for teeter at edge of platform situation (don't teeter on 'any' slopes tho !).
+
+	if(pAO->sp_type==TYPE_SPONGEBOB&&PlatFlag==OFF&&pAO->sp_xvel==0&&pAO->sp_yvel==0) // If SpongeBob sprite on ground, check for teeter situation.
+	{
+		Tile6=pCollision_Map[(MapX-1)+((MapY+1)*map_x_size_tiles_bg1)]; // Read tile at current map location -1 in x & y.		
+		Tile7=pCollision_Map[(MapX+1)+((MapY+1)*map_x_size_tiles_bg1)]; // Read tile at current map location +1 in x & y.	
+
+		if(pAO->sp_mode==MODE_STAND&&(Tile6==COLLISION_TILE_0||Tile7==COLLISION_TILE_0)) // Check teeter situation ?.
+		{
+			Tile6=pCollision_Map[(MapX-1)+(MapY*map_x_size_tiles_bg1)]; // Read tile at current map location -1 in x.		
+			Tile7=pCollision_Map[(MapX+1)+(MapY*map_x_size_tiles_bg1)]; // Read tile at current map location +1 in x.	
+
+			if(Tile6==COLLISION_TILE_0&&Tile7==COLLISION_TILE_0) // Check teeter situation ?.
+			{
+				if(pAO->sp_aninum!=45)		// Already doing animation for this mode ?.
+				{
+				 	pAO->sp_aniframe=0;		// Reset animtaion frame counter.
+				 	pAO->sp_aninum=45;		// Set aninmation sequence.
+					pAO->sp_anitimer=0;		// Reset anim. timer if changing speed below.
+					pAO->sp_anispeed=7;		// Set animation speed.
+					pAO->sp_aniuser=OFF; 	// Reset HOLD anim. sequence variable.
+					pAO->sp_mode=MODE_TEETERFRONT; // Enter teeter mode.
+				}
+			}
 		}
 	}
 
