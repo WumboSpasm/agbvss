@@ -9,11 +9,11 @@ TARGET_ARC = libLev1bgbmp.a
 $(TARGET_ARC): $(.OFILES)
 	ar rcs $(TARGET_ARC) $(.OFILES)
 
-lev1bg1.c: Lev1bg1.bmp
+Lev1bg1.c: Lev1bg1.bmp
 	bmp2map -f -o $@ $<
-lev1bg2.c: Lev1bg2.bmp
+Lev1bg2.c: Lev1bg2.bmp
 	bmp2map -f -o $@ $<
-lev1bg3.c: Lev1bg3.bmp
+Lev1bg3.c: Lev1bg3.bmp
 	bmp2map -f -o $@ $<
 
 clean:
