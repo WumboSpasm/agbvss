@@ -14,7 +14,8 @@
 #include "Random.h"							// Random Number Generator
 #include "Text_Sys.h"                                                   // text system
 #include "Scroll_Engine.h"                                              // scroll engine 
-#include "StartUp.h"                                                    // legal screens
+#include "StartUp.h"                                                    // legal screens  
+#include "Hub.h"							// Hub/Map Level
 
 const u16 Text_Palette[3]={0x7c00,0x0000,0xffff,};                      // title scren pallete select/back/text
 
@@ -83,9 +84,11 @@ void InitTitles(void)
 	DmaArrayCopy(3,Bg1_ScreenDat,MAP_BASE_ADDR+0x1000,16);
 	DmaArrayCopy(3,Bg2_ScreenDat,MAP_BASE_ADDR+0x0800,16);
 	DmaArrayCopy(3,Bg3_ScreenDat,MAP_BASE_ADDR+0x0000,16);
+        PutText(5,1,24,1,GAMENAME,0);
+	PutText(5,14,20,1,PRESSSTART,0);
 	DmaArrayCopy(3,ScreenDat,TEXT_SCREEN,16);
 
-        *(vu16 *)REG_IE    = V_BLANK_INTR_FLAG | H_BLANK_INTR_FLAG;	// set Vblank interrupt enable flag
+        *(vu16 *)REG_IE    = V_BLANK_INTR_FLAG | H_BLANK_INTR_FLAG;	// set Vblank interrupt enable flag // Enable Hblank Ripple effect too
         *(vu16 *)REG_STAT  = STAT_V_BLANK_IF_ENABLE | STAT_H_BLANK_IF_ENABLE;
 
 #ifdef MUSIC_ON                
@@ -627,7 +630,7 @@ void FadeOut(u8 type)
         	*(vu16*)REG_BLDCNT = BLD_BG0_2ND|BLD_BG1_2ND|BLD_BG2_2ND|BLD_BG3_2ND|BLD_DOWN_MODE|BLD_BG0_1ST|BLD_BG1_1ST|BLD_BG2_1ST|BLD_BG3_1ST;  // alpha
         }
 
-        if(gTimer>=4)
+        if(gTimer>=3)
         {
                 gFadeLevel++;
                 gTimer=0;
@@ -648,7 +651,7 @@ void FadeOut(u8 type)
 //---------------------------------------------------------------------------------------------------------------                  
 void FadeIn(void)
 {
-        if(gTimer>=4)
+        if(gTimer>=3)
         {
                 gFadeLevel--;
                 gTimer=0;
@@ -669,18 +672,26 @@ void FadeIn(void)
         }
 }
 
+//----------------------------------------------------------------------------------------------------------------
 // set up next stage of menu;
+//----------------------------------------------------------------------------------------------------------------
+
 void NextMenuSetUp(void)
 {
         int x,y;
 
+        if(gGameState==e_HUB_SCREEN)
+        {
+       		InitGame();
+       		gGameState = e_IN_GAME;
+	}
         if(gGameState==e_TITLE_SCREEN)
         {
                 switch(Title.mCurrent_Screen)
                 {
                         case eMain_Menu:               	        
                        	ClearTextLayer();
-                        PutText(4,1,24,1,GAMENAME,0);
+                        PutText(5,1,24,1,GAMENAME,0);
                         PutText(5,5,20,1,MENU,0);
                         PutText(5,8,20,1,NEWGAME,0);
                         PutText(5,10,20,1,PASSWORD,0);
@@ -697,12 +708,12 @@ void NextMenuSetUp(void)
                 	DmaArrayCopy(3,ScreenDat,TEXT_SCREEN,16);
                 	break;
                 case eTitle_Screen:
-        		InitGame();
-        		gGameState = e_IN_GAME;
+        		InitHub();
+        		gGameState = e_HUB_SCREEN;
                         break;
                 case ePassword_Menu:
                 	ClearTextLayer();
-                        PutText(4,1,24,1,GAMENAME,0);
+                        PutText(5,1,24,1,GAMENAME,0);
                         PutText(1,7,20,1,PASSWORD2,0);
                 	DmaArrayCopy(3,ScreenDat,TEXT_SCREEN,16);
                         for(x=0;x<6;x++)
@@ -736,7 +747,7 @@ void NextMenuSetUp(void)
                        	break;
                 case eOptions_Menu:
                         ClearTextLayer();
-                        PutText(4,1,24,1,GAMENAME,0);
+                        PutText(5,1,24,1,GAMENAME,0);
                         PutText(5,5,20,1,OPTION,0);
                         PutText(5,8,20,1,CONTROLLER,0);
                         PutText(5,10,20,1,SOUND,0);
@@ -744,7 +755,7 @@ void NextMenuSetUp(void)
                         break;
                 case eController_Menu:
                 	ClearTextLayer();
-                        PutText(4,1,24,1,GAMENAME,0);
+                        PutText(5,1,24,1,GAMENAME,0);
                         PutText(5,5,20,1,CONTROLLER,0);
                         PutText(5,8,20,1,CONTA,0);
                         PutText(5,10,20,1,CONTB,0);
@@ -752,7 +763,7 @@ void NextMenuSetUp(void)
                         break;
                 case eSound_Menu:
                        	ClearTextLayer();
-                        PutText(4,1,24,1,GAMENAME,0);
+                        PutText(5,1,24,1,GAMENAME,0);
                         PutText(5,5,20,1,SOUND,0);
                         PutText(5,8,20,1,MUSICVOL,0);
                         PutText(5,12,20,1,SFXVOL,0);
