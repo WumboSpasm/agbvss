@@ -2,3 +2,9 @@
 // English Language File
 // (c) 2000/1 R Duff
 
+//note to translators - use UPPER case only - foriegn characters are ok but need to be UPRER case only
+
+u8 GAMENAME[]  = "SPONGE BOB SQUARE PANTS - SUPER BLARGLE FISH";
+u8 COPYRIGHT[] = "(C) 2001 NICKELODEON, THQ, CLIMAX";
+
+

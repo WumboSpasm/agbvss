@@ -8,6 +8,10 @@
 #ifndef _TEXT_SYS_H
 #define _TEXT_SYS_H
 
+//string's (initialised in .lan files
+extern u8 GAMENAME[]; 
+extern u8 COPYRIGHT[]; 
+
 // used for text on menus & ingame text 
 // we only have 96 tiles for characters and speech bubbles so they are gonna have to be used sparingly
 
@@ -34,9 +38,7 @@
 #include "Spanish.lan"
 #endif		// SPANISH
 
-
-
-
-
+// text2tile data table..
+extern const u8 TextTileTable[256];
 
 #endif	// _TEXT_SYS_H

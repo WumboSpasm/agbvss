@@ -29,21 +29,21 @@ static void ChangeScreen(void);
 
 void InitStartUpScreens(void)
 {
-	gTimer = 0;
-	CurrentScreen = eCopyRight;
-	ScreenDelay = (5*60);
-	CanSkip = FALSE;
+	gTimer = 0;																	// reset timer
+	CurrentScreen = eCopyRight;													// set currnet screen
+	ScreenDelay = (5*60);														// how long to stay on this screen
+	CanSkip = FALSE;															// can we skip before the end
 
-	*(vu16*)REG_DISPCNT = DISP_MODE_3 | DISP_OBJ_BG_ALL_ON;	//switch to BG mode 3
+	*(vu16*)REG_DISPCNT = DISP_MODE_3 | DISP_OBJ_BG_ALL_ON;						// switch to BG mode 3
 
-	LZ77UnCompVram(Start_Copy_RawBitmap_LZ, (void*)BG_BITMAP0_VRAM);
+	LZ77UnCompVram(Start_Copy_RawBitmap_LZ, (void*)BG_BITMAP0_VRAM);			// decompress initial screen into vram...
 }
 
 void MainStartUpScreens(void)
 {
 	WaitVBlank();
 	ReadJoypad();
-	UpdateGFX();
+	//UpdateGFX();
 	if((gTimer==ScreenDelay)||(((gKeyTap&A_BUTTON)||(gKeyTap&START_BUTTON))&&(CanSkip==TRUE)))	//yep this amount of brackets looks horrid but they are in the right place :o)
 	{
 		ChangeScreen();
@@ -57,6 +57,10 @@ static void UpdateGFX(void)
 
 static void ChangeScreen(void)
 {
+	// order of events
+	//
+	// set next screen / reset timer / set delay timer / set skipable flag / decompress data into vram
+
 	switch(CurrentScreen)
 	{
 	case eCopyRight:
@@ -85,6 +89,7 @@ static void ChangeScreen(void)
 		InitTitles();
 		break;
 	default:
+		// ooops should not get here.....
 		break;
 	}
 }
