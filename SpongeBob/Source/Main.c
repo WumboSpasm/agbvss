@@ -89,13 +89,13 @@ void AgbMain(void)
 
 #ifdef NDEBUG
 	gGameState=e_LEGAL_SCREEN;
-#else
+#else  //NDEBUG
 #ifdef BEANER
-	gGameState=e_TITLE_SCREEN;
-#else
 	gGameState=e_IN_GAME;
-#endif
-#endif
+#else	//BEANER
+	gGameState=e_IN_GAME;
+#endif	//BEANER
+#endif	//NDEBUG
 
 	switch(gGameState)
 	{
