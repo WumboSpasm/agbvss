@@ -8,15 +8,7 @@
 #ifndef _TITLESDATA_H
 #define _TITLESDATA_H
 
-// palettes
-extern u16 TitlesLayer1_Palette[256]; 		// Colour palette data (shared 256 colours for all backgrounds).
-extern u16 TitlesLayer0_Palette[256]; 		// Colour palette data (shared 256 colours for all backgrounds).
-
-//layer 1
-extern u8 TitlesLayer1_Character[8*8*256];	// No. of 8x8 tiles.
-extern u16 TitlesLayer1_Map[256*32];			// Size of map in ROM.
-//layer 0
-extern u8 TitlesLayer0_Character[8*8*768];	// No. of 8x8 tiles.
-extern u16 TitlesLayer0_Map[768*32];			// Size of map in ROM.
+// hi-color single frame data
+extern u16 Title_Main_RawBitmap[240*160];
 
 #endif
