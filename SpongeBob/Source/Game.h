@@ -23,9 +23,9 @@
 //--
 // Level's 1-4 & Sub-Levels (sub-levels share same palette).
 
-//extern const u16 CHAPTER01_LEVEL01_TILEPALETTE[256]; // Background palette data (shared 256 colours for all backgrounds).
-//extern const u16 CHAPTER01_LEVEL02_TILEPALETTE[256];
-//extern const u16 CHAPTER01_LEVEL03_TILEPALETTE[256];
+extern const u16 CHAPTER01_LEVEL01_TILEPALETTE[256]; // Background palette data (shared 256 colours for all backgrounds).
+extern const u16 CHAPTER01_LEVEL02_TILEPALETTE[256];
+extern const u16 CHAPTER01_LEVEL03_TILEPALETTE[256];
 //extern const u16 CHAPTER01_LEVEL04_TILEPALETTE[256];
 
 //---------------------------------------------------------------------------------------------------
@@ -77,10 +77,11 @@ extern const u16 CHAPTER06_LEVEL01_TILEPALETTE[256]; // Background palette data 
 //extern const u16 CHAPTER06_LEVEL02_TILEPALETTE[256];
 extern const u16 CHAPTER06_LEVEL03_TILEPALETTE[256];
 //extern const u16 CHAPTER06_LEVEL04_TILEPALETTE[256];
+extern const u16 CHAPTER06_LEVEL05_TILEPALETTE[256];
 
 //---------------------------------------------------------------------------------------------------
 
-extern const u16 Stand_Palette[256];			// Sprite palette data (shared 256 colours for all sprites).
+extern const u16 Sprite_Palette[256];				// Sprite palette data (shared 256 colours for all sprites).
 extern const s32 ExitCoords[MAXLEVELS];
 
 /////////////////////////////////////////////////
@@ -90,6 +91,7 @@ extern const s32 ExitCoords[MAXLEVELS];
 extern void InitGame(void);
 extern void MainGame(void);
 extern void InitPalettes(void);
+extern void BlendOff(void);
 
 /////////////////////////////////////////////////
 // Functions.

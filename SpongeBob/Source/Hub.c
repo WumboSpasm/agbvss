@@ -50,10 +50,6 @@ void InitHub(void)
         *(vu16 *)REG_STAT  = STAT_V_BLANK_IF_ENABLE;
 	*(vu16 *)REG_BG0HOFS = mapxoffset; // Update all fine scroll offset regs. (compute parallax scroll ratios too !).
 	*(vu16 *)REG_BG0VOFS = mapyoffset;
-
-#ifdef MUSIC_ON                
-        m4aSongNumStart(SBP_CHAP1LEV2);//BGM Start
-#endif    
 	
 }
 

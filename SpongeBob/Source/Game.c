@@ -29,14 +29,12 @@ const u16 Speech_Bubble_Palette[2]={0xffff,0x0000,}; // 'Speech Bubble' palette 
 
 void InitGame(void)
 {
-//	*(vu16*)REG_DISPCNT=DISP_MODE_0|DISP_LCDC_OFF;	// Set which layers to display
-
+	*(vu16*)REG_DISPCNT=DISP_MODE_0; 			// Disable game screen display.
 
 	InitSprites();								// Init. sprite engine.
 	InitPalettes();								// Init. in-game colour palettes.
 	InitScroll();								// Init. scroll engine.
 
-	ReadJoypad();								// Read joypad.
 	ObjectControl2();							// Update sprites (control 'method-2').
 	UpdateScroll();
 	ObjectDisplay();
@@ -50,6 +48,7 @@ void InitGame(void)
 
 	// Enable game screen display.
 	*(vu16*)REG_DISPCNT=DISP_MODE_0|DISP_OBJ_ON|DISP_BG0_ON|DISP_BG1_ON|DISP_BG2_ON|DISP_BG3_ON|DISP_OBJ_CHAR_1D_MAP;	// Set which layers to display
+
 }
 
 //***************************************************************************************************
@@ -60,9 +59,12 @@ void InitGame(void)
 void MainGame(void)
 {
 	WaitVBlank();								// Wait 4 VBL.
+
 	switch(gFade)
 	{
+
 //--
+
 	case 0:
 		ReadJoypad();		  					// Read joypad.
 		ObjectControl2();	  					// Update sprites (control 'method-2').
@@ -75,20 +77,29 @@ void MainGame(void)
 		{
 			Level++;
 			if(Level==LEVELTERM){Level=1;}
-			gFade=1;
+			BlendOff();							// Switch off alpha blend on all sprites.
+//	 		gFade=1; 							// Request fade out.
+		    InitGame();							// Init. main game (if fade not required only !).
 		}
+
 		break;
+
 //--
-        case 1:
-                FadeOut(0);						// call fade out routine
-                break;
+
+       case 1:
+			FadeOut(0);							// Call fade out routine.
+			break;
+
         case 2:
-                FadeIn();						// call fade back in routine
-                break;
+			FadeIn();							// Call fade in routine.
+			break;
+
         case 3:
-                NextMenuSetUp();				// initialise the next screen
-                break;
+			NextMenuSetUp();					// Initialise the next screen.
+			break;
+
 //--
+
 	}
 }
 
@@ -96,8 +107,6 @@ void MainGame(void)
 //***************************************************************************************************
 
 // Init. in-game colour palettes.
-
-// Note: The very first sprite (i.e. SpongeBob 'Stand', contains the common sprite palette).
 
 void InitPalettes(void)
 {
@@ -112,49 +121,44 @@ void InitPalettes(void)
 
 // Level 1 & Sub-Levels.
 
-//		case LEVEL010101:
-//		case LEVEL010102: 					   	// Etc.		
-//		case LEVEL010103:		
-//		case LEVEL010104:		
-//		case LEVEL010105:		
-//		case LEVEL010106:		
-//			DmaArrayCopy(3,CHAPTER01_LEVEL01_TILEPALETTE,BG_PLTT,16);
-//#ifdef MUSIC_ON
-//        m4aSongNumStart(SBP_CHAP1LEV1);//BGM Start
-//#endif
-//			break;
+		case LEVEL010101:
+		case LEVEL010102: 					   	// Etc.		
+		case LEVEL010103:		
+		case LEVEL010104:		
+		case LEVEL010105:		
+			DmaArrayCopy(3,CHAPTER01_LEVEL01_TILEPALETTE,BG_PLTT,16);
+#ifdef MUSIC_ON
+        m4aSongNumStart(SBP_CHAP_1_LEVEL_1);//BGM Start
+#endif
+			break;
 
 //--
 
 // Level 2 & Sub-Levels.
 
-//		case LEVEL010201:		
+		case LEVEL010201:		
 //		case LEVEL010202:		
 //		case LEVEL010203:		
-//		case LEVEL010204:		
-//		case LEVEL010205:		
-//		case LEVEL010206:		
-//			DmaArrayCopy(3,CHAPTER01_LEVEL02_TILEPALETTE,BG_PLTT,16);
-//#ifdef MUSIC_ON
-//        m4aSongNumStart(SBP_CHAP1LEV2);//BGM Start
-//#endif
-//			break;
+		case LEVEL010204:		
+			DmaArrayCopy(3,CHAPTER01_LEVEL02_TILEPALETTE,BG_PLTT,16);
+#ifdef MUSIC_ON
+        m4aSongNumStart(SBP_CHAP_1_LEVEL_1);//BGM Start
+#endif
+			break;
 
 //--
 
 // Level 3 & Sub-Levels.
 
-//		case LEVEL010301:		
-//		case LEVEL010302:		
-//		case LEVEL010303:		
-//		case LEVEL010304:		
-//		case LEVEL010305:		
-//		case LEVEL010306:		
-//			DmaArrayCopy(3,CHAPTER01_LEVEL03_TILEPALETTE,BG_PLTT,16);
-//#ifdef MUSIC_ON
-//        m4aSongNumStart(SBP_CHAP1LEV3);//BGM Start
-//#endif
-//			break;
+		case LEVEL010301:		
+		case LEVEL010302:		
+		case LEVEL010303:		
+		case LEVEL010304:		
+			DmaArrayCopy(3,CHAPTER01_LEVEL03_TILEPALETTE,BG_PLTT,16);
+#ifdef MUSIC_ON
+        m4aSongNumStart(SBP_CHAP_1_LEVEL_3);//BGM Start
+#endif
+			break;
 
 //--
 
@@ -168,7 +172,7 @@ void InitPalettes(void)
 //		case LEVEL010406:
 //			DmaArrayCopy(3,CHAPTER01_LEVEL04_TILEPALETTE,BG_PLTT,16);
 //#ifdef MUSIC_ON
-//        m4aSongNumStart(SBP_CHAP1LEV2);//BGM Start
+//        m4aSongNumStart(SBP_CHAP_1_LEVEL_4);//BGM Start
 //#endif
 //			break;
 
@@ -189,7 +193,7 @@ void InitPalettes(void)
 		case LEVEL020107:		
 			DmaArrayCopy(3,CHAPTER02_LEVEL01_TILEPALETTE,BG_PLTT,16);
 #ifdef MUSIC_ON
-        m4aSongNumStart(SBP_CHAP1LEV1);//BGM Start
+        m4aSongNumStart(SBP_CHAP_2_LEVEL_1);//BGM Start
 #endif
 			break;
 
@@ -203,7 +207,7 @@ void InitPalettes(void)
 		case LEVEL020204:		
 			DmaArrayCopy(3,CHAPTER02_LEVEL02_TILEPALETTE,BG_PLTT,16);
 #ifdef MUSIC_ON
-        m4aSongNumStart(SBP_CHAP1LEV2);//BGM Start
+        m4aSongNumStart(SBP_CHAP_2_LEVEL_2);//BGM Start
 #endif
 			break;
 
@@ -219,7 +223,7 @@ void InitPalettes(void)
 		case LEVEL020306:		
 			DmaArrayCopy(3,CHAPTER02_LEVEL03_TILEPALETTE,BG_PLTT,16);
 #ifdef MUSIC_ON
-        m4aSongNumStart(SBP_CHAP1LEV3);//BGM Start
+        m4aSongNumStart(SBP_CHAP_2_LEVEL_1);//BGM Start
 #endif
 			break;
 
@@ -234,7 +238,7 @@ void InitPalettes(void)
 		case LEVEL020405:
 			DmaArrayCopy(3,CHAPTER02_LEVEL04_TILEPALETTE,BG_PLTT,16);
 #ifdef MUSIC_ON
-        m4aSongNumStart(SBP_CHAP1BOSS);//BGM Start
+        m4aSongNumStart(SBP_CHAP_2_LEVEL_4);//BGM Start
 #endif
 			break;
 
@@ -255,7 +259,7 @@ void InitPalettes(void)
 		case LEVEL030107:		
 			DmaArrayCopy(3,CHAPTER03_LEVEL01_TILEPALETTE,BG_PLTT,16);
 #ifdef MUSIC_ON
-        m4aSongNumStart(SBP_CHAP1LEV1);//BGM Start
+        m4aSongNumStart(SBP_CHAP_3_LEVEL_1);//BGM Start
 #endif
 			break;
 
@@ -272,7 +276,7 @@ void InitPalettes(void)
 		case LEVEL030207:		
 			DmaArrayCopy(3,CHAPTER03_LEVEL02_TILEPALETTE,BG_PLTT,16);
 #ifdef MUSIC_ON
-        m4aSongNumStart(SBP_CHAP1LEV2);//BGM Start
+        m4aSongNumStart(SBP_CHAP_3_LEVEL_2);//BGM Start
 #endif
 			break;
 
@@ -288,7 +292,7 @@ void InitPalettes(void)
 		case LEVEL030306:		
 			DmaArrayCopy(3,CHAPTER03_LEVEL03_TILEPALETTE,BG_PLTT,16);
 #ifdef MUSIC_ON
-        m4aSongNumStart(SBP_CHAP1LEV3);//BGM Start
+        m4aSongNumStart(SBP_CHAP_3_LEVEL_2);//BGM Start
 #endif
 			break;
 
@@ -304,7 +308,7 @@ void InitPalettes(void)
 		case LEVEL030406:		
 			DmaArrayCopy(3,CHAPTER03_LEVEL04_TILEPALETTE,BG_PLTT,16);
 #ifdef MUSIC_ON
-        m4aSongNumStart(SBP_CHAP1BOSS);//BGM Start
+        m4aSongNumStart(SBP_CHAP_3_LEVEL_4);//BGM Start
 #endif
 			break;
 
@@ -322,7 +326,7 @@ void InitPalettes(void)
 		case LEVEL040104:		
 			DmaArrayCopy(3,CHAPTER04_LEVEL01_TILEPALETTE,BG_PLTT,16);
 #ifdef MUSIC_ON
-        m4aSongNumStart(SBP_CHAP1LEV1);//BGM Start
+        m4aSongNumStart(SBP_CHAP_4_LEVEL_1);//BGM Start
 #endif
 			break;
 
@@ -337,7 +341,7 @@ void InitPalettes(void)
 		case LEVEL040205:		
 			DmaArrayCopy(3,CHAPTER04_LEVEL02_TILEPALETTE,BG_PLTT,16);
 #ifdef MUSIC_ON
-        m4aSongNumStart(SBP_CHAP1LEV2);//BGM Start
+        m4aSongNumStart(SBP_CHAP_4_LEVEL_2);//BGM Start
 #endif
 			break;
 
@@ -353,7 +357,7 @@ void InitPalettes(void)
 		case LEVEL040306:		
 			DmaArrayCopy(3,CHAPTER04_LEVEL03_TILEPALETTE,BG_PLTT,16);
 #ifdef MUSIC_ON
-        m4aSongNumStart(SBP_CHAP1LEV3);//BGM Start
+        m4aSongNumStart(SBP_CHAP_4_LEVEL_3);//BGM Start
 #endif
 			break;
 
@@ -370,7 +374,7 @@ void InitPalettes(void)
 		case LEVEL040407:		
 			DmaArrayCopy(3,CHAPTER04_LEVEL04_TILEPALETTE,BG_PLTT,16);
 #ifdef MUSIC_ON
-        m4aSongNumStart(SBP_CHAP1BOSS);//BGM Start
+        m4aSongNumStart(SBP_CHAP_4_LEVEL_2);//BGM Start
 #endif
 			break;
 
@@ -387,7 +391,7 @@ void InitPalettes(void)
 		case LEVEL050103:		
 			DmaArrayCopy(3,CHAPTER05_LEVEL01_TILEPALETTE,BG_PLTT,16);
 #ifdef MUSIC_ON
-        m4aSongNumStart(SBP_CHAP1LEV1);//BGM Start
+        m4aSongNumStart(SBP_CHAP_5_LEVEL_1);//BGM Start
 #endif
 			break;
 
@@ -401,7 +405,7 @@ void InitPalettes(void)
 		case LEVEL050204:		
 			DmaArrayCopy(3,CHAPTER05_LEVEL02_TILEPALETTE,BG_PLTT,16);
 #ifdef MUSIC_ON
-        m4aSongNumStart(SBP_CHAP1LEV2);//BGM Start
+        m4aSongNumStart(SBP_CHAP_5_LEVEL_2);//BGM Start
 #endif
 			break;
 
@@ -416,7 +420,7 @@ void InitPalettes(void)
 		case LEVEL050305:		
 			DmaArrayCopy(3,CHAPTER05_LEVEL03_TILEPALETTE,BG_PLTT,16);
 #ifdef MUSIC_ON
-        m4aSongNumStart(SBP_CHAP1LEV3);//BGM Start
+        m4aSongNumStart(SBP_CHAP_5_LEVEL_1);//BGM Start
 #endif
 			break;
 
@@ -433,7 +437,7 @@ void InitPalettes(void)
 		case LEVEL050407:
 		case LEVEL050408:
 #ifdef MUSIC_ON
-        m4aSongNumStart(SBP_CHAP1BOSS);//BGM Start
+        m4aSongNumStart(SBP_CHAP_5_LEVEL_4);//BGM Start
 #endif
 			DmaArrayCopy(3,CHAPTER05_LEVEL04_TILEPALETTE,BG_PLTT,16);
 			break;
@@ -450,7 +454,7 @@ void InitPalettes(void)
 		case LEVEL060102: 					   	// Etc.		
 			DmaArrayCopy(3,CHAPTER06_LEVEL01_TILEPALETTE,BG_PLTT,16);
 #ifdef MUSIC_ON
-        m4aSongNumStart(SBP_CHAP1LEV1);//BGM Start
+        m4aSongNumStart(SBP_CHAP_6_LEVEL_BT);//BGM Start
 #endif
 			break;
 
@@ -462,7 +466,7 @@ void InitPalettes(void)
 //		case LEVEL060202:		
 //			DmaArrayCopy(3,CHAPTER06_LEVEL02_TILEPALETTE,BG_PLTT,16);
 //#ifdef MUSIC_ON
-//        m4aSongNumStart(SBP_CHAP1LEV2);//BGM Start
+//        m4aSongNumStart(SBP_CHAP_6_LEVEL_G);//BGM Start
 //#endif
 //			break;
 
@@ -474,7 +478,7 @@ void InitPalettes(void)
 		case LEVEL060302:		
 			DmaArrayCopy(3,CHAPTER06_LEVEL03_TILEPALETTE,BG_PLTT,16);
 #ifdef MUSIC_ON
-        m4aSongNumStart(SBP_CHAP1LEV3);//BGM Start
+        m4aSongNumStart(SBP_CHAP_6_LEVEL_RS);//BGM Start
 #endif
 			break;
 
@@ -488,9 +492,21 @@ void InitPalettes(void)
 //		case LEVEL060404:
 //			DmaArrayCopy(3,CHAPTER06_LEVEL04_TILEPALETTE,BG_PLTT,16);
 //#ifdef MUSIC_ON
-//        m4aSongNumStart(SBP_CHAP1BOSS);//BGM Start
+//        m4aSongNumStart(SBP_CHAP_6_LEVEL_BT);//BGM Start
 //#endif
 //			break;
+
+		case LEVEL060501:
+		case LEVEL060502:
+		case LEVEL060503:
+		case LEVEL060504:
+		case LEVEL060505:
+			DmaArrayCopy(3,CHAPTER06_LEVEL05_TILEPALETTE,BG_PLTT,16);
+#ifdef MUSIC_ON
+        m4aSongNumStart(SBP_CHAP_6_LEVEL_BT);//BGM Start
+#endif
+			break;
+
 
 //---------------------------------------------------------------------------------------------------
 
@@ -498,7 +514,67 @@ void InitPalettes(void)
 
 //	DmaArrayCopy(3,Speech_Bubble_Palette,BG_PLTT+(254<<1),16); // Set 'Speech Bubble' colours (all '2' of them :).
 
-	DmaArrayCopy(3,Stand_Palette,OBJ_PLTT,16);	// Set 256 colour palette data for ALL sprites.
+	DmaArrayCopy(3,Sprite_Palette,OBJ_PLTT,16);	// Set 256 colour palette data for ALL sprites.
+}
+
+//---------------------------------------------------------------------------------------------------
+
+// Common sprite palette data.
+
+const u16 Sprite_Palette[256]=
+{
+	0x7c1f,0x7c00,0x83ff,0x0000,0x87ff,0x8bff,0xffff,0x97ff,
+	0xaef6,0xa6d5,0x8fff,0xa2b4,0x26f5,0xaaf6,0x2efd,0x22b3,
+	0xb31e,0x2f17,0x22d4,0x824e,0xaabb,0x93ff,0xa6f6,0x9a92,
+	0x0a90,0xaa79,0x2615,0xa3ff,0x0cea,0xab17,0x1eb3,0x0ccc,
+	0xaedc,0x9508,0x910b,0x9bff,0xb2bc,0x0ce9,0x8cc9,0x2ebb,
+	0x90ea,0x1291,0x2b16,0x110a,0x9eb4,0x22d5,0x112b,0xd6a9,
+	0xfffd,0x0317,0xdbff,0x0486,0x5378,0xc632,0xbde5,0x8fbc,
+	0xce9f,0x90e7,0xad6c,0x6b91,0x6b7b,0x425f,0x046a,0x87fb,
+	0x1d0a,0x1ed4,0xd294,0xd3df,0x11ac,0x2efc,0x73fe,0x6796,
+	0x0334,0xabdf,0xf39c,0x88c6,0x1779,0x19b0,0xe72c,0xe31f,
+	0x0650,0xe33a,0x0548,0x8e91,0x9b9b,0x26d4,0xb33d,0x0442,
+	0xa758,0x8ca8,0x7bde,0x63db,0xe79a,0x8e92,0x1bdd,0x0252,
+	0xabfe,0x888b,0x8448,0x8757,0xfbff,0x1d4a,0x91d1,0xaad6,
+	0xefdc,0x4f9a,0x8ffc,0xaad5,0x8a70,0x0021,0x9292,0x9fbc,
+	0xef93,0x026f,0x088d,0xabff,0xfbfe,0x15cd,0x2a99,0x12b2,
+	0x1ab2,0x0a91,0x9d4b,0x32dc,0x16b2,0x90e8,0x0000,0x0000,
+	0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,
+	0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,
+	0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,
+	0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,
+	0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,
+	0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,
+	0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,
+	0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,
+	0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,
+	0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,
+	0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,
+	0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,
+	0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,
+	0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,
+	0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,
+	0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,
+};
+
+//***************************************************************************************************
+
+// Switch off alpha blend on all sprites.
+
+void BlendOff(void)
+{
+	int x;										// Local variable.
+
+	Object *pAO	;								// Object table pointer.
+
+	pAO=g_pObject;								// Get copy of global object pointer.
+
+	for(x=0;x!=numUsedObjects;x++,pAO++)		// Scan forward through objects currently in use.
+	{
+		pAO->sp_blend=OAM_OBJ_NORMAL;			// Switch off alpha blend ready for fade out.
+	}
+
+	ObjectDisplay();							// Update sprites (display).
 }
 
 //***************************************************************************************************
@@ -508,7 +584,7 @@ void InitPalettes(void)
 void CheckExit(void)
 {
 	int x;										// Local variable.
-	s32 Exit_x,Exit_y,Width,Height;
+	s32 Exit_X,Exit_Y,Exit_Width,Exit_Height;
 
 	Object *pAO;								// Object table pointers.
 
@@ -519,21 +595,40 @@ void CheckExit(void)
 		if(pAO->sp_type==TYPE_SPONGEBOB){break;} // Found 'SPONGEBOB' sprite slot address ?.
 	}
 	
-	Exit_x=ExitCoords[0+((Level-1)<<2)]>>1;   	// Get set of exit co-ords based for current level (>>1 = /2 to convert PSX to AGB values).
-	Exit_y=ExitCoords[1+((Level-1)<<2)]>>1;
-	Width=ExitCoords[2+((Level-1)<<2)]>>1;
-	Height=ExitCoords[3+((Level-1)<<2)]>>1;
+	Exit_X=ExitCoords[0+((Level-1)<<2)]>>1;   	// Get set of exit co-ords based for current level (>>1 = /2 to convert PSX to AGB values).
+	Exit_Y=ExitCoords[1+((Level-1)<<2)]>>1;
+	Exit_Width=ExitCoords[2+((Level-1)<<2)]>>1;
+	Exit_Height=ExitCoords[3+((Level-1)<<2)]>>1;
 
 	if(pAO->sp_type!=TYPE_OFF&&pAO->sp_display==ON&& // If sprite is on, then check for sprite box to exit box collision. 
-	((pAO->sp_xpos+pAO->sp_xsize)>=Exit_x)&&
-	((pAO->sp_xpos)<=Width)&& 
-	((pAO->sp_ypos+pAO->sp_ysize)>=Exit_y)&& 
-	((pAO->sp_ypos)<=Height))
+	((pAO->sp_xpos+pAO->sp_xsize)>=Exit_X)&&
+	((pAO->sp_xpos)<=Exit_Width)&& 
+	((pAO->sp_ypos+pAO->sp_ysize)>=Exit_Y)&& 
+	((pAO->sp_ypos)<=Exit_Height))
 	{
 		Level++;								// Next level.
 		if(Level>=LEVELTERM){Level=1;}
-   		gFade=1;
+		BlendOff();								// Switch off alpha blend on all sprites.
+// 		gFade=1;								// Request fade out.
+	    InitGame();								// Init. main game (if fade not required only !).
 	}
+
+//--
+
+	// Re-position 'Spinning Patrick' sprite so we know where the exit to this level roughly is !.
+
+	pAO=g_pObject;								// Get copy of global object pointer.
+
+	for(x=0;x!=numUsedObjects;x++,pAO++)	   	// Scan forward through objects currently in use.
+	{
+		if(pAO->sp_type==TYPE_PATRICK){break;} // Found 'PATRICK' sprite slot address ?.
+	}
+
+	pAO->sp_xpos=Exit_X;						// Set sprite world map x-position.
+	pAO->sp_ypos=Exit_Y;						// Set sprite world map y-position.
+
+//--
+
 }
 
 //---------------------------------------------------------------------------------------------------
@@ -547,29 +642,29 @@ const s32 ExitCoords[MAXLEVELS]=
 
 // Chapter 1.
 
-/*	0,0,0,0,
+	0,0,0,0,
 	0,0,0,0,	
 	0,0,0,0,	
 	0,0,0,0,	
 	0,0,0,0,	
 
 	0,0,0,0,
+//	0,0,0,0,	
+//	0,0,0,0,	
 	0,0,0,0,	
-	0,0,0,0,	
-	0,0,0,0,	
-	0,0,0,0,	
+//	0,0,0,0,	
 
 	0,0,0,0,
 	0,0,0,0,	
 	0,0,0,0,	
 	0,0,0,0,	
  
-	0,0,0,0,
-	0,0,0,0,	
-	0,0,0,0,	
-	0,0,0,0,	
-	0,0,0,0,	
-*/
+//	0,0,0,0,
+//	0,0,0,0,	
+//	0,0,0,0,	
+//	0,0,0,0,	
+//	0,0,0,0,	
+
 //--
 
 // Chapter 2.
@@ -582,10 +677,10 @@ const s32 ExitCoords[MAXLEVELS]=
 	71*16,26*16,74*16,29*16, 	
 	93*16,15*16,96*16,18*16, 	
         
-        0*16,33*16,3*16,41*16,
-        122*16,126*16,134*16,129*16,	
-        92*16,11*16,95*16,27*16,	
-        76*16,10*16,79*16,23*16,	
+	0*16,33*16,3*16,41*16,
+	122*16,126*16,134*16,129*16,	
+	92*16,11*16,95*16,27*16,	
+	76*16,10*16,79*16,23*16,	
 
 	129*16,75*16,133*16,84*16,	
 	65*16,71*16,68*16,79*16,	
@@ -594,23 +689,23 @@ const s32 ExitCoords[MAXLEVELS]=
 	131*16,13*16,137*16,26*16,	
 	112*16,5*16,117*16,18*16,	
 
-        146*16,44*16,149*16,56*16,
-        127*16,15*16,129*16,29*16,
-        223*16,81*16,229*16,94*16,
-        130*16,52*16,134*16,63*16,
-        126*16,44*16,129*16,55*16,
+    146*16,44*16,149*16,56*16,
+    127*16,15*16,129*16,29*16,
+    223*16,81*16,229*16,94*16,
+    130*16,52*16,134*16,63*16,
+    126*16,44*16,129*16,55*16,
 
 //--
 
 // Chapter 3.
 
-        0,0,50,50,
-        0,0,50,50,
-        110*16,0*16,113*16,31*16,	
-        85*16,39*16,106*16,42*16,	
-        90*16,30*16,93*16,40*16,	
-        84*16,10*16,87*16,24*16,	
-        74*16,30*16,77*16,40*16,	
+	0,0,50,50,
+	0,0,50,50,
+	110*16,0*16,113*16,31*16,	
+	85*16,39*16,106*16,42*16,	
+	90*16,30*16,93*16,40*16,	
+	84*16,10*16,87*16,24*16,	
+	74*16,30*16,77*16,40*16,	
 
 	152*16,19*16,159*16,26*19,
 	171*16,24*16,179*16,31*16,
@@ -700,25 +795,24 @@ const s32 ExitCoords[MAXLEVELS]=
 	152*16,22*16,155*16,25*16,		
 	8*16,100*16,11*16,103*16,		
 
+//	0,0,0,0,
+//	0,0,0,0,
+
+
 	185*16,22*16,189*16,25*16,		
 	211*16,62*16,214*16,65*16,	
 
-/*	0,0,0,0,
+//	0,0,0,0,
+//	0,0,0,0,
+//	0,0,0,0,
+//	0,0,0,0,
 
 	0,0,0,0,
 	0,0,0,0,
 	0,0,0,0,
 	0,0,0,0,
+	0,0,0,0,
 
-	0,0,0,0,
-	0,0,0,0,
-	0,0,0,0,
-	0,0,0,0,
-	0,0,0,0,
-	0,0,0,0,
-	0,0,0,0,
-	0,0,0,0,
-*/
 //--
 
 };
