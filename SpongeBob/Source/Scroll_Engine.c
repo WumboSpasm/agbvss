@@ -138,7 +138,7 @@ void UpdateScroll()
 	*(vu16*)REG_BG1VOFS=y_shift1;
 	*(vu16*)REG_BG2HOFS=x_shift2;
 	*(vu16*)REG_BG2VOFS=y_shift2;
-	*(vu16*)REG_BG3HOFS=map_xpos<<1;
+	*(vu16*)REG_BG3HOFS=0;
 	*(vu16*)REG_BG3VOFS=0;			// Currently fixed value !.
 
 //--
