@@ -25,6 +25,7 @@ enum COLLISION_TILE
 	COLLISION_TILE_6=7,		 			// 45deg right slope tile 1.
 	COLLISION_TILE_7=8,		 			// 45deg left slope tile 2.
 	COLLISION_TILE_8=1,	 				// Ceiling tile.
+	COLLISION_TILE_9=9,					// Half 'moon' tile :).
 };
 
 /////////////////////////////////////////////////
@@ -39,6 +40,8 @@ extern const u8 Contour04[8];
 extern const u8 Contour05[8];
 extern const u8 Contour06[8];
 extern const u8 Contour07[8];
+extern const u8 Contour08[8];
+extern const u8 Contour09[8];
 
 #endif
 
