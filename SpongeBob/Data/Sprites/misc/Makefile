@@ -1,4 +1,4 @@
-.BMPFILES = Patrick64.bmp
+.BMPFILES = Patrick64.bmp Platform1.bmp
  
 .CFILES = $(.BMPFILES:.bmp=.c)
 
@@ -16,5 +16,7 @@ $(TARGET_ARC): $(.OFILES)
 Patrick64.c: Patrick64.bmp
 	bmp2agb -onp $@ $<
 
+Platform1.c: Platform1.bmp
+	bmp2agb -onp $@ $<
 clean:
 	-rm $(TARGET_ARC) $(.OFILES) $(.CFILES)
