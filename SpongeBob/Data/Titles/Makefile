@@ -1,6 +1,6 @@
-.BMPFILES = Start_Copy.bmp Start_THQ.bmp Start_Nick.bmp Start_Climax.bmp libFontGame.bmp libFontMenu.bmp menuback.bmp PasswordIcons.bmp HubMap.bmp
-.CFILES = Start_Copy.c Start_THQ.c Start_Nick.c Start_Climax.c libFontGame.c libFontMenu.c menuback.c PasswordIcons.c HubMap.c
-.OFILES = Start_Copy.o Start_THQ.o Start_Nick.o Start_Climax.o libFontGame.o libFontMenu.o menuback.o PasswordIcons.o HubMap.o
+.BMPFILES = Start_Copy.bmp Start_THQ.bmp Start_Nick.bmp Start_Climax.bmp libFontGame.bmp libFontMenu.bmp menuback.bmp PasswordIcons.bmp HubMap.bmp menul2.bmp menuback2.bmp
+.CFILES = Start_Copy.c Start_THQ.c Start_Nick.c Start_Climax.c libFontGame.c libFontMenu.c menuback.c PasswordIcons.c HubMap.c menul2.c menuback2.c
+.OFILES = Start_Copy.o Start_THQ.o Start_Nick.o Start_Climax.o libFontGame.o libFontMenu.o menuback.o PasswordIcons.o HubMap.o menul2.o menuback2.o
 _AGBDIR = ($AGBDIR)
 CFLAGS	= -g -O2 -I$(AGBDIR)/include -mthumb-interwork -nostdlib
 .SUFFIXES: .bmp .c .o
@@ -30,6 +30,12 @@ libFontMenu.c: libFontMenu.bmp
 	@bmp2agb -c -np $<
 
 menuback.c: menuback.bmp
+	@bmp2map -f -o $@ $<
+
+menuback2.c: menuback2.bmp
+	@bmp2map -f -o $@ $<
+
+menul2.c: menul2.bmp
 	@bmp2map -f -o $@ $<
 
 PasswordIcons.c: PasswordIcons.bmp
