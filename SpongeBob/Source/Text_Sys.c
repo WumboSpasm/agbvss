@@ -48,6 +48,7 @@
 
 
 u8 DEBUGBUFFER[];
+u16 ScreenDat[32*32];	// this is global so it can be modified from any file!!!
 
 // tilenumbers go from 32 - 127 (bubbles too & character heads)
 // 0 is BLANK
@@ -88,13 +89,13 @@ const u8 TextTileTable[256]=
 //	 X  Y  Z  [  \  ]  ^  _
 	64,65,66, 0, 0, 0, 0, 0,			//  88 -  95
 //	 `  a  b  c  d  e  f  g
-	 0, 0, 0, 0, 0, 0, 0, 0,			//  96 - 103
+	 0,41,42,43,44,45,46,47,			//  96 - 103
 //	 h  i  j  k  l  m  n  o
-	 0, 0, 0, 0, 0, 0, 0, 0,			// 104 - 111
+	48,49,50,51,52,53,54,55,			// 104 - 111
 //	 p  q  r  s  t  u  v  w
- 	 0, 0, 0, 0, 0, 0, 0, 0,			// 112 - 119
+ 	56,57,58,59,60,61,62,63,			// 112 - 119
 //	 x  y  z  {  |  }  ~
-	 0, 0, 0, 0, 0, 0, 0,40,			// 120 - 127
+	64,65,66, 0, 0, 0, 0,40,			// 120 - 127
 //
 	 0, 0, 0, 0, 0, 0, 0, 0,			// 128 - 135
 //
@@ -149,13 +150,7 @@ u8 PutTextBox(u8 startx,u8 starty,u8 width, u8 height,u8 *string)
 
 	// clear 4th layer (make sure we have nothing on there before displaying the text)
 
-	for(x=0;x<32;x++)
-	{
-		for(y=0;y<32;y++)
-		{
-			ScreenDat[(y*32)+x]=0;
-		}
-	}
+	ClearTextLayer();
 
 	// init the above varyballs
 
@@ -211,31 +206,16 @@ u8 PutTextBox(u8 startx,u8 starty,u8 width, u8 height,u8 *string)
 		// STAGE1
 		if((i==0)||(string[i-1]==32))	// we just had a space so scan the next word to get word length
 		{
-			wordlength = 0;
-
-			for(x=i;x<stringlength;x++)
-		        {
-        			if(string[x]==32)
-			        {
-			        	   break;
-			        }
-		        	else
-	        	        {
-		        		wordlength++;
-				}
-			}
+			wordlength = CheckWordLength(i,stringlength,string);
 
 			if(wordlength>width-2)
 			{
 				//fuck!!!
 				sprintf(DEBUGBUFFER,"STRING TOO LONG %i %i",i,wordlength);
-				PutText(0,0,30,1,DEBUGBUFFER);
+				PutText(0,0,30,1,DEBUGBUFFER,0);
 				return 0;
 			}
-#ifdef FUXORZ
-			sprintf(DEBUGBUFFER,"TEST %i %i %i",i,wordlength,(startx+width-1)-currentx);
-			PutText(0,0,30,1,DEBUGBUFFER);
-#endif
+
                         if(wordlength > (startx+width-1)-currentx)	// word wont fit on this line
                         {
 				currentx=startx+1;
@@ -255,7 +235,11 @@ u8 PutTextBox(u8 startx,u8 starty,u8 width, u8 height,u8 *string)
 		if(currenty==starty+height-1)
 		{
 			// wait for key press
-			// clean text box screen and rester
+
+			// DO THIS NEXT!!!!!!!!!
+
+
+                        // clean text box screen and restart
 			currentx = startx+1;
 			currenty = starty+1;
 			// blank the old text area
@@ -263,7 +247,7 @@ u8 PutTextBox(u8 startx,u8 starty,u8 width, u8 height,u8 *string)
 			{
 				for(y=starty+1;y<starty+height-1;y++)
 				{
-					ScreenDat[(y*32)+x]=0;
+					ScreenDat[(y*32)+x]=40;
 				}
 			}
 
@@ -305,7 +289,7 @@ u8 PutTextBox(u8 startx,u8 starty,u8 width, u8 height,u8 *string)
 //
 //----------------------------------------------
 
-u8 PutText(u8 startx,u8 starty,u8 width, u8 height,u8 *string)
+u8 PutText(u8 startx,u8 starty,u8 width, u8 height,u8 *string,u8 clear)
 {
 	u8 currentx;	// current text output locations
 	u8 currenty;
@@ -318,12 +302,9 @@ u8 PutText(u8 startx,u8 starty,u8 width, u8 height,u8 *string)
 
 	// clear 4th layer (make sure we have nothing on there before displaying the text)
 
-	for(x=0;x<32;x++)
+	if(clear)
 	{
-		for(y=0;y<32;y++)
-		{
-			ScreenDat[(y*32)+x]=0;
-		}
+		ClearTextLayer();
 	}
 
 	// init the above varyballs
@@ -340,23 +321,36 @@ u8 PutText(u8 startx,u8 starty,u8 width, u8 height,u8 *string)
 		return 0;
 	}
 
+	for(x=startx;x<startx+width;x++)
+	{
+		for(y=starty;y<starty+height;y++)
+		{
+			ScreenDat[(y*32)+x]=40;
+		}
+	}
 
 	for(i=0;i<stringlength;i++)
 	{
-		// read in next word..
-		// if longer than max width then we got a problem
+		// STAGE1
+		if((i==0)||(string[i-1]==32))	// we just had a space so scan the next word to get word length
+		{
+			wordlength = CheckWordLength(i,stringlength,string);
 
-		// if endx-1-currentx is less than length of word then go to new line
-		// go through word
+			if(wordlength>width)
+			{
+				//fuck!!!
+				sprintf(DEBUGBUFFER,"STRING TOO LONG %i %i",i,wordlength);
+				PutText(0,0,30,1,DEBUGBUFFER,0);
+				return 0;
+			}
 
-		// use TextTileTable to convert the ascii code to a tile number
-		tiletoplace=TextTileTable[string[i]];	// NEED TO TEST THIS WORKS (should do)
+                        if(wordlength > (startx+width)-currentx)	// word wont fit on this line
+                        {
+				currentx=startx;
+				currenty++;
+                        }
 
-		// place tile into currentx/y
-		ScreenDat[(currenty*32)+currentx]=tiletoplace;	// should be ok
-
-		// increase currentx
-		currentx++;
+		}
 
 		// check to see if end of line
 		if(currentx==startx+width)
@@ -369,22 +363,33 @@ u8 PutText(u8 startx,u8 starty,u8 width, u8 height,u8 *string)
 		if(currenty==starty+height)
 		{
 			// wait for key press
-			// clean text box screen and rester
+                        // clean text box screen and restart
 			currentx = startx;
 			currenty = starty;
 			// blank the old text area
-			for(x=startx+1;x<startx+width;x++)
+			for(x=startx;x<startx+width;x++)
 			{
-				for(y=starty+1;y<starty+height;y++)
+				for(y=starty;y<starty+height;y++)
 				{
-					ScreenDat[(y*32)+x]=0;
+					ScreenDat[(y*32)+x]=40;
 				}
 			}
 
 		}
 
-		// go to next word
 
+		// use TextTileTable to convert the ascii code to a tile number
+		tiletoplace=TextTileTable[string[i]];	// NEED TO TEST THIS WORKS (should do) //works under emu...
+
+		// place tile into currentx/y
+		ScreenDat[(currenty*32)+currentx]=tiletoplace;	// should be ok
+
+		// increase currentx
+		currentx++;
+		if((currentx==(startx+1))&&(tiletoplace==40))	// if just placed a space at the start of the line go back a space!!
+		{
+			currentx--;
+		}
 	}
 
 	//ok once all that is set up ok DMA the connents of Bg4_Screendat to VRAM
@@ -411,4 +416,27 @@ void ClearTextLayer(void)
 	}
         // copy the blank array to VRam!
 	DmaArrayCopy(3,ScreenDat,TEXT_SCREEN,16);
+}
+
+//
+// check length of word
+// need to test..
+//
+u8 CheckWordLength(u8 i,u8 stringlength, u8* string)
+{
+	u8 wordlength=0;
+	u8 x;
+
+	for(x=i;x<stringlength;x++)
+	{
+		if(string[x]==32)
+	        {
+	        	   return wordlength;
+	        }
+        	else
+       	        {
+        		wordlength++;
+		}
+	}
+	return wordlength;
 }

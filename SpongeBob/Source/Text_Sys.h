@@ -11,7 +11,7 @@
 // define of where screen output is..
 #define TEXT_SCREEN	VRAM+0xf800
 // screen buffer for 4th layer
-u16 ScreenDat[32*32];				// Front Layer for Text/Speech Bubbles
+extern u16 ScreenDat[32*32];				// Front Layer for Text/Speech Bubbles
 
 //string's (initialised in .lan files
 extern u8 GAMENAME[];
@@ -27,7 +27,8 @@ extern const u8 TextTileTable[256];
 
 // functions
 extern u8 PutTextBox(u8 startx,u8 starty,u8 width, u8 height,u8 *string);		// put text with speech bubbles
-extern u8 PutText(u8 startx,u8 starty,u8 width, u8 height,u8 *string);			// put text with out the text borders
+extern u8 PutText(u8 startx,u8 starty,u8 width, u8 height,u8 *string,u8 clear);			// put text with out the text borders
 extern void ClearTextLayer(void);												// clear the 4th layer to be blank
+u8 CheckWordLength(u8 i,u8 stringlength, u8* string);
 
 #endif	// _TEXT_SYS_H
