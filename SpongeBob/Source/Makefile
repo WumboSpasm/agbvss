@@ -6,6 +6,7 @@
 		Random.c \
 		Scroll_Engine.c \
 		SprEng_Control.c \
+		SprEng_Animate.c \
 		SprEng_Display.c \
 		SprEng_Common.c \
 		SprEng_SpriteA.c \
@@ -18,7 +19,8 @@
 
 .AFILES =	Gamedata/Titles/libTitlesGFX.a \
        		Gamedata/Level1/libLev1bgbmp.a \
-		Gamedata/Sprites/libSprites.a
+		Gamedata/Sprites/Misc/libMisc_Sprs.a \
+		Gamedata/Sprites/SpongeBob/libSpongeBob_Sprs.a
 
 ASFLAGS	=	-I$(AGBDIR)/include -mthumb-interwork
 
@@ -30,7 +32,8 @@ LDFLAGS	 +=	-Map $(MAPFILE) -nostartfiles \
 		-L$(AGBDIR)/lib/ -lisagbprn -lagbsyscall\
                 -LGamedata/Titles/ -lTitlesGFX \
                 -LGamedata/Level1/ -lLev1bgbmp \
-                -LGamedata/Sprites/ -lSprites \
+                -LGamedata/Sprites/Misc/ -lMisc_Sprs \
+                -LGamedata/Sprites/SpongeBob/ -lSpongeBob_Sprs \
 		-Tlnkscript
 
 DEPENDFILE	=	Makedepend
@@ -39,11 +42,11 @@ TARGET_ELF      =       SBSPants.elf
 TARGET_BIN      =       SBSPants.bin
 
 $(TARGET_BIN): $(TARGET_ELF)
-	objcopy -v -O binary $< $@
+	@objcopy -v -O binary $< $@
 
 $(TARGET_ELF): $(.OFILES) Makefile $(.AFILES) $(DEPENDFILE)
 	@echo > $(MAPFILE)
-	$(CC) -g -o $@ $(.OFILES) -Wl,$(LDFLAGS)
+	@$(CC) -g -o $@ $(.OFILES) -Wl,$(LDFLAGS)
 
 .PHONY: all clean depend data
 
@@ -55,10 +58,10 @@ clean_data:
 	$(foreach .ADIR_TMP, $(dir $(.AFILES)), make -C $(.ADIR_TMP) clean;)
 
 depend:
-	$(CC) $(CFLAGS) -M $(.CFILES) > $(DEPENDFILE)
+	@$(CC) $(CFLAGS) -M $(.CFILES) > $(DEPENDFILE)
 
 $(DEPENDFILE):
-	$(CC) $(CFLAGS) -M $(.CFILES) > $(DEPENDFILE)
+	@$(CC) $(CFLAGS) -M $(.CFILES) > $(DEPENDFILE)
 
 .SUFFIXES: .s .c .o .a
 
