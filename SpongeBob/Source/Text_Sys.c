@@ -51,7 +51,7 @@ static u8 CheckWordLength(u8 i,u8 stringlength, u8* string);
 // global vars
 u16 ScreenDat[32*20];	// this is global so it can be modified from any file!!!
 
-#ifndef NDEBUG
+#if defined(debug)
 u8 DEBUGBUFFER[];       // buffer to output debug text..(debug only!)
 #endif                                                        
 
@@ -98,7 +98,7 @@ const u8 TextTileTable[256]=
 //	 p  q  r  s  t  u  v  w
  	56,57,58,59,60,61,62,63,			// 112 - 119
 //	 x  y  z  {  |  }  ~
-	64,65,66, 0,32, 0,127,40,			// 120 - 127       stolen | to be a complete filled in square under menus
+	64,65,66, 0,32, 0,127,40,			// 120 - 127       stolen | and ~ to be a complete filled in square under menus or completely blank square
 //
 	 0, 0, 0, 0, 0, 0, 0, 0,			// 128 - 135
 //
@@ -140,7 +140,7 @@ const u8 TextTileTable[256]=
 // returns 1 is success or 0 if fails 
 // need to put a sprite of the character talking at the start of the text box for ingame fma...
 //-------------------------------------------------------------------------------------------------
-u8 PutTextBox(u8 startx,u8 starty,u8 width, u8 height,u8 *string)
+u8 PutTextBox(u8 startx,u8 starty,u8 width, u8 height,u8 *string,u8 clear)
 {
 	u8 currentx;	// current text output locations
 	u8 currenty;
@@ -152,8 +152,11 @@ u8 PutTextBox(u8 startx,u8 starty,u8 width, u8 height,u8 *string)
 	u8 stringlength; // length of string
 
 	// clear 4th layer (make sure we have nothing on there before displaying the text)
-
-	ClearTextLayer();
+        
+        if(clear)
+        {
+        	ClearTextLayer();
+        }
 
 	// init the above varyballs
 
@@ -166,7 +169,6 @@ u8 PutTextBox(u8 startx,u8 starty,u8 width, u8 height,u8 *string)
 	if(width<4 || height<3)
 	{
 		//we got problem here as we aint gonna get any text in this box
-		DmaArrayCopy(3,ScreenDat,TEXT_SCREEN,16);	// copy the BLANK screen data into the 4th layer...
 		return 0;
 	}
 
@@ -213,7 +215,7 @@ u8 PutTextBox(u8 startx,u8 starty,u8 width, u8 height,u8 *string)
 
 			if(wordlength>width-2)  // word is too long to fit in this text box
 			{
-#ifndef NDEBUG
+#if defined(debug)
 				sprintf(DEBUGBUFFER,"STRING TOO LONG %i %i",i,wordlength);
 				PutText(0,0,30,1,DEBUGBUFFER,0);
 #endif
@@ -272,9 +274,6 @@ u8 PutTextBox(u8 startx,u8 starty,u8 width, u8 height,u8 *string)
 		}
 	}
 
-	//ok once all that is set up ok DMA the connents of Bg4_Screendat to VRAM
-	DmaArrayCopy(3,ScreenDat,TEXT_SCREEN,16);
-
 	//ok all worked fine so return 1 so we know all was fine
 	return 1;
 }
@@ -319,7 +318,6 @@ u8 PutText(u8 startx,u8 starty,u8 width, u8 height,u8 *string,u8 clear)
 	if(width<2 || height<1)
 	{
 		//we got problem here as we aint gonna get any text in this box
-		DmaArrayCopy(3,ScreenDat,TEXT_SCREEN,16);	// copy the BLANK screen data into the 4th layer...
 		return 0;
 	}
 
@@ -340,10 +338,9 @@ u8 PutText(u8 startx,u8 starty,u8 width, u8 height,u8 *string,u8 clear)
 
 			if(wordlength>width)            // word is too long to fit in box
 			{
-#ifndef NDEBUG
+#if defined(debug)
 				sprintf(DEBUGBUFFER,"STRING TOO LONG %i %i",i,wordlength);
 				PutText(0,0,30,1,DEBUGBUFFER,0);
-                        	DmaArrayCopy(3,ScreenDat,TEXT_SCREEN,16);
 #endif
 				return 0;
 			}

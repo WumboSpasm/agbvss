@@ -1,3 +1,6 @@
+SOUND_DIR = mks4agbSystem/out/
+include $(SOUND_DIR)Soundfiles
+
 VERSION	?=	release
 
 ifeq ($(VERSION),release)
@@ -34,7 +37,7 @@ include build/opts.mak
 			Contours.c \
 			Text_Sys.c
 
-.OFILES		:=	$(foreach f,$(.SFILES) $(.CFILES), $(TEMP_DIR)/$(subst .s,.o,$(subst .c,.o,$(f))))
+.OFILES		:=	$(foreach f,$(.SFILES) $(.CFILES), $(TEMP_DIR)/$(subst .s,.o,$(subst .c,.o,$(f)))) $(SOUND_FILES)
 
 .AFILES		:=	../data/Titles/libTitlesGFX.a \
        			../data/Maps/libMaps.a \

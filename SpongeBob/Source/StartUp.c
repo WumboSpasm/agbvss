@@ -20,6 +20,7 @@
 #include "Titles.h"
 #include "TitlesData.h"
 #include "Text_Sys.h"
+#include "Scroll_Engine.h"
 
 static u8 CurrentScreen;
 static u16 ScreenDelay;
@@ -29,15 +30,30 @@ static void ChangeScreen(void);
 
 void InitStartUpScreens(void)
 {                
+        int x,y;
+        
 	gTimer = 0;																	// reset timer
 	CurrentScreen = eCopyRight;													// set currnet screen
 	ScreenDelay = (5*60);														// how long to stay on this screen
 	CanSkip = FALSE;															// can we skip before the end
         *(vu16*)REG_DISPCNT=DISP_MODE_0|DISP_LCDC_OFF;
 
-        DmaArrayCopy(3,Start_Copy_RawBitmap,BG_BITMAP0_VRAM,16);                 
+	SetBgTextControl((vu16*)REG_BG0CNT,BG_PRIORITY_3,BG_SCREEN_SIZE_0,BG_COLOR_256,BG_MOS_OFF,28,TILE_BASE_1);
 
-	*(vu16*)REG_DISPCNT = DISP_MODE_3 | DISP_OBJ_BG_ALL_ON;						// switch to BG mode 3
+	DmaArrayCopy(3,menuback_Character,TILE_BASE_ADDR_1,16);         // Load level data.
+	DmaArrayCopy(3,menuback_Palette,BG_PLTT,16);
+
+	for (y=0;y<20;y++)
+	{
+		for (x=0;x<30;x++)
+		{
+			Bg3_ScreenDat[y*32+x]=menuback_Map[(y*30)+x];   // Back Ripely Layer
+		}
+	}                        
+
+	DmaArrayCopy(3,Bg3_ScreenDat,MAP_BASE_ADDR+0x0000,16);
+	
+	*(vu16*)REG_DISPCNT=DISP_MODE_0|DISP_BG0_ON|DISP_OBJ_CHAR_1D_MAP;
 }
 
 void MainStartUpScreens(void)
@@ -58,34 +74,33 @@ static void ChangeScreen(void)
 	switch(CurrentScreen)
 	{
        	case eCopyRight:
-       		CurrentScreen=eTHQLogo;
-       		gTimer = 0;
-       		ScreenDelay = (5*60);
-       		CanSkip = FALSE;
-                *(vu16*)REG_DISPCNT=DISP_MODE_0|DISP_LCDC_OFF;                                  // switch of LCDC so no annoying flick of screens
-       		DmaArrayCopy(3,Start_THQ_RawBitmap,BG_BITMAP0_VRAM,16);                 
-               	*(vu16*)REG_DISPCNT = DISP_MODE_3 | DISP_OBJ_BG_ALL_ON;				// switch to BG mode 3
-       		break;
-       	case eTHQLogo:
+       	        FadeOut();
        		CurrentScreen=eNickLogo;
+       		FadeIn();
        		gTimer = 0;
        		ScreenDelay = (5*60);
        		CanSkip = FALSE;
-                *(vu16*)REG_DISPCNT=DISP_MODE_0|DISP_LCDC_OFF;                                  // switch of LCDC so no annoying flick of screens
-       		DmaArrayCopy(3,Start_Nick_RawBitmap,BG_BITMAP0_VRAM,16);                 
-               	*(vu16*)REG_DISPCNT = DISP_MODE_3 | DISP_OBJ_BG_ALL_ON;				// switch to BG mode 3
        		break;
        	case eNickLogo:
-       		CurrentScreen=eClimaxLogo;
+       	        FadeOut();
+       		CurrentScreen=eTHQLogo;
+       		FadeIn();
        		gTimer = 0;
        		ScreenDelay = (5*60);
        		CanSkip = FALSE;
-                *(vu16*)REG_DISPCNT=DISP_MODE_0|DISP_LCDC_OFF;                                  // switch of LCDC so no annoying flick of screens
-       		DmaArrayCopy(3,Start_Climax_RawBitmap,BG_BITMAP0_VRAM,16);                 
-               	*(vu16*)REG_DISPCNT = DISP_MODE_3 | DISP_OBJ_BG_ALL_ON;				// switch to BG mode 3
+       		break;
+       	case eTHQLogo:
+       	        FadeOut();
+       		CurrentScreen=eClimaxLogo;
+       		FadeIn();
+       		gTimer = 0;
+       		ScreenDelay = (5*60);
+       		CanSkip = FALSE;
        		break;
        	case eClimaxLogo:
+       	        FadeOut();
        		gGameState = e_TITLE_SCREEN;
+       		FadeIn();
        		InitTitles();
        		break;
        	default:

@@ -24,7 +24,7 @@ static void PutSelectText(u8 startx,u8 starty);                         // put t
 static void CheckPassword(void);                                        // check password
 //--------Local Variables-----------------
 static title Title;						        // Title struct (lots of nice variables in here)
-static s16 ce_EVA_rate,ce_EVB_rate,ce_EVY_rate;                         // aplha channel co-efficients
+static s16 ce_EVA_rate,ce_EVB_rate;                         // aplha channel co-efficients
 static u8 Password_Buffer[6];                                           // buffer to enter password into..
 const static u8 PasswordIconOffsetTable[8]={0,2,4,6,16,18,20,22,};      // offset into tile libraries for each password icon
 
@@ -37,10 +37,8 @@ void InitTitles(void)
 
         *(vu16*)REG_DISPCNT=DISP_MODE_0|DISP_LCDC_OFF;
 
-	ce_EVA_rate = 9;                                                // alpha blend coefficient EVA
-	ce_EVB_rate = 9;                                                // alpha blend coefficient EVB
-	ce_EVY_rate = 9;                                                // alpha blend coefficient EVY
-	gRipple = 0;                                                    // do we riplle or do we not <g>
+	ce_EVA_rate = 0x0F;                                                // alpha blend coefficient EVA
+	ce_EVB_rate = 0x0A;                                                // alpha blend coefficient EVB
 
         for(x=0;x<6;x++)
         {
@@ -49,7 +47,6 @@ void InitTitles(void)
 	
 	*(vu16*)REG_BLDCNT = BLD_BG0_2ND|BLD_A_BLEND_MODE|BLD_BG2_1ST;  // alpha
 	*(vu16*)REG_BLDALPHA = (ce_EVB_rate<<8)|ce_EVA_rate;            // Coefficient EVB EVA
-	*(vu16*)REG_BLDY = ce_EVY_rate;                                 // Coefficient EVY
 	
 
 	//---set up title stats
@@ -132,8 +129,9 @@ static void UpdateInput(void)
 	switch(Title.mCurrent_Screen)
 	{
 	case eTitle_Screen:
-		if((gKeyTap&B_BUTTON)||(gKeyTap&START_BUTTON)||(gTimer==1200))
-		{
+		if((gKeyTap&A_BUTTON)||(gKeyTap&START_BUTTON)||(gTimer==600))
+		{      
+		        FadeOut();
                 	ClearTextLayer();
                         PutText(4,1,24,1,GAMENAME,0);
                         PutText(5,5,20,1,MENU,0);
@@ -145,21 +143,24 @@ static void UpdateInput(void)
 			Title.mCurrent_Screen = eMain_Menu;
 			Title.mCurrent_Selection = 1;
 			Title.mMax_Selections = 4;
-                	gRipple = 1;
+		        FadeIn();
+                	*(vu16 *)REG_IE    = V_BLANK_INTR_FLAG | H_BLANK_INTR_FLAG;	// set Vblank interrupt enable flag
+                	*(vu16 *)REG_STAT  = STAT_V_BLANK_IF_ENABLE | STAT_H_BLANK_IF_ENABLE;
 			break;
 		}
 		break;
 
 	case eMain_Menu:
-		if (((gKeyTap&B_BUTTON)||(gKeyTap&START_BUTTON)) && (Title.mCurrent_Selection == 1)) // Select Start New Game
+		if (((gKeyTap&A_BUTTON)||(gKeyTap&START_BUTTON)) && (Title.mCurrent_Selection == 1)) // Select Start New Game
 		{
+		        FadeOut();
 			InitGame();
 			gGameState = e_IN_GAME;
-                	gRipple = 0;
 			break;
 		}
-		if (((gKeyTap&B_BUTTON)||(gKeyTap&START_BUTTON)) && (Title.mCurrent_Selection == 2)) // Select Password Menu
+		if (((gKeyTap&A_BUTTON)||(gKeyTap&START_BUTTON)) && (Title.mCurrent_Selection == 2)) // Select Password Menu
 		{
+		        FadeOut();
                 	ClearTextLayer();
                         PutText(4,1,24,1,GAMENAME,0);
                         PutText(1,7,20,1,PASSWORD2,0);
@@ -168,10 +169,12 @@ static void UpdateInput(void)
 			Title.mCurrent_Selection = 1;
 			Title.mCurrent_PasswordPlace = 0;
 			Title.mMax_Selections = 8;
+		        FadeIn();
 			break;
 		}
-		if (((gKeyTap&B_BUTTON)||(gKeyTap&START_BUTTON)) && (Title.mCurrent_Selection == 3))	// Select Options Screen
+		if (((gKeyTap&A_BUTTON)||(gKeyTap&START_BUTTON)) && (Title.mCurrent_Selection == 3))	// Select Options Screen
 		{
+		        FadeOut();
                 	ClearTextLayer();
                         PutText(4,1,24,1,GAMENAME,0);
                         PutText(5,5,20,1,OPTION,0);
@@ -181,18 +184,21 @@ static void UpdateInput(void)
 			Title.mCurrent_Screen = eOptions_Menu;
 			Title.mCurrent_Selection = 1;
 			Title.mMax_Selections = 2;
+		        FadeIn();
 			break;
 		}
-		if (((gKeyTap&B_BUTTON)||(gKeyTap&START_BUTTON)) && (Title.mCurrent_Selection == 4))	// Select Credits Screen
+		if (((gKeyTap&A_BUTTON)||(gKeyTap&START_BUTTON)) && (Title.mCurrent_Selection == 4))	// Select Credits Screen
 		{
+		        FadeOut();
 			//InitCredits();
 			//gGame_State=
+		        FadeIn();
 			break;
 		}
 		break;
 
 	case ePassword_Menu:
-	        if (gKeyTap&B_BUTTON)
+	        if (gKeyTap&A_BUTTON)
 	        {
 	                Password_Buffer[Title.mCurrent_PasswordPlace]=Title.mCurrent_Selection;
 	                Title.mCurrent_PasswordPlace++;
@@ -214,8 +220,9 @@ static void UpdateInput(void)
 	        {
 	                Title.mCurrent_PasswordPlace++;
 	        }
-		if ((gKeyTap&A_BUTTON))			// Cancel Back To Previous Option
+		if ((gKeyTap&B_BUTTON))			// Cancel Back To Previous Option
 		{
+		        FadeOut();
                 	ClearTextLayer();
                         PutText(4,1,24,1,GAMENAME,0);
                         PutText(5,5,20,1,MENU,0);
@@ -239,12 +246,14 @@ static void UpdateInput(void)
 			Title.mCurrent_Screen = eMain_Menu;
 			Title.mCurrent_Selection = 2;
 			Title.mMax_Selections = 4;
+		        FadeIn();
 		}
 		break;
 
 	case eOptions_Menu:
-		if (((gKeyTap&B_BUTTON)||(gKeyTap&START_BUTTON)) && (Title.mCurrent_Selection == 1)) // Controller
+		if (((gKeyTap&A_BUTTON)||(gKeyTap&START_BUTTON)) && (Title.mCurrent_Selection == 1)) // Controller
 		{
+		        FadeOut();
                 	ClearTextLayer();
                         PutText(4,1,24,1,GAMENAME,0);
                         PutText(5,5,20,1,CONTROLLER,0);
@@ -254,23 +263,25 @@ static void UpdateInput(void)
 			Title.mCurrent_Screen = eController_Menu;
 			Title.mCurrent_Selection = gGameParams.mControllerMethod+1;
 			Title.mMax_Selections = 2;
+		        FadeIn();
 		}
-		if (((gKeyTap&B_BUTTON)||(gKeyTap&START_BUTTON)) && (Title.mCurrent_Selection == 2)&&(Title.mCurrent_Screen!=eController_Menu)) // Sound
+		if (((gKeyTap&A_BUTTON)||(gKeyTap&START_BUTTON)) && (Title.mCurrent_Selection == 2)&&(Title.mCurrent_Screen!=eController_Menu)) // Sound
 		{
+		        FadeOut();
                 	ClearTextLayer();
                         PutText(4,1,24,1,GAMENAME,0);
                         PutText(5,5,20,1,SOUND,0);
                         PutText(5,8,20,1,MUSICVOL,0);
-                        PutText(5,10,20,1,PCT100,0);
                         PutText(5,12,20,1,SFXVOL,0);
-                        PutText(5,14,20,1,PCT100,0);
                 	DmaArrayCopy(3,ScreenDat,TEXT_SCREEN,16);
 			Title.mCurrent_Screen = eSound_Menu;
 			Title.mCurrent_Selection = 1;
 			Title.mMax_Selections = 2;
+		        FadeIn();
 		}
-		if ((gKeyTap&A_BUTTON))			// Cancel Back To Previous Option
+		if ((gKeyTap&B_BUTTON))			// Cancel Back To Previous Option
 		{
+		        FadeOut();
                 	ClearTextLayer();
                         PutText(4,1,24,1,GAMENAME,0);
                         PutText(5,5,20,1,MENU,0);
@@ -282,12 +293,14 @@ static void UpdateInput(void)
 			Title.mCurrent_Screen = eMain_Menu;
 			Title.mCurrent_Selection = 3;
 			Title.mMax_Selections = 4;
+		        FadeIn();
 		}
 		break;
 
 	case eController_Menu:
-		if ((gKeyTap&B_BUTTON)&&Title.mCurrent_Selection == 1)			// Cancel Back To Previous Option
+		if ((gKeyTap&A_BUTTON)&&Title.mCurrent_Selection == 1)			// Cancel Back To Previous Option
 		{
+		        FadeOut();
 		        gGameParams.mControllerMethod = 0;
                 	ClearTextLayer();
                         PutText(4,1,24,1,GAMENAME,0);
@@ -298,9 +311,11 @@ static void UpdateInput(void)
 			Title.mCurrent_Screen = eOptions_Menu;
 			Title.mCurrent_Selection = 1;
 			Title.mMax_Selections = 2;
+		        FadeIn();
 		}
-		if ((gKeyTap&B_BUTTON)&&Title.mCurrent_Selection == 2)			// Cancel Back To Previous Option
+		if ((gKeyTap&A_BUTTON)&&Title.mCurrent_Selection == 2)			// Cancel Back To Previous Option
 		{
+		        FadeOut();
 		        gGameParams.mControllerMethod = 1;
                 	ClearTextLayer();
                         PutText(4,1,24,1,GAMENAME,0);
@@ -311,9 +326,11 @@ static void UpdateInput(void)
 			Title.mCurrent_Screen = eOptions_Menu;
 			Title.mCurrent_Selection = 1;
 			Title.mMax_Selections = 2;
+		        FadeIn();
 		}
-		if ((gKeyTap&A_BUTTON))			// Cancel Back To Previous Option
+		if ((gKeyTap&B_BUTTON))			// Cancel Back To Previous Option
 		{
+		        FadeOut();
                 	ClearTextLayer();
                         PutText(4,1,24,1,GAMENAME,0);
                         PutText(5,5,20,1,OPTION,0);
@@ -323,6 +340,7 @@ static void UpdateInput(void)
 			Title.mCurrent_Screen = eOptions_Menu;
 			Title.mCurrent_Selection = 1;
 			Title.mMax_Selections = 2;
+		        FadeIn();
 		}
 		break;
 
@@ -343,8 +361,9 @@ static void UpdateInput(void)
 		{
 		      gGameParams.mSFXVolume+=5;  
 		}
-		if ((gKeyTap&A_BUTTON))			// Cancel Back To Previous Option
+		if ((gKeyTap&B_BUTTON))			// Cancel Back To Previous Option
 		{
+		        FadeOut();
                 	ClearTextLayer();
                         PutText(4,1,24,1,GAMENAME,0);
                         PutText(5,5,20,1,OPTION,0);
@@ -354,6 +373,7 @@ static void UpdateInput(void)
 			Title.mCurrent_Screen = eOptions_Menu;
 			Title.mCurrent_Selection = 2;
 			Title.mMax_Selections = 2;
+		        FadeIn();
 		}
 		break;
 
@@ -637,6 +657,57 @@ static void CheckPassword(void)
                 Level = LEVEL020401;
         	InitGame();
         	gGameState = e_IN_GAME;
-        	gRipple = 0;        
         }
+}
+
+void FadeOut(void)
+{
+        int x=0;
+        //fade to black...or white?
+
+	*(vu16*)REG_BLDCNT = BLD_BG0_2ND|BLD_BG1_2ND|BLD_BG2_2ND|BLD_BG3_2ND|BLD_UP_MODE|BLD_BG0_1ST|BLD_BG1_1ST|BLD_BG2_1ST|BLD_BG3_1ST;  // alpha
+//	*(vu16*)REG_BLDCNT = BLD_BG0_2ND|BLD_BG1_2ND|BLD_BG2_2ND|BLD_BG3_2ND|BLD_DOWN_MODE|BLD_BG0_1ST|BLD_BG1_1ST|BLD_BG2_1ST|BLD_BG3_1ST;  // alpha
+        *(vu16*)REG_BLDY = x;
+
+        ClearSelectLayer();
+        DmaArrayCopy(3,Bg1_ScreenDat,MAP_BASE_ADDR+0x1000,16);          // copy the select layer data into vram
+
+
+        while(x<0x10)
+        {
+                WaitVBlank();
+                if(gTimer>=3)
+                {
+                        x++;
+                        gTimer=0;
+                }
+                *(vu16*)REG_BLDY = x;
+        }
+
+}
+
+void FadeIn(void)
+{
+        int x=16;
+        // fade in..
+        *(vu16*)REG_BLDY = x;
+
+        while(x>0x00)
+        {
+              WaitVBlank();
+                if(gTimer>=3)
+                {
+                        x--;
+                        gTimer=0;
+                }
+              *(vu16*)REG_BLDY = x;
+        }
+
+
+        //restore blend mode....
+	ce_EVA_rate = 0x0F;                                                // alpha blend coefficient EVA
+	ce_EVB_rate = 0x0A;                                                // alpha blend coefficient EVB
+
+	*(vu16*)REG_BLDCNT = BLD_BG0_2ND|BLD_A_BLEND_MODE|BLD_BG2_1ST;  // alpha
+	*(vu16*)REG_BLDALPHA = (ce_EVB_rate<<8)|ce_EVA_rate;            // Coefficient EVB EVA
 }
