@@ -13,7 +13,6 @@
 #include "SineCos.h"							// sin/cos tables + general math instructions
 #include "Random.h"								// Random Number Generator
 
-
 //------------prototype functions--------
 static void UpdateInput(void);					// read input and update gamestate accordingly
 static void UpdateGFX(void);					// update display based on current state
@@ -25,7 +24,7 @@ static void ZoomBGOut(u16 prev);
 static bgstats	BGstats;						// BG data stats
 static title	Title;							// Title struct (lots of nice variables in here)
 
-//--Local defines
+//--Local defines (local vars for now...hmm maybe not that good)
 static u16 speed = 1;				// Zoom speed (set to 1 for now could be programable....)
 static u32 delay = 1;				// Delay speed (dependend on type of zoom)
 
@@ -131,7 +130,7 @@ static void UpdateInput(void)
 			Title.mMax_Selections = 2;
 			break;
 		}
-		if (((gKeyTap&A_BUTTON)||(gKeyTap&START_BUTTON)) && (Title.mCurrent_Selection == 3))	// Select Password Screen
+		if (((gKeyTap&A_BUTTON)||(gKeyTap&START_BUTTON)) && (Title.mCurrent_Selection == 3))	// Select Credits Screen
 		{
 			//InitCredits();
 			//gGame_State=
