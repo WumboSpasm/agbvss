@@ -66,7 +66,7 @@ $(LD_OPTS_FILE): makefile build/opts.mak lnkscript_$(VERSION)
 
 $(TEMP_DIR)/%.o: ./%.c
 	@echo Compile $<
-	@$(CC) $(CFLAGS) -Dversion=$(VERSION) -o $@ $<
+	@$(CC) $(CFLAGS) -D$(VERSION) -o $@ $<
 
 $(TEMP_DIR)/%.o: ./%.s
 	@echo Assemble $<
