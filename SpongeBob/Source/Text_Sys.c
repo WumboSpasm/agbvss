@@ -137,7 +137,8 @@ const u8 TextTileTable[256]=
 // size "width,height"
 // pointer to text string "string"
 // OUTPUTS:
-// returns 1 is success or 0 if fails
+// returns 1 is success or 0 if fails 
+// need to put a sprite of the character talking at the start of the text box for ingame fma...
 //-------------------------------------------------------------------------------------------------
 u8 PutTextBox(u8 startx,u8 starty,u8 width, u8 height,u8 *string)
 {

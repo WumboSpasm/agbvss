@@ -44,7 +44,7 @@ void InitTitles(void)
 
         for(x=0;x<6;x++)
         {
-                Password_Buffer[x]=0x01;
+                Password_Buffer[x]=0x01;                                // flood password buffer with sysmbol no 1
         }
 	
 	*(vu16*)REG_BLDCNT = BLD_BG0_2ND|BLD_A_BLEND_MODE|BLD_BG2_1ST;  // alpha
