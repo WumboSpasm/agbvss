@@ -17,17 +17,19 @@
 /////////////////////////////////////////////////
 // Local Variables.
 /////////////////////////////////////////////////
+
 u16	gKeyInput;			// Joypad key input data.
 u16	gKeyTap;			// Joypad button 'debounced' data.
 u32	gTimer;				// Game timer.
 u32	IntrMainBuf[0x200];	// Buffer for interrupt main routine.
 vu16 IntrCheck;			// Interrupt check.
 GameState gGameState;	// Beaner's gamestate variable.
-GameData gGameData;		// Game Data Info (generic global info)
+GameParams gGameParams;	// Game parameters info. (generic global info).
 
 /////////////////////////////////////////////////
 // Function Definitions.
 /////////////////////////////////////////////////
+
 static void ClearAll(void);
 static void VBlankIntr(void);
 extern void KeyRead(void);
@@ -35,6 +37,7 @@ extern void KeyRead(void);
 /////////////////////////////////////////////////
 // Global Functions.
 /////////////////////////////////////////////////
+
 const IntrFuncp IntrTable[14]=
 {
     VBlankIntr,			// V Blank interrupt.
@@ -72,10 +75,21 @@ void InitSystem(void)
 	*(vu16*)REG_IE|=V_BLANK_INTR_FLAG;			// Set of V blank interrupt request flag
 	*(vu16*)REG_STAT=STAT_V_BLANK_IF_ENABLE;
 
-	//Init the games data as default
-	gGameData.mController_Method = 0;			// deafuilt controll method (A=Action B=Jump)
-	gGameData.mMusic_Volume = 100;				// full volume
-	gGameData.mSFX_Volume = 100;				// full volume
+//---------------------------------------------------------------------------------------------------
+
+// Initialise game variables - 0.
+
+	gGameParams.mControllerMethod=0; 			// Default control method (A=Action, B=Jump).
+	gGameParams.mMusicVolume=100;				// Full volume.
+	gGameParams.mSFXVolume=100;					// Full volume.
+
+	Level=LEVEL020201;							// Set default start level.	
+	Spatualas=0; 								// Set default spatualas found.
+	Lives=3;					 				// Set default lives.
+	Continues=1;								// Set default continues.
+
+//---------------------------------------------------------------------------------------------------
+
 }
 
 //***************************************************************************************************
