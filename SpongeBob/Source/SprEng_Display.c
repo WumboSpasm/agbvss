@@ -218,7 +218,7 @@ void ObjectDisplay(void)
 
 				ObjectAnimate(pAO);						// Update sprites (animation).
 
-				gOAMOffset+=16;							// Offset to next sprite in OAM RAM (words).
+				gOAMOffset+=16;							// Offset to next sprite slot in OAM RAM (words).
 
 				if((gOAMOffset>>4)>31){gOAMOffset-=16;}	// Prevent more than 32 sprite usage of OAM overspill ?.
 	   		}

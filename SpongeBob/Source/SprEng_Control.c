@@ -21,7 +21,8 @@ void ObjectControl1()
 {
 	u32 loop;							// Used as a loop counter.
 
-	g_pObject=object_table;				// Point to start of object table with the global object pointer ( see objects.h )
+	g_pObjectBase=object_table;			// Point to start of object table with the global object pointers (see objects.h).
+	g_pObject=object_table;
 
 	for(loop=0;loop!=NUMOBJECTS;loop++)
 	{
@@ -44,7 +45,6 @@ void ObjectControl1()
 	}
 
 	g_pObject=object_table;				// Reset to start of object table with the global object pointer - @ge.
-
 }
 
 //***************************************************************************************************
@@ -60,7 +60,8 @@ void ObjectControl2()
 
 	for(loop=0;loop!=numUsedObjects;loop++)
 	{
-		g_pObject=object_table;			// Point to start of object table with the global object pointer.
+		g_pObjectBase=object_table;		// Point to start of object table with the global object pointers (see objects.h).
+		g_pObject=object_table;
 		g_pObject+=*pOU;				// Add on the tag index from the active object list.
 
 		switch(g_pObject->sp_type)		// Select control type.
@@ -71,11 +72,14 @@ void ObjectControl2()
 			case TYPE_SPONGEBOB:
 				SpriteControl01();
 				break;
-			case TYPE_PLATFORMS:
+			case TYPE_NPC:
 				SpriteControl02();
 				break;
-			case TYPE_PATRICK:
+			case TYPE_PLATFORMS:
 				SpriteControl03();
+				break;
+			case TYPE_MONSTERS:
+				SpriteControl04();
 				break;
 		}
 		if(g_pObject->sp_type!=0)
@@ -85,7 +89,6 @@ void ObjectControl2()
 	}
 
 	g_pObject=object_table;				// Reset to start of object table with the global object pointer - @ge.
-
 }
 
 //***************************************************************************************************
@@ -156,6 +159,7 @@ void ObjectClear(Object* pAO)
 	pAO->sp_anispeed=0;
 	pAO->sp_anitimer=0;
 	pAO->sp_aniuser=OFF;
+	pAO->sp_anispare=0;
 
 	pAO->sp_flash=OFF;
 	pAO->sp_delay=0;

@@ -48,7 +48,7 @@ typedef struct object
 	u16 sp_anispeed;// Animation loop repetition speed.
 	u16 sp_anitimer;// Timer for animation frame duration.
 	u16 sp_aniuser;	// General purpose variable (used for example to denote HOLD frame in animation sequence).
-	u16 sp_anispare;// Spare padding attribute.
+	u16	sp_anispare;// Spare attribute.
 
 	u16	sp_flash;	// Sprite intermitant display control.
 	u16	sp_delay;	// Sprite intermitant display delay.
@@ -69,7 +69,7 @@ typedef struct object
 	u16 sp_var3;	// Multi-purpose attribute variable no.3. (i.e. sprite power-up).
 	u16 sp_var4;	// Multi-purpose attribute variable no.4. (i.e. sprite misc. function i.e. hit ground ?).
 
-	u16 sp_spare;	// Spare attribute.
+	u16	sp_spare;	// Spare attribute.
 
 }Object;
 
@@ -84,34 +84,75 @@ enum				// Enumerate all sprite control types.
 {
 	TYPE_OFF,
 	TYPE_SPONGEBOB,
+	TYPE_NPC,
 	TYPE_PLATFORMS,
-	TYPE_PATRICK,
+	TYPE_MONSTERS,
 };
 
 enum				// Enumerate all 'SpongeBob' sprite control modes.
 {
-	MODE_STAND,
-	MODE_WALK,
-	MODE_RUN,
-	MODE_STANDJUMP,
-	MODE_STANDJUMPFALL,
-	MODE_STANDJUMPLAND,
-	MODE_RUNJUMP,
-	MODE_RUNJUMPFALL,
-	MODE_RUNJUMPLAND,
+	MODE_BUTTBOUNCEEND,
+	MODE_BUTTBOUNCESTART,
+	MODE_DEATHANGEL,
+	MODE_DEATHBACKWARDS,
+	MODE_DEATHDRY,
+	MODE_DEATHFORWARDS,
+	MODE_DEATHSPIN,
+	MODE_DEATHSQUASH,
+	MODE_DEATHTAR,
+	MODE_DEATHTARSTART,
+	MODE_ELECTRICSHOCK,
+	MODE_ELECTRICSHOCKEND,
+	MODE_ELECTRICSHOCKSTART,
+	MODE_FACEBACK,
+	MODE_FACEFRONT,
+	MODE_FALL,
+	MODE_FIREEND,
+	MODE_FIRESTART,
+	MODE_GETUP,
+	MODE_GETUPRUN,
+	MODE_HITGROUND,
+	MODE_HOVER,
+	MODE_HOVEREND,
+	MODE_HOVERSTART,
+	MODE_IDLE,
+	MODE_JUMPEND,
 	MODE_KARATE,
+	MODE_NETFIRELOB,
+	MODE_NETSWIPE,
+	MODE_RUN,
+	MODE_SOAKUP,
+	MODE_TALK01,
+	MODE_TEETERFRONT,
+	MODE_WALKFORWARD,
+//-- My extra modes.
+	MODE_STAND,
+	MODE_JUMP,
+	MODE_JUMPFALL,
+	MODE_LOOKUP,
+	MODE_LOOKDOWN,
 	MODE_FREEFLIGHT,
 };
 
-enum				// Enumerate all 'Moving Platform' sprite control modes.
+enum				// Enumerate all 'NPC's' sprite control modes.
 {
-	MODE_LEFTRIGHT,
-	MODE_UPDOWN,
+	MODE_NPC_PATRICK_STATIC,
+	MODE_NPC_PATRICK_LEFTRIGHT,
 };
 
-enum				// Enumerate all 'Patrick' sprite control modes.
+enum				// Enumerate all 'Platforms' sprite control modes.
 {
-	MODE_LEFTRIGHTSPIN,
+	MODE_PLATFORMS_STATIC,
+	MODE_PLATFORMS_LEFTRIGHT,
+	MODE_PLATFORMS_UPDOWN,
+};
+
+enum				// Enumerate all 'Monsters' sprite control modes.
+{
+	MODE_MONSTERS_STATIC,
+	MODE_MONSTERS_CLAM_WAIT,
+	MODE_MONSTERS_CLAM_SIDESNAP,
+	MODE_MONSTERS_CLAM_SNAPUP,
 };
 
 //---------------------------------------------------------------------------------------------------
@@ -131,14 +172,10 @@ void SpriteControl00(void);
 void SpriteControl01(void);
 void SpriteControl02(void);
 void SpriteControl03(void);
+void SpriteControl04(void);
 
-// Some data needs to be accessed globally so we'll let everyone know what the score is with these variables.
-// Notice I put a little g_ at the beginning of the variable so that I can see it's a global.
-// You don't have to but it's a nice touch.
-// Also I put a lower-case "p" at the beginning of any pointers.
-// A pointer like this one HAS to have a * to state that it is a pointer.
-
-Object* g_pObject;
+Object* g_pObjectBase;	// Always stores the base of the object table.
+Object* g_pObject;		// Stores the base of the current object in the object table.
 
 //---------------------------------------------------------------------------------------------------
 

@@ -1,6 +1,6 @@
 //***************************************************************************************************
 // Project:		SpongeBob Squarepants GBA.
-// Source:		GBA Sprite Engine - Moving Platforms Sprite Control (Source).
+// Source:		GBA Sprite Engine - Platforms Sprite Control (Source).
 // Author:		A.R.Cummings.
 // (C) 2000/1:	Climax.
 //***************************************************************************************************
@@ -15,7 +15,7 @@
 
 //***************************************************************************************************
 
-void SpriteControl02()
+void SpriteControl03()
 {
 	Object *pAO;
 
@@ -31,25 +31,33 @@ void SpriteControl02()
 
 //--
 
+// Static - no movement.
+
+		case MODE_PLATFORMS_STATIC:
+
+			break;
+
+//--
+
 // Move platform left & right.
 
-		case MODE_LEFTRIGHT:	   	// Moving Platform left/right ?.
+		case MODE_PLATFORMS_LEFTRIGHT:
 
-		if(pAO->sp_xpos<=8*8){pAO->sp_xvel=PLATVEL;} // Add inertia.
-		if(pAO->sp_xpos>=26*8){pAO->sp_xvel=-PLATVEL;} // Add inertia.
+			if(pAO->sp_xpos<=28*8){pAO->sp_xvel=PLATVEL;} // Add inertia.
+			if(pAO->sp_xpos>=60*8){pAO->sp_xvel=-PLATVEL;} // Add inertia.
 
-		break;
+			break;
 
 //--
 
 // Move platform up & down.
 
-		case MODE_UPDOWN:		   	// Moving Platform up/down ?.
+		case MODE_PLATFORMS_UPDOWN:
 
-		if(pAO->sp_ypos<=22*8){pAO->sp_yvel=PLATVEL;} // Add inertia.
-		if(pAO->sp_ypos>=32*8){pAO->sp_yvel=-PLATVEL;} // Add inertia.
+			if(pAO->sp_ypos<=22*8){pAO->sp_yvel=PLATVEL;} // Add inertia.
+			if(pAO->sp_ypos>=32*8){pAO->sp_yvel=-PLATVEL;} // Add inertia.
 
-		break;
+			break;
 
 //--
 
@@ -57,8 +65,8 @@ void SpriteControl02()
 
 //--
 
-	pAO->sp_rotate+=4;
-	if(pAO->sp_rotate>255) {pAO->sp_rotate=0;} // Rotate sprite.
+//	pAO->sp_rotate+=4;
+//	if(pAO->sp_rotate>255) {pAO->sp_rotate=0;} // Rotate sprite.
 
 //--
 
