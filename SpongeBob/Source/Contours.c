@@ -32,8 +32,8 @@ void CheckContour(Object* pAO)
 
 // Check for all contours.
 
-	Tile1=pCollision_Map[MapX+(MapY*map_x_size_tiles)]; // Read tile at current map location.		
-	Tile2=pCollision_Map[MapX+((MapY+1)*map_x_size_tiles)]; // Read tile at next y map location down.
+	Tile1=pCollision_Map[MapX+(MapY*map_x_size_tiles_bg1)]; // Read tile at current map location.		
+	Tile2=pCollision_Map[MapX+((MapY+1)*map_x_size_tiles_bg1)]; // Read tile at next y map location down.
 
 	XOffset=pAO->sp_xpos&7;				// Isolate amount of x fine shift and store it.
 
@@ -117,15 +117,15 @@ void CheckContour(Object* pAO)
 
 	if(pAO->sp_type==TYPE_SPONGEBOB)   	// SpongeBob sprite ?. 
 	{
-		Tile3=pCollision_Map[(MapX+1)+((MapY)*map_x_size_tiles)]; // Read tile at next y map location down.
-		Tile4=pCollision_Map[(MapX+1)+((MapY-1)*map_x_size_tiles)]; // Read tile at next y map location down.
+		Tile3=pCollision_Map[(MapX+1)+((MapY)*map_x_size_tiles_bg1)]; // Read tile at next y map location down.
+		Tile4=pCollision_Map[(MapX+1)+((MapY-1)*map_x_size_tiles_bg1)]; // Read tile at next y map location down.
 		if(Tile3==COLLISION_TILE_1&&Tile4==COLLISION_TILE_1) // Check for wall tile combination (whole 'moon' tiles) ?.
 		{
 			pAO->sp_xpos=pAO->sp_xpos&0xfff8; // Force to left of tile.
 		}
 
-		Tile3=pCollision_Map[(MapX-1)+((MapY)*map_x_size_tiles)]; // Read tile at next y map location down.
-		Tile4=pCollision_Map[(MapX-1)+((MapY-1)*map_x_size_tiles)]; // Read tile at next y map location down.
+		Tile3=pCollision_Map[(MapX-1)+((MapY)*map_x_size_tiles_bg1)]; // Read tile at next y map location down.
+		Tile4=pCollision_Map[(MapX-1)+((MapY-1)*map_x_size_tiles_bg1)]; // Read tile at next y map location down.
 		if(Tile3==COLLISION_TILE_1&&Tile4==COLLISION_TILE_1) // Check for wall tile combination (whole 'moon' tiles) ?.
 		{
 			pAO->sp_xpos=pAO->sp_xpos&0xfff8; // Force to right of tile.
@@ -139,7 +139,7 @@ void CheckContour(Object* pAO)
 
 	if(pAO->sp_yvel<0)					// If sprite moving upwards, check for ceiling tiles.
 	{
-		Tile5=pCollision_Map[MapX+((MapY-(pAO->sp_ysize>>3)+2)*map_x_size_tiles)]; // Read tile at top of sprite.
+		Tile5=pCollision_Map[MapX+((MapY-(pAO->sp_ysize>>3)+2)*map_x_size_tiles_bg1)]; // Read tile at top of sprite.
 		if(Tile5==COLLISION_TILE_9)		// Check for ceiling tile ?.
 		{
 			pAO->sp_ypos+=8;			// Force to bottom of tile.
