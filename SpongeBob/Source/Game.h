@@ -68,8 +68,8 @@ extern const u16 CHAPTER05_LEVEL04_TILEPALETTE[256];
 // Level's 1-4 & Sub-Levels (sub-levels share same palette).
 
 extern const u16 CHAPTER06_LEVEL01_TILEPALETTE[256]; // Background palette data (shared 256 colours for all backgrounds).
-extern const u16 CHAPTER06_LEVEL02_TILEPALETTE[256];
-//extern const u16 CHAPTER06_LEVEL03_TILEPALETTE[256];
+//extern const u16 CHAPTER06_LEVEL02_TILEPALETTE[256];
+extern const u16 CHAPTER06_LEVEL03_TILEPALETTE[256];
 //extern const u16 CHAPTER06_LEVEL04_TILEPALETTE[256];
 
 //---------------------------------------------------------------------------------------------------

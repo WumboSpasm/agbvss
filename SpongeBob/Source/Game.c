@@ -265,7 +265,6 @@ void InitPalettes(void)
 		case LEVEL030404:		
 		case LEVEL030405:		
 		case LEVEL030406:		
-		case LEVEL030407:		
 			DmaArrayCopy(3,CHAPTER03_LEVEL04_TILEPALETTE,BG_PLTT,16);
 			break;
 
@@ -392,18 +391,19 @@ void InitPalettes(void)
 
 // Level 2 & Sub-Levels.
 
-		case LEVEL060201:		
-		case LEVEL060202:		
-			DmaArrayCopy(3,CHAPTER06_LEVEL02_TILEPALETTE,BG_PLTT,16);
-			break;
+//		case LEVEL060201:		
+//		case LEVEL060202:		
+//			DmaArrayCopy(3,CHAPTER06_LEVEL02_TILEPALETTE,BG_PLTT,16);
+//			break;
 
 //--
 
 // Level 3 & Sub-Levels.
 
-//		case LEVEL060301:		
-//			DmaArrayCopy(3,CHAPTER06_LEVEL03_TILEPALETTE,BG_PLTT,16);
-//			break;
+		case LEVEL060301:		
+		case LEVEL060302:		
+			DmaArrayCopy(3,CHAPTER06_LEVEL03_TILEPALETTE,BG_PLTT,16);
+			break;
 
 //--
 
