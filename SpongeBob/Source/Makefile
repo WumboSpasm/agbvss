@@ -10,18 +10,18 @@
 		SprEng_Animate.c \
 		SprEng_Display.c \
 		SprEng_Common.c \
-		SprEng_SpriteA.c \
-		SprEng_SpriteB.c \
-		SprEng_SpriteC.c \
-		SprEng_SpriteD.c \
+		SprEng_SpongeBob.c \
+		SprEng_Misc1.c \
+		SprEng_Misc2.c \
+		SprEng_Misc3.c \
 		Sinecos.c
 
 .OFILES	=	$(.SFILES:.s=.o) $(.CFILES:.c=.o)
 
 .AFILES =	Gamedata/Titles/libTitlesGFX.a \
-       		Gamedata/Level1/libLev1bgbmp.a \
-		Gamedata/Sprites/Misc/libMisc_Sprs.a \
-		Gamedata/Sprites/SpongeBob/libSpongeBob_Sprs.a
+       		Gamedata/Maps/libMaps.a \
+		Gamedata/Sprites/SpongeBob/libSpongeBob_Sprs.a \
+		Gamedata/Sprites/Misc/libMisc_Sprs.a
 
 ASFLAGS	=	-I$(AGBDIR)/include -mthumb-interwork
 
@@ -32,9 +32,9 @@ LDFLAGS	 +=	-Map $(MAPFILE) -nostartfiles \
 		-Ttext 0x08000000 -Tbss 0x03000000 \
 		-L$(AGBDIR)/lib/ -lisagbprn -lagbsyscall \
                 -LGamedata/Titles/ -lTitlesGFX \
-                -LGamedata/Level1/ -lLev1bgbmp \
-                -LGamedata/Sprites/Misc/ -lMisc_Sprs \
+                -LGamedata/Maps/ -lMaps \
                 -LGamedata/Sprites/SpongeBob/ -lSpongeBob_Sprs \
+                -LGamedata/Sprites/Misc/ -lMisc_Sprs \
 		-Tlnkscript
 
 DEPENDFILE	=	Makedepend

@@ -30,8 +30,8 @@ static void InitRear();
 
 void InitScroll()
 {
-	map_x_size_tiles=300;	// Get size of map in 8x8's (this will be set from map header data in future !).
-	map_y_size_tiles=64;
+	map_x_size_tiles=Level1_Action_MapWidth; // Get size of map in 8x8's from level map data.
+	map_y_size_tiles=Level1_Action_MapHeight;
 
 	map_x_size_pixels=map_x_size_tiles<<3;	// Convert map size to pixel dimensions.
 	map_y_size_pixels=map_y_size_tiles<<3;
@@ -40,27 +40,20 @@ void InitScroll()
 	map_ypos=0;
 
 	// Rear layer.
-	SetBgTextControl((vu16*)REG_BG0CNT,BG_PRIORITY_3,BG_SCREEN_SIZE_0,BG_COLOR_256,BG_MOS_OFF,28,CHAR_BASE_0);
+	SetBgTextControl((vu16*)REG_BG0CNT,BG_PRIORITY_3,BG_SCREEN_SIZE_0,BG_COLOR_256,BG_MOS_OFF,28,TILE_BASE_0);
 	// Middle layer.
-	SetBgTextControl((vu16*)REG_BG1CNT,BG_PRIORITY_2,BG_SCREEN_SIZE_0,BG_COLOR_256,BG_MOS_OFF,29,CHAR_BASE_1);
+	SetBgTextControl((vu16*)REG_BG1CNT,BG_PRIORITY_2,BG_SCREEN_SIZE_0,BG_COLOR_256,BG_MOS_OFF,29,TILE_BASE_0);
 	// Action layer.
-	SetBgTextControl((vu16*)REG_BG2CNT,BG_PRIORITY_1,BG_SCREEN_SIZE_0,BG_COLOR_256,BG_MOS_OFF,30,CHAR_BASE_2);
+	SetBgTextControl((vu16*)REG_BG2CNT,BG_PRIORITY_1,BG_SCREEN_SIZE_0,BG_COLOR_256,BG_MOS_OFF,30,TILE_BASE_0);
 	// Front layer.
-	SetBgTextControl((vu16*)REG_BG3CNT,BG_PRIORITY_0,BG_SCREEN_SIZE_0,BG_COLOR_256,BG_MOS_OFF,31,CHAR_BASE_1);
+	SetBgTextControl((vu16*)REG_BG3CNT,BG_PRIORITY_0,BG_SCREEN_SIZE_0,BG_COLOR_256,BG_MOS_OFF,31,TILE_BASE_1);
 
-	DmaArrayCopy(3,Lev1bg3_Character,CHAR_BASE0_ADDR,16);	// Set tile data for bg0 rear layer.
+	DmaArrayCopy(3,Level1_Tiles,TILE_BASE0_ADDR,16); // Set tile data for bg0 rear layer.
 	InitRear();
-	DmaArrayCopy(3,Bg3_ScreenDat,CHAR_BASE3_ADDR+0x2000,16);
-
-	DmaArrayCopy(3,Lev1bg2_Character,CHAR_BASE1_ADDR,16);	// Set tile data for bg1 middle & bg2 action layers.
-	DmaArrayCopy(3,Lev1bg1_Character,CHAR_BASE2_ADDR,16);
-	UpdateScroll();											// Update scroll with current map position.
-	DmaArrayCopy(3,Bg2_ScreenDat,CHAR_BASE3_ADDR+0x2800,16);
-	DmaArrayCopy(3,Bg1_ScreenDat,CHAR_BASE3_ADDR+0x3000,16);
-
-//	DmaArrayCopy(3,Lev1bg0_Character,CHAR_BASE1_ADDR,16);	// Set tile data for bg3 front layer.
-//	InitFront();
-//	DmaArrayCopy(3,Bg2_ScreenDat,CHAR_BASE3_ADDR+0x3800,16);
+	DmaArrayCopy(3,Bg3_ScreenDat,MAP_BASE_ADDR+0x0000,16);
+	UpdateScroll();						 	// Update scroll with current map position.
+	DmaArrayCopy(3,Bg2_ScreenDat,MAP_BASE_ADDR+0x0800,16);
+	DmaArrayCopy(3,Bg1_ScreenDat,MAP_BASE_ADDR+0x1000,16);
 }
 
 //***************************************************************************************************
@@ -117,7 +110,7 @@ static void InitRear()
 	{
 		for (x=0;x<32;x++)
 		{
-			Bg3_ScreenDat[y*32+x]=Lev1bg3_Map[(y*256>>3)+x]; // Update screen map buffer with tile name data.
+			Bg3_ScreenDat[y*32+x]=Level1_Back_Map[(y*256>>3)+x]; // Update screen map buffer with tile name data.
 		}
 	}
 }
@@ -136,8 +129,8 @@ void UpdateScroll()
 
 // Do the DMA & scroll register updates first - right @ the start of the VBL period !!!.
 
-	DmaArrayCopy(3,Bg2_ScreenDat,CHAR_BASE3_ADDR+0x2800,16); // DMA copy 'bg1' buffer to vram.
-	DmaArrayCopy(3,Bg1_ScreenDat,CHAR_BASE3_ADDR+0x3000,16); // DMA copy 'bg2' buffer to vram.
+	DmaArrayCopy(3,Bg2_ScreenDat,MAP_BASE_ADDR+0x0800,16); // DMA copy 'bg1' buffer to vram.
+	DmaArrayCopy(3,Bg1_ScreenDat,MAP_BASE_ADDR+0x1000,16); // DMA copy 'bg2' buffer to vram.
 
 	*(vu16*)REG_BG0HOFS=map_xpos>>2;// Update all fine scroll offset regs. (compute parallax scroll ratios too !).
 	*(vu16*)REG_BG0VOFS=map_ypos>>3;
@@ -164,7 +157,7 @@ void UpdateScroll()
 	{
 		for (x=0;x<31;x++)		// X size of bg1 screen buffer in 8x8 tiles.
 		{
-			Bg2_ScreenDat[y*32+x]=Lev1bg2_Map[((y_tilepos1+y)*(map_x_size_tiles>>1))+x_tilepos1+x]; // Update screen map buffer with tile name data.
+			Bg2_ScreenDat[y*32+x]=Level1_Mid_Map[((y_tilepos1+y)*(map_x_size_tiles>>1))+x_tilepos1+x]; // Update screen map buffer with tile name data.
 		}
 	}
 
@@ -172,7 +165,7 @@ void UpdateScroll()
 	{
 		for (x=0;x<31;x++)		// X size of bg2 screen buffer in 8x8 tiles.
 		{
-			Bg1_ScreenDat[y*32+x]=Lev1bg1_Map[((y_tilepos2+y)*map_x_size_tiles)+x_tilepos2+x]; // Update screen map buffer with tile name data.
+			Bg1_ScreenDat[y*32+x]=Level1_Action_Map[((y_tilepos2+y)*map_x_size_tiles)+x_tilepos2+x]; // Update screen map buffer with tile name data.
 		}
 	}
 }

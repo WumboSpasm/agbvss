@@ -8,7 +8,11 @@
 #ifndef _SPRENG_CONTROL_H
 #define _SPRENG_CONTROL_H
 
+//---------------------------------------------------------------------------------------------------
+
 #define	NUMOBJECTS 100 // Define how many 'virtual' sprite slots we want.
+
+//---------------------------------------------------------------------------------------------------
 
 // We don't need to convert the variable sp_tabwidth because that was only used for accessing the objects.
 // Because we are about to define each object as a structure we can perform access by using just the object number
@@ -43,8 +47,9 @@ typedef struct object
 	u16 sp_aniuser;	// General purpose variable (used for example to denote HOLD frame in animation sequence).
 	u16 sp_anispare;// Spare padding attribute.
 
-	s8  sp_flash;	// Sprite intermitant display control.
-	s8  sp_mask;	// Sprite mask display control.
+	u16	sp_flash;	// Sprite intermitant display control.
+	u16	sp_delay;	// Sprite intermitant display delay.
+	u16	sp_flshspd;	// Sprite intermitant display speed.
 
     u16 sp_affine;	// GBA sprite rotate size/double size h/w feature.
     u16 sp_rotate;	// GBA sprite rotatation angle h/w feature.
@@ -56,9 +61,10 @@ typedef struct object
 	u16 sp_blend;	// GBA sprite alpha blend h/w feature.
 	u16 sp_priority;// GBA sprite priority (relative to background) h/w feature.
 
-	u16 sp_var1;	// Multi-purpose attribute variable no.1.
-	u16 sp_var2;	// Multi-purpose attribute variable no.2.
-	u16 sp_var3;	// Multi-purpose attribute variable no.3.
+	u16 sp_var1;	// Multi-purpose attribute variable no.1. (i.e. sprite direction).
+	u16 sp_var2;	// Multi-purpose attribute variable no.2. (i.e. sprite hit points).
+	u16 sp_var3;	// Multi-purpose attribute variable no.3. (i.e. sprite power-up).
+	u16 sp_var4;	// Multi-purpose attribute variable no.4. (i.e. sprite misc. function ?).
 
 }Object;
 
@@ -67,26 +73,32 @@ typedef struct object
 // them in 4s so that any following 32 bit data sits aligned in the structure. Once your sure the compiler does padding auto-
 // matically you can ignore this.......
 
-// Enums are a good way of allocating numbers to things with a nice friendly tag.
-// So instead of having to remember what number type Reggie is we just use his name and the compiler equates that with
-// the number 4! Wheeeeeeeeeeeeeeeeeeeeeee.
-// We could miss the =1 off the first one if we wanted to start at 0 but we don't coz 0 indicates an empty slot.
+//---------------------------------------------------------------------------------------------------
 
-enum
+enum				// Enumerate all sprite control types.
 {
-	TYPE_SPRITEA=1,
-	TYPE_SPRITEB,
-	TYPE_SPRITEC,
-	TYPE_SPRITED,
+	TYPE_OFF,
+	TYPE_SPONGEBOB,
+	TYPE_MISC1,
+	TYPE_MISC2,
+	TYPE_MISC3,
 };
 
-// Now we got all our data definitions out of the way we should look at defining our functions so that other files that need
-// to call them know what they will expect to be given in terms of parameters etc.
-// I suppose I should have mentioned this earlier but any other file which needs to access stuff in the object system should
-// #include this file so it knows what it's dealing with.
+enum				// Enumerate all SpongeBob sprite control modes.
+{
+	MODE_STAND,
+	MODE_WALK,
+	MODE_RUN,
+	MODE_STANDJUMP,
+	MODE_STANDJUMPFALL,
+	MODE_STANDJUMPLAND,
+	MODE_RUNJUMP,
+	MODE_RUNJUMPFALL,
+	MODE_RUNJUMPLAND,
+	MODE_KARATE,
+};
 
-// I won't decribe what's going on that much here. If you want to see a description of the fucntions look at them in the main
-// file "objects.c" where the code really is............
+//---------------------------------------------------------------------------------------------------
 
 void ObjectInit(void);
 void ObjectClear(Object*);
@@ -100,10 +112,10 @@ void ObjectPut2(Object*);
 // Defines for Individual control routines. These are not included in the file objects.c but each has it's own file to make
 // the project less cluttered.
 
-void Sprite1Control(void);
-void Sprite2Control(void);
-void Sprite3Control(void);
-void Sprite4Control(void);
+void SpriteControl01(void);
+void SpriteControl02(void);
+void SpriteControl03(void);
+void SpriteControl04(void);
 
 // Some data needs to be accessed globally so we'll let everyone know what the score is with these variables.
 // Notice I put a little g_ at the beginning of the variable so that I can see it's a global.

@@ -9,6 +9,13 @@
 #define _SPRENG_DISPLAY_H
 
 /////////////////////////////////////////////////
+// Defines.
+/////////////////////////////////////////////////
+
+#define FlashTimer 300							// Global sprite flashing timer.
+#define FlashSpeed 10							// Global sprite flashing speed.
+
+/////////////////////////////////////////////////
 // Global Variables.
 /////////////////////////////////////////////////
 u8 gOAMOffset;									// Offset into OAM buffer when writing sprite attributes.
@@ -17,6 +24,7 @@ u8 gOAMOffset;									// Offset into OAM buffer when writing sprite attributes.
 // Global Functions.
 /////////////////////////////////////////////////
 extern void ObjectDisplay();
+extern void ObjectOff(Object*);
 
 #endif
 

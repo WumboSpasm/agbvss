@@ -28,16 +28,16 @@ void ObjectControl1()
 		switch(g_pObject->sp_type)		// Switch and case should optimise to a table so don't worry about the gayness.
 		{
 /*			case TYPE_SPRITEA:
-				Sprite1Control();
+				SpriteControl01();
 				break;
 			case TYPE_SPRITEB:
-				Sprite2Control();
+				SpriteControl02();
 				break;
 			case TYPE_SPRITEC:
-				Sprite3Control();
+				SpriteControl03();
 				break;
 			case TYPE_SPRITED:
-				Sprite4Control();
+				SpriteControl04();
 				break;
 */
 		}
@@ -66,17 +66,17 @@ void ObjectControl2()
 
 		switch(g_pObject->sp_type)		// Switch and case should optimise to a table so don't worry about the gayness.
 		{
-			case TYPE_SPRITEA:
-				Sprite1Control();
+			case TYPE_SPONGEBOB:
+				SpriteControl01();
 				break;
-			case TYPE_SPRITEB:
-				Sprite2Control();
+			case TYPE_MISC1:
+				SpriteControl02();
 				break;
-			case TYPE_SPRITEC:
-				Sprite3Control();
+			case TYPE_MISC2:
+				SpriteControl03();
 				break;
-			case TYPE_SPRITED:
-				Sprite4Control();
+			case TYPE_MISC3:
+				SpriteControl04();
 				break;
 		}
 		if(g_pObject->sp_type!=0)
@@ -133,7 +133,7 @@ void ObjectInit()
 
 void ObjectClear(Object* pAO)
 {
-	pAO->sp_type=0;
+	pAO->sp_type=TYPE_OFF;
 	pAO->sp_mode=0;
 
 	pAO->sp_xpos=0;
@@ -153,10 +153,11 @@ void ObjectClear(Object* pAO)
 	pAO->sp_aniframe=0;
 	pAO->sp_anispeed=0;
 	pAO->sp_anitimer=0;
-	pAO->sp_aniuser=0;
+	pAO->sp_aniuser=OFF;
 
-	pAO->sp_flash=0;
-	pAO->sp_mask=0;
+	pAO->sp_flash=OFF;
+	pAO->sp_delay=0;
+	pAO->sp_flshspd=0;
 
    	pAO->sp_affine=OAM_AFFINE_NONE;
    	pAO->sp_rotate=0;
@@ -171,6 +172,7 @@ void ObjectClear(Object* pAO)
 	pAO->sp_var1=0;
 	pAO->sp_var2=0;
 	pAO->sp_var3=0;
+	pAO->sp_var4=0;
 }
 
 //***************************************************************************************************

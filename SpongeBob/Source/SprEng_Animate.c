@@ -17,39 +17,43 @@
 
 //---------------------------------------------------------------------------------------------------
 
-// Animation tables.
+// Animation sequence tables.
 
-// Misc. animations.
-u8 const *Misc_Anim[]={&Patrick64_Char[0],(char*)((int)HOLD),};
-
-// SpongeBob animations.
+// SpongeBob animation sequences.
 u8 const *SB_Stand_Anim[]={&Stand_Char[0],(char*)((int)HOLD),};
 u8 const *SB_StandJump_Anim[]={&StandJump1_Char[0],&StandJump2_Char[0],&StandJump3_Char[0],(char*)((int)HOLD),};
-u8 const *SB_Walk_Anim[]={&Walk1_Char[0],&Walk2_Char[0],&Walk3_Char[0],&Walk4_Char[0],&Walk5_Char[0],&Walk6_Char[0],&Walk6_Char[0],&Walk8_Char[0],&Walk9_Char[0],(char*)((int)LOOP),};
+u8 const *SB_StandJumpLand_Anim[]={&StandJump3_Char[0],&StandJump2_Char[0],&StandJump1_Char[0],(char*)((int)HOLD),};
+u8 const *SB_Walk_Anim[]={&Walk1_Char[0],&Walk2_Char[0],&Walk3_Char[0],&Walk4_Char[0],&Walk5_Char[0],&Walk6_Char[0],&Walk7_Char[0],&Walk8_Char[0],&Walk9_Char[0],(char*)((int)LOOP),};
 u8 const *SB_Run_Anim[]={&Run1_Char[0],&Run2_Char[0],&Run3_Char[0],&Run4_Char[0],&Run5_Char[0],&Run6_Char[0],&Run7_Char[0],&Run8_Char[0],&Run9_Char[0],&Run10_Char[0],&Run11_Char[0],&Run12_Char[0],&Run13_Char[0],&Run14_Char[0],&Run15_Char[0],&Run16_Char[0],(char*)((int)LOOP),};
 u8 const *SB_RunTurn_Anim[]={&RunTurn1_Char[0],&RunTurn2_Char[0],&RunTurn3_Char[0],&RunTurn4_Char[0],&RunTurn5_Char[0],&RunTurn6_Char[0],&RunTurn7_Char[0],&RunTurn8_Char[0],&RunTurn9_Char[0],(char*)((int)HOLD),};
 u8 const *SB_RunJump_Anim[]={&RunJump1_Char[0],&RunJump2_Char[0],&RunJump3_Char[0],(char*)((int)HOLD),};
+u8 const *SB_RunJumpLand_Anim[]={&RunJump1_Char[0],&RunJump2_Char[0],&RunJump3_Char[0],(char*)((int)HOLD),};
 u8 const *SB_JumpTop_Anim[]={&JumpTop_Char[0],(char*)((int)HOLD),};
 u8 const *SB_ButtBounce_Anim[]={&ButtBounce1_Char[0],&ButtBounce2_Char[0],&ButtBounce3_Char[0],&ButtBounce4_Char[0],&ButtBounce5_Char[0],(char*)((int)HOLD),};
-u8 const *SB_Karate_Anim[]={&Karate1_Char[0],&Karate2_Char[0],&Karate3_Char[0],&Karate4_Char[0],(char*)((int)HOLD),};
+u8 const *SB_Karate_Anim[]={&Karate1_Char[0],&Karate2_Char[0],&Karate3_Char[0],&Karate4_Char[0],&Karate3_Char[0],&Karate2_Char[0],&Karate1_Char[0],(char*)((int)HOLD),};
+
+// Misc. animations sequences.
+u8 const *Misc_Anim[]={&Patrick64_Char[0],(char*)((int)HOLD),};
 
 //---------------------------------------------------------------------------------------------------
 
-// Animation lists.
+// Animation sequence list.
 
 u8 const **Anim_List[]=
 {
-	&Misc_Anim[0],					   	// Animation sequence number etc... 000.
-
-	&SB_Stand_Anim[0],	   			   	// 001.
-	&SB_StandJump_Anim[0], 			   	// 002.
+	&SB_Stand_Anim[0],					// 000 - Animation sequence number etc...
+	&SB_StandJump_Anim[0],			   	// 001.
+	&SB_StandJumpLand_Anim[0],		   	// 002.
 	&SB_Walk_Anim[0],	   			   	// 003.
 	&SB_Run_Anim[0],	   			   	// 004.
 	&SB_RunTurn_Anim[0],   			   	// 005.
 	&SB_RunJump_Anim[0],   			   	// 006.
-	&SB_JumpTop_Anim[0],   			   	// 007.
-	&SB_ButtBounce_Anim[0],			   	// 008.
-	&SB_Karate_Anim[0],	   			   	// 009.
+	&SB_RunJumpLand_Anim[0],		   	// 007.
+	&SB_JumpTop_Anim[0],   			   	// 008.
+	&SB_ButtBounce_Anim[0],			   	// 009.
+	&SB_Karate_Anim[0],	   			   	// 010.
+
+	&Misc_Anim[0],					   	// 013.
 };
 
 //***************************************************************************************************
@@ -85,6 +89,7 @@ void ObjectAnimate(Object* pAO)
 		case LOOP:
 			pAO->sp_aniframe=0;		// Loop to start of animation sequence ?.    			
 			break;
+
 		case HOLD:
 			pAO->sp_aniframe--;		// Hold last frame & trigger 'sp_aniuser' variable ?.    			
 			pAO->sp_aniuser=ON;		// Set 'sp_aniuser' variable.

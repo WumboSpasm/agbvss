@@ -15,25 +15,11 @@
 #include "SprEng_Display.h"
 #include "SineCos.h"
 
-/////////////////////////////////////////////////
-// Function Definitions.
-/////////////////////////////////////////////////
-static void ObjectCreateOAM(void);
-
 //***************************************************************************************************
 
-// Update sprites (display).
+// Update sprites (display) - (i.e. create actual sprite OAM buffer).
 
 void ObjectDisplay(void)
-{
-	ObjectCreateOAM();					 		// Create sprite OAM buffer.
-}
-
-//***************************************************************************************************
-
-// Create sprite OAM buffer.
-
-static void ObjectCreateOAM(void)
 {
     s16 pA,pB,pC,pD;									// Local rotation/scaling variables.
 	u8 OAMLoop;											// Local OAM update variables.
@@ -42,16 +28,15 @@ static void ObjectCreateOAM(void)
 	pAO=g_pObject;										// Get base address of object table.
 	gOAMOffset=0;										// Init. offset into OAM buffer.
 
-	*(vu16*)REG_MOSAIC=((u16)SpriteMosaic<<12)|((u16)SpriteMosaic<<8); // Set global sprite mosaic value.
+	*(vu16*)REG_MOSAIC=((u16)gSpriteMosaic<<12)|((u16)gSpriteMosaic<<8); // Set global sprite mosaic value.
 
 	for(OAMLoop=0;OAMLoop!=numUsedObjects;OAMLoop++) 	// Refresh and update the OAM buffer with all the sprite objects currently in use.
 	{
-		ObjectOAMBuffer[gOAMOffset+0]=(u16)((s32)(-pAO->sp_size)&0x00ff); // Reset current sprites screen position 'off screen'.
-		ObjectOAMBuffer[gOAMOffset+1]=(u16)((s32)(-pAO->sp_size)&0x01ff);
+		ObjectOff(pAO);									// Turn OFF sprite (reset sprite).
 
-		if(pAO->sp_type>0)								// Is sprite on ?.
+		if(pAO->sp_type!=TYPE_OFF)						// Is sprite on ?.
 		{
-			pAO->sp_screenX=pAO->sp_xpos-map_xpos; 		// Calculate sprite screen co-ords. from world co-ords.
+			pAO->sp_screenX=pAO->sp_xpos-map_xpos;		// Calculate sprite screen co-ords. from world co-ords.
 			pAO->sp_screenY=pAO->sp_ypos-map_ypos;
 
   			if((pAO->sp_screenX<=(0-pAO->sp_size)-8)||  // Check if sprite is off screen.
@@ -91,22 +76,31 @@ static void ObjectCreateOAM(void)
 				ObjectOAMBuffer[gOAMOffset+0]|=(u16)((s32)(pAO->sp_screenY)&0x00ff); // Set object screen position.
 				ObjectOAMBuffer[gOAMOffset+1]|=(u16)((s32)(pAO->sp_screenX)&0x01ff);
 
-				if(pAO->sp_flipX)					   	// Flip sprite in x-axis ?.
+				if(pAO->sp_flipX==ON)				   	// Flip sprite in x-axis ?.
 				{
 					ObjectOAMBuffer[gOAMOffset+1]|=OAM_H_FLIP>>16;
 				}
-				if(pAO->sp_flipY)					   	// Flip sprite in y-axis ?.
+				if(pAO->sp_flipY==ON)				   	// Flip sprite in y-axis ?.
 				{
 					ObjectOAMBuffer[gOAMOffset+1]|=OAM_V_FLIP>>16;
 				}
 
-				if(pAO->sp_mosaic)					   	// Use global sprite mosaic for this sprite ?.
+				if(pAO->sp_mosaic==ON)				   	// Use global sprite mosaic for this sprite ?.
 				{
 					ObjectOAMBuffer[gOAMOffset+0]|=OAM_MOS_ON;
 				}
 				else
 				{
 					ObjectOAMBuffer[gOAMOffset+1]|=OAM_MOS_OFF;
+				}
+
+				if(pAO->sp_flash==ON)		  		   	// Flash sprite ?.
+				{
+					pAO->sp_flshspd++;
+					if(pAO->sp_flshspd<FlashSpeed>>1) {ObjectOff(pAO);} // Turn OFF sprite ?.
+					if(pAO->sp_flshspd>=FlashSpeed) {pAO->sp_flshspd=0;}
+					pAO->sp_delay++;
+					if(pAO->sp_delay>FlashTimer) {pAO->sp_delay=0;pAO->sp_flshspd=0;pAO->sp_flash=0;} // Stop flashing sprite yet & reset flash flag & timers ?.
 				}
 
 				// Set scaling/rotation parameters.
@@ -133,3 +127,14 @@ static void ObjectCreateOAM(void)
 }
 
 //***************************************************************************************************
+
+// Turn OFF sprite.
+
+void ObjectOff(Object* pAO)
+{
+	ObjectOAMBuffer[gOAMOffset+0]=(u16)((s32)(-pAO->sp_size)&0x00ff); // Reset current sprites screen position 'off screen'.
+	ObjectOAMBuffer[gOAMOffset+1]=(u16)((s32)(-pAO->sp_size)&0x01ff);
+}
+
+ //***************************************************************************************************
+
