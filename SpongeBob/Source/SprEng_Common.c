@@ -50,6 +50,7 @@ void InitSprites(void)
 
 	ObjectInit();								// Init. sprite 'object control' engine.
 
+
 	pAO=ObjectGet2();							// Get a free sprite slot.
 	pAO->sp_type=TYPE_SPONGEBOB;				// Set sprite type.
 	pAO->sp_mode=MODE_STAND;					// Set sprite mode.
@@ -64,12 +65,34 @@ void InitSprites(void)
 	pAO->sp_rotate=0;							// Set sprite rotatation angle (0-256).
 	pAO->sp_flipX=OFF;							// Set sprite h-flip (ON/OFF) (must set 'sp_affine=OAM_AFFINE_NONE' above to work !!!).
 	pAO->sp_flipY=OFF;							// Set sprite v-flip (ON/OFF) (must set 'sp_affine=OAM_AFFINE_NONE' above to work !!!).
-	pAO->sp_scaleX=0x100;						// Set sprite scale-x size (100%).
-	pAO->sp_scaleY=0x100;						// Set sprite scale-y size (100%).
+	pAO->sp_scaleX=256;							// Set sprite scale-x size (100%).
+	pAO->sp_scaleY=256;							// Set sprite scale-y size (100%).
 	pAO->sp_mosaic=OFF;							// Set sprite global mosaic (ON/OFF).
 	pAO->sp_blend=OAM_OBJ_NORMAL;				// Set sprite alpha blend (OAM_OBJ_NORMAL/BLEND/WINDOW)
 	pAO->sp_priority=1;							// Set sprite priority (0/1/2/3) (relative to background).
 
+// Spongebob 32*32 sprite reduction test only (actually scaled 64*64 sprite data).
+
+/*	pAO=ObjectGet2();							// Get a free sprite slot.
+	pAO->sp_type=TYPE_SPONGEBOB;				// Set sprite type.
+	pAO->sp_mode=MODE_STAND;					// Set sprite mode.
+	pAO->sp_xpos=4*8; 							// Set sprite world map x-position.
+	pAO->sp_ypos=(11*8)-1;	 					// Set sprite world map y-position.
+	pAO->sp_xsize=64;							// Set sprite size in x (8/16/32/64).
+	pAO->sp_ysize=64;							// Set sprite size in y (8/16/32/64).
+	pAO->sp_aninum=0;							// Set sprite animation sequence number.
+	pAO->sp_anispeed=3;							// Set sprite default animation speed.
+	pAO->sp_flash=OFF;							// Set sprite flash mode.
+	pAO->sp_affine=OAM_AFFINE_NORMAL; 			// Set sprite affine (OAM_AFFINE_NONE/NORMAL/TWICE/ERASE).
+	pAO->sp_rotate=0;							// Set sprite rotatation angle (0-256).
+	pAO->sp_flipX=OFF;							// Set sprite h-flip (ON/OFF) (must set 'sp_affine=OAM_AFFINE_NONE' above to work !!!).
+	pAO->sp_flipY=OFF;							// Set sprite v-flip (ON/OFF) (must set 'sp_affine=OAM_AFFINE_NONE' above to work !!!).
+	pAO->sp_scaleX=256-64;						// Set sprite scale-x size (100%).
+	pAO->sp_scaleY=256-64;						// Set sprite scale-y size (100%).
+	pAO->sp_mosaic=OFF;							// Set sprite global mosaic (ON/OFF).
+	pAO->sp_blend=OAM_OBJ_NORMAL;				// Set sprite alpha blend (OAM_OBJ_NORMAL/BLEND/WINDOW)
+	pAO->sp_priority=1;							// Set sprite priority (0/1/2/3) (relative to background).
+*/
 	pAO=ObjectGet2();							// Get a free sprite slot.
 	pAO->sp_type=TYPE_MISC1;					// Set sprite type.
 	pAO->sp_mode=0;								// Set sprite mode.
@@ -84,8 +107,8 @@ void InitSprites(void)
 	pAO->sp_rotate=0;							// Set sprite rotatation angle (0-256).
 	pAO->sp_flipX=OFF;							// Set sprite h-flip (ON/OFF) (must set 'sp_affine=OAM_AFFINE_NONE' above to work !!!).
 	pAO->sp_flipY=OFF;							// Set sprite v-flip (ON/OFF) (must set 'sp_affine=OAM_AFFINE_NONE' above to work !!!).
-	pAO->sp_scaleX=0x100;						// Set sprite scale-x size (100%).
-	pAO->sp_scaleY=0x100;						// Set sprite scale-y size (100%).
+	pAO->sp_scaleX=256;							// Set sprite scale-x size (100%).
+	pAO->sp_scaleY=256;							// Set sprite scale-y size (100%).
 	pAO->sp_mosaic=OFF;							// Set sprite global mosaic (ON/OFF).
 	pAO->sp_blend=OAM_OBJ_NORMAL;				// Set sprite alpha blend (OAM_OBJ_NORMAL/BLEND/WINDOW)
 	pAO->sp_priority=1;							// Set sprite priority (0/1/2/3) (relative to background).
@@ -104,8 +127,8 @@ void InitSprites(void)
 	pAO->sp_rotate=0;							// Set sprite rotatation angle (0-256).
 	pAO->sp_flipX=OFF;							// Set sprite h-flip (ON/OFF) (must set 'sp_affine=OAM_AFFINE_NONE' above to work !!!).
 	pAO->sp_flipY=OFF;							// Set sprite v-flip (ON/OFF) (must set 'sp_affine=OAM_AFFINE_NONE' above to work !!!).
-	pAO->sp_scaleX=0x200;						// Set sprite scale-x size (100%).
-	pAO->sp_scaleY=0x200;						// Set sprite scale-y size (100%).
+	pAO->sp_scaleX=256*2;						// Set sprite scale-x size (100%).
+	pAO->sp_scaleY=256*2;						// Set sprite scale-y size (100%).
 	pAO->sp_mosaic=OFF;							// Set sprite global mosaic (ON/OFF).
 	pAO->sp_blend=OAM_OBJ_BLEND;				// Set sprite alpha blend (OAM_OBJ_NORMAL/BLEND/WINDOW)
 	pAO->sp_priority=1;	
