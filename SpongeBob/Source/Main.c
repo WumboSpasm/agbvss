@@ -26,13 +26,14 @@ GameState gGameState;	// Beaner's gamestate variable.
 /////////////////////////////////////////////////
 // Function Definitions.
 /////////////////////////////////////////////////
+static void ClearAll(void);
 static void VBlankIntr(void);
 extern void KeyRead(void);
 
 /////////////////////////////////////////////////
 // Global Functions.
 /////////////////////////////////////////////////
-const IntrFuncp IntrTable[15]=
+const IntrFuncp IntrTable[14]=
 {
     VBlankIntr,			// V Blank interrupt.
     IntrDummy,			// H Blank interrupt.
@@ -119,9 +120,9 @@ void AgbMain(void)
 
 //***************************************************************************************************
 
-// Clears all Ram/VRam/Palette information.
+// Clears all RAM/VRAM/Palette information.
 
-void ClearAll(void)
+static void ClearAll(void)
 {
 	DmaClear(3,0,EX_WRAM, EX_WRAM_SIZE,       32);	// CPU external Work RAM clear.
 	DmaClear(3,0,CPU_WRAM,CPU_WRAM_SIZE-0x200,32);	// CPU internal Work RAM clear.
@@ -134,8 +135,6 @@ void ClearAll(void)
 
 // Wait for vertical blanking period.
 
-// @ge says - LEAVE THIS ALONE PLEASE AS I HAVE FULLY TESTED IT AND IT WORKS OK !!!.
-
 void WaitVBlank(void)
 {
 	while(!IntrCheck==V_BLANK_INTR_FLAG);			// Wait for VBL interupt.
@@ -147,11 +146,9 @@ void WaitVBlank(void)
 
 // VBL interupt vector (Call music driver from inside here l8r).
 
-// @ge says - LEAVE THIS ALONE PLEASE AS I HAVE FULLY TESTED IT AND IT WORKS OK !!!.
-
 static void VBlankIntr(void)
 {
-	IntrCheck=V_BLANK_INTR_FLAG;					// Set V blank interrupt check flag.
+	IntrCheck=V_BLANK_INTR_FLAG;					// Set VBL interrupt check flag.
 }
 
 //***************************************************************************************************
@@ -169,8 +166,8 @@ void IntrDummy(void)
 void ReadJoypad(void)
 {
 	u16 ReadData=(*(vu16*)REG_KEYINPUT^0xffff);
-	gKeyTap = ReadData & (ReadData ^ gKeyInput);	// Key Pressed
-	gKeyInput = ReadData;							// Key Held
+	gKeyTap=ReadData&(ReadData^gKeyInput);			// Key pressed.
+	gKeyInput=ReadData;								// Key held.
 }
 
 //***************************************************************************************************

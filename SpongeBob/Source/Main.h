@@ -34,7 +34,6 @@ extern u32 gTimer;
 // external functions
 /////////////////////////////////////////////////
 extern void intr_main(void);
-extern void ClearAll(void);
 extern void WaitVBlank(void);
 extern void IntrDummy(void);
 extern void ReadJoypad(void);
