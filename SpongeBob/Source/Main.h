@@ -16,7 +16,11 @@ typedef struct
 	u8	mSFX_Volume;			// Global SFX Volume
 	u8	mMusic_Volume;			// Global Music Volume
 	u8  mController_Method;		// Controll Method 1 or 2
-	u8  mPad;
+	u8  mGameWorld;				// Which Level World are we in?
+	u8	mGameLevel;				// Which Sub-Level are we in?
+	u8	mSpatulaCount;			// how many spatulas have we found?
+	u8	mLives;					// how many lives left?
+	u8	mContinues;				// how many continues?
 }
 GameData;
 
@@ -40,7 +44,7 @@ extern GameState gGameState;
 extern u16 gKeyInput;
 extern u16 gKeyTap;
 extern u32 gTimer;
-extern GamedDta gGameData;
+extern GameData gGameData;
 
 /////////////////////////////////////////////////
 // external functions

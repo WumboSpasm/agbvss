@@ -70,6 +70,11 @@ void InitSystem(void)
 //	*(vu16*)REG_IE=IME_FLAG;					// Set IME
 	*(vu16*)REG_IE|=V_BLANK_INTR_FLAG;			// Set of V blank interrupt request flag
 	*(vu16*)REG_STAT=STAT_V_BLANK_IF_ENABLE;
+
+	//Init the games data as default
+	gGameData.mController_Method = 0;			// deafuilt controll method (A=Action B=Jump)
+	gGameData.mMusic_Volume = 100;				// full volume
+	gGameData.mSFX_Volume = 100;				// full volume
 }
 
 //***************************************************************************************************
