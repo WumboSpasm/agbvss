@@ -9,7 +9,6 @@
 
 #include "Includes.h"
 #include "Text_Sys.h"
-#include <stdio.h>
 
 // used for text on menus & ingame text (might need to use 2 different tile libs for this though due to transparency needed on menus)
 // we only have 96 tiles for characters and speech bubbles so they are gonna have to be used sparingly
