@@ -10,10 +10,10 @@ $(TARGET_ARC): $(.OFILES)
 	ar rcs $(TARGET_ARC) $(.OFILES)
 
 Title_Main_LZ.c: Title_Main.bmp
-	bmp2agb -bm -l 2 $<
+	bmp2agb -bm -l 8 $<
 
 Title_Main_2_LZ.c: Title_Main_2.bmp
-	bmp2agb -bm -l 2 $<
+	bmp2agb -bm -l 8 $<
 
 clean:
 	-rm $(TARGET_ARC) $(.OFILES) $(.CFILES)
