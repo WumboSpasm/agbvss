@@ -20,7 +20,6 @@
 #include "Titles.h"
 #include "TitlesData.h"
 #include "Text_Sys.h"
-#include "Plap.h"
 
 static u8 CurrentScreen;
 static u16 ScreenDelay;
