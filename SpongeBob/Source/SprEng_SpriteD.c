@@ -19,7 +19,7 @@ void Sprite4Control()
 
 	pAO=g_pObject;				// Get copy of global pointer instead of using it directly coz it's cozy.
 
-	pAO->sp_xpos+=1;			 // Add vels into the positions.
+//	pAO->sp_xpos+=1;			 // Add vels into the positions.
 }
 
 //***************************************************************************************************
