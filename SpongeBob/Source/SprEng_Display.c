@@ -144,11 +144,11 @@ void ObjectTest(void)
 	// Rotate with L & R.
 	if (gKeyInput&R_BUTTON)
 	{
-	    ObjectRotate=(++ObjectRotate)&0xff;
+	    ObjectRotate=(ObjectRotate+=4)&0xff;
 	}
 	if (gKeyInput&L_BUTTON)
 	{
-	    ObjectRotate=(ObjectRotate+0xff)&0xff;
+	    ObjectRotate=(ObjectRotate-=4)&0xff;
 	}
 
 	// Move sprite with limits test.
