@@ -10,7 +10,7 @@
 #include "Includes.h"							// general includes
 #include "Titles.h"								// main titles header
 #include "TitlesData.h"							// external graphic data needed
-#include "SineCos.h"							// sin/cos tables ^^^^^^^ they could be in here :o)
+#include "SineCos.h"							// sin/cos tables + general math instructions
 
 //------------prototype functions--------
 static void UpdateInput(void);					// read input and update gamestate accordingly
@@ -26,6 +26,7 @@ static title	Title;							// Title struct (lots of nice variables in here)
 //////////////////////////////
 void InitTitles(void)
 {
+	
 	//---set up varaibles
 	BGstats.mZoomX = 0x0100;							// no zoom to start with
 	BGstats.mZoomY = 0x0100;							// no zoom to start with
@@ -38,7 +39,10 @@ void InitTitles(void)
 
 	//---set up display
     *(vu16*)REG_DISPCNT = DISP_MODE_3 | DISP_OBJ_BG_ALL_ON;			// set machine into bg mode 3 (15-bit 1 frame 240x160)
-    DmaArrayCopy(3, Title_Main_RawBitmap, BG_BITMAP0_VRAM, 16);		// transfere initial background screen into vram
+//    DmaArrayCopy(3, Title_Main_RawBitmap, BG_BITMAP0_VRAM, 16);		// transfere initial background screen into vram
+
+
+	LZ77UnCompVram(Title_Main_RawBitmap_LZ, (void*)(int)BG_BITMAP0_VRAM);
 
 	//--initialise the GFX so it dont look odd
 	UpdateGFX();
@@ -59,81 +63,22 @@ static void UpdateInput(void)
 	switch(Title.mCurrent_Screen)
 	{
 	case 0:								// main screen (emun up maybe...)
-		if(gKeyInput&A_BUTTON)
+		if((gKeyTap&A_BUTTON)||(gKeyTap&START_BUTTON))
 		{
-			BGstats.mZoomX++;
-			BGstats.mZoomY++;
-			break;
-		}
-		if(gKeyInput&B_BUTTON)
-		{
-			BGstats.mZoomX--;
-			BGstats.mZoomY--;
-			break;
-		}
-		if(gKeyInput&L_BUTTON)
-		{
-			BGstats.mZoomX++;
-			BGstats.mZoomY--;
-			break;
-		}
-		if(gKeyInput&R_BUTTON)
-		{
-			BGstats.mZoomX--;
-			BGstats.mZoomY++;
-			break;
-		}
-		if(gKeyInput&SELECT_BUTTON)
-		{
-			BGstats.mZoomX = 0x100;							// no zoom to start with
-			BGstats.mZoomY = 0x100;							// no zoom to start with
-			BGstats.mBg2_center_x = 120;				// set center to middle of bitmap
-			BGstats.mBg2_center_y = 80;					// "ditto"
-			break;
-		}
-		if(gKeyTap&START_BUTTON)
-		{
-		    DmaArrayCopy(3, Title_Main_2_RawBitmap, BG_BITMAP0_VRAM, 16);		// transfere initial background screen into vram
+			LZ77UnCompVram(Title_Main_2_RawBitmap_LZ, (void*)(int)BG_BITMAP0_VRAM);
 			Title.mCurrent_Screen = 1;
 			break;
 		}
 		break;
 	case 1:
-		if(gKeyInput&U_KEY)
+		if((gKeyTap&START_BUTTON)||(gKeyTap&A_BUTTON))
 		{
-			BGstats.mBg2_center_y+=0x100;
-			break;
-		}
-		if(gKeyInput&D_KEY)
-		{
-			BGstats.mBg2_center_y-=0x100;
-		}
-		if(gKeyInput&L_KEY)
-		{
-			BGstats.mBg2_center_x-=0x100;
-			break;
-		}
-		if(gKeyInput&R_KEY)
-		{
-			BGstats.mBg2_center_x+=0x100;
-		}
-		if(gKeyInput&SELECT_BUTTON)
-		{
-			BGstats.mZoomX = 0x100;							// no zoom to start with
-			BGstats.mZoomY = 0x100;							// no zoom to start with
-			BGstats.mBg2_center_x = 120;				// set center to middle of bitmap
-			BGstats.mBg2_center_y = 80;					// "ditto"
-			Title.mCurrent_Screen = 0;
-		    DmaArrayCopy(3, Title_Main_RawBitmap, BG_BITMAP0_VRAM, 16);		// transfere initial background screen into vram
-			break;
-		}
-		if(gKeyTap&START_BUTTON)
-		{
-			ZoomBG(1,0x1000);
+			ZoomBG(0x0001,0x1000);
 			gGameState=e_IN_GAME;
 			InitGame();
 			break;
 		}
+		break;
 	default:							// not on a valid screen????
 		break;
 	};
@@ -148,7 +93,7 @@ static void ZoomBG(s16 speed,u16 distance)	//speed to zoom in and distance to zo
 		WaitVBlank();				// Wait 4 VBlank
 		UpdateGFX();				// update zoom factor
 		ReadJoypad();
-		BGstats.mZoomX += speed;	// zoom in (slowly hopefully)
+		BGstats.mZoomX += speed;	// zoom in x
 		BGstats.mZoomY += speed;	// zoom in y too...
 	}
 }
