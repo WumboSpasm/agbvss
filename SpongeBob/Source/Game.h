@@ -81,8 +81,10 @@ extern const u16 CHAPTER06_LEVEL05_TILEPALETTE[256];
 
 //---------------------------------------------------------------------------------------------------
 
-extern const u16 Sprite_Palette[256];				// Sprite palette data (shared 256 colours for all sprites).
+extern const u16 Sprite_Palette[256];		  	// Sprite palette data (shared 256 colours for all sprites).
 extern const s32 ExitCoords[MAXLEVELS];
+
+int PlatFlag;									// Moving platform collision flag.
 
 /////////////////////////////////////////////////
 // Global Functions
