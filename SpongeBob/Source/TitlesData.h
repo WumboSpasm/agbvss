@@ -9,7 +9,7 @@
 #define _TITLESDATA_H
 
 // hi-color single frame data
-extern u16 Title_Main_RawBitmap[240*160];
-extern u16 Title_Main_2_RawBitmap[240*160];
+extern u8 Title_Main_RawBitmap_LZ[0x5080];
+extern u8 Title_Main_2_RawBitmap_LZ[0x71c8];
 
 #endif
