@@ -105,10 +105,10 @@ void AgbMain(void)
 	        switch(gGameState)
 	        {
 	       	case e_IN_GAME:
-	       		InitGame();									// Init. main game.
+	       		MainGame();									// Init. main game.
 	       		break;
 		case e_TITLE_SCREEN:
-			InitTitles();
+			MainTitles();
 			break;
 		};
 	}
