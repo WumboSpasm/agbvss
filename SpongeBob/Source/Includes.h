@@ -21,7 +21,18 @@
 //sound
 #include "../Sound/out/m4aLib.h"
 
-#define SBP_CHAP1LEV2      (0)
+#define SBP_CHAP1LEV1		(0)
+#define SBP_CHAP1LEV2		(1)
+#define SBP_CHAP1LEV3		(2)
+#define SBP_CHAP1BOSS		(3)
+
+#define SBP_WALKSFX		(4)
+#define SBP_JUMPSFX		(5)
+#define SBP_BUTTSFX		(6)
+#define SBP_JELLYLAUNCHSFX	(7)
+#define SBP_KARATESWISHSFX	(8)
+#define SBP_KARATEHITSFX	(9)
+#define SBP_NETSWISHSFX		(10)
 
 extern SoundArea sound;
 extern MusicPlayerArea music;

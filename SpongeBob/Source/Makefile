@@ -53,8 +53,8 @@ $(TARGET_BIN): $(TARGET_ELF)
 	@objcopy -v -O binary $< $@
 
 $(TARGET_ELF): $(.OFILES) Makefile $(.AFILES) $(DEPENDFILE)
-	@echo > $(MAPFILE)
-	@$(CC) -g -o $@ $(.OFILES) -Wl,$(LDFLAGS)
+	echo > $(MAPFILE)
+	$(CC) -g -o $@ $(.OFILES) -Wl,$(LDFLAGS)
 
 .PHONY: all clean depend data
 
@@ -66,10 +66,10 @@ clean_data:
 	$(foreach .ADIR_TMP, $(dir $(.AFILES)), make -C $(.ADIR_TMP) clean;)
 
 depend:
-	@$(CC) $(CFLAGS) -M $(.CFILES) > $(DEPENDFILE)
+	$(CC) $(CFLAGS) -M $(.CFILES) > $(DEPENDFILE)
 
 $(DEPENDFILE):
-	@$(CC) $(CFLAGS) -M $(.CFILES) > $(DEPENDFILE)
+	$(CC) $(CFLAGS) -M $(.CFILES) > $(DEPENDFILE)
 
 .SUFFIXES: .s .c .o .a
 
