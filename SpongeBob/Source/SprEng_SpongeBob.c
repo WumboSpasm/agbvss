@@ -502,10 +502,10 @@ void SpriteControl01()
 
 	case MODE_FREEFLIGHT: 			// SpongeBob free flight test mode ?.
 
-		if(gKeyInput&U_KEY&&pAO->sp_ypos>0){pAO->sp_ypos-=4;}
-		if(gKeyInput&D_KEY&&pAO->sp_ypos<map_y_size_pixels-pAO->sp_ysize){pAO->sp_ypos+=4;}
-		if(gKeyInput&L_KEY&&pAO->sp_xpos>0){pAO->sp_xpos-=4;}
-		if(gKeyInput&R_KEY&&pAO->sp_xpos<map_x_size_pixels-pAO->sp_xsize){pAO->sp_xpos+=4;}
+		if(gKeyInput&U_KEY&&pAO->sp_ypos>0){pAO->sp_ypos-=2;}
+		if(gKeyInput&D_KEY&&pAO->sp_ypos<map_y_size_pixels-pAO->sp_ysize){pAO->sp_ypos+=2;}
+		if(gKeyInput&L_KEY&&pAO->sp_xpos>0){pAO->sp_xpos-=2;}
+		if(gKeyInput&R_KEY&&pAO->sp_xpos<map_x_size_pixels-pAO->sp_xsize){pAO->sp_xpos+=2;}
 
 		break;
 

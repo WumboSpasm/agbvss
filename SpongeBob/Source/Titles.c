@@ -607,7 +607,7 @@ static void CheckPassword(void)
 {
         if(Password_Buffer[0]==0x06&&Password_Buffer[1]==0x01&&Password_Buffer[2]==0x01&&Password_Buffer[3]==0x04&&Password_Buffer[4]==0x08&&Password_Buffer[5]==0x06)
         {
-                Level = LEVEL020401;
+                Level = 1;
         	InitGame();
         	gGameState = e_IN_GAME;
         }
