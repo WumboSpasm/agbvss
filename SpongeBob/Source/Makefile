@@ -14,8 +14,9 @@ include $(SOUND_DIR)Soundfiles
 		SprEng_Display.c \
 		SprEng_Common.c \
 		SprEng_SpongeBob.c \
+                SprEng_NPC.c \
 		SprEng_Platforms.c \
-		SprEng_Patrick.c \
+		SprEng_Monsters.c \
 		Sinecos.c \
 		Contours.c \
 		Text_Sys.c \
@@ -26,9 +27,11 @@ include $(SOUND_DIR)Soundfiles
 .OFILES	=	$(.SFILES:.s=.o) $(.CFILES:.c=.o) $(SOUND_FILES)
 
 .AFILES =	../data/Titles/libTitlesGFX.a \
-       		../data/Maps/libMaps.a \
+                ../data/Maps/libMaps.a \
 		../data/Sprites/SpongeBob/libSpongeBob_Sprs.a \
-		../data/Sprites/Misc/libMisc_Sprs.a
+                ../data/Sprites/NPC/libNPC_Sprs.a \
+		../data/Sprites/Platforms/libPlatforms_Sprs.a \
+		../data/Sprites/Monsters/libMonsters_Sprs.a
 
 ASFLAGS	=	-I$(AGBDIR)/include -mthumb-interwork
 
@@ -41,13 +44,15 @@ LDFLAGS	 +=	-Map $(MAPFILE) -nostartfiles \
                 -L../data/Titles/ -lTitlesGFX \
                 -L../data/Maps/ -lMaps \
                 -L../data/Sprites/SpongeBob/ -lSpongeBob_Sprs \
-                -L../data/Sprites/Misc/ -lMisc_Sprs \
-		-Tlnkscript
+                -L../data/Sprites/NPC/ -lNPC_Sprs \
+                -L../data/Sprites/Platforms/ -lPlatforms_Sprs \
+                -L../data/Sprites/Monsters/ -lMonsters_Sprs \
+                -Tlnkscript
 
 DEPENDFILE	=Makedepend
 MAPFILE         =SBSPants.map
-TARGET_ELF      =SBSPants_release.elf
-TARGET_BIN      =SBSPants_release.bin
+TARGET_ELF      =SBSPants_Release.elf
+TARGET_BIN      =SBSPants_Release.bin
 
 $(TARGET_BIN): $(TARGET_ELF)
 	@objcopy -v -O binary $< $@
