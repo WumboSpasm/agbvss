@@ -52,7 +52,7 @@ void MainGame(void)
 	ObjectDisplay();							// Update sprites (display).
 #ifdef BEANER
 	// IM NOT SUPPOSED TO BE HERE
-	PutTextBox(2,2,6,4,MENU);
+	PutTextBox(2,2,17,6,GAMENAME);
 	//--
 #endif
 	UpdateScroll();								// Update scroll.
