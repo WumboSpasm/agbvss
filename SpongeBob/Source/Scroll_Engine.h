@@ -52,6 +52,7 @@ extern u16 Level1_Action_MapHeight;
 extern u16 Level1_Action_Map[];			// Action layer map in ROM.
 extern u16 Level1_Collision_Map[];		// Collsion layer map in ROM (make data 'u8' later).
 extern u8 Level1_Tiles[];				// Tile library in ROM.
+extern u8 libFontGame_Char[8*8*96];		// tile lib
 
 void SetBgTextControl(vu16 *reg,u16 priority,u16 screen_size,u16 color_mode,u16 mosaic,u16 screenblock,u16 char_base);
 //void SetBgRotationControl(vu16 *reg,u16 priority,u16 screen_size,u16 color_mode,u16 mosaic,u16 screenblock,u16 char_base,u16 area_over);
