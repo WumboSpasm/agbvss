@@ -8,9 +8,7 @@
 #ifndef _SPRENG_CONTROL_H
 #define _SPRENG_CONTROL_H
 
-// Define how many slots we want. Capital letters is standard for a define like this.
-
-#define	NUMOBJECTS 100 // Called sp_numobjs in the original.
+#define	NUMOBJECTS 100 // Define how many 'virtual' sprite slots we want.
 
 // We don't need to convert the variable sp_tabwidth because that was only used for accessing the objects.
 // Because we are about to define each object as a structure we can perform access by using just the object number
@@ -20,34 +18,36 @@
 
 typedef struct object
 {
+	u32 sp_type;	// Object's primary control routine.
+	u32 sp_mode;	// Object's secondary control routine.
+	u32 sp_tag;     // Used as a reference as to which slot in the object_table this is if non-linear accessing.
+	u32 sp_utag;	// Keeps a record of where this object's insertion point is in the active object tag list.
+
 	s32	sp_xpos;	// 32-bit world x-axis co-ordinate.
 	s32 sp_ypos;	// 32-bit world y-axis co-ordinate.
 	s32 sp_xvel;	// 32-bit x-axis velocity.
 	s32 sp_yvel;	// 32-bit y-axis velocity.
 
+	s32 sp_screenX;	// Sprite screen position & affine scale-x offset adjustment.
+	s32 sp_screenY;	// Sprite screen position & affine scale-y offset adjustment.
+
 	u16 sp_size;	// Sprite size in both x & y (i.e. square).
-	u16 sp_xbox;	// Sprite collision box size offset in x.
-	u16 sp_ybox;	// Sprite collision box size offset in y.
+	u16 sp_xbox;	// Sprite collision box displacment in x.
+	u16 sp_ybox;	// Sprite collision box displacment in y.
 	u16 sp_spare;	// Spare padding attribute.
 
-	u32 sp_frame;	// Object's sprite frame number.
-	u32 sp_type;	// Object's primary control routine.
-	u32 sp_mode;	// Object's secondary control routine.
-	u32 sp_tag;     // Used as a reference as to which slot in the object_table this is if non-linear accessing.
-	u32 sp_utag;	// Keeps a record of where this object's insertion point is in the active object tag list.
-	u32 sp_aninum;	// Current animation sequence number.
-	u32 sp_aniidx;	// Current sequence index value.
-	u32 sp_anidur;	// Timer for frame duration.
-	s8  sp_aniusr;	// User byte for special anim info.
-	s8  sp_anirep;	// Loop repetition counter.
+	u16 sp_aninum;	// Current animation sequence number.
+	u16 sp_aniframe;// Object's sprite frame number.
+	u16 sp_anispeed;// Animation loop repetition speed.
+	u16 sp_anitimer;// Timer for animation frame duration.
+	u16 sp_aniuser;	// General purpose variable (used for example to denote HOLD frame in animation sequence).
+	u16 sp_anispare;// Spare padding attribute.
 
 	s8  sp_flash;	// Sprite intermitant display control.
 	s8  sp_mask;	// Sprite mask display control.
 
     u16 sp_affine;	// GBA sprite rotate size/double size h/w feature.
     u16 sp_rotate;	// GBA sprite rotatation angle h/w feature.
-	s16 sp_startX;	// Affine scale-x offset adjustment.
-	s16 sp_startY;	// Affine scale-y offset adjustment.
 	u16 sp_flipX;	// GBA sprite h-flip h/w feature.
 	u16 sp_flipY;	// GBA sprite v-flip h/w feature.
     u16 sp_scaleX;	// GBA sprite scale-x h/w feature.
@@ -56,9 +56,9 @@ typedef struct object
 	u16 sp_blend;	// GBA sprite alpha blend h/w feature.
 	u16 sp_priority;// GBA sprite priority (relative to background) h/w feature.
 
-	u16 sp_var1;	// Multi-purpose variable no.1.
-	u16 sp_var2;	// Multi-purpose variable no.2.
-	u16 sp_var3;	// Multi-purpose variable no.3.
+	u16 sp_var1;	// Multi-purpose attribute variable no.1.
+	u16 sp_var2;	// Multi-purpose attribute variable no.2.
+	u16 sp_var3;	// Multi-purpose attribute variable no.3.
 
 }Object;
 
@@ -89,6 +89,7 @@ enum
 // file "objects.c" where the code really is............
 
 void ObjectInit(void);
+void ObjectClear(Object*);
 void ObjectControl1(void);
 void ObjectControl2(void);
 Object* ObjectGet1(void);
