@@ -15,7 +15,7 @@
 
 //------------prototype functions--------
 static void UpdateInput(void);					// read input and update gamestate accordingly
-static u16 ZoomBGIn(u16 random);						// random fade/wipe/zoom routine (i return what zoom i did so store me somewhere safe)
+static u16 ZoomBGIn(u16 random);				// random fade/wipe/zoom routine (i return what zoom i did so store me somewhere safe)
 static void ZoomBGOut(u16 prev);				// do approapriate return (I need to know what the last zoom was so pass it in with prev)
 static void UpdateGFX(void);					// update display based on current state
 
@@ -40,12 +40,14 @@ void InitTitles(void)
 	Title.mCurrent_Selection = 0;				// currently no selection
 	Title.mMax_Selections = 0;					// there are no selections on this screen so set this to zero
 
+	gTimer = 0;									// reset timer used to decide the random number bit
+
 	//---set up display
     *(vu16*)REG_DISPCNT = DISP_MODE_3 | DISP_OBJ_BG_ALL_ON;			// set machine into bg mode 3 (15-bit 1 frame 240x160)
 //    DmaArrayCopy(3, Title_Main_RawBitmap, BG_BITMAP0_VRAM, 16);		// transfere initial background screen into vram
 
 
-	LZ77UnCompVram(Title_Main_RawBitmap_LZ, (void*)(int)BG_BITMAP0_VRAM);
+	LZ77UnCompVram(Title_Main_RawBitmap_LZ, (void*)BG_BITMAP0_VRAM);
 
 	//--initialise the GFX so it dont look odd
 	UpdateGFX();
@@ -57,20 +59,22 @@ void MainTitles(void)
 		UpdateGFX();								// Update GFX data
 		ReadJoypad();								// Read joypad.
 		UpdateInput();								// Take Key Input and work out what needs to be done from here
+		gTimer++;									// Increment Timer
 }
 
 
 //---------read input and update accordingly----
 static void UpdateInput(void)
 {
-	u16 tmp;
+	u32 tmp;
 	switch(Title.mCurrent_Screen)
 	{
 	case 0:								// main screen (emun up maybe...)
 		if((gKeyTap&A_BUTTON)||(gKeyTap&START_BUTTON))
 		{
-			tmp = ZoomBGIn(3);
-			LZ77UnCompVram(Title_Main_2_RawBitmap_LZ, (void*)(int)BG_BITMAP0_VRAM);
+			InitRand(gTimer);
+			tmp = ZoomBGIn(255);
+			LZ77UnCompVram(Title_Main_2_RawBitmap_LZ, (void*)BG_BITMAP0_VRAM);
 			ZoomBGOut(tmp);
 			Title.mCurrent_Screen = 1;
 			break;
@@ -260,8 +264,8 @@ static void UpdateGFX(void)
     *(vu16*)REG_BG2PC = (u16)BGstats.mBg2pc;
     *(vu16*)REG_BG2PD = (u16)BGstats.mBg2pd;
 
-    *(vu16*)REG_BG2X_L = (BGstats.mBg2x & 0xffff);
+    *(vu16*)REG_BG2X_L = (u16)(BGstats.mBg2x & 0xffff);
     *(vu16*)REG_BG2X_H = (u16)(u32)((BGstats.mBg2x & 0x0fff0000)>>16);
-    *(vu16*)REG_BG2Y_L = (BGstats.mBg2y & 0xffff);
+    *(vu16*)REG_BG2Y_L = (u16)(BGstats.mBg2y & 0xffff);
     *(vu16*)REG_BG2Y_H = (u16)(u32)((BGstats.mBg2y & 0x0fff0000)>>16);
 }
