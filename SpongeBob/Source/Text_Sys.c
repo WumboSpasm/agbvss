@@ -2,7 +2,7 @@
 // Project:		SpongeBob Squarepants GBA.
 // Source:		Text System (Source)
 // Author:		RCA Duff.
-// (C) 2000/1:	Climax.
+// (C) 200/1:	Climax.
 //***************************************************************************************************
 
 #define _TEXT_SYS_C
@@ -57,7 +57,7 @@ u8 DEBUGBUFFER[];       // buffer to output debug text..(debug only!)
 
 //------------------------------------------------------------------------------------------------------
 // tilenumbers go from 32 - 127 (bubbles too & character heads)
-// 0 is BLANK
+// 127 is BLANK
 // then use 32 to 40 for bubbles
 // that leaves 41-127 for text characters & other bits!!!! (87)
 // 40 is a white space!!! (also used for UNUSEABLE CHARACTERS!!!)
@@ -414,7 +414,7 @@ void ClearTextLayer(void)
 	{
 		for(y=0;y<20;y++)
 		{
-			ScreenDat[(y*32)+x]=0;
+			ScreenDat[(y*32)+x]=127;
 		}
 	}
 }
