@@ -18,7 +18,13 @@ void UpdateInput(void)
 	switch(gGameState)
 	{
 	case e_TITLE_SCREEN:
-		if(gKeyTap&A_BUTTON){InitGame();gGameState=e_IN_GAME;};
+		if(gKeyTap&A_BUTTON)
+		{
+			InitGame();
+			gGameState=e_IN_GAME;
+		};
+		break;
+	default:
 		break;
 	};
 }
@@ -32,7 +38,7 @@ void MainTitles(void)
 {
 	WaitVBlank();								// Wait 4 VBL.
 	ReadJoypad();								// Read joypad.
-//	UpdateInput();
+	UpdateInput();
 }
 
 void InitTitlesBack(void)
