@@ -99,7 +99,7 @@ void InitSystem(void)
 	gGameParams.mMusicVolume=100;				// Full volume.
 	gGameParams.mSFXVolume=70;					// Full volume.
 
-	Level=1;							// Set default start level.	
+	Level=1;									// Set default start level.	
 	Spatualas=0; 								// Set default spatualas found.
 	Lives=3;					 				// Set default lives.
 	Continues=1;								// Set default continues.

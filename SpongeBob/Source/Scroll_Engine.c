@@ -1180,7 +1180,6 @@ void InitScroll()
 //			pTiles			=CHAPTER06_LEVEL02_TILEBANK;
 //			break;
 
-
 // Level 3 & Sub-Levels.
 
 		case LEVEL060301:
@@ -1251,8 +1250,7 @@ void InitScroll()
 //			pAction_Map		=CHAPTER06_LEVEL0404_ACTION;
 //			pCollision_Map		=CHAPTER06_LEVEL0404_COLLISION;
 //			pTiles			=CHAPTER06_LEVEL04_TILEBANK;
-			break;
-
+//			break;
 
 //---------------------------------------------------------------------------------------------------
 

@@ -9,6 +9,12 @@
 #define _GAME_H
 
 /////////////////////////////////////////////////
+// Defines.
+/////////////////////////////////////////////////
+
+#define MAXLEVELS 95*4							// Max levels in game.
+
+/////////////////////////////////////////////////
 // Global Variables.
 /////////////////////////////////////////////////
 
@@ -75,6 +81,7 @@ extern const u16 CHAPTER06_LEVEL03_TILEPALETTE[256];
 //---------------------------------------------------------------------------------------------------
 
 extern const u16 Stand_Palette[256];			// Sprite palette data (shared 256 colours for all sprites).
+extern const s32 ExitCoords[MAXLEVELS];
 
 /////////////////////////////////////////////////
 // Global Functions
@@ -83,6 +90,12 @@ extern const u16 Stand_Palette[256];			// Sprite palette data (shared 256 colour
 extern void InitGame(void);
 extern void MainGame(void);
 extern void InitPalettes(void);
+
+/////////////////////////////////////////////////
+// Functions.
+/////////////////////////////////////////////////
+
+extern void CheckExit(void);
 
 #endif
 
