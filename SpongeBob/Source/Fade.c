@@ -121,8 +121,8 @@ void NextMenuSetUp(void)
                 	DmaArrayCopy(3,ScreenDat,TEXT_SCREEN,16);
                 	break;
                 case eTitle_Screen:
-        		InitHub();
-        		gGameState = e_HUB_SCREEN;
+	       		InitGame();
+	       		gGameState = e_IN_GAME;
                         break;
                 case ePassword_Menu:
                 	ClearTextLayer();
