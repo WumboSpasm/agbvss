@@ -224,25 +224,19 @@ static void UpdateInput(void)
 	case ePassword_Menu:
 	        if (gKeyTap&A_BUTTON)
 	        {
-	                Password_Buffer[Title.mCurrent_PasswordPlace]=Title.mCurrent_Selection;
-	                Title.mCurrent_PasswordPlace++;
-	                if(Title.mCurrent_PasswordPlace==6)
-	                {
-	                        CheckPassword();
-        	                Title.mCurrent_PasswordPlace--;
-	                }
+                        CheckPassword();
 	        }
 	        if(gKeyTap&START_BUTTON)
 	        {
 	                CheckPassword();
 	        }
-	        if ((gKeyTap&L_KEY)&&(Title.mCurrent_PasswordPlace>0))
+	        if ((gKeyTap&L_KEY)&&(temp>0))
 	        {
-	                Title.mCurrent_PasswordPlace--;
+	                temp--;
 	        }
-	        if ((gKeyTap&R_KEY)&&(Title.mCurrent_PasswordPlace<5))
+	        if ((gKeyTap&R_KEY)&&(temp<23))
 	        {
-	                Title.mCurrent_PasswordPlace++;
+	                temp++;
 	        }
 		if ((gKeyTap&B_BUTTON))			// Cancel Back To Previous Option
 		{
