@@ -14,8 +14,8 @@
 /////////////////////////////////////////////////
 // Local Variables.
 /////////////////////////////////////////////////
-IntrFuncp IntrTable[15];
 u16	gKeyInput;
+u16	gKeyTap;
 u32	gTimer;
 u32	IntrMainBuf[0x200];	// Buffer for interrupt main routine.
 vu16 IntrCheck;			// Interrupt check.
@@ -30,7 +30,7 @@ extern void KeyRead(void);
 /////////////////////////////////////////////////
 // Global Functions.
 /////////////////////////////////////////////////
-const IntrFuncp IntrTable_0[14]=
+const IntrFuncp IntrTable[15]=
 {
     VBlankIntr,			// V Blank interrupt.
     IntrDummy,			// H Blank interrupt.
@@ -54,9 +54,6 @@ const IntrFuncp IntrTable_0[14]=
 
 void InitSystem(void)
 {
-	s16	i;
-
-	for(i=0;i<15;i++)IntrTable[i]=IntrTable_0[i];
 	DmaCopy(3,intr_main,IntrMainBuf,sizeof(IntrMainBuf),16); // Set off interrupt main routine.
 	IntrAddrSet(IntrMainBuf);
 
@@ -80,7 +77,7 @@ void AgbMain(void)
 	ClearAll();	  								// The first initialization of the system.
 	InitSystem();
 
-//	gGameState=NULL;
+	gGameState=IN_GAME;
 
 	InitGame();									// Init. main game.
 
@@ -144,7 +141,8 @@ void IntrDummy(void)
 void ReadJoypad(void)
 {
 	u16 ReadData=(*(vu16*)REG_KEYINPUT^0xffff);
-	gKeyInput=ReadData;								// Beta input.
+	gKeyTap = ReadData & (ReadData ^ gKeyInput);	// Key Pressed
+	gKeyInput = ReadData;							// Key Held
 }
 
 //***************************************************************************************************

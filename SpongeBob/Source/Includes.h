@@ -13,13 +13,13 @@
 #include "Main.h"
 #include "Game.h"
 
-#include "Scroll_Engine.h"
+//#include "Scroll_Engine.h"
 
-#include "SprEng_Control.h"
-#include "SprEng_Display.h"
-#include "SprEng_Common.h"
+//#include "SprEng_Control.h"
+//#include "SprEng_Display.h"
+//#include "SprEng_Common.h"
 
-#include "Sinecos.h"
+//#include "Sinecos.h"
 
 #endif
 

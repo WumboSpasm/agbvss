@@ -5,13 +5,12 @@
 // (C) 2000/1:	Climax.
 //***************************************************************************************************
 
+#ifndef _MAIN_H
+#define _MAIN_H
+
 /////////////////////////////////////////////////
 //structs
 /////////////////////////////////////////////////
-enum
-{
-	PLAPNULL,
-};
 typedef void (*IntrFuncp)(void);
 
 enum
@@ -26,8 +25,8 @@ typedef u16 GameState;
 // Global Variables
 /////////////////////////////////////////////////
 extern GameState gGameState;
-extern IntrFuncp IntrTable[15];
 extern u16 gKeyInput;
+extern u16 gKeyTap;
 extern u32 gTimer;
 
 /////////////////////////////////////////////////
@@ -40,3 +39,5 @@ extern void IntrDummy(void);
 extern void ReadJoypad(void);
 
 //***************************************************************************************************
+
+#endif
