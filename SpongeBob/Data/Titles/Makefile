@@ -1,8 +1,10 @@
-.BMPFILES = Title_Main.bmp Title_Main_2.bmp
-.CFILES = Title_Main_LZ.c Title_Main_2_LZ.c
-.OFILES = Title_Main_LZ.o Title_Main_2_LZ.o
+.BMPFILES = Title_Main.bmp Start_Menu.bmp Main_Menu.bmp
+.CFILES = Title_Main_LZ.c Start_Menu_LZ.c Main_Menu_LZ.c
+.OFILES = Title_Main_LZ.o Start_Menu_LZ.o Main_Menu_LZ.o
 _AGBDIR = ($AGBDIR)
 CFLAGS	= -g -O2 -I$(AGBDIR)/include -mthumb-interwork -nostdlib
+.SUFFIXES: .bmp .c .o
+
 
 TARGET_ARC = libTitlesGFX.a
 
@@ -12,8 +14,13 @@ $(TARGET_ARC): $(.OFILES)
 Title_Main_LZ.c: Title_Main.bmp
 	@bmp2agb -bm -l 8 $<
 
-Title_Main_2_LZ.c: Title_Main_2.bmp
+Start_Menu_LZ.c: Start_Menu.bmp
 	@bmp2agb -bm -l 8 $<
+
+Main_Menu_LZ.c:	Main_Menu.bmp
+	@bmp2agb -bm -l 8 $<
+
+
 
 clean:
 	-rm $(TARGET_ARC) $(.OFILES) $(.CFILES)
