@@ -56,6 +56,30 @@ extern u8 PCT85[];
 extern u8 PCT90[]; 
 extern u8 PCT95[]; 
 extern u8 PCT100[];
+extern u8 CHAP11[];
+extern u8 CHAP12[];
+extern u8 CHAP13[];
+extern u8 CHAP14[];
+extern u8 CHAP21[];
+extern u8 CHAP22[];
+extern u8 CHAP23[];
+extern u8 CHAP24[];
+extern u8 CHAP31[];
+extern u8 CHAP32[];
+extern u8 CHAP33[];
+extern u8 CHAP34[];
+extern u8 CHAP41[];
+extern u8 CHAP42[];
+extern u8 CHAP43[];
+extern u8 CHAP44[];
+extern u8 CHAP51[];
+extern u8 CHAP52[];
+extern u8 CHAP53[];
+extern u8 CHAP54[];
+extern u8 CHAP61[];
+extern u8 CHAP62[];
+extern u8 CHAP63[];
+extern u8 CHAP64[];
 
 
 #if defined(debug)
