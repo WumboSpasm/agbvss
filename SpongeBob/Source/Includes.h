@@ -14,10 +14,12 @@
 #include "Main.h"
 #include "Game.h"
 
-#include "Sound/m4aLib.h"
-
+// compilier triggers
 #define MUSIC_ON
+#define BEANER
 
+//sound
+#include "../Sound/out/m4aLib.h"
 
 #define SBP_CHAP1LEV2      (0)
 
@@ -41,9 +43,11 @@ extern SongHeader *demosong[43];
 #define MPlayContinue(P1)       MusicPlayerContinue(P1)
 #define MPlayFadeOut(P1,P2)     MusicPlayerFadeOut(P1,P2)
 
+//LANGUAGE VERSIONS
+
 // note only uncomment one of these or it will be fucked...
 #define ENGLISH
-//#define AMERICAN
+#define AMERICAN
 //#define GERMAN
 //#define FRENCH
 //#define SPANISH							 

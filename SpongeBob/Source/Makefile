@@ -1,4 +1,4 @@
-SOUND_DIR = Sound/
+SOUND_DIR = ../Sound/out/
 include $(SOUND_DIR)Soundfiles
 
 .SFILES	=	Crt0.s

@@ -96,10 +96,10 @@ void InitSystem(void)
 // Initialise game variables - 0.
 
 	gGameParams.mControllerMethod=0; 			// Default control method (A=Action, B=Jump).
-	gGameParams.mMusicVolume=70;				// Full volume.
+	gGameParams.mMusicVolume=100;				// Full volume.
 	gGameParams.mSFXVolume=70;					// Full volume.
 
-	Level=LEVEL030301;							// Set default start level.	
+	Level=1;							// Set default start level.	
 	Spatualas=0; 								// Set default spatualas found.
 	Lives=3;					 				// Set default lives.
 	Continues=1;								// Set default continues.
@@ -124,8 +124,8 @@ void AgbMain(void)
 	ClearAll();	  								// The first initialization of the system.
 	InitSystem();
 
-#if defined(release)
-	gGameState=e_IN_GAME;		  				// Was 'LEGAL_SCREEN' for inclusion of front end !.
+#ifdef BEANER
+	gGameState=e_TITLE_SCREEN;		  				// Was 'LEGAL_SCREEN' for inclusion of front end !.
 #else
         gGameState=e_IN_GAME;
 #endif  // release version
@@ -220,7 +220,7 @@ static void HBlankIntr(void)
 {
         u16 line;
         line = *(vu16*)REG_VCOUNT & 0x7f;
-        *(vu16 *)REG_BG0HOFS = rasttable[(v_phase + line)];
+        *(vu16 *)REG_BG3HOFS = rasttable[(v_phase + line)];
 }
 
 
