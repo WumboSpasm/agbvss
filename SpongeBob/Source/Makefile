@@ -3,6 +3,7 @@
 .CFILES	=	Main.c \
 		Game.c \
 		Titles.c \
+		Random.c \
 		Scroll_Engine.c \
 		SprEng_Control.c \
 		SprEng_Display.c \
