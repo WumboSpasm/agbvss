@@ -55,7 +55,7 @@ void InitSprites(void)
 
 	pAO=ObjectGet2();							// Get a free sprite slot.
 	pAO->sp_type=TYPE_SPONGEBOB;				// Set sprite type.
-	pAO->sp_mode=MODE_STAND;					// Set sprite mode.
+	pAO->sp_mode=MODE_FREEFLIGHT;					// Set sprite mode.
 	pAO->sp_xpos=(17*8)+4;						// Set sprite world map x-position.
 	pAO->sp_ypos=(8*8)-1;						// Set sprite world map y-position.
 	pAO->sp_xsize=32;							// Set sprite size in x (8/16/32/64).
