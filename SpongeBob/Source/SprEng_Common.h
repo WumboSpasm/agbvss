@@ -30,6 +30,8 @@
 #define GRAVITY		45							// Gravity inertia value.
 #define MAXGRAVITY	256*8						// Maximum gravity velocity limit in FALL mode.
 
+#define PLATVEL		256							// Velocity for moving platfrom.
+
 enum											// Enumerate all sprite direction values.
 {
 	DIR_CLR,
@@ -55,7 +57,7 @@ s32 gPushScrollY; 		 						// Push scroll y-axis variable.
 // Global Functions.
 /////////////////////////////////////////////////
 extern void InitSprites(void);
-extern void ClearOAMRam(void);
+extern void ClearOAMBuffer(void);
 extern void UpdateOAMRam(void);
 
 #endif

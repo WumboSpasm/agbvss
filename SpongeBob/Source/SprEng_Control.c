@@ -164,8 +164,8 @@ void ObjectClear(Object* pAO)
    	pAO->sp_rotate=0;
 	pAO->sp_flipX=OFF;
 	pAO->sp_flipY=OFF;
-   	pAO->sp_scaleX=0x100;
-   	pAO->sp_scaleY=0x100;
+   	pAO->sp_scaleX=256;
+   	pAO->sp_scaleY=256;
 	pAO->sp_mosaic=OFF;
 	pAO->sp_blend=OAM_OBJ_NORMAL;
 	pAO->sp_priority=1;

@@ -21,18 +21,18 @@
 
 // Sprite sizes supported (taken from offical Nintendo AGB includes 'AgbDefine.h'.
 
-//	OAM_SIZE_8x8	0x00000000					// OBJ 8 x 8 dot.
-//	OAM_SIZE_16x16	0x40000000					// OBJ 16 x 16 dot.
-//	OAM_SIZE_32x32	0x80000000					// OBJ 32 x 32 dot.
-//	OAM_SIZE_64x64	0xc0000000  				// OBJ 64 x 64 dot.
-//	OAM_SIZE_16x8	0x00004000					// OBJ 16 x 8 dot.
-//	OAM_SIZE_32x8	0x40004000					// OBJ 32 x 8 dot.
-//	OAM_SIZE_32x16	0x80004000					// OBJ 32 x 16 dot.
-//	OAM_SIZE_64x32	0xc0004000					// OBJ 64 x 32 dot.
-//	OAM_SIZE_8x16	0x00008000					// OBJ 8 x 16 dot.
-//	OAM_SIZE_8x32	0x40008000					// OBJ 8 x 32 dot.
-//	OAM_SIZE_16x32	0x80008000					// OBJ 16 x 32 dot.
-//	OAM_SIZE_32x64	0xc0008000					// OBJ 32 x 64 dot.
+//	OAM_SIZE_8x8	0x00000000							// OBJ 8 x 8 dot.
+//	OAM_SIZE_16x16	0x40000000							// OBJ 16 x 16 dot.
+//	OAM_SIZE_32x32	0x80000000							// OBJ 32 x 32 dot.
+//	OAM_SIZE_64x64	0xc0000000  						// OBJ 64 x 64 dot.
+//	OAM_SIZE_16x8	0x00004000							// OBJ 16 x 8 dot.
+//	OAM_SIZE_32x8	0x40004000							// OBJ 32 x 8 dot.
+//	OAM_SIZE_32x16	0x80004000							// OBJ 32 x 16 dot.
+//	OAM_SIZE_64x32	0xc0004000							// OBJ 64 x 32 dot.
+//	OAM_SIZE_8x16	0x00008000							// OBJ 8 x 16 dot.
+//	OAM_SIZE_8x32	0x40008000							// OBJ 8 x 32 dot.
+//	OAM_SIZE_16x32	0x80008000							// OBJ 16 x 32 dot.
+//	OAM_SIZE_32x64	0xc0008000							// OBJ 32 x 64 dot.
 
 void ObjectDisplay(void)
 {
@@ -47,7 +47,7 @@ void ObjectDisplay(void)
 
 	for(OAMLoop=0;OAMLoop!=numUsedObjects;OAMLoop++) 	// Refresh and update the OAM buffer with all the sprite objects currently in use.
 	{
-		ObjectOff(pAO);									// Turn OFF sprite (reset sprite).
+//		ObjectOff(pAO);									// Turn OFF sprite (reset sprite).
 
 		if(pAO->sp_type!=TYPE_OFF)						// Is sprite on ?.
 		{
@@ -213,6 +213,9 @@ void ObjectDisplay(void)
 
 				gOAMOffset+=16;							// Offset to next sprite in OAM RAM (bytes).
 
+				ObjectOAMBuffer[gOAMOffset+0]=(u16)((s32)(-pAO->sp_xsize)&0x00ff); // Reset next sprites screen position 'off screen'.
+				ObjectOAMBuffer[gOAMOffset+1]=(u16)((s32)(-pAO->sp_ysize)&0x01ff);
+
 				if((gOAMOffset>>4)>=32) {gOAMOffset-=16;} // Prevent '>=32' sprite usage of OAM overspill by re-writing over last sprite again !.
 	   		}
 		}
@@ -223,7 +226,7 @@ void ObjectDisplay(void)
 
 //***************************************************************************************************
 
-// Turn OFF sprite.
+// Turn OFF sprite (place it off screen offset by it's physical size).
 
 void ObjectOff(Object* pAO)
 {
@@ -231,5 +234,4 @@ void ObjectOff(Object* pAO)
 	ObjectOAMBuffer[gOAMOffset+1]=(u16)((s32)(-pAO->sp_ysize)&0x01ff);
 }
 
- //***************************************************************************************************
-
+//***************************************************************************************************

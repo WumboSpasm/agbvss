@@ -20,6 +20,7 @@
 // Animation sequence tables.
 
 // SpongeBob animation sequences.
+
 u8 const *SB_Stand_Anim[]={&Stand_Char[0],(char*)((int)HOLD),};
 u8 const *SB_StandJump_Anim[]={&StandJump1_Char[0],&StandJump2_Char[0],&StandJump3_Char[0],(char*)((int)HOLD),};
 u8 const *SB_StandJumpLand_Anim[]={&StandJump3_Char[0],&StandJump2_Char[0],&StandJump1_Char[0],(char*)((int)HOLD),};
@@ -33,7 +34,9 @@ u8 const *SB_ButtBounce_Anim[]={&ButtBounce1_Char[0],&ButtBounce2_Char[0],&ButtB
 u8 const *SB_Karate_Anim[]={&Karate1_Char[0],&Karate2_Char[0],&Karate3_Char[0],&Karate4_Char[0],&Karate3_Char[0],&Karate2_Char[0],&Karate1_Char[0],(char*)((int)HOLD),};
 
 // Misc. animations sequences.
-u8 const *Misc_Anim[]={&Patrick64_Char[0],(char*)((int)HOLD),};
+
+u8 const *Patrick64[]={&Patrick64_Char[0],(char*)((int)HOLD),};
+u8 const *Platform1[]={&Platform1_Char[0],(char*)((int)HOLD),};
 
 //---------------------------------------------------------------------------------------------------
 
@@ -53,7 +56,8 @@ u8 const **Anim_List[]=
 	&SB_ButtBounce_Anim[0],			   	// 009.
 	&SB_Karate_Anim[0],	   			   	// 010.
 
-	&Misc_Anim[0],					   	// 011.
+	&Patrick64[0],					   	// 011.
+	&Platform1[0],					   	// 012.
 };
 
 //***************************************************************************************************

@@ -13,7 +13,7 @@
 /////////////////////////////////////////////////
 
 #define FlashTimer 300							// Global sprite flashing timer.
-#define FlashSpeed 10							// Global sprite flashing speed.
+#define FlashSpeed 30							// Global sprite flashing speed.
 
 /////////////////////////////////////////////////
 // Global Variables.
