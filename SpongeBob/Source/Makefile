@@ -1,6 +1,3 @@
-SOUND_DIR = mks4agbSystem/out/
-include $(SOUND_DIR)Soundfiles
-
 VERSION	?=	release
 
 ifeq ($(VERSION),release)
@@ -13,8 +10,6 @@ MAPFILE         :=$(basename $(TARGET)).map
 TARGET_ELF      :=$(basename $(TARGET)).elf
 TARGET_BIN      :=$(basename $(TARGET)).bin
 TEMP_DIR		:=$(VERSION)
-
-SOUNDMON		:=mks4agbSystem/SoundMon.elf
 
 include build/opts.mak
 
@@ -37,7 +32,7 @@ include build/opts.mak
 			Contours.c \
 			Text_Sys.c
 
-.OFILES		:=	$(foreach f,$(.SFILES) $(.CFILES), $(TEMP_DIR)/$(subst .s,.o,$(subst .c,.o,$(f)))) $(SOUND_FILES)
+.OFILES		:=	$(foreach f,$(.SFILES) $(.CFILES), $(TEMP_DIR)/$(subst .s,.o,$(subst .c,.o,$(f))))
 
 .AFILES		:=	../data/Titles/libTitlesGFX.a \
        			../data/Maps/libMaps.a \
@@ -59,7 +54,7 @@ $(ALL_DIRS):
 $(TARGET_BIN): $(TARGET_ELF)
 	@objcopy -v -O binary $< $@
 
-$(TARGET_ELF): $(.OFILES) Makefile $(.AFILES) $(DEPENDFILE) $(LD_OPTS_FILE) $(SOUNDMON)
+$(TARGET_ELF): $(.OFILES) Makefile $(.AFILES) $(DEPENDFILE) $(LD_OPTS_FILE)
 	@ld @$(LD_OPTS_FILE) -o $@
 
 $(LD_OPTS_FILE): makefile build/opts.mak lnkscript_$(VERSION)
@@ -98,6 +93,3 @@ include $(DEPENDFILE)
 
 data:
 	$(foreach .ADIR_TMP, $(dir $(.AFILES)), make -C $(.ADIR_TMP);)
-
-$(SOUNDMON): $(dir $(SOUNDMON))/mks4agbLib.h $(dir $(SOUNDMON))/Sound/m4aLib.h
-	@make -s -C $(dir $@)
