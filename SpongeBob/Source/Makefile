@@ -30,7 +30,8 @@ include build/opts.mak
 			SprEng_Patrick.c \
 			Sinecos.c \
 			Contours.c \
-			Text_Sys.c
+			Text_Sys.c \
+			Collision.c
 
 .OFILES		:=	$(foreach f,$(.SFILES) $(.CFILES), $(TEMP_DIR)/$(subst .s,.o,$(subst .c,.o,$(f))))
 
