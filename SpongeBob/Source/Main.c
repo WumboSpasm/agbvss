@@ -103,8 +103,8 @@ void InitSystem(void)
 	Spatualas=0; 								// Set default spatualas found.
 	Lives=3;					 				// Set default lives.
 	Continues=1;								// Set default continues.
-        gFade = 0;
-        gFadeLevel = 0;
+	gFade=0;
+	gFadeLevel=0;
 
 //---------------------------------------------------------------------------------------------------
 
@@ -125,11 +125,10 @@ void AgbMain(void)
 	InitSystem();
 
 #if defined(release)
-	gGameState=e_LEGAL_SCREEN;						// Was 'LEGAL_SCREEN' for inclusion of front end !.
+	gGameState=e_IN_GAME;		  				// Was 'LEGAL_SCREEN' for inclusion of front end !.
 #else
-        gGameState=e_LEGAL_SCREEN;
+        gGameState=e_IN_GAME;
 #endif  // release version
-
 
 	switch(gGameState)
 	{
