@@ -49,9 +49,11 @@ enum
 /////////////////////////////////////////////////
 extern void InitTitles(void);
 extern void MainTitles(void);
-extern void FadeOut(u8 type);
-extern void FadeIn(void);
-extern void NextMenuSetUp(void);
+
+// globs
+extern title Title;						        // Title struct (lots of nice variables in here)
+extern u8 Password_Buffer[6];                                           // buffer to enter password into..
+extern const u8 PasswordIconOffsetTable[8];                             // offset into tile libraries for each password icon
 
 #endif
 
