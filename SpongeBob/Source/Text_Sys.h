@@ -20,7 +20,10 @@ extern u8 OK[];
 extern u8 YES[];
 extern u8 NO[];
 extern u8 MENU[];
-extern u8 DEBUGBUFFER[256];
+
+#ifndef NDEBUG
+extern u8 DEBUGBUFFER[256];     // only use this in debug!!!!!!!
+#endif
 
 // text2tile data table..
 extern const u8 TextTileTable[256];
@@ -29,6 +32,5 @@ extern const u8 TextTileTable[256];
 extern u8 PutTextBox(u8 startx,u8 starty,u8 width, u8 height,u8 *string);		// put text with speech bubbles
 extern u8 PutText(u8 startx,u8 starty,u8 width, u8 height,u8 *string,u8 clear);			// put text with out the text borders
 extern void ClearTextLayer(void);												// clear the 4th layer to be blank
-u8 CheckWordLength(u8 i,u8 stringlength, u8* string);
 
 #endif	// _TEXT_SYS_H

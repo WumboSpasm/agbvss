@@ -45,19 +45,25 @@
 #include "Spanish.lan"
 #endif		// SPANISH
 
+// local function defs                                                        
+static u8 CheckWordLength(u8 i,u8 stringlength, u8* string);
 
-u8 DEBUGBUFFER[];
+// global vars
 u16 ScreenDat[32*20];	// this is global so it can be modified from any file!!!
 
+#ifndef NDEBUG
+u8 DEBUGBUFFER[];       // buffer to output debug text..(debug only!)
+#endif                                                        
+
+//------------------------------------------------------------------------------------------------------
 // tilenumbers go from 32 - 127 (bubbles too & character heads)
 // 0 is BLANK
 // then use 32 to 40 for bubbles
 // that leaves 41-127 for text characters & other bits!!!! (87)
 // 40 is a white space!!! (also used for UNUSEABLE CHARACTERS!!!)
 // will use a blank for any unknown characters
-
 // possibiblty of using lower case characters to signify a characters face image??
-
+//------------------------------------------------------------------------------------------------------
 const u8 TextTileTable[256]=
 {
 	// ASCII to Tile Number converter data table...
@@ -68,9 +74,7 @@ const u8 TextTileTable[256]=
 	40,40,40,40,40,40,40,40,			//   8 -  15
 	40,40,40,40,40,40,40,40,			//  16 -  23
 	40,40,40,40,40,40,40,40,			//  24 -  31
-
 	// main ones were are gonna need
-
 //	sp !  "  #  $  %  &  '
 	40, 0, 0, 0, 0, 0, 0, 0,			//  32 -  39
 //  	 (  )  *  +  ,  -  .  /
@@ -105,7 +109,6 @@ const u8 TextTileTable[256]=
 	 0, 0, 0, 0, 0, 0, 0, 0,			// 152 - 159
 //
 	 0, 0, 0, 0, 0, 0,40,40,			// 160 - 167
-
 	// we should not need these!!!!!!!!!!
 	40,40,40,40,40,40,40,40,			// 168 - 175
 	40,40,40,40,40,40,40,40,			// 176 - 183
@@ -120,9 +123,11 @@ const u8 TextTileTable[256]=
 	40,40,40,40,40,40,40,40,			// 248 - 255
 };
 
+//-------------------------------------------------------------------------------------------------
 // FUNCTIONS!!!
+//-------------------------------------------------------------------------------------------------
 
-//-------------------------------------------
+//-------------------------------------------------------------------------------------------------
 // PutTextBox
 //
 // Outputs speechbubble textbox onto screen (used mainly in game)
@@ -133,9 +138,7 @@ const u8 TextTileTable[256]=
 // pointer to text string "string"
 // OUTPUTS:
 // returns 1 is success or 0 if fails
-//
-//--------------------------------------------------
-
+//-------------------------------------------------------------------------------------------------
 u8 PutTextBox(u8 startx,u8 starty,u8 width, u8 height,u8 *string)
 {
 	u8 currentx;	// current text output locations
@@ -207,11 +210,12 @@ u8 PutTextBox(u8 startx,u8 starty,u8 width, u8 height,u8 *string)
 		{
 			wordlength = CheckWordLength(i,stringlength,string);
 
-			if(wordlength>width-2)
+			if(wordlength>width-2)  // word is too long to fit in this text box
 			{
-				//fuck!!!
+#ifndef NDEBUG
 				sprintf(DEBUGBUFFER,"STRING TOO LONG %i %i",i,wordlength);
 				PutText(0,0,30,1,DEBUGBUFFER,0);
+#endif
 				return 0;
 			}
 
@@ -274,7 +278,7 @@ u8 PutTextBox(u8 startx,u8 starty,u8 width, u8 height,u8 *string)
 	return 1;
 }
 
-//-------------------------------------------
+//-------------------------------------------------------------------------------------------------
 // PutText
 //
 // Outputs text only onto screen (used mainly in menus)
@@ -285,9 +289,7 @@ u8 PutTextBox(u8 startx,u8 starty,u8 width, u8 height,u8 *string)
 // pointer to text string "string"
 // OUTPUTS:
 // returns 1 is success or 0 if fails
-//
-//----------------------------------------------
-
+//-------------------------------------------------------------------------------------------------
 u8 PutText(u8 startx,u8 starty,u8 width, u8 height,u8 *string,u8 clear)
 {
 	u8 currentx;	// current text output locations
@@ -335,11 +337,12 @@ u8 PutText(u8 startx,u8 starty,u8 width, u8 height,u8 *string,u8 clear)
 		{
 			wordlength = CheckWordLength(i,stringlength,string);
 
-			if(wordlength>width)
+			if(wordlength>width)            // word is too long to fit in box
 			{
-				//fuck!!!
+#ifndef NDEBUG
 				sprintf(DEBUGBUFFER,"STRING TOO LONG %i %i",i,wordlength);
 				PutText(0,0,30,1,DEBUGBUFFER,0);
+#endif
 				return 0;
 			}
 
@@ -398,9 +401,10 @@ u8 PutText(u8 startx,u8 starty,u8 width, u8 height,u8 *string,u8 clear)
 	return 1;
 }
 
-//-----------------------------
+//---------------------------------------------------------------------------------------------------
 // Simple clear the 4th layer
-//-----------------------------
+// does not actually empty the layer but does blank the buffer (will need to be DMA copied into vram
+//---------------------------------------------------------------------------------------------------
 void ClearTextLayer(void)
 {
 	u8 x,y;
@@ -415,10 +419,14 @@ void ClearTextLayer(void)
 	}
 }
 
-//
+//--------------------------------------------------------------------------------------------------------
 // check length of word
-// need to test..
 //
+// i = current postion in string
+// stringlength = total length of string
+// string = poniter to string we are checking
+// returns length of the next word in the string from currnet position
+//---------------------------------------------------------------------------------------------------------
 u8 CheckWordLength(u8 i,u8 stringlength, u8* string)
 {
 	u8 wordlength=0;
