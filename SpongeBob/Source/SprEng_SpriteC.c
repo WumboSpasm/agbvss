@@ -8,6 +8,8 @@
 // Includes.
 
 #include "Includes.h"
+#include "SprEng_Common.h"
+#include "SprEng_Control.h"
 
 //***************************************************************************************************
 

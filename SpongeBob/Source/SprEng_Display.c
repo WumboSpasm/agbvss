@@ -8,6 +8,9 @@
 // Includes.
 
 #include "Includes.h"
+#include "SprEng_Common.h"
+#include "SprEng_Control.h"
+#include "SprEng_Display.h"
 
 //***************************************************************************************************
 
@@ -86,7 +89,7 @@ void ObjectCreateOAM(void)
 	// Set scaling/rotation parameters.
     pA=FixMul(Cos(ObjectRotate),FixInverse(ObjectScaleX));
     pB=FixMul(Sin(ObjectRotate),FixInverse(ObjectScaleX));
-    pC=FixMul(-Sin(ObjectRotate),FixInverse(ObjectScaleY)); // You get an odd rotate effect if you leave off the '-' @ge :) 
+    pC=FixMul(-Sin(ObjectRotate),FixInverse(ObjectScaleY)); // You get an odd rotate effect if you leave off the '-' @ge :)
     pD=FixMul(Cos(ObjectRotate),FixInverse(ObjectScaleY));
 
     ObjectOAMBuffer[ 3]=*(u16*)(&pA);
