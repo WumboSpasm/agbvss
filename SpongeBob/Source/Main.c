@@ -118,7 +118,7 @@ void AgbMain(void)
 	gGameState=e_LEGAL_SCREEN;
 #else  //NDEBUG
 #ifdef BEANER
-	gGameState=e_TITLE_SCREEN;
+	gGameState=e_LEGAL_SCREEN;
 #else	//BEANER
 	gGameState=e_IN_GAME;
 #endif	//BEANER
