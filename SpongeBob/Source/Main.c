@@ -17,9 +17,9 @@
 /////////////////////////////////////////////////
 // Local Variables.
 /////////////////////////////////////////////////
-u16	gKeyInput;
-u16	gKeyTap;
-u32	gTimer;
+u16	gKeyInput;			// Joypad key input data.
+u16	gKeyTap;			// Joypad button 'debounced' data.
+u32	gTimer;				// Game timer.
 u32	IntrMainBuf[0x200];	// Buffer for interrupt main routine.
 vu16 IntrCheck;			// Interrupt check.
 GameState gGameState;	// Beaner's gamestate variable.
