@@ -35,7 +35,6 @@ void InitTitles(void)
 	BGstats.mZoomY = 0x0100;							// no zoom to start with
 	BGstats.mBg2_center_x = 120;				// set center to middle of bitmap
 	BGstats.mBg2_center_y = 80;					// "ditto"
-	BGstats.mRotate = 3;						// Rorational Value		(ask Janusz why its spelt like this :o) )
 
 	Title.mCurrent_Screen = 0;					// on screen 0 i.e. title screen
 	Title.mCurrent_Selection = 0;				// currently no selection
