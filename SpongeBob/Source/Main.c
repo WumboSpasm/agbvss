@@ -123,7 +123,7 @@ void AgbMain(void)
 	InitSystem();
 
 #if defined(release)
-	gGameState=e_LEGAL_SCREEN;						// Was 'LEGAL_SCREEN' for inclusion of front end !.
+	gGameState=e_TITLE_SCREEN;						// Was 'LEGAL_SCREEN' for inclusion of front end !.
 #else
         gGameState=e_LEGAL_SCREEN;
 #endif  // release version
