@@ -67,34 +67,172 @@ void MainTitles(void)
 
 
 //---------read input and update accordingly----
+//
+// Title Screens
+// 0 = Title Screen      (wait 10 seconds and move to rolling demo)
+// 1 = Menu Options Menu (Options - (2)Start Game + (4)Options + (7?)Credits)
+// 2 = Start Game Menu   (Options - New Game + (3)Password)
+// 3 = Password Screen   (Enter 5 symbols from choice of 4 differnt ones?)
+// 4 = Options Menu      (Options - (5)Controller + (6)Sound)
+// 5 = Controller Menu   (Controller - (A)a=Action b=Jump or (B)a=Jump b=Action)
+// 6 = Sound Menu        (Sliders For Music Volume + SFX Volume)
+//
+//	eTitle_Screen,			//0
+//	eMain_Menu,				//1
+//	eStart_Menu,			//2
+//	ePassword_Menu,			//3
+//	eOptions_Menu,			//4
+//	eController_Menu,		//5
+//	eSound_Menu,			//6
+//
+//-----------------------------------------------
 static void UpdateInput(void)
 {
 	u32 tmp;
 	switch(Title.mCurrent_Screen)
 	{
-	case 0:								// main screen (emun up maybe...)
+	case eTitle_Screen:
 		if((gKeyTap&A_BUTTON)||(gKeyTap&START_BUTTON))
 		{
 			InitRand(gTimer);
 			tmp = ZoomBGIn(255);
-			LZ77UnCompVram(Title_Main_2_RawBitmap_LZ, (void*)BG_BITMAP0_VRAM);
+			LZ77UnCompVram(Main_Menu_RawBitmap_LZ, (void*)BG_BITMAP0_VRAM);
 			ZoomBGOut(tmp);
-			Title.mCurrent_Screen = 1;
+			Title.mCurrent_Screen = eMain_Menu;
+			Title.mCurrent_Selection = 1;
+			Title.mMax_Selections = 3;
 			break;
 		}
+		if(gTimer == (600)/*60 frames*10seconds*/)		// Time out title screen and move to rolling demo
+		{
+			//go to rolling demo here
+		}
 		break;
-	case 1:
-		if((gKeyTap&START_BUTTON)||(gKeyTap&A_BUTTON))
+
+	case eMain_Menu:
+		if (((gKeyTap&A_BUTTON)||(gKeyTap&START_BUTTON)) && (Title.mCurrent_Selection == 1)) // Select Start Game
+		{
+			InitRand(gTimer);
+			tmp = ZoomBGIn(255);
+			LZ77UnCompVram(Start_Menu_RawBitmap_LZ, (void*)BG_BITMAP0_VRAM);
+			ZoomBGOut(tmp);
+			Title.mCurrent_Screen = eStart_Menu;
+			Title.mCurrent_Selection = 1;
+			Title.mMax_Selections = 2;
+			break;
+		}
+		if (((gKeyTap&A_BUTTON)||(gKeyTap&START_BUTTON)) && (Title.mCurrent_Selection == 2))	// Select Options Screen
+		{
+			Title.mCurrent_Screen = eOptions_Menu;
+			Title.mCurrent_Selection = 1;
+			Title.mMax_Selections = 2;
+			break;
+		}
+		if (((gKeyTap&A_BUTTON)||(gKeyTap&START_BUTTON)) && (Title.mCurrent_Selection == 3))	// Select Password Screen
+		{
+			//InitCredits();
+			//gGame_State=
+			break;
+		}
+		if ((gKeyTap&B_BUTTON))			// Cancel Back To Title Screen (YES ALL NEW GAMES DO THIS!!!)
+		{
+			InitRand(gTimer);
+			tmp = ZoomBGIn(255);
+			LZ77UnCompVram(Title_Main_RawBitmap_LZ, (void*)BG_BITMAP0_VRAM);
+			ZoomBGOut(tmp);
+			gTimer = 0;
+			Title.mCurrent_Screen = eTitle_Screen;				
+			Title.mCurrent_Selection = 0;
+			Title.mMax_Selections = 0;
+		}
+		break;
+
+	case eStart_Menu:
+		if (((gKeyTap&A_BUTTON)||(gKeyTap&START_BUTTON)) && (Title.mCurrent_Selection == 1)) // Select Start Game
 		{
 			ZoomBGIn(1);
-			gGameState=e_IN_GAME;
 			InitGame();
+			gGameState = e_IN_GAME;
 			break;
 		}
+		if (((gKeyTap&A_BUTTON)||(gKeyTap&START_BUTTON)) && (Title.mCurrent_Selection == 2)) // Select Password Menu
+		{
+			Title.mCurrent_Screen = eMain_Menu;
+			Title.mCurrent_Selection = 1;
+			Title.mMax_Selections = 3;
+			break;
+		}
+		if ((gKeyTap&B_BUTTON))			// Cancel Back To Previous Option
+		{
+			InitRand(gTimer);
+			tmp = ZoomBGIn(255);
+			LZ77UnCompVram(Main_Menu_RawBitmap_LZ, (void*)BG_BITMAP0_VRAM);
+			ZoomBGOut(tmp);
+			Title.mCurrent_Screen = eMain_Menu;
+			Title.mCurrent_Selection = 1;
+			Title.mMax_Selections = 3;
+		}
 		break;
+
+	case ePassword_Menu:
+		if ((gKeyTap&B_BUTTON))			// Cancel Back To Previous Option
+		{
+			InitRand(gTimer);
+			tmp = ZoomBGIn(255);
+			LZ77UnCompVram(Start_Menu_RawBitmap_LZ, (void*)BG_BITMAP0_VRAM);
+			ZoomBGOut(tmp);
+			Title.mCurrent_Screen = eStart_Menu;
+			Title.mCurrent_Selection = 1;
+			Title.mMax_Selections = 2;
+		}
+		break;
+
+	case eOptions_Menu:
+		if ((gKeyTap&B_BUTTON))			// Cancel Back To Previous Option
+		{
+			InitRand(gTimer);
+			tmp = ZoomBGIn(255);
+			LZ77UnCompVram(Main_Menu_RawBitmap_LZ, (void*)BG_BITMAP0_VRAM);
+			ZoomBGOut(tmp);
+			Title.mCurrent_Screen = eMain_Menu;
+			Title.mCurrent_Selection = 1;
+			Title.mMax_Selections = 3;
+		}
+		break;
+
+	case eController_Menu:
+		if ((gKeyTap&B_BUTTON))			// Cancel Back To Previous Option
+		{
+			Title.mCurrent_Screen = eOptions_Menu;
+			Title.mCurrent_Selection = 1;
+			Title.mMax_Selections = 2;
+		}
+		break;
+
+	case eSound_Menu:
+		if ((gKeyTap&B_BUTTON))			// Cancel Back To Previous Option
+		{
+			Title.mCurrent_Screen = eOptions_Menu;
+			Title.mCurrent_Selection = 1;
+			Title.mMax_Selections = 2;
+		}
+		break;
+
 	default:							// not on a valid screen????
 		break;
-	};
+	}
+
+	//generic options used on ALL menus
+	if ((gKeyTap&U_KEY) && (Title.mCurrent_Selection > 1))		//up key
+	{
+		Title.mCurrent_Selection--;
+	}
+	if ((gKeyTap&D_KEY) && (Title.mCurrent_Selection < Title.mMax_Selections)) //doon key
+	{
+		Title.mCurrent_Selection++;
+	}
+
+
 }
 
 

@@ -52,6 +52,18 @@ typedef struct
 }
 title;
 
+//--enum Title Screens
+enum
+{
+	eTitle_Screen = 0,		//0
+	eMain_Menu,				//1
+	eStart_Menu,			//2
+	ePassword_Menu,			//3
+	eOptions_Menu,			//4
+	eController_Menu,		//5
+	eSound_Menu,			//6
+};
+
 /////////////////////////////////////////////////
 // Global Functions
 /////////////////////////////////////////////////
