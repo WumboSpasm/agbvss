@@ -16,7 +16,7 @@
 //#define NDEBUG					// Un-comment for release build! (for now...)
 
 #ifndef NDEBUG
-#define BEANER					// Un-comment for Rich only code!.
+//#define BEANER					// Un-comment for Rich only code!.
 #define AGE						// Un-comment for @ge only code!.
 #endif
 

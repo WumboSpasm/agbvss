@@ -13,6 +13,8 @@
 #include "SprEng_Control.h"
 #include "SprEng_Animate.h"
 #include "SprEng_Display.h"
+#include "Text_Sys.h"
+#include "Random.h"
 
 //***************************************************************************************************
 
@@ -34,8 +36,8 @@ void InitGame(void)
 //--
 	
 	// Enable game screen display.
-//	*(vu16*)REG_DISPCNT=DISP_MODE_0|DISP_OBJ_ON|DISP_BG0_ON|DISP_BG1_ON|DISP_BG2_ON|DISP_BG3_ON|DISP_OBJ_CHAR_1D_MAP;	// Set which layers to display
-	*(vu16*)REG_DISPCNT=DISP_MODE_0|DISP_OBJ_ON|DISP_BG0_ON|DISP_BG1_ON|DISP_BG2_ON|DISP_OBJ_CHAR_1D_MAP;	// Set which layers to display
+	*(vu16*)REG_DISPCNT=DISP_MODE_0|DISP_OBJ_ON|DISP_BG0_ON|DISP_BG1_ON|DISP_BG2_ON|DISP_BG3_ON|DISP_OBJ_CHAR_1D_MAP;	// Set which layers to display
+//	*(vu16*)REG_DISPCNT=DISP_MODE_0|DISP_OBJ_ON|DISP_BG0_ON|DISP_BG1_ON|DISP_BG2_ON|DISP_OBJ_CHAR_1D_MAP;	// Set which layers to display
 }
 
 //***************************************************************************************************
@@ -49,7 +51,14 @@ void MainGame(void)
 	ReadJoypad();								// Read joypad.
 	ObjectControl2();							// Update sprites (control 'method-2').
 	ObjectDisplay();							// Update sprites (display).
+	// IM NOT SUPPOSED TO BE HERE
+	if(PutTextBox(2,2,3,3,GAMENAME))
+	{// TESTIES!!!!
+	// TESTIES
 	UpdateScroll();								// Update scroll.
+	//--
+	}	// remove
+	//--
 }
 
 //***************************************************************************************************
