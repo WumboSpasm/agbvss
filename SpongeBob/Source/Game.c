@@ -29,6 +29,9 @@ const u16 Speech_Bubble_Palette[2]={0xffff,0x0000,}; // 'Speech Bubble' palette 
 
 void InitGame(void)
 {
+//	*(vu16*)REG_DISPCNT=DISP_MODE_0|DISP_LCDC_OFF;	// Set which layers to display
+
+
 	InitSprites();								// Init. sprite engine.
 	InitPalettes();								// Init. in-game colour palettes.
 	InitScroll();								// Init. scroll engine.
@@ -47,10 +50,6 @@ void InitGame(void)
 
 	// Enable game screen display.
 	*(vu16*)REG_DISPCNT=DISP_MODE_0|DISP_OBJ_ON|DISP_BG0_ON|DISP_BG1_ON|DISP_BG2_ON|DISP_BG3_ON|DISP_OBJ_CHAR_1D_MAP;	// Set which layers to display
-
-#ifdef MUSIC_ON                
-        m4aSongNumStart(SBP_CHAP1LEV2);//BGM Start
-#endif
 }
 
 //***************************************************************************************************
@@ -120,6 +119,9 @@ void InitPalettes(void)
 //		case LEVEL010105:		
 //		case LEVEL010106:		
 //			DmaArrayCopy(3,CHAPTER01_LEVEL01_TILEPALETTE,BG_PLTT,16);
+//#ifdef MUSIC_ON
+//        m4aSongNumStart(SBP_CHAP1LEV1);//BGM Start
+//#endif
 //			break;
 
 //--
@@ -133,6 +135,9 @@ void InitPalettes(void)
 //		case LEVEL010205:		
 //		case LEVEL010206:		
 //			DmaArrayCopy(3,CHAPTER01_LEVEL02_TILEPALETTE,BG_PLTT,16);
+//#ifdef MUSIC_ON
+//        m4aSongNumStart(SBP_CHAP1LEV2);//BGM Start
+//#endif
 //			break;
 
 //--
@@ -146,6 +151,9 @@ void InitPalettes(void)
 //		case LEVEL010305:		
 //		case LEVEL010306:		
 //			DmaArrayCopy(3,CHAPTER01_LEVEL03_TILEPALETTE,BG_PLTT,16);
+//#ifdef MUSIC_ON
+//        m4aSongNumStart(SBP_CHAP1LEV3);//BGM Start
+//#endif
 //			break;
 
 //--
@@ -159,6 +167,9 @@ void InitPalettes(void)
 //		case LEVEL010405:
 //		case LEVEL010406:
 //			DmaArrayCopy(3,CHAPTER01_LEVEL04_TILEPALETTE,BG_PLTT,16);
+//#ifdef MUSIC_ON
+//        m4aSongNumStart(SBP_CHAP1LEV2);//BGM Start
+//#endif
 //			break;
 
 //---------------------------------------------------------------------------------------------------
@@ -177,6 +188,9 @@ void InitPalettes(void)
 		case LEVEL020106:		
 		case LEVEL020107:		
 			DmaArrayCopy(3,CHAPTER02_LEVEL01_TILEPALETTE,BG_PLTT,16);
+#ifdef MUSIC_ON
+        m4aSongNumStart(SBP_CHAP1LEV1);//BGM Start
+#endif
 			break;
 
 //--
@@ -188,6 +202,9 @@ void InitPalettes(void)
 		case LEVEL020203:		
 		case LEVEL020204:		
 			DmaArrayCopy(3,CHAPTER02_LEVEL02_TILEPALETTE,BG_PLTT,16);
+#ifdef MUSIC_ON
+        m4aSongNumStart(SBP_CHAP1LEV2);//BGM Start
+#endif
 			break;
 
 //--
@@ -201,6 +218,9 @@ void InitPalettes(void)
 		case LEVEL020305:		
 		case LEVEL020306:		
 			DmaArrayCopy(3,CHAPTER02_LEVEL03_TILEPALETTE,BG_PLTT,16);
+#ifdef MUSIC_ON
+        m4aSongNumStart(SBP_CHAP1LEV3);//BGM Start
+#endif
 			break;
 
 //--
@@ -213,6 +233,9 @@ void InitPalettes(void)
 		case LEVEL020404:
 		case LEVEL020405:
 			DmaArrayCopy(3,CHAPTER02_LEVEL04_TILEPALETTE,BG_PLTT,16);
+#ifdef MUSIC_ON
+        m4aSongNumStart(SBP_CHAP1BOSS);//BGM Start
+#endif
 			break;
 
 //---------------------------------------------------------------------------------------------------
@@ -231,6 +254,9 @@ void InitPalettes(void)
 		case LEVEL030106:		
 		case LEVEL030107:		
 			DmaArrayCopy(3,CHAPTER03_LEVEL01_TILEPALETTE,BG_PLTT,16);
+#ifdef MUSIC_ON
+        m4aSongNumStart(SBP_CHAP1LEV1);//BGM Start
+#endif
 			break;
 
 //--
@@ -245,6 +271,9 @@ void InitPalettes(void)
 		case LEVEL030206:		
 		case LEVEL030207:		
 			DmaArrayCopy(3,CHAPTER03_LEVEL02_TILEPALETTE,BG_PLTT,16);
+#ifdef MUSIC_ON
+        m4aSongNumStart(SBP_CHAP1LEV2);//BGM Start
+#endif
 			break;
 
 //--
@@ -258,6 +287,9 @@ void InitPalettes(void)
 		case LEVEL030305:		
 		case LEVEL030306:		
 			DmaArrayCopy(3,CHAPTER03_LEVEL03_TILEPALETTE,BG_PLTT,16);
+#ifdef MUSIC_ON
+        m4aSongNumStart(SBP_CHAP1LEV3);//BGM Start
+#endif
 			break;
 
 //--
@@ -271,6 +303,9 @@ void InitPalettes(void)
 		case LEVEL030405:		
 		case LEVEL030406:		
 			DmaArrayCopy(3,CHAPTER03_LEVEL04_TILEPALETTE,BG_PLTT,16);
+#ifdef MUSIC_ON
+        m4aSongNumStart(SBP_CHAP1BOSS);//BGM Start
+#endif
 			break;
 
 //---------------------------------------------------------------------------------------------------
@@ -286,6 +321,9 @@ void InitPalettes(void)
 		case LEVEL040103:		
 		case LEVEL040104:		
 			DmaArrayCopy(3,CHAPTER04_LEVEL01_TILEPALETTE,BG_PLTT,16);
+#ifdef MUSIC_ON
+        m4aSongNumStart(SBP_CHAP1LEV1);//BGM Start
+#endif
 			break;
 
 //--
@@ -298,6 +336,9 @@ void InitPalettes(void)
 		case LEVEL040204:		
 		case LEVEL040205:		
 			DmaArrayCopy(3,CHAPTER04_LEVEL02_TILEPALETTE,BG_PLTT,16);
+#ifdef MUSIC_ON
+        m4aSongNumStart(SBP_CHAP1LEV2);//BGM Start
+#endif
 			break;
 
 //--
@@ -311,6 +352,9 @@ void InitPalettes(void)
 		case LEVEL040305:		
 		case LEVEL040306:		
 			DmaArrayCopy(3,CHAPTER04_LEVEL03_TILEPALETTE,BG_PLTT,16);
+#ifdef MUSIC_ON
+        m4aSongNumStart(SBP_CHAP1LEV3);//BGM Start
+#endif
 			break;
 
 //--
@@ -325,6 +369,9 @@ void InitPalettes(void)
  		case LEVEL040406:		
 		case LEVEL040407:		
 			DmaArrayCopy(3,CHAPTER04_LEVEL04_TILEPALETTE,BG_PLTT,16);
+#ifdef MUSIC_ON
+        m4aSongNumStart(SBP_CHAP1BOSS);//BGM Start
+#endif
 			break;
 
 //---------------------------------------------------------------------------------------------------
@@ -339,6 +386,9 @@ void InitPalettes(void)
 		case LEVEL050102: 					   	// Etc.		
 		case LEVEL050103:		
 			DmaArrayCopy(3,CHAPTER05_LEVEL01_TILEPALETTE,BG_PLTT,16);
+#ifdef MUSIC_ON
+        m4aSongNumStart(SBP_CHAP1LEV1);//BGM Start
+#endif
 			break;
 
 //--
@@ -350,6 +400,9 @@ void InitPalettes(void)
 		case LEVEL050203:		
 		case LEVEL050204:		
 			DmaArrayCopy(3,CHAPTER05_LEVEL02_TILEPALETTE,BG_PLTT,16);
+#ifdef MUSIC_ON
+        m4aSongNumStart(SBP_CHAP1LEV2);//BGM Start
+#endif
 			break;
 
 //--
@@ -362,6 +415,9 @@ void InitPalettes(void)
 		case LEVEL050304:		
 		case LEVEL050305:		
 			DmaArrayCopy(3,CHAPTER05_LEVEL03_TILEPALETTE,BG_PLTT,16);
+#ifdef MUSIC_ON
+        m4aSongNumStart(SBP_CHAP1LEV3);//BGM Start
+#endif
 			break;
 
 //--
@@ -376,6 +432,9 @@ void InitPalettes(void)
 		case LEVEL050406:
 		case LEVEL050407:
 		case LEVEL050408:
+#ifdef MUSIC_ON
+        m4aSongNumStart(SBP_CHAP1BOSS);//BGM Start
+#endif
 			DmaArrayCopy(3,CHAPTER05_LEVEL04_TILEPALETTE,BG_PLTT,16);
 			break;
 
@@ -390,6 +449,9 @@ void InitPalettes(void)
 		case LEVEL060101:
 		case LEVEL060102: 					   	// Etc.		
 			DmaArrayCopy(3,CHAPTER06_LEVEL01_TILEPALETTE,BG_PLTT,16);
+#ifdef MUSIC_ON
+        m4aSongNumStart(SBP_CHAP1LEV1);//BGM Start
+#endif
 			break;
 
 //--
@@ -399,6 +461,9 @@ void InitPalettes(void)
 //		case LEVEL060201:		
 //		case LEVEL060202:		
 //			DmaArrayCopy(3,CHAPTER06_LEVEL02_TILEPALETTE,BG_PLTT,16);
+//#ifdef MUSIC_ON
+//        m4aSongNumStart(SBP_CHAP1LEV2);//BGM Start
+//#endif
 //			break;
 
 //--
@@ -408,6 +473,9 @@ void InitPalettes(void)
 		case LEVEL060301:		
 		case LEVEL060302:		
 			DmaArrayCopy(3,CHAPTER06_LEVEL03_TILEPALETTE,BG_PLTT,16);
+#ifdef MUSIC_ON
+        m4aSongNumStart(SBP_CHAP1LEV3);//BGM Start
+#endif
 			break;
 
 //--
@@ -419,13 +487,16 @@ void InitPalettes(void)
 //		case LEVEL060403:
 //		case LEVEL060404:
 //			DmaArrayCopy(3,CHAPTER06_LEVEL04_TILEPALETTE,BG_PLTT,16);
+//#ifdef MUSIC_ON
+//        m4aSongNumStart(SBP_CHAP1BOSS);//BGM Start
+//#endif
 //			break;
 
 //---------------------------------------------------------------------------------------------------
 
 	};
 
-	DmaArrayCopy(3,Speech_Bubble_Palette,BG_PLTT+(254<<1),16); // Set 'Speech Bubble' colours (all '2' of them :).
+//	DmaArrayCopy(3,Speech_Bubble_Palette,BG_PLTT+(254<<1),16); // Set 'Speech Bubble' colours (all '2' of them :).
 
 	DmaArrayCopy(3,Stand_Palette,OBJ_PLTT,16);	// Set 256 colour palette data for ALL sprites.
 }
@@ -503,66 +574,66 @@ const s32 ExitCoords[MAXLEVELS]=
 
 // Chapter 2.
 
-	95*16,29*16,98*16,32*16,
-	96*16,66*16,99*16,69*16,
-	1*16,42*16,4*16,45*16,
+	95*16,29*16,98*16,32*16, 	
+	96*16,66*16,99*16,69*16, 	
+	1*16,42*16,4*16,45*16,		
 	85*16,67*16,88*16,70*16,
-	1*16,63*16,4*16,66*16,
-	71*16,26*16,74*16,29*16,
-	93*16,15*16,96*16,18*16,
+	1*16,63*16,4*16,66*16,		
+	71*16,26*16,74*16,29*16, 	
+	93*16,15*16,96*16,18*16, 	
+        
+        0*16,33*16,3*16,41*16,
+        122*16,126*16,134*16,129*16,	
+        92*16,11*16,95*16,27*16,	
+        76*16,10*16,79*16,23*16,	
 
-	0*16,33*16,3*16,41*16,
-	122*16,126*16,134*16,129*16,
-	92*16,11*16,95*16,27*16,
-	76*16,10*16,79*16,23*16,
-
-	129*16,75*16,133*16,84*16,
-	65*16,71*16,68*16,79*16,
-	169*16,16*16,174*16,37*16,
+	129*16,75*16,133*16,84*16,	
+	65*16,71*16,68*16,79*16,	
+	169*16,16*16,174*16,37*16,	
 	70*16,9*16,73*16,20*16,
-	131*16,13*16,137*16,26*16,
-	112*16,5*16,117*16,18*16,
+	131*16,13*16,137*16,26*16,	
+	112*16,5*16,117*16,18*16,	
 
-	146*16,44*16,149*16,56*16,
-	127*16,15*16,129*16,29*16,
-	223*16,81*16,229*16,94*16,
-	130*16,52*16,134*16,63*16,
-	126*16,44*16,129*16,55*16,
+        146*16,44*16,149*16,56*16,
+        127*16,15*16,129*16,29*16,
+        223*16,81*16,229*16,94*16,
+        130*16,52*16,134*16,63*16,
+        126*16,44*16,129*16,55*16,
 
 //--
 
 // Chapter 3.
 
-	0,0,0,0,	
-	0,0,0,0,	
-	110*16,0*16,113*16,31*16,
-	85*16,39*16,106*16,42*16,
-	90*16,30*16,93*16,40*16,
-	84*16,10*16,87*16,24*16,
-	74*16,30*16,77*16,40*16,
+        0,0,50,50,
+        0,0,50,50,
+        110*16,0*16,113*16,31*16,	
+        85*16,39*16,106*16,42*16,	
+        90*16,30*16,93*16,40*16,	
+        84*16,10*16,87*16,24*16,	
+        74*16,30*16,77*16,40*16,	
 
 	152*16,19*16,159*16,26*19,
 	171*16,24*16,179*16,31*16,
-	148*16,7*16,155*16,14*16, 
+	148*16,7*16,155*16,14*16,	
 	184*16,22*16,191*16,29*16,
 	161*16,32*16,165*16,39*16,
-	115*16,8*16,122*16,15*16, 
+	115*16,8*16,122*16,15*16,	
 	203*16,28*16,210*16,34*16,
 
 	140*16,12*16,147*16,19*16,
 	140*16,12*16,147*16,19*16,
-	88*16,34*16,95*16,41*16,  
+	88*16,34*16,95*16,41*16,	
 	49*16,6*16,56*16,13*16,
 	144*16,27*16,151*16,34*16,
 	157*16,25*16,164*16,32*16,
 
+	160*16,16*16,167*16,23*16,
 	19*16,0*16,25*16,4*16,
-	19*16,0*16,25*16,0*16,			
-	158*16,25*16,165*16,32*16,		
-	149*16,28*16,164*16,35*16,		
-	0*16,42*16,7*16,49*16,			
-	0*16,16*16,7*16,18*16,			
-	123*16,25*16,128*16,30*16,		
+	158*16,25*16,165*16,32*16,
+	149*16,28*16,164*16,35*16,
+	0*16,42*16,7*16,49*16,
+	0*16,16*16,7*16,18*16,
+
 
 //--
 
@@ -571,36 +642,36 @@ const s32 ExitCoords[MAXLEVELS]=
 	15*16,98*16,19*16,103*16,		
 	13*16,118*16,17*16,123*16,		
 	118*16,31*16,122*16,36*16,		
-	152*16,104*16,156*16,109*16,	
+	152*16,104*16,156*16,109*16,    
 
-	219*16,15*16,222*16,18*16,		
-	196*16,25*16,199*16,28*16,		
-	156*16,23*16,159*16,26*16,		
-	180*16,33*16,183*16,36*16,		
-	226*16,24*16,229*16,27*16,		
+	219*16,15*16,222*16,18*16,
+	196*16,25*16,199*16,28*16,
+	156*16,23*16,159*16,26*16,
+	180*16,33*16,183*16,36*16,
+	226*16,24*16,229*16,27*16,
 
-	74*16,6*16,81*16,13*16,			
-	24*16,0*16,28*16,1*16,			
-	79*16,5*16,86*16,12*16,			
-	79*16,9*16,86*16,16*16,			
-	97*16,4*16,104*16,11*16,		
-	32*16,0*16,38*16,1*16,			
+	74*16,6*16,81*16,13*16,	
+	24*16,0*16,28*16,1*16,	
+	79*16,5*16,86*16,12*16,	
+	79*16,9*16,86*16,16*16,	
+	97*16,4*16,104*16,11*16,
+	32*16,0*16,38*16,1*16,	
 
-	99*16,36*16,102*16,39*16,		
-	173*16,36*16,176*16,39*16,		
-	3*16,36*16,6*16,39*16,			
-	177*16,36*16,180*16,39*16,		
-	68*16,0*16,70*16,3*16,			
-	67*16,0*16,70*16,3*16,			
-	27*16,0*16,30*16,3*16,			
+	99*16,36*16,102*16,39*16,	
+	173*16,36*16,176*16,39*16,      
+	3*16,36*16,6*16,39*16,
+	177*16,36*16,180*16,39*16,      
+	68*16,0*16,70*16,3*16, 
+	67*16,0*16,70*16,3*16,
+	27*16,0*16,30*16,3*16,
 
 //--
 
 // Chapter 5.
 
-	214*16,8*16,221*16,15*16,		
-	210*16,12*16,217*16,19*16,		
-	233*16,4*16,240*16,11*16,		
+	214*16,8*16,221*16,15*16,	
+	210*16,12*16,217*16,19*16,	
+	233*16,4*16,240*16,11*16,	
 
 	164*16,21*16,171*16,28*16,		
 	218*16,30*16,225*16,37*16,		

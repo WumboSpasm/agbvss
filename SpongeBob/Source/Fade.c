@@ -32,7 +32,7 @@ void FadeOut(u8 type)
         	*(vu16*)REG_BLDCNT = BLD_BG0_2ND|BLD_BG1_2ND|BLD_BG2_2ND|BLD_BG3_2ND|BLD_OBJ_2ND|BLD_DOWN_MODE|BLD_OBJ_1ST|BLD_BG0_1ST|BLD_BG1_1ST|BLD_BG2_1ST|BLD_BG3_1ST;  // alpha
         }
 
-        if(gTimer>=3)
+        if(gTimer>=0)
         {
                 gFadeLevel++;
                 gTimer=0;
@@ -40,7 +40,7 @@ void FadeOut(u8 type)
 
         *(vu16*)REG_BLDY = gFadeLevel;
 
-        if(gFadeLevel==0x10)
+        if(gFadeLevel==0x01)
         {
         	gFade=3;
         }
@@ -126,36 +126,8 @@ void NextMenuSetUp(void)
                         break;
                 case ePassword_Menu:
                 	ClearTextLayer();
-                        PutText(1,7,20,1,PASSWORD2,0);
+                        PutText(5,7,20,1,PASSWORD,0);
                 	DmaArrayCopy(3,ScreenDat,TEXT_SCREEN,16);
-                        for(x=0;x<6;x++)
-                        {
-                		Bg2_ScreenDat[(11*32)+(x*3)+2]=PasswordIconOffsetTable[Password_Buffer[x]-1];                      // Select Layer
-        	        	Bg2_ScreenDat[(11*32)+(x*3)+3]=PasswordIconOffsetTable[Password_Buffer[x]-1]+1;                     // Select Layer
-        		        Bg2_ScreenDat[(12*32)+(x*3)+2]=PasswordIconOffsetTable[Password_Buffer[x]-1]+8;                     // Select Layer
-                		Bg2_ScreenDat[(12*32)+(x*3)+3]=PasswordIconOffsetTable[Password_Buffer[x]-1]+9;                     // Select Layer
-                        }
-                
-                        x=Title.mCurrent_Selection-2;
-                
-                        if(x==-1){x=7;}                         // make sure we got correct icon at the top
-        
-        
-                        Bg2_ScreenDat[(7*32)+(7*3)+2]=PasswordIconOffsetTable[x];
-                        Bg2_ScreenDat[(7*32)+(7*3)+3]=PasswordIconOffsetTable[x]+1;
-                        Bg2_ScreenDat[(8*32)+(7*3)+2]=PasswordIconOffsetTable[x]+8;
-                        Bg2_ScreenDat[(8*32)+(7*3)+3]=PasswordIconOffsetTable[x]+9;
-                        // Actual Selected Icon
-                        Bg2_ScreenDat[(11*32)+(7*3)+2]=PasswordIconOffsetTable[Title.mCurrent_Selection-1];
-                        Bg2_ScreenDat[(11*32)+(7*3)+3]=PasswordIconOffsetTable[Title.mCurrent_Selection-1]+1;
-                        Bg2_ScreenDat[(12*32)+(7*3)+2]=PasswordIconOffsetTable[Title.mCurrent_Selection-1]+8;
-                        Bg2_ScreenDat[(12*32)+(7*3)+3]=PasswordIconOffsetTable[Title.mCurrent_Selection-1]+9;
-                        // Next Icon
-                        Bg2_ScreenDat[(15*32)+(7*3)+2]=PasswordIconOffsetTable[Title.mCurrent_Selection];
-                        Bg2_ScreenDat[(15*32)+(7*3)+3]=PasswordIconOffsetTable[Title.mCurrent_Selection]+1;
-                        Bg2_ScreenDat[(16*32)+(7*3)+2]=PasswordIconOffsetTable[Title.mCurrent_Selection]+8;
-                        Bg2_ScreenDat[(16*32)+(7*3)+3]=PasswordIconOffsetTable[Title.mCurrent_Selection]+9;
-                	DmaArrayCopy(3,Bg2_ScreenDat,MAP_BASE_ADDR+0x0800,16);
                        	break;
                 case eOptions_Menu:
 			for (y=0;y<32;y++)
