@@ -14,7 +14,7 @@
 
 //***************************************************************************************************
 
-// Initialise the scroll engine.
+// Initialise the sprite engine.
 
 void InitSprites(void)
 {
@@ -76,7 +76,7 @@ void ClearOamRam(void)
 
 // Calculate a*b.
 
-s16 FixMul( s16 a , s16 b )
+s16 FixMul(s16 a,s16 b)
 {
     s32 tmp;
     tmp=a;
@@ -89,7 +89,7 @@ s16 FixMul( s16 a , s16 b )
 
 // Calculate a/b.
 
-s16 FixDiv( s16 a , s16 b )
+s16 FixDiv(s16 a,s16 b)
 {
     s32 tmp;
     tmp=a;
@@ -102,7 +102,7 @@ s16 FixDiv( s16 a , s16 b )
 
 // Calculate 1/b.
 
-s16 FixInverse( s16 b )
+s16 FixInverse(s16 b)
 {
     s32 tmp;
     tmp=0x10000;
