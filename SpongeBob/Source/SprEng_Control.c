@@ -12,40 +12,6 @@
 #include "SprEng_Control.h"
 #include "SprEng_Display.h"
 
-
-//---------------------------------------------------------------------------------------------------
-
-// An array of Objects. This replaces the original "sprite_tab ds.b sp_numobjs*sp_tabwidth".
-
-Object	object_table[NUMOBJECTS];
-
-// Free List is actually an array of object indices that can be picked off when you need a new object.
-// List is initialised from within ObjectInit() to number ascending from 0 to NUMOBJECTS-1.
-
-u32		ObjectFreeList[NUMOBJECTS];
-
-// This is a pointer which floats up and down the array above. It gets advanced when an object is taken and shunts back when
-// an object is returned to the free list. It gets initialised to the start of the ObjectFreeList in ObjectInit().
-
-u32*	pNextFreeObject;
-
-// We'll keep tabs on the number of free objects via this little variable as well for convenience.
-
-u32		numFreeObjects;
-
-// Used List is like the opposite of the Free List. It keeps track of all the object tags that are currently "out there".
-// Again it's initialised in the ObjectInit() function.
-
-u32		ObjectUsedList[NUMOBJECTS];
-
-// This pointer points to the next position to insert an active object's tag.
-
-u32*	pNextUsedObject;
-
-// This keeps track of the number of objects currently in use.
-
-u32		numUsedObjects;
-
 //***************************************************************************************************
 
 // ObjectControl1 - was "object_ctrl".
@@ -75,6 +41,9 @@ void ObjectControl1()
 		}
 		g_pObject++;					// Advance the global pointer for the next iteration.
 	}
+
+	g_pObject = object_table;			// Reset to start of object table with the global object pointer - @ge.
+
 }
 
 //***************************************************************************************************
@@ -113,6 +82,9 @@ void ObjectControl2()
 			pOU++;
 		}
 	}
+
+	g_pObject = object_table;			// Reset to start of object table with the global object pointer - @ge.
+
 }
 
 //***************************************************************************************************
@@ -122,10 +94,10 @@ void ObjectControl2()
 void ObjectInit()
 {
 	u32			loop;					// Used as a loop counter.
-	Object*		pAO;					// Local pointer to ovject_table.
+	Object*		pAO;					// Local pointer to object_table.
 	u32*		pFL;					// Pointer for Free List initialise.
 
-	pAO = object_table;					// Point to start of object table with the object pointer ( see objects.h )
+	pAO = object_table;					// Point to start of object table with the object pointer (see objects.h).
 	for(loop=0;loop!=NUMOBJECTS;loop++)
 	{
 		pAO->sp_type = 0;				// Clear the control type so it won't get processed.

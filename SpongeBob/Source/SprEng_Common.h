@@ -11,24 +11,31 @@
 /////////////////////////////////////////////////
 // Defines.
 /////////////////////////////////////////////////
-#undef	NULL
-#define	NULL ((void *)0)
-#define	Sin(a) (SinCosTable[(a)])
-#define	Cos(a) (SinCosTable[(a)+64])
+//#undef	NULL
+//#define	NULL ((void *)0)
+
+/////////////////////////////////////////////////
+// Global Variables.
+/////////////////////////////////////////////////
+extern const u8 Spongey_Char[64*64];
+extern const u8 Patrick_Char[64*64];
+extern const u8 Sandy_Char[64*64];
+
+extern const short SinCosTable[256+64];
 
 /////////////////////////////////////////////////
 // Variables.
 /////////////////////////////////////////////////
-extern const short SinCosTable[256+64];
+u16 ObjectOAMBuffer[OAM_SIZE];					// 1K OAM buffer.
 
-s16 FixMul(s16 a,s16 b);
-s16 FixDiv(s16 a,s16 b);
-s16 FixInverse(s16 b);
+u16 SpriteMosaic;							 	// Global sprite mosaic value.
 
 /////////////////////////////////////////////////
-// Functions.
+// Global Functions.
 /////////////////////////////////////////////////
 extern void InitSprites(void);
+extern void ClearOAMRam(void);
+extern void UpdateOAMRam(void);
 
 #endif
 
