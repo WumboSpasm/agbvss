@@ -13,10 +13,10 @@
 #include "Main.h"
 #include "Game.h"
 
-//#define NDEBUG					// un-comment for release build! (for now...)
+//#define NDEBUG					// Un-comment for release build! (for now...)
 #ifndef NDEBUG
-#define BEANER						// un-comment for Beaner only code!.
-//#define AGE						// un-comment for @ge only code!.
+//#define BEANER					// Un-comment for Beaner only code!.
+#define AGE							// Un-comment for @ge only code!.
 #endif
 
 // note only uncomment one of these or it will be fucked...
