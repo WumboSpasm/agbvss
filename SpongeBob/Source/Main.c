@@ -71,7 +71,7 @@ const IntrFuncp IntrTable[14]=
 
 void InitSystem(void)
 {
-        u8 i;
+	u8 i;
         
 	DmaCopy(3,intr_main,IntrMainBuf,sizeof(IntrMainBuf),16); // Set off interrupt main routine.
 	IntrAddrSet(IntrMainBuf);
@@ -83,11 +83,11 @@ void InitSystem(void)
 	*(vu16*)REG_BG0CNT=BG_COLOR_256|BG_SCREEN_SIZE_0|BG_PRIORITY_0|0<<BG_SCREEN_BASE_SHIFT|1<<BG_CHAR_BASE_SHIFT ;
 	*(vu16*)REG_BG1CNT=BG_COLOR_256|BG_SCREEN_SIZE_0|BG_PRIORITY_1|1<<BG_SCREEN_BASE_SHIFT|1<<BG_CHAR_BASE_SHIFT ;
 
-	*(vu16*)REG_IE &= 0x7fff;
-	*(vu16*)REG_IME=1;							// SetIME
-//	*(vu16*)REG_IE=IME_FLAG;					// Set IME
-	*(vu16 *)REG_IE    = V_BLANK_INTR_FLAG;	// set Vblank interrupt enable flag
-	*(vu16 *)REG_STAT  = STAT_V_BLANK_IF_ENABLE;
+	*(vu16*)REG_IE &=0x7fff;
+	*(vu16*)REG_IME=1;							// Set IME.
+//	*(vu16*)REG_IE=IME_FLAG;					// Set IME.
+	*(vu16*)REG_IE=V_BLANK_INTR_FLAG;			// Set Vblank interrupt enable flag.
+	*(vu16*)REG_STAT=STAT_V_BLANK_IF_ENABLE;
 
 //---------------------------------------------------------------------------------------------------
 
@@ -97,7 +97,7 @@ void InitSystem(void)
 	gGameParams.mMusicVolume=70;				// Full volume.
 	gGameParams.mSFXVolume=70;					// Full volume.
 
-	Level=LEVEL020201;							// Set default start level.	
+	Level=LEVEL030301;							// Set default start level.	
 	Spatualas=0; 								// Set default spatualas found.
 	Lives=3;					 				// Set default lives.
 	Continues=1;								// Set default continues.

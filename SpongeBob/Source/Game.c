@@ -81,7 +81,7 @@ void MainGame(void)
 	if(gKeyTap&SELECT_BUTTON)					// Next level test only !!!.
 	{
 		Level++;
-		if(Level>LEVEL020405){Level=LEVEL020201;}
+		if(Level>LEVEL040407){Level=LEVEL030301;}
  		InitGame();								// Init. main game.
 	}
 
@@ -102,7 +102,7 @@ void InitPalettes(void)
 	{
 
 //---------------------------------------------------------------------------------------------------
-
+/*
 // Chapter 2.
 
 //--
@@ -110,25 +110,40 @@ void InitPalettes(void)
 // Level 1 & Sub-Levels.
 
 		case LEVEL020101:
-			DmaArrayCopy(3,level0101_Palette,BG_PLTT,16); // Set 256 colour palette data for ALL background layers.
+			DmaArrayCopy(3,CHAPTER02_LEVEL01_TILEPALETTE,BG_PLTT,16); // Set 256 colour palette data for ALL background layers.
 			break;
 		case LEVEL020102: 					   	// Etc.		
-			DmaArrayCopy(3,level0102_Palette,BG_PLTT,16);
+			DmaArrayCopy(3,CHAPTER02_LEVEL01_TILEPALETTE,BG_PLTT,16);
 			break;
 		case LEVEL020103:		
-			DmaArrayCopy(3,level0103_Palette,BG_PLTT,16);
+			DmaArrayCopy(3,CHAPTER02_LEVEL01_TILEPALETTE,BG_PLTT,16);
 			break;
 		case LEVEL020104:		
-			DmaArrayCopy(3,level0104_Palette,BG_PLTT,16);
+			DmaArrayCopy(3,CHAPTER02_LEVEL01_TILEPALETTE,BG_PLTT,16);
 			break;
 		case LEVEL020105:		
-			DmaArrayCopy(3,level0105_Palette,BG_PLTT,16);
+			DmaArrayCopy(3,CHAPTER02_LEVEL01_TILEPALETTE,BG_PLTT,16);
 			break;
 		case LEVEL020106:		
-			DmaArrayCopy(3,level0106_Palette,BG_PLTT,16);
+			DmaArrayCopy(3,CHAPTER02_LEVEL01_TILEPALETTE,BG_PLTT,16);
 			break;
 		case LEVEL020107:		
-			DmaArrayCopy(3,level0107_Palette,BG_PLTT,16);
+			DmaArrayCopy(3,CHAPTER02_LEVEL01_TILEPALETTE,BG_PLTT,16);
+			break;
+		case LEVEL020108:		
+			DmaArrayCopy(3,CHAPTER02_LEVEL01_TILEPALETTE,BG_PLTT,16);
+			break;
+		case LEVEL020109:		
+			DmaArrayCopy(3,CHAPTER02_LEVEL01_TILEPALETTE,BG_PLTT,16);
+			break;
+		case LEVEL020110:		
+			DmaArrayCopy(3,CHAPTER02_LEVEL01_TILEPALETTE,BG_PLTT,16);
+			break;
+		case LEVEL020111:		
+			DmaArrayCopy(3,CHAPTER02_LEVEL01_TILEPALETTE,BG_PLTT,16);
+			break;
+		case LEVEL020112:		
+			DmaArrayCopy(3,CHAPTER02_LEVEL01_TILEPALETTE,BG_PLTT,16);
 			break;
 
 //--
@@ -136,19 +151,25 @@ void InitPalettes(void)
 // Level 2 & Sub-Levels.
 
 		case LEVEL020201:		
-			DmaArrayCopy(3,level0201_Palette,BG_PLTT,16);
+			DmaArrayCopy(3,CHAPTER02_LEVEL02_TILEPALETTE,BG_PLTT,16);
 			break;
 		case LEVEL020202:		
-			DmaArrayCopy(3,level0202_Palette,BG_PLTT,16);
+			DmaArrayCopy(3,CHAPTER02_LEVEL02_TILEPALETTE,BG_PLTT,16);
 			break;
 		case LEVEL020203:		
-			DmaArrayCopy(3,level0203_Palette,BG_PLTT,16);
+			DmaArrayCopy(3,CHAPTER02_LEVEL02_TILEPALETTE,BG_PLTT,16);
 			break;
 		case LEVEL020204:		
-			DmaArrayCopy(3,level0204_Palette,BG_PLTT,16);
+			DmaArrayCopy(3,CHAPTER02_LEVEL02_TILEPALETTE,BG_PLTT,16);
 			break;
 		case LEVEL020205:		
-			DmaArrayCopy(3,level0205_Palette,BG_PLTT,16);
+			DmaArrayCopy(3,CHAPTER02_LEVEL02_TILEPALETTE,BG_PLTT,16);
+			break;
+		case LEVEL020206:		
+			DmaArrayCopy(3,CHAPTER02_LEVEL02_TILEPALETTE,BG_PLTT,16);
+			break;
+		case LEVEL020207:		
+			DmaArrayCopy(3,CHAPTER02_LEVEL02_TILEPALETTE,BG_PLTT,16);
 			break;
 
 //--
@@ -156,16 +177,22 @@ void InitPalettes(void)
 // Level 3 & Sub-Levels.
 
 		case LEVEL020301:		
-			DmaArrayCopy(3,level0301_Palette,BG_PLTT,16);
+			DmaArrayCopy(3,CHAPTER02_LEVEL03_TILEPALETTE,BG_PLTT,16);
 			break;
 		case LEVEL020302:		
-			DmaArrayCopy(3,level0302_Palette,BG_PLTT,16);
+			DmaArrayCopy(3,CHAPTER02_LEVEL03_TILEPALETTE,BG_PLTT,16);
 			break;
 		case LEVEL020303:		
-			DmaArrayCopy(3,level0303_Palette,BG_PLTT,16);
+			DmaArrayCopy(3,CHAPTER02_LEVEL03_TILEPALETTE,BG_PLTT,16);
 			break;
 		case LEVEL020304:		
-			DmaArrayCopy(3,level0304_Palette,BG_PLTT,16);
+			DmaArrayCopy(3,CHAPTER02_LEVEL03_TILEPALETTE,BG_PLTT,16);
+			break;
+		case LEVEL020305:		
+			DmaArrayCopy(3,CHAPTER02_LEVEL03_TILEPALETTE,BG_PLTT,16);
+			break;
+		case LEVEL020306:		
+			DmaArrayCopy(3,CHAPTER02_LEVEL03_TILEPALETTE,BG_PLTT,16);
 			break;
 
 //--
@@ -173,19 +200,173 @@ void InitPalettes(void)
 // Level 4 & Sub-Levels.
 
 		case LEVEL020401:
-			DmaArrayCopy(3,level0401_Palette,BG_PLTT,16);
+			DmaArrayCopy(3,CHAPTER02_LEVEL04_TILEPALETTE,BG_PLTT,16);
 			break;
 		case LEVEL020402:
-			DmaArrayCopy(3,level0402_Palette,BG_PLTT,16);
+			DmaArrayCopy(3,CHAPTER02_LEVEL04_TILEPALETTE,BG_PLTT,16);
 			break;
 		case LEVEL020403:
-			DmaArrayCopy(3,level0403_Palette,BG_PLTT,16);
+			DmaArrayCopy(3,CHAPTER02_LEVEL04_TILEPALETTE,BG_PLTT,16);
 			break;
 		case LEVEL020404:
-			DmaArrayCopy(3,level0404_Palette,BG_PLTT,16);
+			DmaArrayCopy(3,CHAPTER02_LEVEL04_TILEPALETTE,BG_PLTT,16);
 			break;
 		case LEVEL020405:
-			DmaArrayCopy(3,level0405_Palette,BG_PLTT,16);
+			DmaArrayCopy(3,CHAPTER02_LEVEL04_TILEPALETTE,BG_PLTT,16);
+			break;
+		case LEVEL020406:
+			DmaArrayCopy(3,CHAPTER02_LEVEL04_TILEPALETTE,BG_PLTT,16);
+			break;
+		case LEVEL020407:
+			DmaArrayCopy(3,CHAPTER02_LEVEL04_TILEPALETTE,BG_PLTT,16);
+			break;
+*/
+//---------------------------------------------------------------------------------------------------
+
+// Chapter 3.
+
+//--
+
+// Level 1 & Sub-Levels.
+
+//--
+
+// Level 2 & Sub-Levels.
+
+//--
+
+// Level 3 & Sub-Levels.
+
+		case LEVEL030301:		
+			DmaArrayCopy(3,CHAPTER03_LEVEL03_TILEPALETTE,BG_PLTT,16);
+			break;
+		case LEVEL030302:		
+			DmaArrayCopy(3,CHAPTER03_LEVEL03_TILEPALETTE,BG_PLTT,16);
+			break;
+		case LEVEL030303:		
+			DmaArrayCopy(3,CHAPTER03_LEVEL03_TILEPALETTE,BG_PLTT,16);
+			break;
+		case LEVEL030304:		
+			DmaArrayCopy(3,CHAPTER03_LEVEL03_TILEPALETTE,BG_PLTT,16);
+			break;
+		case LEVEL030305:		
+			DmaArrayCopy(3,CHAPTER03_LEVEL03_TILEPALETTE,BG_PLTT,16);
+			break;
+		case LEVEL030306:		
+			DmaArrayCopy(3,CHAPTER03_LEVEL03_TILEPALETTE,BG_PLTT,16);
+			break;
+
+//--
+
+// Level 4 & Sub-Levels.
+
+		case LEVEL030401:		
+			DmaArrayCopy(3,CHAPTER03_LEVEL04_TILEPALETTE,BG_PLTT,16);
+			break;
+		case LEVEL030402:		
+			DmaArrayCopy(3,CHAPTER03_LEVEL04_TILEPALETTE,BG_PLTT,16);
+			break;
+		case LEVEL030403:		
+			DmaArrayCopy(3,CHAPTER03_LEVEL04_TILEPALETTE,BG_PLTT,16);
+			break;
+		case LEVEL030404:		
+			DmaArrayCopy(3,CHAPTER03_LEVEL04_TILEPALETTE,BG_PLTT,16);
+			break;
+		case LEVEL030405:		
+			DmaArrayCopy(3,CHAPTER03_LEVEL04_TILEPALETTE,BG_PLTT,16);
+			break;
+		case LEVEL030406:		
+			DmaArrayCopy(3,CHAPTER03_LEVEL04_TILEPALETTE,BG_PLTT,16);
+			break;
+
+//---------------------------------------------------------------------------------------------------
+
+// Chapter 4.
+
+//--
+
+// Level 1 & Sub-Levels.
+
+		case LEVEL040101:		
+			DmaArrayCopy(3,CHAPTER04_LEVEL01_TILEPALETTE,BG_PLTT,16);
+			break;
+		case LEVEL040102:		
+			DmaArrayCopy(3,CHAPTER04_LEVEL01_TILEPALETTE,BG_PLTT,16);
+			break;
+		case LEVEL040103:		
+			DmaArrayCopy(3,CHAPTER04_LEVEL01_TILEPALETTE,BG_PLTT,16);
+			break;
+		case LEVEL040104:		
+			DmaArrayCopy(3,CHAPTER04_LEVEL01_TILEPALETTE,BG_PLTT,16);
+			break;
+
+//--
+
+// Level 2 & Sub-Levels.
+
+		case LEVEL040201:		
+			DmaArrayCopy(3,CHAPTER04_LEVEL02_TILEPALETTE,BG_PLTT,16);
+			break;
+		case LEVEL040202:		
+			DmaArrayCopy(3,CHAPTER04_LEVEL02_TILEPALETTE,BG_PLTT,16);
+			break;
+		case LEVEL040203:		
+			DmaArrayCopy(3,CHAPTER04_LEVEL02_TILEPALETTE,BG_PLTT,16);
+			break;
+		case LEVEL040204:		
+			DmaArrayCopy(3,CHAPTER04_LEVEL02_TILEPALETTE,BG_PLTT,16);
+			break;
+		case LEVEL040205:		
+			DmaArrayCopy(3,CHAPTER04_LEVEL02_TILEPALETTE,BG_PLTT,16);
+			break;
+
+//--
+
+// Level 3 & Sub-Levels.
+
+		case LEVEL040301:		
+			DmaArrayCopy(3,CHAPTER04_LEVEL03_TILEPALETTE,BG_PLTT,16);
+			break;
+		case LEVEL040302:		
+			DmaArrayCopy(3,CHAPTER04_LEVEL03_TILEPALETTE,BG_PLTT,16);
+			break;
+		case LEVEL040303:		
+			DmaArrayCopy(3,CHAPTER04_LEVEL03_TILEPALETTE,BG_PLTT,16);
+			break;
+		case LEVEL040304:		
+			DmaArrayCopy(3,CHAPTER04_LEVEL03_TILEPALETTE,BG_PLTT,16);
+			break;
+		case LEVEL040305:		
+			DmaArrayCopy(3,CHAPTER04_LEVEL03_TILEPALETTE,BG_PLTT,16);
+			break;
+		case LEVEL040306:		
+			DmaArrayCopy(3,CHAPTER04_LEVEL03_TILEPALETTE,BG_PLTT,16);
+			break;
+
+//--
+
+// Level 4 & Sub-Levels.
+
+		case LEVEL040401:		
+			DmaArrayCopy(3,CHAPTER04_LEVEL04_TILEPALETTE,BG_PLTT,16);
+			break;
+		case LEVEL040402:		
+			DmaArrayCopy(3,CHAPTER04_LEVEL04_TILEPALETTE,BG_PLTT,16);
+			break;
+		case LEVEL040403:		
+			DmaArrayCopy(3,CHAPTER04_LEVEL04_TILEPALETTE,BG_PLTT,16);
+			break;
+		case LEVEL040404:		
+			DmaArrayCopy(3,CHAPTER04_LEVEL04_TILEPALETTE,BG_PLTT,16);
+			break;
+		case LEVEL040405:		
+			DmaArrayCopy(3,CHAPTER04_LEVEL04_TILEPALETTE,BG_PLTT,16);
+			break;
+ 		case LEVEL040406:		
+			DmaArrayCopy(3,CHAPTER04_LEVEL04_TILEPALETTE,BG_PLTT,16);
+			break;
+		case LEVEL040407:		
+			DmaArrayCopy(3,CHAPTER04_LEVEL04_TILEPALETTE,BG_PLTT,16);
 			break;
 
 //---------------------------------------------------------------------------------------------------
