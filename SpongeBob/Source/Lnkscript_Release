@@ -6,7 +6,7 @@ ENTRY(_start)
 /* Do we need any of these for elf?
    __DYNAMIC = 0;    */
 SECTIONS
-{
+{ 
   /* Read-only sections, merged into text segment: */
   . = 0x8000;
   .interp     : { *(.interp) 	}
@@ -142,6 +142,8 @@ SECTIONS
   .bss2 {
           release/Scroll_Engine.o (COMMON)
           release/Game.o (COMMON)
+          release/Titles.o (COMMON)
+          release/StartUp.o (COMMON)
         }
   }
 
