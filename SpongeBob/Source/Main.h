@@ -15,10 +15,10 @@ typedef void (*IntrFuncp)(void);
 
 enum
 {
-	NULL=-1,
-	LEGAL_SCREEN,
-	TITLE_SCREEN,
-	IN_GAME,
+	e_NULL=-1,
+	e_LEGAL_SCREEN,
+	e_TITLE_SCREEN,
+	e_IN_GAME,
 };
 typedef u16 GameState;
 

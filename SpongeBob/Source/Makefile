@@ -16,6 +16,7 @@
 .OFILES	=	$(.SFILES:.s=.o) $(.CFILES:.c=.o)
 
 .AFILES =       Gamedata/Level1/libLev1bgbmp.a \
+		Gamedata/Titles/libTitlesGFX.a \
 		Gamedata/Sprites/libSpriteA.a
 
 ASFLAGS	=	-I$(AGBDIR)/include -mthumb-interwork
@@ -27,6 +28,7 @@ LDFLAGS	 +=	-Map $(MAPFILE) -nostartfiles \
 		-Ttext 0x08000000 -Tbss 0x03000000 \
 		-L$(AGBDIR)/lib/ -lisagbprn -lagbsyscall\
                 -LGamedata/Level1/ -lLev1bgbmp \
+                -LGamedata/Titles/ -lTitlesGFX \
                 -LGamedata/Sprites/ -lSpriteA \
 		-Tlnkscript
 
