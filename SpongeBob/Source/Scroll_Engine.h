@@ -39,7 +39,8 @@ extern u16 Level1_Action_MapWidth;		// Size of map from level map data header.
 extern u16 Level1_Action_MapHeight;
 extern u16 Level1_Action_Map[];
 extern u8 Level1_Tiles[8*8*800];		// No. of 8x8 tiles in tile library (will become one lib soon !).
-extern u8 Font_Tiles[8*8*96];			// speech bubble / text tile library
+//extern u8 Font_Tiles[8*8*96];			// speech bubble / text tile library
+extern u8 libFontGame_Char[8*8*96];		// tile lib
 
 void SetBgTextControl(vu16 *reg,u16 priority,u16 screen_size,u16 color_mode,u16 mosaic,u16 screenblock,u16 char_base);
 //void SetBgRotationControl(vu16 *reg,u16 priority,u16 screen_size,u16 color_mode,u16 mosaic,u16 screenblock,u16 char_base,u16 area_over);
