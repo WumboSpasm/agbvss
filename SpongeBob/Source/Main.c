@@ -116,7 +116,7 @@ void AgbMain(void)
 //	m4aSongNumStart(YOS_SE_START);
 
 #if defined(release)
-	gGameState=e_LEGAL_SCREEN;
+	gGameState=e_IN_GAME;						// Was 'LEGAL_SCREEN' for inclusion of front end !.
 #else
         gGameState=e_LEGAL_SCREEN;
 #endif  // release version
@@ -128,7 +128,7 @@ void AgbMain(void)
 			InitStartUpScreens();
 			break;
 		case e_IN_GAME:
-    		        InitGame();							// Init. main game.
+    		        InitGame();					// Init. main game.
 	      		break;
 		case e_TITLE_SCREEN:
 			InitTitles();
