@@ -10,7 +10,7 @@ $(TARGET_ARC): $(.OFILES)
 	ar rcs $(TARGET_ARC) $(.OFILES)
 
 Title_Main.c: Title_Main.bmp
-	bmp2map -bm -o $@ $<
+	bmp2agb -bm $<
 
 clean:
 	-rm $(TARGET_ARC) $(.OFILES) $(.CFILES)
