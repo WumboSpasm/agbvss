@@ -53,11 +53,8 @@ void MainGame(void)
 	UpdateScroll();								// Update scroll.
 #ifdef BEANER
 	// IM NOT SUPPOSED TO BE HERE
-	if(ScreenDat[0]!=0)
-	{
-		PutTextBox(2,2,16,4,GAMENAME);
-		PutText(0,19,30,1,GAMENAME,0);
-	}
+	PutTextBox(2,2,16,4,GAMENAME);
+	PutText(0,19,30,1,GAMENAME,0);
 	//--
 #endif
 }
