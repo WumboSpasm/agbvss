@@ -18,17 +18,22 @@
 #include "Hub.h"							// Hub/Map Level
 #include "Fade.h"							// Fade Routines
 
-const u16 Text_Palette[3]={0x7c00,0x0000,0xffff,};                      // title scren pallete select/back/text
+const u16 Text_Palette[3]={0x00FF,0x0000,0xffff,};                      // title scren pallete select/back/text
 
 //------------prototype functions--------
 static void UpdateInput(void);					        // read input and update gamestate accordingly
 static void ClearSelectLayer(void);                                     // clear the under layer where the select option is put..
 static void PutSelectText(u8 startx,u8 starty);                         // put the select bar on screen in relevant place
 static void CheckPassword(void);                                        // check password
+static void UpdateGFX(void);
 //--------Local Variables-----------------
 title Title;						        // Title struct (lots of nice variables in here)
 u8 Password_Buffer[6];                                           // buffer to enter password into..
-const u8 PasswordIconOffsetTable[8]={0,2,4,6,16,18,20,22,};      // offset into tile libraries for each password icon
+const u8 PasswordIconOffsetTable[8]={100,102,104,106,116,118,120,122,};      // offset into tile libraries for each password icon
+
+u16 mapxoffset;
+u16 mapyoffset;
+
 
 //////////////////////////////
 // Titles Functions
@@ -38,8 +43,8 @@ void InitTitles(void)
         int x,y;
 //-- temp        
 	SetBgTextControl((vu16*)REG_BG0CNT,BG_PRIORITY_3,BG_SCREEN_SIZE_0,BG_COLOR_256,BG_MOS_OFF,28,TILE_BASE_1);
-	SetBgTextControl((vu16*)REG_BG1CNT,BG_PRIORITY_1,BG_SCREEN_SIZE_0,BG_COLOR_256,BG_MOS_OFF,29,TILE_BASE_3);
-	SetBgTextControl((vu16*)REG_BG2CNT,BG_PRIORITY_2,BG_SCREEN_SIZE_0,BG_COLOR_256,BG_MOS_OFF,30,TILE_BASE_2);
+	SetBgTextControl((vu16*)REG_BG1CNT,BG_PRIORITY_2,BG_SCREEN_SIZE_0,BG_COLOR_256,BG_MOS_OFF,29,TILE_BASE_3);
+	SetBgTextControl((vu16*)REG_BG2CNT,BG_PRIORITY_1,BG_SCREEN_SIZE_0,BG_COLOR_256,BG_MOS_OFF,30,TILE_BASE_2);
 	SetBgTextControl((vu16*)REG_BG3CNT,BG_PRIORITY_0,BG_SCREEN_SIZE_0,BG_COLOR_256,BG_MOS_OFF,31,TILE_BASE_2);
 
 	DmaArrayCopy(3,Bg3_ScreenDat,MAP_BASE_ADDR+0x0000,32);
@@ -49,6 +54,10 @@ void InitTitles(void)
 	
 	*(vu16*)REG_DISPCNT=DISP_MODE_0|DISP_BG0_ON|DISP_BG1_ON|DISP_BG2_ON|DISP_BG3_ON|DISP_OBJ_CHAR_1D_MAP;
 //-------------------
+
+	mapxoffset=0;
+	mapyoffset=0;
+
 
         for(x=0;x<6;x++)
         {
@@ -66,30 +75,41 @@ void InitTitles(void)
        
 	ClearTextLayer();
 
+	for (y=0;y<32;y++)
+	{
+		for (x=0;x<32;x++)
+		{
+			Bg3_ScreenDat[y*32+x]=menuback2_Map[(y*32)+x];   // Back Ripely Layer
+		}
+	}                        
+
 	for (y=0;y<20;y++)
 	{
 		for (x=0;x<30;x++)
 		{
 			Bg1_ScreenDat[y*32+x]=127;                      // Select Layer
-			Bg2_ScreenDat[y*32+x]=32;                       // Mid Layer
-			Bg3_ScreenDat[y*32+x]=menuback_Map[(y*30)+x];   // Back Ripely Layer
+			Bg2_ScreenDat[y*32+x]=menul2_Map[(y*30)+x];                       // Mid Layer
 		}
 	}                        
 
-	DmaArrayCopy(3,menuback_Character,TILE_BASE_ADDR_1,16);         // Load level data.
-	DmaArrayCopy(3,PasswordIcons_Char,TILE_BASE_ADDR_3,16);         // Password Icons.
+        *(vu16*)REG_BLDCNT = BLD_BG0_2ND|BLD_A_BLEND_MODE|BLD_BG1_1ST;  // alpha
+       	*(vu16*)REG_BLDALPHA = (0x03<<8)|0X0F;            // Coefficient EVB EVA
+
+
+	DmaArrayCopy(3,menuback2_Character,TILE_BASE_ADDR_1,16);         // Load level data.
+	DmaArrayCopy(3,PasswordIcons_Char,TILE_BASE_ADDR_1+100,16);         // Load level data.
+	DmaArrayCopy(3,menul2_Character,TILE_BASE_ADDR_3,16);         // Load level data.
 	DmaArrayCopy(3,libFontMenu_Char,TILE_BASE_ADDR_2,16);           // Load Text tile data.
 	DmaArrayCopy(3,menuback_Palette,BG_PLTT,16);
 	DmaArrayCopy(3,Text_Palette,BG_PLTT+(253<<1),16);               // Set Text colours (all '3' of them :).
 	DmaArrayCopy(3,Bg1_ScreenDat,MAP_BASE_ADDR+0x1000,16);
 	DmaArrayCopy(3,Bg2_ScreenDat,MAP_BASE_ADDR+0x0800,16);
 	DmaArrayCopy(3,Bg3_ScreenDat,MAP_BASE_ADDR+0x0000,16);
-        PutText(5,1,24,1,GAMENAME,0);
-	PutText(5,14,20,1,PRESSSTART,0);
+	PutText(5,10,20,1,PRESSSTART,0);
 	DmaArrayCopy(3,ScreenDat,TEXT_SCREEN,16);
 
-        *(vu16 *)REG_IE    = V_BLANK_INTR_FLAG | H_BLANK_INTR_FLAG;	// set Vblank interrupt enable flag // Enable Hblank Ripple effect too
-        *(vu16 *)REG_STAT  = STAT_V_BLANK_IF_ENABLE | STAT_H_BLANK_IF_ENABLE;
+        *(vu16 *)REG_IE    = V_BLANK_INTR_FLAG|H_BLANK_INTR_FLAG;	// set Vblank interrupt enable flag // Enable Hblank Ripple effect too
+        *(vu16 *)REG_STAT  = STAT_V_BLANK_IF_ENABLE|STAT_H_BLANK_IF_ENABLE;
 
 #ifdef MUSIC_ON                
         m4aSongNumStart(SBP_CHAP1LEV2);//BGM Start
@@ -102,15 +122,16 @@ void InitTitles(void)
 void MainTitles(void)
 {
        	WaitVBlank();							// Wait 4 VBL.
+	UpdateGFX();
         switch(gFade)
         {             
         case 0:
-        	DmaArrayCopy(3,Bg1_ScreenDat,MAP_BASE_ADDR+0x1000,16);          // copy the select layer data into vram
+        	DmaArrayCopy(3,Bg2_ScreenDat,MAP_BASE_ADDR+0x1000,16);          // copy the select layer data into vram
         	ReadJoypad();							// Read joypad.
         	UpdateInput();							// Take Key Input and work out what needs to be done from here
                 break;
         case 1:
-                FadeOut(1);
+                FadeOut(0);
                 break;
         case 2:
                 FadeIn();
@@ -148,14 +169,14 @@ static void UpdateInput(void)
 	switch(Title.mCurrent_Screen)
 	{
 	case eTitle_Screen:
-		if((gKeyTap&A_BUTTON)||(gKeyTap&START_BUTTON)||(gTimer==600))
+		if((gKeyTap&A_BUTTON)||(gKeyTap&START_BUTTON)/*||(gTimer==600)*/)
 		{      
 		        gFade=1;
 			Title.mCurrent_Screen = eMain_Menu;
 			Title.mCurrent_Selection = 1;
 			Title.mMax_Selections = 4;
                         ClearSelectLayer();
-                	DmaArrayCopy(3,Bg1_ScreenDat,MAP_BASE_ADDR+0x1000,16);          // copy the select layer data into vram
+                	DmaArrayCopy(3,Bg2_ScreenDat,MAP_BASE_ADDR+0x1000,16);          // copy the select layer data into vram
 			break;
 		}
 		break;
@@ -168,26 +189,26 @@ static void UpdateInput(void)
 #endif
 		        gFade=1;
                         ClearSelectLayer();
-                	DmaArrayCopy(3,Bg1_ScreenDat,MAP_BASE_ADDR+0x1000,16);          // copy the select layer data into vram
+                	DmaArrayCopy(3,Bg2_ScreenDat,MAP_BASE_ADDR+0x1000,16);          // copy the select layer data into vram
  			Title.mCurrent_Screen = eTitle_Screen;
 			break;
 		}
 		if (((gKeyTap&A_BUTTON)||(gKeyTap&START_BUTTON)) && (Title.mCurrent_Selection == 2)) // Select Password Menu
 		{
-		        gFade=1;
-			Title.mCurrent_Screen = ePassword_Menu;
-			Title.mCurrent_Selection = 1;
-			Title.mCurrent_PasswordPlace = 0;
-			Title.mMax_Selections = 8;
-                        ClearSelectLayer();
-                	DmaArrayCopy(3,Bg1_ScreenDat,MAP_BASE_ADDR+0x1000,16);          // copy the select layer data into vram
-			break;
+//		        gFade=1;
+//			Title.mCurrent_Screen = ePassword_Menu;
+//			Title.mCurrent_Selection = 1;
+//			Title.mCurrent_PasswordPlace = 0;
+//			Title.mMax_Selections = 8;
+//                        ClearSelectLayer();
+//                	DmaArrayCopy(3,Bg2_ScreenDat,MAP_BASE_ADDR+0x1000,16);          // copy the select layer data into vram
+//			break;
 		}
 		if (((gKeyTap&A_BUTTON)||(gKeyTap&START_BUTTON)) && (Title.mCurrent_Selection == 3))	// Select Options Screen
 		{
 		        gFade=1;
                         ClearSelectLayer();
-                	DmaArrayCopy(3,Bg1_ScreenDat,MAP_BASE_ADDR+0x1000,16);          // copy the select layer data into vram
+                	DmaArrayCopy(3,Bg2_ScreenDat,MAP_BASE_ADDR+0x1000,16);          // copy the select layer data into vram
 			Title.mCurrent_Screen = eOptions_Menu;
 			Title.mCurrent_Selection = 1;
 			Title.mMax_Selections = 2;
@@ -197,7 +218,7 @@ static void UpdateInput(void)
 		{
 		        gFade=1;
                         ClearSelectLayer();
-                	DmaArrayCopy(3,Bg1_ScreenDat,MAP_BASE_ADDR+0x1000,16);          // copy the select layer data into vram
+                	DmaArrayCopy(3,Bg2_ScreenDat,MAP_BASE_ADDR+0x1000,16);          // copy the select layer data into vram
 			break;
 		}
 		break;
@@ -229,7 +250,7 @@ static void UpdateInput(void)
 		{
 		        gFade=1;
                         ClearSelectLayer();
-                	DmaArrayCopy(3,Bg1_ScreenDat,MAP_BASE_ADDR+0x1000,16);          // copy the select layer data into vram
+                	DmaArrayCopy(3,Bg2_ScreenDat,MAP_BASE_ADDR+0x1000,16);          // copy the select layer data into vram
 			Title.mCurrent_Screen = eMain_Menu;
 			Title.mCurrent_Selection = 2;
 			Title.mMax_Selections = 4;
@@ -241,7 +262,7 @@ static void UpdateInput(void)
 		{
 		        gFade=1;
                         ClearSelectLayer();
-                	DmaArrayCopy(3,Bg1_ScreenDat,MAP_BASE_ADDR+0x1000,16);          // copy the select layer data into vram
+                	DmaArrayCopy(3,Bg2_ScreenDat,MAP_BASE_ADDR+0x1000,16);          // copy the select layer data into vram
 			Title.mCurrent_Screen = eController_Menu;
 			Title.mCurrent_Selection = gGameParams.mControllerMethod+1;
 			Title.mMax_Selections = 2;
@@ -250,7 +271,7 @@ static void UpdateInput(void)
 		{
 		        gFade=1;
                         ClearSelectLayer();
-                	DmaArrayCopy(3,Bg1_ScreenDat,MAP_BASE_ADDR+0x1000,16);          // copy the select layer data into vram
+                	DmaArrayCopy(3,Bg2_ScreenDat,MAP_BASE_ADDR+0x1000,16);          // copy the select layer data into vram
 			Title.mCurrent_Screen = eSound_Menu;
 			Title.mCurrent_Selection = 1;
 			Title.mMax_Selections = 2;
@@ -259,7 +280,7 @@ static void UpdateInput(void)
 		{
 		        gFade=1;
                         ClearSelectLayer();
-                	DmaArrayCopy(3,Bg1_ScreenDat,MAP_BASE_ADDR+0x1000,16);          // copy the select layer data into vram
+                	DmaArrayCopy(3,Bg2_ScreenDat,MAP_BASE_ADDR+0x1000,16);          // copy the select layer data into vram
 			Title.mCurrent_Screen = eMain_Menu;
 			Title.mCurrent_Selection = 3;
 			Title.mMax_Selections = 4;
@@ -271,7 +292,7 @@ static void UpdateInput(void)
 		{
 		        gFade=1;
                         ClearSelectLayer();
-                	DmaArrayCopy(3,Bg1_ScreenDat,MAP_BASE_ADDR+0x1000,16);          // copy the select layer data into vram
+                	DmaArrayCopy(3,Bg2_ScreenDat,MAP_BASE_ADDR+0x1000,16);          // copy the select layer data into vram
 		        gGameParams.mControllerMethod = 0;
 			Title.mCurrent_Screen = eOptions_Menu;
 			Title.mCurrent_Selection = 1;
@@ -282,7 +303,7 @@ static void UpdateInput(void)
 		{
 		        gFade=1;
                         ClearSelectLayer();
-                	DmaArrayCopy(3,Bg1_ScreenDat,MAP_BASE_ADDR+0x1000,16);          // copy the select layer data into vram
+                	DmaArrayCopy(3,Bg2_ScreenDat,MAP_BASE_ADDR+0x1000,16);          // copy the select layer data into vram
 		        gGameParams.mControllerMethod = 1;
 			Title.mCurrent_Screen = eOptions_Menu;
 			Title.mCurrent_Selection = 1;
@@ -293,7 +314,7 @@ static void UpdateInput(void)
 		{
 		        gFade=1;
                         ClearSelectLayer();
-                	DmaArrayCopy(3,Bg1_ScreenDat,MAP_BASE_ADDR+0x1000,16);          // copy the select layer data into vram
+                	DmaArrayCopy(3,Bg2_ScreenDat,MAP_BASE_ADDR+0x1000,16);          // copy the select layer data into vram
 			Title.mCurrent_Screen = eOptions_Menu;
 			Title.mCurrent_Selection = 1;
 			Title.mMax_Selections = 2;
@@ -304,11 +325,11 @@ static void UpdateInput(void)
 	case eSound_Menu:
 		if ((gKeyTap&L_KEY)&&(gGameParams.mMusicVolume>0)&&(Title.mCurrent_Selection == 1))
 		{
-		      gGameParams.mMusicVolume-=5;  
+		      gGameParams.mMusicVolume-=100;  
 		}
 		if ((gKeyTap&R_KEY)&&(gGameParams.mMusicVolume<100)&&(Title.mCurrent_Selection == 1))
 		{
-		      gGameParams.mMusicVolume+=5;  
+		      gGameParams.mMusicVolume+=100;  
 		}
 		if ((gKeyTap&L_KEY)&&(gGameParams.mSFXVolume>0)&&(Title.mCurrent_Selection == 2))
 		{
@@ -322,7 +343,7 @@ static void UpdateInput(void)
 		{
 		        gFade=1;
                         ClearSelectLayer();
-                	DmaArrayCopy(3,Bg1_ScreenDat,MAP_BASE_ADDR+0x1000,16);          // copy the select layer data into vram
+                	DmaArrayCopy(3,Bg2_ScreenDat,MAP_BASE_ADDR+0x1000,16);          // copy the select layer data into vram
 			Title.mCurrent_Screen = eOptions_Menu;
 			Title.mCurrent_Selection = 2;
 			Title.mMax_Selections = 2;
@@ -371,7 +392,7 @@ static void UpdateInput(void)
 
                 if(Title.mMax_Selections!=0 && Title.mCurrent_Screen!=eSound_Menu && Title.mCurrent_Screen!=ePassword_Menu)
                 {
-                        PutSelectText(5,(Title.mCurrent_Selection*2)+6);
+                        PutSelectText(5,(Title.mCurrent_Selection*2)+5);
                 }
 
                 if(Title.mCurrent_Screen==ePassword_Menu)
@@ -433,139 +454,82 @@ static void UpdateInput(void)
         
                 if(Title.mCurrent_Screen==eSound_Menu)
                 {
-                        PutSelectText(5,(Title.mCurrent_Selection*4)+4);
+                        PutSelectText(5,(Title.mCurrent_Selection*4)+3);
                         
                         //display slider bars :o) // this is such a blag!!! //need to do better than this really!!!!
                         switch(gGameParams.mMusicVolume)
                         {
                                 case 0:
-                                        PutText(5,10,20,1,PCT0,0);
+                                        PutText(5,9,20,1,MUSICOFF,0);
         	                        break;
-                                case 5:
-                                        PutText(5,10,20,1,PCT5,0);
-                                        break;
-                                case 10:
-                                        PutText(5,10,20,1,PCT10,0);
-                                        break;
-                                case 15:
-                                        PutText(5,10,20,1,PCT15,0);
-                                        break;
-                                case 20:
-                                        PutText(5,10,20,1,PCT20,0);
-                                        break;
-                                case 25:
-                                        PutText(5,10,20,1,PCT25,0);
-                                        break;
-                                case 30:
-                                        PutText(5,10,20,1,PCT30,0);
-                                        break;
-                                case 35:
-                                        PutText(5,10,20,1,PCT35,0);
-                                        break;
-                                case 40:
-                                        PutText(5,10,20,1,PCT40,0);
-                                        break;
-                                case 45:
-                                        PutText(5,10,20,1,PCT45,0);
-                                        break;
-                                case 50:
-                                        PutText(5,10,20,1,PCT50,0);
-                                        break;
-                                case 55:
-                                        PutText(5,10,20,1,PCT55,0);
-                                        break;
-                                case 60:
-                                        PutText(5,10,20,1,PCT60,0);
-                                        break;
-                                case 65:
-                                        PutText(5,10,20,1,PCT65,0);
-                                        break;
-                                case 70:
-                                        PutText(5,10,20,1,PCT70,0);
-                                        break;
-                                case 75:
-                                        PutText(5,10,20,1,PCT75,0);
-                                        break;
-                                case 80:
-                                        PutText(5,10,20,1,PCT80,0);
-                                        break;
-                                case 85:
-                                        PutText(5,10,20,1,PCT85,0);
-                                        break;
-                                case 90:
-                                        PutText(5,10,20,1,PCT90,0);
-                                        break;
-                                case 95:
-                                        PutText(5,10,20,1,PCT95,0);
-                                        break;
                                 case 100:
-                                        PutText(5,10,20,1,PCT100,0);
+                                        PutText(5,9,20,1,MUSICON,0);
                                         break;
                         }
                         switch(gGameParams.mSFXVolume)
                         {
                                 case 0:
-                                        PutText(5,14,20,1,PCT0,0);
+                                        PutText(5,13,20,1,PCT0,0);
         	                        break;
                                 case 5:
-                                        PutText(5,14,20,1,PCT5,0);
+                                        PutText(5,13,20,1,PCT5,0);
                                         break;
                                 case 10:
-                                        PutText(5,14,20,1,PCT10,0);
+                                        PutText(5,13,20,1,PCT10,0);
                                         break;
                                 case 15:
-                                        PutText(5,14,20,1,PCT15,0);
+                                        PutText(5,13,20,1,PCT15,0);
                                         break;
                                 case 20:
-                                        PutText(5,14,20,1,PCT20,0);
+                                        PutText(5,13,20,1,PCT20,0);
                                         break;
                                 case 25:
-                                        PutText(5,14,20,1,PCT25,0);
+                                        PutText(5,13,20,1,PCT25,0);
                                         break;
                                 case 30:
-                                        PutText(5,14,20,1,PCT30,0);
+                                        PutText(5,13,20,1,PCT30,0);
                                         break;
                                 case 35:
-                                        PutText(5,14,20,1,PCT35,0);
+                                        PutText(5,13,20,1,PCT35,0);
                                         break;
                                 case 40:
-                                        PutText(5,14,20,1,PCT40,0);
+                                        PutText(5,13,20,1,PCT40,0);
                                         break;
                                 case 45:
-                                        PutText(5,14,20,1,PCT45,0);
+                                        PutText(5,13,20,1,PCT45,0);
                                         break;
                                 case 50:
-                                        PutText(5,14,20,1,PCT50,0);
+                                        PutText(5,13,20,1,PCT50,0);
                                         break;
                                 case 55:
-                                        PutText(5,14,20,1,PCT55,0);
+                                        PutText(5,13,20,1,PCT55,0);
                                         break;
                                 case 60:
-                                        PutText(5,14,20,1,PCT60,0);
+                                        PutText(5,13,20,1,PCT60,0);
                                         break;
                                 case 65:
-                                        PutText(5,14,20,1,PCT65,0);
+                                        PutText(5,13,20,1,PCT65,0);
                                         break;
                                 case 70:
-                                        PutText(5,14,20,1,PCT70,0);
+                                        PutText(5,13,20,1,PCT70,0);
                                         break;
                                 case 75:
-                                        PutText(5,14,20,1,PCT75,0);
+                                        PutText(5,13,20,1,PCT75,0);
                                         break;
                                 case 80:
-                                        PutText(5,14,20,1,PCT80,0);
+                                        PutText(5,13,20,1,PCT80,0);
                                         break;
                                 case 85:
-                                        PutText(5,14,20,1,PCT85,0);
+                                        PutText(5,13,20,1,PCT85,0);
                                         break;
                                 case 90:
-                                        PutText(5,14,20,1,PCT90,0);
+                                        PutText(5,13,20,1,PCT90,0);
                                         break;
                                 case 95:
-                                        PutText(5,14,20,1,PCT95,0);
+                                        PutText(5,13,20,1,PCT95,0);
                                         break;
                                 case 100:
-                                        PutText(5,14,20,1,PCT100,0);
+                                        PutText(5,13,20,1,PCT100,0);
                                         break;
                         }
                         DmaArrayCopy(3,ScreenDat,TEXT_SCREEN,16);
@@ -585,7 +549,7 @@ static void ClearSelectLayer(void)
 	{
 		for(y=0;y<20;y++)
 		{
-			Bg1_ScreenDat[(y*32)+x]=127;
+			Bg2_ScreenDat[(y*32)+x]=127;
 		}
 	}
 }
@@ -599,7 +563,7 @@ static void PutSelectText(u8 startx,u8 starty)
         
         for(x=startx;x<startx+20;x++)
         {
-       		Bg1_ScreenDat[(starty*32)+x]=32;
+       		Bg2_ScreenDat[(starty*32)+x]=32;
         }
 } 
 
@@ -615,4 +579,12 @@ static void CheckPassword(void)
         	gGameState = e_IN_GAME;
         }
 }
-                  
+
+//------------------------------------------------------------------                  
+static void UpdateGFX(void)
+{
+	mapxoffset++;
+	mapyoffset++;
+	*(vu16*)REG_BG0HOFS=mapxoffset; // Update all fine scroll offset regs. (compute parallax scroll ratios too !).
+	*(vu16*)REG_BG0VOFS=mapyoffset;
+}

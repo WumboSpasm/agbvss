@@ -20,6 +20,8 @@ extern u8 COPYRIGHT[];
 extern u8 OK[];
 extern u8 YES[];
 extern u8 NO[];
+extern u8 MUSICON[];
+extern u8 MUSICOFF[];
 extern u8 MENU[];
 extern u8 NEWGAME[];
 extern u8 PASSWORD[];   
