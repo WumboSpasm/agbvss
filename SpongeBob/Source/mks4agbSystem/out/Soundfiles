@@ -1,0 +1,9 @@
+SOUND_FILES = $(SOUND_DIR)m4aLib.o $(SOUND_DIR)SoundDat.o $(SOUND_DIR)gun.o $(SOUND_DIR)se3.o $(SOUND_DIR)se5.o \
+	$(SOUND_DIR)se8.o $(SOUND_DIR)se9b.o $(SOUND_DIR)flutec4.o $(SOUND_DIR)suboscc3.o $(SOUND_DIR)orgc3.o \
+	$(SOUND_DIR)synbsc2.o $(SOUND_DIR)brassc3.o $(SOUND_DIR)mutetpc4.o $(SOUND_DIR)cutgtg3.o $(SOUND_DIR)sawg3.o \
+	$(SOUND_DIR)sinec3.o $(SOUND_DIR)revcym.o $(SOUND_DIR)engin01a.o $(SOUND_DIR)housebd.o $(SOUND_DIR)housesd.o \
+	$(SOUND_DIR)housechh.o $(SOUND_DIR)houseohh.o $(SOUND_DIR)tamba.o $(SOUND_DIR)vibra.o $(SOUND_DIR)timbale.o \
+	$(SOUND_DIR)harpc3.o $(SOUND_DIR)harpc5.o $(SOUND_DIR)se_d01.o $(SOUND_DIR)se_dbend.o $(SOUND_DIR)se_dvib.o \
+	$(SOUND_DIR)se_gbend2.o $(SOUND_DIR)se_swep2.o $(SOUND_DIR)se_noise.o $(SOUND_DIR)sound3.o $(SOUND_DIR)se_dben2.o \
+	$(SOUND_DIR)se_gbend.o $(SOUND_DIR)se_sweep.o $(SOUND_DIR)se_dgmix.o $(SOUND_DIR)agb2000.o $(SOUND_DIR)wario.o \
+	$(SOUND_DIR)engin.o 

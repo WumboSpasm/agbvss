@@ -1,0 +1,659 @@
+Archive member included       because of file (symbol)
+
+C:/Cygnus/thumbelf-000512/h-i686-cygwin32/lib/gcc-lib/thumb-elf/2.9-arm-000512/libgcc.a(_call_via_rX.o)
+                              mks4agbLib.o (_call_via_r0)
+C:/Cygnus/thumbelf-000512/h-i686-cygwin32/lib/gcc-lib/thumb-elf/2.9-arm-000512/libgcc.a(_divsi3.o)
+                              SoundMon.o (__divsi3)
+C:/Cygnus/thumbelf-000512/h-i686-cygwin32/lib/gcc-lib/thumb-elf/2.9-arm-000512/libgcc.a(_dvmd_tls.o)
+                              C:/Cygnus/thumbelf-000512/h-i686-cygwin32/lib/gcc-lib/thumb-elf/2.9-arm-000512/libgcc.a(_divsi3.o) (__div0)
+C:/Cygnus/thumbelf-000512/h-i686-cygwin32/lib/gcc-lib/thumb-elf/2.9-arm-000512/libgcc.a(_udivsi3.o)
+                              SoundMon.o (__udivsi3)
+C:/Cygnus/thumbelf-000512/h-i686-cygwin32/lib/gcc-lib/thumb-elf/2.9-arm-000512/libgcc.a(_umodsi3.o)
+                              SoundMon.o (__umodsi3)
+C:/agb/lib/libagbsyscall.a(AgbSysCpuSet.o)
+                              mks4agbLib.o (CpuSet)
+
+Allocating common symbols
+Common symbol       size              file
+
+c_bit               0x4               SoundMon.o
+m4a_sound           0xfb0             mks4agbLib.o
+p_rev               0x4               SoundMon.o
+p_bit               0x4               SoundMon.o
+c_mvg               0x4               SoundMon.o
+AvrLinC             0x4               SoundMon.o
+c_mvo               0x4               SoundMon.o
+w_midibuf           0x4               SoundMon.o
+vcount              0x4               SoundMon.o
+m4a_mplay000        0x40              out/src/SoundDat.o
+ExtMPlyJmpTbl       0x90              mks4agbLib.o
+Cont                0x4               SoundMon.o
+xcmdn               0x4               SoundMon.o
+MaxLin              0x4               SoundMon.o
+c_mch               0x4               SoundMon.o
+AvrLinT             0x4               SoundMon.o
+r_midibuf           0x4               SoundMon.o
+Trg                 0x4               SoundMon.o
+c_rev               0x4               SoundMon.o
+sysex               0x4               SoundMon.o
+m4a_cgbchn          0x100             mks4agbLib.o
+MaxChnC             0x4               SoundMon.o
+c_song              0x10              SoundMon.o
+c_fre               0x4               SoundMon.o
+p_mch               0x4               SoundMon.o
+m4a_mplay001        0x40              out/src/SoundDat.o
+m4a_mplay002        0x40              out/src/SoundDat.o
+midibuf             0x100             SoundMon.o
+IntrMainBuf         0x800             SoundMon.o
+MaxChn              0x4               SoundMon.o
+c_mpr               0x4               SoundMon.o
+midi_ma             0x40              SoundMon.o
+SoundMainBuf        0x400             mks4agbLib.o
+midi_ta             0x500             SoundMon.o
+runst               0x4               SoundMon.o
+KeyRep              0x4               SoundMon.o
+OamBak              0x400             SoundMon.o
+m4a_memacc_area     0x10              out/src/SoundDat.o
+p_song              0x10              SoundMon.o
+m4a_mplay003        0x40              out/src/SoundDat.o
+p_fre               0x4               SoundMon.o
+BgBak               0x800             SoundMon.o
+CurtCurs            0x4               SoundMon.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD crt0.o
+LOAD SoundMon.o
+LOAD mks4agbLib.o
+LOAD out/MPlayDef.o
+LOAD out/MusicPlayDef.o
+LOAD out/src/agb2000.o
+LOAD out/src/brassc3.o
+LOAD out/src/cutgtg3.o
+LOAD out/src/engin.o
+LOAD out/src/engin01a.o
+LOAD out/src/flutec4.o
+LOAD out/src/gun.o
+LOAD out/src/harpc3.o
+LOAD out/src/harpc5.o
+LOAD out/src/housebd.o
+LOAD out/src/housechh.o
+LOAD out/src/houseohh.o
+LOAD out/src/housesd.o
+LOAD out/src/MPlayDef.o
+LOAD out/src/mutetpc4.o
+LOAD out/src/orgc3.o
+LOAD out/src/revcym.o
+LOAD out/src/sawg3.o
+LOAD out/src/se3.o
+LOAD out/src/se5.o
+LOAD out/src/se8.o
+LOAD out/src/se9b.o
+LOAD out/src/se_d01.o
+LOAD out/src/se_dben2.o
+LOAD out/src/se_dbend.o
+LOAD out/src/se_dgmix.o
+LOAD out/src/se_dvib.o
+LOAD out/src/se_gbend.o
+LOAD out/src/se_gbend2.o
+LOAD out/src/se_noise.o
+LOAD out/src/se_sweep.o
+LOAD out/src/se_swep2.o
+LOAD out/src/sinec3.o
+LOAD out/src/SndMonDat.o
+LOAD out/src/sound3.o
+LOAD out/src/SoundDat.o
+LOAD out/src/suboscc3.o
+LOAD out/src/synbsc2.o
+LOAD out/src/tamba.o
+LOAD out/src/timbale.o
+LOAD out/src/vibra.o
+LOAD out/src/wario.o
+LOAD C:/Cygnus/thumbelf-000512/h-i686-cygwin32/lib/gcc-lib/thumb-elf/2.9-arm-000512/libgcc.a
+LOAD C:/agb/lib/libagbsyscall.a
+LOAD C:/Cygnus/thumbelf-000512/H-i686-cygwin32/thumb-elf/lib/libc.a
+LOAD C:/Cygnus/thumbelf-000512/H-i686-cygwin32/thumb-elf/lib/libg.a
+LOAD C:/Cygnus/thumbelf-000512/H-i686-cygwin32/thumb-elf/lib/libiberty.a
+LOAD C:/Cygnus/thumbelf-000512/H-i686-cygwin32/thumb-elf/lib/libm.a
+LOAD C:/Cygnus/thumbelf-000512/H-i686-cygwin32/thumb-elf/lib/libstdc++.a
+LOAD C:/Cygnus/thumbelf-000512/H-i686-cygwin32/thumb-elf/lib/libtermcap.a
+LOAD C:/agb/lib/libagbbackup.a
+LOAD C:/agb/lib/libagbir.a
+LOAD C:/agb/lib/libagbsyscall.a
+LOAD C:/agb/lib/libisagbprn.a
+LOAD C:/agb/src/bin/prev/agb/mlib/libmpr.a
+LOAD C:/agb/src/bin/prev/agb/mlib/libutl.a
+Address of section .text set to 0x8000000
+Address of section .bss set to 0x3000000
+                0x00008000                .=0x8000
+
+.interp
+ *(.interp)
+
+.hash
+ *(.hash)
+
+.dynsym
+ *(.dynsym)
+
+.dynstr
+ *(.dynstr)
+
+.gnu.version
+ *(.gnu.version)
+
+.gnu.version_d
+ *(.gnu.version_d)
+
+.gnu.version_r
+ *(.gnu.version_r)
+
+.rel.text
+ *(.rel.text)
+ *(.rel.text.*)
+ *(.rel.gnu.linkonce.t*)
+
+.rela.text
+ *(.rela.text)
+ *(.rela.text.*)
+ *(.rela.gnu.linkonce.t*)
+
+.rel.data
+ *(.rel.data)
+ *(.rel.data.*)
+ *(.rel.gnu.linkonce.d*)
+
+.rela.data
+ *(.rela.data)
+ *(.rela.data.*)
+ *(.rela.gnu.linkonce.d*)
+
+.rel.rodata
+ *(.rel.rodata)
+ *(.rel.rodata.*)
+ *(.rel.gnu.linkonce.r*)
+
+.rela.rodata
+ *(.rela.rodata)
+ *(.rela.rodata.*)
+ *(.rela.gnu.linkonce.r*)
+
+.rel.got
+ *(.rel.got)
+
+.rela.got
+ *(.rela.got)
+
+.rel.ctors
+ *(.rel.ctors)
+
+.rela.ctors
+ *(.rela.ctors)
+
+.rel.dtors
+ *(.rel.dtors)
+
+.rela.dtors
+ *(.rela.dtors)
+
+.rel.init
+ *(.rel.init)
+
+.rela.init
+ *(.rela.init)
+
+.rel.fini
+ *(.rel.fini)
+
+.rela.fini
+ *(.rela.fini)
+
+.rel.bss
+ *(.rel.bss)
+
+.rela.bss
+ *(.rela.bss)
+
+.rel.plt
+ *(.rel.plt)
+
+.rela.plt
+ *(.rela.plt)
+
+.init
+ *(.init)
+
+.plt
+ *(.plt)
+
+.text           0x08000000     0x38cc
+ *(.text)
+ .text          0x08000000      0x1d0 crt0.o
+                0x080001d0                seg_m4aLib_top
+                0x08000000                _start
+                0x080000c0                start_vector
+                0x080000fc                intr_main
+ .text          0x080001d0     0x15f8 SoundMon.o
+                0x0800084c                IntrDummy
+                0x08000e04                ModeWrite
+                0x08000838                VBlankIntr
+                0x08000ae0                ValueWrite
+                0x08001164                MidiInputMain
+                0x080001d0                seg_m4aLib_end
+                0x0800114c                unReadMidi
+                0x080007d8                KeyRead
+                0x08000ebc                MidiWrite
+                0x080010b4                MidiInIntr
+                0x08000c04                SongWrite
+                0x0800178c                MidiAllStop
+                0x08000850                ValueChange
+                0x08000ab8                StrWrite
+                0x08001080                MidiPortInit
+                0x08000f60                MidiInputInit
+                0x08000b74                ValueWriteHex
+                0x08001114                ReadMidi
+                0x080001d4                AgbMain
+ .text          0x080017c8     0x1ef4 mks4agbLib.o
+                0x080017c8                umul3232H32
+                0x080028ec                MPlayExtender
+                0x08002a4c                SoundClear_rev01
+                0x08003654                ply_xsust
+                0x08002a38                Clear64byte_rev
+                0x080017d8                SoundVSync
+                0x08003640                ply_xdeca
+                0x080029f8                MusicPlayerJumpTableCopy
+                0x080029fc                FadeOutBody_rev
+                0x08003618                ply_xtype
+                0x08003230                MPlayVolumeControl
+                0x08002b18                MPlayStart_rev01
+                0x080036a8                ply_xswee
+                0x08002aa0                MPlayOpen_rev01
+                0x08002260                TrackStop_rev01
+                0x0800362c                ply_xatta
+                0x080025ec                TrkVolPitSet
+                0x08002c8c                MidiKey2CgbFr
+                0x0800367c                ply_xiecv
+                0x08002860                m4aSongNumContinue
+                0x080033dc                MPlayLFOSpeedSet
+                0x080023a4                DummyFunc
+                0x080025cc                MPlayFadeOut
+                0x080022a4                ply_endtie_rev01
+                0x08003208                MPlayTempoControl
+                0x08002c0c                FadeOutBody_rev01
+                0x08002d34                CgbOscOff
+                0x080035bc                ply_xxx
+                0x0800254c                MidiKey2fr
+                0x08002750                m4aSoundMain
+                0x080035d0                ply_xwave
+                0x08002760                m4aSongNumStart
+                0x080025b0                MPlayContinue
+                0x080023a8                SampFreqSet
+                0x08003298                MPlayPitchControl
+                0x0800244c                SoundMode
+                0x08001ffc                MPlayMain_rev01
+                0x0800278c                m4aSongNumStartOrChange
+                0x08003374                MPlayModDepthSet
+                0x080028c0                MPlayAllContinue
+                0x080024e4                SoundVSyncOff
+                0x080027d8                m4aSongNumStartOrContinue
+                0x08002dec                CgbSound
+                0x08002bcc                MPlayStop_rev01
+                0x0800359c                ply_xcmd
+                0x08001bc0                ply_note
+                0x08002a10                TrkVolPitSet_rev
+                0x0800330c                MPlayPanpotControl
+                0x08002a24                ClearChain_rev
+                0x080026c4                m4aSoundInit
+                0x08003688                ply_xiecl
+                0x08003694                ply_xleng
+                0x08003444                ply_memacc
+                0x0800180c                SoundMain
+                0x08002894                m4aMPlayAllStop
+                0x08002d84                CgbModVol
+                0x08001b88                Clear64byte
+                0x08002538                SoundVSyncOn
+                0x0800282c                m4aSongNumStop
+                0x08001e10                MPlyJmpTblCopy
+                0x080022e4                SoundInit
+                0x08003668                ply_xrele
+ .text          0x080036bc       0x3c C:/Cygnus/thumbelf-000512/h-i686-cygwin32/lib/gcc-lib/thumb-elf/2.9-arm-000512/libgcc.a(_call_via_rX.o)
+                0x080036c4                _call_via_r2
+                0x080036d4                _call_via_r6
+                0x080036d0                _call_via_r5
+                0x080036c8                _call_via_r3
+                0x080036e8                _call_via_fp
+                0x080036dc                _call_via_r8
+                0x080036d8                _call_via_r7
+                0x080036bc                _call_via_r0
+                0x080036e4                _call_via_sl
+                0x080036f0                _call_via_sp
+                0x080036e0                _call_via_r9
+                0x080036cc                _call_via_r4
+                0x080036c0                _call_via_r1
+                0x080036ec                _call_via_ip
+                0x080036f4                _call_via_lr
+ .text          0x080036f8       0x94 C:/Cygnus/thumbelf-000512/h-i686-cygwin32/lib/gcc-lib/thumb-elf/2.9-arm-000512/libgcc.a(_divsi3.o)
+                0x080036f8                __divsi3
+ .text          0x0800378c        0x4 C:/Cygnus/thumbelf-000512/h-i686-cygwin32/lib/gcc-lib/thumb-elf/2.9-arm-000512/libgcc.a(_dvmd_tls.o)
+                0x0800378c                __div0
+ .text          0x08003790       0x78 C:/Cygnus/thumbelf-000512/h-i686-cygwin32/lib/gcc-lib/thumb-elf/2.9-arm-000512/libgcc.a(_udivsi3.o)
+                0x08003790                __udivsi3
+ .text          0x08003808       0xc0 C:/Cygnus/thumbelf-000512/h-i686-cygwin32/lib/gcc-lib/thumb-elf/2.9-arm-000512/libgcc.a(_umodsi3.o)
+                0x08003808                __umodsi3
+ .text          0x080038c8        0x4 C:/agb/lib/libagbsyscall.a(AgbSysCpuSet.o)
+                0x080038c8                CpuSet
+ *(.text.*)
+ *(.stub)
+ *(.gnu.warning)
+ *(.gnu.linkonce.t*)
+ *(.glue_7t)
+ *(.glue_7)
+                0x080038cc                _etext=.
+                0x080038cc                PROVIDE (etext, .)
+
+.fini
+ *(.fini)
+
+.rodata         0x080038cc    0x3be5c
+ *(.rodata)
+ .rodata        0x080038cc        0x4 crt0.o
+                0x080038d0                seg_m4aLib_rodata_top
+ .rodata        0x080038d0     0x13bc SoundMon.o
+                0x08004c24                IntrTable
+                0x08003e1c                OamData_Sample
+                0x080038d0                seg_m4aLib_rodata_end
+                0x080038ec                CurP
+                0x08003e24                PlttData_Sample
+                0x080038d2                FreTbl
+                0x08004024                CharData_Sample
+                0x0800391c                BgScData_Sample
+ .rodata        0x08004c8c      0x2dc mks4agbLib.o
+                0x08004dd0                FreqTable
+                0x08004ed4                CgbFrTable
+                0x08004c8c                MPlyJmpTbl
+                0x08004e18                clock_tbl
+                0x08004f28                Cgb3vol
+                0x08004e00                pcmVBtbl
+                0x08004d1c                ScaleTable
+                0x08004f38                xcmd_tbl
+                0x08004e50                CgbScTable
+                0x08004eec                NoiseTable
+                0x08004e4c                SoundMainRAM
+ .rodata        0x08004f68       0x44 out/src/agb2000.o
+                0x08004fa0                agb2000
+ .rodata        0x08004fac     0x20f8 out/src/brassc3.o
+                0x08004fac                brassc3
+ .rodata        0x080070a4     0x3f1c out/src/cutgtg3.o
+                0x080070a4                cutgtg3
+ .rodata        0x0800afc0       0x24 out/src/engin.o
+                0x0800afd8                engin
+ .rodata        0x0800afe4      0xaf0 out/src/engin01a.o
+                0x0800afe4                engin01a
+ .rodata        0x0800bad4     0x1270 out/src/flutec4.o
+                0x0800bad4                flutec4
+ .rodata        0x0800cd44     0x498c out/src/gun.o
+                0x0800cd44                gun
+ .rodata        0x080116d0     0x55fc out/src/harpc3.o
+                0x080116d0                harpc3
+ .rodata        0x08016ccc     0x4bd4 out/src/harpc5.o
+                0x08016ccc                harpc5
+ .rodata        0x0801b8a0     0x1fd4 out/src/housebd.o
+                0x0801b8a0                housebd
+ .rodata        0x0801d874      0x71c out/src/housechh.o
+                0x0801d874                housechh
+ .rodata        0x0801df90     0x2744 out/src/houseohh.o
+                0x0801df90                houseohh
+ .rodata        0x080206d4      0xdc8 out/src/housesd.o
+                0x080206d4                housesd
+ .rodata        0x0802149c      0xfe4 out/src/mutetpc4.o
+                0x0802149c                mutetpc4
+ .rodata        0x08022480      0x648 out/src/orgc3.o
+                0x08022480                orgc3
+ .rodata        0x08022ac8     0x4c7c out/src/revcym.o
+                0x08022ac8                revcym
+ .rodata        0x08027744       0xb4 out/src/sawg3.o
+                0x08027744                sawg3
+ .rodata        0x080277f8     0x1104 out/src/se3.o
+                0x080277f8                se3
+ .rodata        0x080288fc     0x1554 out/src/se5.o
+                0x080288fc                se5
+ .rodata        0x08029e50      0xed0 out/src/se8.o
+                0x08029e50                se8
+ .rodata        0x0802ad20     0x88c4 out/src/se9b.o
+                0x0802ad20                se9b
+ .rodata        0x080335e4       0x1c out/src/se_d01.o
+                0x080335f4                se_d01
+ .rodata        0x08033600       0xd4 out/src/se_dben2.o
+                0x080336c8                se_dben2
+ .rodata        0x080336d4       0x74 out/src/se_dbend.o
+                0x0803373c                se_dbend
+ .rodata        0x08033748       0xe8 out/src/se_dgmix.o
+                0x08033820                se_dgmix
+ .rodata        0x08033830       0x34 out/src/se_dvib.o
+                0x08033858                se_dvib
+ .rodata        0x08033864       0x68 out/src/se_gbend.o
+                0x080338c0                se_gbend
+ .rodata        0x080338cc       0x38 out/src/se_gbend2.o
+                0x080338f8                se_gbend2
+ .rodata        0x08033904       0x1c out/src/se_noise.o
+                0x08033914                se_noise
+ .rodata        0x08033920       0x34 out/src/se_sweep.o
+                0x08033948                se_sweep
+ .rodata        0x08033954       0x1c out/src/se_swep2.o
+                0x08033964                se_swep2
+ .rodata        0x08033970      0x270 out/src/sinec3.o
+                0x08033970                sinec3
+ .rodata        0x08033be0       0x4c out/src/SndMonDat.o
+                0x08033c20                app_vgrp_table
+                0x08033c2c                seg_rodata_top
+                0x08033be0                app_song_table
+ .rodata        0x08033c2c       0x30 out/src/sound3.o
+                0x08033c50                sound3
+ .rodata        0x08033c5c      0x83c out/src/SoundDat.o
+                0x08033c5c                voicegroup000
+                0x080342bc                voicegroup002
+                0x0803425c                voicegroup001
+                0x080343e4                mplay_table
+                0x08034414                song_table
+ .rodata        0x08034498       0xb4 out/src/suboscc3.o
+                0x08034498                suboscc3
+ .rodata        0x0803454c     0x1d5c out/src/synbsc2.o
+                0x0803454c                synbsc2
+ .rodata        0x080362a8      0xc84 out/src/tamba.o
+                0x080362a8                tamba
+ .rodata        0x08036f2c     0x29b8 out/src/timbale.o
+                0x08036f2c                timbale
+ .rodata        0x080398e4     0x56d0 out/src/vibra.o
+                0x080398e4                vibra
+ .rodata        0x0803efb4      0x770 out/src/wario.o
+                0x0803f700                wario
+ *(.rodata.*)
+ .rodata.end    0x0803f724        0x4 out/src/SndMonDat.o
+                0x0803f724                seg_rodata_end
+ *(.gnu.linkonce.r*)
+
+.rodata1
+ *(.rodata1)
+                0x0803f828                .=(ALIGN(0x100)+(.&0xff))
+
+.data           0x0803f828        0x0
+ *(.data)
+ *(.data.*)
+ *(.gnu.linkonce.d*)
+
+.data1
+ *(.data1)
+
+.ctors
+ EXCLUDE_FILE ( *crtend.o )*(.ctors)
+ *(SORT(.ctors.*))
+ *crtend(.ctors)
+
+.dtors
+ EXCLUDE_FILE ( *crtend.o )*(.dtors)
+ *(SORT(.dtors.*))
+ *crtend.o(.dtors)
+
+.got
+ *(.got.plt)
+ *(.got)
+
+.dynamic
+ *(.dynamic)
+
+.sdata
+ *(.sdata)
+ *(.sdata.*)
+                0x0803f828                _edata=.
+                0x0803f828                PROVIDE (edata, .)
+                0x0803f828                __bss_start=.
+                0x0803f828                __bss_start__=.
+
+.sbss
+ *(.sbss)
+ *(.scommon)
+
+.bss            0x03000000     0x36f0
+ *(.dynbss)
+ *(.bss)
+ .bss           0x03000000      0x5a0 out/src/SoundDat.o
+ *(.bss.*)
+ *(COMMON)
+ COMMON         0x030005a0     0x1af4 SoundMon.o
+                                  0x0 (size before relaxing)
+                0x030005a0                c_bit
+                0x030005a4                p_rev
+                0x030005a8                p_bit
+                0x030005ac                c_mvg
+                0x030005b0                AvrLinC
+                0x030005b4                c_mvo
+                0x030005b8                w_midibuf
+                0x030005bc                vcount
+                0x030005c0                Cont
+                0x030005c4                xcmdn
+                0x030005c8                MaxLin
+                0x030005cc                c_mch
+                0x030005d0                AvrLinT
+                0x030005d4                r_midibuf
+                0x030005d8                Trg
+                0x030005dc                c_rev
+                0x030005e0                sysex
+                0x030005e4                MaxChnC
+                0x030005f0                c_song
+                0x03000600                c_fre
+                0x03000604                p_mch
+                0x03000610                midibuf
+                0x03000710                IntrMainBuf
+                0x03000f10                MaxChn
+                0x03000f14                c_mpr
+                0x03000f20                midi_ma
+                0x03000f60                midi_ta
+                0x03001460                runst
+                0x03001464                KeyRep
+                0x03001470                OamBak
+                0x03001870                p_song
+                0x03001880                p_fre
+                0x03001890                BgBak
+                0x03002090                CurtCurs
+ *fill*         0x03002094        0xc
+ COMMON         0x030020a0     0x1540 mks4agbLib.o
+                                  0x0 (size before relaxing)
+                0x030020a0                m4a_sound
+                0x03003050                ExtMPlyJmpTbl
+                0x030030e0                m4a_cgbchn
+                0x030031e0                SoundMainBuf
+ COMMON         0x030035e0      0x110 out/src/SoundDat.o
+                                  0x0 (size before relaxing)
+                0x030035e0                m4a_mplay000
+                0x03003620                m4a_mplay001
+                0x03003660                m4a_mplay002
+                0x030036a0                m4a_memacc_area
+                0x030036b0                m4a_mplay003
+                0x030036f0                .=ALIGN(0x4)
+                0x030036f0                .=ALIGN(0x4)
+                0x030036f0                _end=.
+                0x030036f0                _bss_end__=.
+                0x030036f0                __bss_end__=.
+                0x030036f0                PROVIDE (end, .)
+
+.stab
+ *(.stab)
+
+.stabstr
+ *(.stabstr)
+
+.stab.excl
+ *(.stab.excl)
+
+.stab.exclstr
+ *(.stab.exclstr)
+
+.stab.index
+ *(.stab.index)
+
+.stab.indexstr
+ *(.stab.indexstr)
+
+.comment
+ *(.comment)
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges
+ *(.debug_aranges)
+
+.debug_pubnames
+ *(.debug_pubnames)
+
+.debug_info
+ *(.debug_info)
+
+.debug_abbrev
+ *(.debug_abbrev)
+
+.debug_line
+ *(.debug_line)
+
+.debug_frame
+ *(.debug_frame)
+
+.debug_str
+ *(.debug_str)
+
+.debug_loc
+ *(.debug_loc)
+
+.debug_macinfo
+ *(.debug_macinfo)
+
+.debug_weaknames
+ *(.debug_weaknames)
+
+.debug_funcnames
+ *(.debug_funcnames)
+
+.debug_typenames
+ *(.debug_typenames)
+
+.debug_varnames
+ *(.debug_varnames)
+
+.stack          0x00080000        0x0
+                0x00080000                _stack=.
+ *(.stack)
+OUTPUT(SoundMon.elf elf32-littlearm)
